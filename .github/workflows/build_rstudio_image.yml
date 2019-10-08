@@ -1,4 +1,4 @@
-name: Build Site Builder
+name: Build RStudio
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   build_and_publish_image:
-    name: Build and Publish Image
+    name: Build and Publish RStudio Image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
