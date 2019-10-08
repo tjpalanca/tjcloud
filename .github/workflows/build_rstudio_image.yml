@@ -1,0 +1,38 @@
+name: Build Site Builder
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'rstudio/*'
+  pull_request:
+    branches:
+    - master
+    paths:
+    - 'rstudio/*'
+
+jobs:
+  build_and_publish_image:
+    name: Build and Publish Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Login to GitHub Package Registry
+        run: >
+          echo $DOCKER_PASSWORD |
+          docker login $DOCKER_REGISTRY_URL
+          --username $DOCKER_USERNAME --password-stdin
+        env:
+          DOCKER_REGISTRY_URL: docker.pkg.github.com
+          DOCKER_USERNAME: ${{ secrets.GITHUB_REGISTRY_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
+      - name: Build and push the site builder image
+        run: >
+          cd rstudio &&
+          make docker-build &&
+          make docker-push
+
