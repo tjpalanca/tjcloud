@@ -1,0 +1,4 @@
+# RStudio Gateway
+FROM quay.io/pusher/oauth2_proxy:v3.2.0
+MAINTAINER TJ Palanca <mail@tjpalanca.com>
+
