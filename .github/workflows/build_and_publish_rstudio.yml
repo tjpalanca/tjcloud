@@ -15,7 +15,7 @@ on:
     - '.github/workflows/build_and_publish_rstudio.yml'
 
 jobs:
-  build_and_publish_image:
+  build_and_publish_rstudio_image:
     name: Build and Publish RStudio Image
     runs-on: ubuntu-latest
     steps:
@@ -38,11 +38,27 @@ jobs:
           make docker-build &&
           make docker-push &&
           make docker-push-latest
+  build_and_publish_gateway_image:
+    name: Build and Publish Gateway Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Login to GitHub Package Registry
+        run: >
+          echo $DOCKER_PASSWORD |
+          docker login $DOCKER_REGISTRY_URL
+          --username $DOCKER_USERNAME --password-stdin
+        env:
+          DOCKER_REGISTRY_URL: docker.pkg.github.com
+          DOCKER_USERNAME: ${{ secrets.GITHUB_REGISTRY_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
       - name: Build and push the gateway image
         run: >
           cd rstudio &&
           make docker-build-gateway &&
           make docker-push-gateway &&
           make docker-push-latest-gateway
-
 
