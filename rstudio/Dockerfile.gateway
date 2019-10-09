@@ -2,3 +2,6 @@
 FROM quay.io/pusher/oauth2_proxy:v3.2.0
 MAINTAINER TJ Palanca <mail@tjpalanca.com>
 
+# Copy Authenticated Email List
+RUN mkdir -p /src
+COPY authenticated_emails.cfg /src/authenticated_emails.cfg
