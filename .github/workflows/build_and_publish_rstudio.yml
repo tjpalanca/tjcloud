@@ -32,9 +32,11 @@ jobs:
           DOCKER_REGISTRY_URL: docker.pkg.github.com
           DOCKER_USERNAME: ${{ secrets.GITHUB_REGISTRY_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
-      - name: Build and push the site builder image
+      - name: Build and push the image
         run: >
           cd rstudio &&
           make docker-build &&
-          make docker-push
+          make docker-push &&
+          make docker-push-latest
+
 

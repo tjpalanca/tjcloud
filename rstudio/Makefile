@@ -1,7 +1,12 @@
-REPO = docker.pkg.github.com/tjpalanca/tjcloud/rstudio:v1.0
+VERSION = v1.0
+REPO    = docker.pkg.github.com/tjpalanca/tjcloud/rstudio
 
 docker-build:
-	docker build . --rm -t $(REPO)
+	docker build . --rm -t $(REPO):$(VERSION)
 
 docker-push:
-	docker push $(REPO)
+	docker push $(REPO):$(VERSION)
+
+docker-push-latest:
+	docker tag $(REPO):$(VERSION) $(REPO):latest && \
+	docker push $(REPO):latest
