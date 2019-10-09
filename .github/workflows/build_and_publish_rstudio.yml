@@ -6,11 +6,13 @@ on:
     - master
     paths:
     - 'rstudio/*'
+    - '.github/workflows/build_and_publish_rstudio.yml'
   pull_request:
     branches:
     - master
     paths:
     - 'rstudio/*'
+    - '.github/workflows/build_and_publish_rstudio.yml'
 
 jobs:
   build_and_publish_image:
