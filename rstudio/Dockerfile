@@ -55,4 +55,4 @@ ENV PATH=/opt/conda/bin:$PATH
 RUN conda update -n base -c defaults conda
 
 # Install Oh My ZSH
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh --unattended)"
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
