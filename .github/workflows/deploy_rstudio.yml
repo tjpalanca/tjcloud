@@ -67,7 +67,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Cloud66 redeployment webhook
-        run: >
-          curl -X POST
-          https://hooks.cloud66.com/stacks/redeploy/8bebb051db59a22cbd22d2f8bccdadd2/33be98d978dfa295d57849327b036814?services=rstudio-gateway,rstudio
-
+        run: curl -X POST "$C66_REDEPLOY_URL?services=rstudio-gateway,rstudio"
+        env:
+          C66_REDEPLOY_URL: ${{ secrets.C66_REDEPLOY_URL }}
