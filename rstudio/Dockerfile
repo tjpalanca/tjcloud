@@ -54,5 +54,9 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda update -n base -c defaults conda
 
+## User installations
+
 # Install Oh My ZSH
+USER 1000:1000
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+USER root
