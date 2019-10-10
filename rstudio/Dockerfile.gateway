@@ -7,3 +7,4 @@ USER root
 RUN mkdir -p /src
 COPY authenticated_emails.cfg /src/authenticated_emails.cfg
 USER 2000:2000
+
