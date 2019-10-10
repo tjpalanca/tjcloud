@@ -1,4 +1,4 @@
-FROM jupyter/all-spark-notebook:1386e2046833
+FROM jupyter/all-spark-notebook:4cdbc9cdb7d1
 MAINTAINER TJ Palanca <mail@tjpalanca.com>
 
 # Switch to root and install dependencies
@@ -16,14 +16,14 @@ RUN apt-get update && apt-get -y install \
 	apt-transport-https
 
 # Install Docker (to be able to communicate with Docker host)
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-	apt-key fingerprint 0EBFCD88 && \
-	add-apt-repository \
-	"deb [arch=amd64] https://download.docker.com/linux/debian \
-	$(lsb_release -cs) \
-	stable" && \
-	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
-	usermod -aG docker rstudio && usermod -aG rstudio-server rstudio
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+    apt-key fingerprint 0EBFCD88 && \
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable" && \
+    apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
+    usermod -aG docker $NB_UID
 
 # Install Docker Compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
