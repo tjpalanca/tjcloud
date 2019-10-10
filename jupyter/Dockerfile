@@ -56,3 +56,6 @@ USER $NB_UID
 
 # Install Oh My ZSH
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+
+# Switch back to root
+USER root
