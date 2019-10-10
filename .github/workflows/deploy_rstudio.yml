@@ -64,6 +64,7 @@ jobs:
   redeploy_rstudio:
     name: Redeploy RStudio
     needs: [build_and_publish_rstudio_image, build_and_publish_gateway_image]
+    runs-on: ubuntu-latest
     steps:
       - name: Send Cloud66 redeployment webhook
         run: >
