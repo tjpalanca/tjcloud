@@ -1,0 +1,72 @@
+name: Deploy Jupyter to TJCloud
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'jupyter/*'
+    - '.github/workflows/deploy_jupyter.yml'
+  pull_request:
+    branches:
+    - master
+    paths:
+    - 'jupyter/*'
+    - '.github/workflows/deploy_jupyter.yml'
+
+jobs:
+  build_and_publish_jupyter_image:
+    name: Build and Publish Jupyter Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Login to GitHub Package Registry
+        run: >
+          echo $DOCKER_PASSWORD |
+          docker login $DOCKER_REGISTRY_URL
+          --username $DOCKER_USERNAME --password-stdin
+        env:
+          DOCKER_REGISTRY_URL: docker.pkg.github.com
+          DOCKER_USERNAME: ${{ secrets.GITHUB_REGISTRY_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
+      - name: Build and push the Jupyter image
+        run: >
+          cd jupyter &&
+          make docker-build &&
+          make docker-push &&
+          make docker-push-latest
+  build_and_publish_gateway_image:
+    name: Build and Publish Gateway Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Login to GitHub Package Registry
+        run: >
+          echo $DOCKER_PASSWORD |
+          docker login $DOCKER_REGISTRY_URL
+          --username $DOCKER_USERNAME --password-stdin
+        env:
+          DOCKER_REGISTRY_URL: docker.pkg.github.com
+          DOCKER_USERNAME: ${{ secrets.GITHUB_REGISTRY_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
+      - name: Build and push the gateway image
+        run: >
+          cd jupyter &&
+          make docker-build-gateway &&
+          make docker-push-gateway &&
+          make docker-push-latest-gateway
+#  redeploy_jupyter:
+#    name: Redeploy jupyter
+#    needs: [build_and_publish_jupyter_image, build_and_publish_gateway_image]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Send Cloud66 redeployment webhook
+#        run: curl -X POST "$C66_REDEPLOY_URL?services=jupyter-gateway,jupyter"
+#        env:
+#          C66_REDEPLOY_URL: ${{ secrets.C66_REDEPLOY_URL }}
