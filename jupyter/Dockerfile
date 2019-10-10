@@ -27,8 +27,7 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable" && \
-    apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
-    usermod -aG docker $NB_USER
+    apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # Install Docker Compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
@@ -47,6 +46,10 @@ RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_
 # Install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
+
+# Copy hooks
+COPY start_notebook.sh /usr/local/bin/start-notebook.d/start_notebook.sh
+COPY before_notebook.sh /usr/local/bin/before-notebook.d/before_notebook.sh
 
 # Switch back to notebook user
 USER $NB_UID
