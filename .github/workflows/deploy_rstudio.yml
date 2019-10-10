@@ -1,4 +1,4 @@
-name: Build RStudio
+name: Deploy RStudio to TJCloud
 
 on:
   push:
@@ -61,4 +61,12 @@ jobs:
           make docker-build-gateway &&
           make docker-push-gateway &&
           make docker-push-latest-gateway
+  redeploy_rstudio:
+    name: Redeploy RStudio
+    needs: [build_and_publish_rstudio_image, build_and_publish_gateway_image]
+    steps:
+      - name: Send Cloud66 redeployment webhook
+        run: >
+          curl -X POST
+          https://hooks.cloud66.com/stacks/redeploy/8bebb051db59a22cbd22d2f8bccdadd2/33be98d978dfa295d57849327b036814?services=rstudio-gateway,rstudio
 
