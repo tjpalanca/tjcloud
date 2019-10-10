@@ -1,6 +1,11 @@
 FROM jupyter/all-spark-notebook:4cdbc9cdb7d1
 MAINTAINER TJ Palanca <mail@tjpalanca.com>
 
+# Define environment variable
+ENV NB_USER=tjpalanca
+ENV NB_UID=1000
+ENV NB_GID=1000
+
 # Switch to root and install dependencies
 USER root
 
@@ -23,7 +28,7 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     $(lsb_release -cs) \
     stable" && \
     apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
-    usermod -aG docker $NB_UID
+    usermod -aG docker $NB_USER
 
 # Install Docker Compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
