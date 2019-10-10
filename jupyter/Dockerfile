@@ -1,6 +1,9 @@
 FROM jupyter/all-spark-notebook:1386e2046833
 MAINTAINER TJ Palanca <mail@tjpalanca.com>
 
+# Switch to root and install dependencies
+USER root
+
 # Linux Dependencies
 RUN apt-get update && apt-get -y install \
 	gdebi-core \
@@ -40,9 +43,8 @@ RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
 
-## User installations
+# Switch back to notebook user
+USER $NB_UID
 
 # Install Oh My ZSH
-USER 1000:1000
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
-USER root
