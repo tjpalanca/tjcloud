@@ -59,3 +59,6 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh
 
 # Switch back to root
 USER root
+
+# Change permissions
+RUN chown -R $NB_UID:$NB_GID ~/.local/share/jupyter
