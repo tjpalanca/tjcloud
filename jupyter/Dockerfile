@@ -1,11 +1,6 @@
 FROM jupyter/all-spark-notebook:4cdbc9cdb7d1
 MAINTAINER TJ Palanca <mail@tjpalanca.com>
 
-# Define environment variable
-ENV NB_USER=tjpalanca
-ENV NB_UID=1000
-ENV NB_GID=1000
-
 # Switch to root and install dependencies
 USER root
 
