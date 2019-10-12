@@ -13,9 +13,6 @@ docker-push-latest:
 
 docker-build-gateway:
 	docker build . --rm \
-		--build-arg NB_UID="1000" \
-		--build-arg NB_GID="1000" \
-		--build-arg NB_USER="tjpalanca" \
 		-t $(REPO)-gateway:$(VERSION) \
 		-f Dockerfile.gateway
 
