@@ -42,12 +42,12 @@ RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
 
+# Switch back to notebook user
+USER $NB_UID
+
 # Copy hooks
 COPY start_notebook.sh /usr/local/bin/start-notebook.d/start_notebook.sh
 COPY before_notebook.sh /usr/local/bin/before-notebook.d/before_notebook.sh
-
-# Switch back to notebook user
-USER $NB_UID
 
 # Install Oh My ZSH
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
