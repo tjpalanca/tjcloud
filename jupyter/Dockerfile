@@ -1,4 +1,4 @@
-FROM jupyter/all-spark-notebook:4cdbc9cdb7d1
+FROM jupyter/all-spark-notebook:1386e2046833
 MAINTAINER TJ Palanca <mail@tjpalanca.com>
 
 # Switch to root and install dependencies
