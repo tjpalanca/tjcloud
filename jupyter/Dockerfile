@@ -48,3 +48,13 @@ COPY before_notebook.sh /usr/local/bin/before-notebook.d/before_notebook.sh
 
 # Install Oh My ZSH
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+
+# Custom command
+CMD [ \
+    "/usr/local/bin/start.sh", \
+    "jupyter", "lab", \
+    "--ip='0.0.0.0'", \
+    "--NotebookApp.token=''", \
+    "--NotebookApp.password=''", \
+    "--allow-root" \
+]
