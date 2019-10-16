@@ -6,7 +6,7 @@ docker-build:
 
 docker-push-workaround:
 	sudo systemctl stop docker && \
-	sudo echo '{ "max-concurrent-uploads": 1 } > /etc/docker/daemon.json && \
+	sudo echo '{ "max-concurrent-uploads": 1 }' > /etc/docker/daemon.json && \
 	sudo systemctl start docker
 
 docker-push:
