@@ -36,6 +36,7 @@ jobs:
         run: >
           cd jupyter &&
           make docker-build &&
+          make docker-push-workaround &&
           make docker-push &&
           make docker-push-latest
   build_and_publish_gateway_image:

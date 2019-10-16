@@ -4,6 +4,11 @@ REPO    = docker.pkg.github.com/tjpalanca/tjcloud/jupyter
 docker-build:
 	docker build . --rm -t $(REPO):$(VERSION)
 
+docker-push-workaround:
+	sudo systemctl stop docker && \
+	sudo echo '{ "max-concurrent-uploads": 1 } > /etc/docker/daemon.json && \
+	sudo systemctl start docker
+
 docker-push:
 	docker push $(REPO):$(VERSION)
 
