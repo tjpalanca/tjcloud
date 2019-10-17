@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  rstudio:
+    build: ../rstudio
+    image: docker.pkg.github.com/tjpalanca/tjcloud/rstudio
+    environment:
+      - USER=tjpalanca
+      - PASSWORD=crostini
+      - USERID=1000
+      - ROOT=TRUE
+      - DISABLE_AUTH=TRUE
+    volumes:
+      - /home/troypalanca/.ssh:/home/tjpalanca/.ssh
+      - /home/troypalanca/workspace:/home/tjpalanca/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/troypalanca/.docker:/home/tjpalanca/.docker
+      - /home/troypalanca/.rstudio:/home/tjpalanca/.rstudio
+      - /home/troypalanca/.Renviron:/home/tjpalanca/.Renviron
+      - /home/troypalanca/.kubeconfig/:/home/tjpalanca/.kubeconfig
+      - /home/troypalanca/.cloud66/:/home/tjpalanca/.cloud66
+      - /home/troypalanca/.conda/:/home/tjpalanca/.conda/
+      - /home/troypalanca/.Rprofile:/usr/local/lib/R/etc/Rprofile.site
+      - /home/troypalanca/.R/:/home/tjpalanca/.R/
+      - /home/troypalanca/.gitconfig:/home/tjpalanca/.gitconfig
+    ports:
+      - 8080:8787
+      - 8000:8000
+
