@@ -61,12 +61,12 @@ jobs:
           make docker-build-gateway &&
           make docker-push-gateway &&
           make docker-push-latest-gateway
-#  redeploy_vscode:
-#    name: Redeploy vscode
-#    needs: [build_and_publish_vscode_image, build_and_publish_gateway_image]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Send Cloud66 redeployment webhook
-#        run: curl -X POST "$C66_REDEPLOY_URL?services=vscode-gateway,vscode"
-#        env:
-#          C66_REDEPLOY_URL: ${{ secrets.C66_REDEPLOY_URL }}
+  redeploy_vscode:
+    name: Redeploy VS Code
+    needs: [build_and_publish_vscode_image, build_and_publish_gateway_image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Cloud66 redeployment webhook
+        run: curl -X POST "$C66_REDEPLOY_URL?services=vscode-gateway,vscode"
+        env:
+          C66_REDEPLOY_URL: ${{ secrets.C66_REDEPLOY_URL }}
