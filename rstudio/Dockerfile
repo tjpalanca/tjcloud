@@ -54,6 +54,11 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda update -n base -c defaults conda
 
+# RStudio Server Preview 1.3
+RUN apt-get update && apt-get install gdebi-core
+RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/debian9/x86_64/rstudio-server-1.3.776-amd64.deb -O rstudio.deb 
+RUN gdebi --non-interactive rstudio.deb && rm -rf rstudio.deb
+
 ## User installations
 
 # Install Oh My ZSH
