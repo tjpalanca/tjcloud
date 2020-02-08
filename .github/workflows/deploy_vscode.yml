@@ -23,15 +23,14 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 1
-      - name: Login to GitHub Package Registry
+      - name: Login to Docker Hub
         run: >
           echo $DOCKER_PASSWORD |
-          docker login $DOCKER_REGISTRY_URL
+          docker login
           --username $DOCKER_USERNAME --password-stdin
         env:
-          DOCKER_REGISTRY_URL: docker.pkg.github.com
-          DOCKER_USERNAME: ${{ secrets.GITHUB_REGISTRY_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push the VS Code image
         run: >
           cd vscode &&
@@ -46,15 +45,14 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 1
-      - name: Login to GitHub Package Registry
+      - name: Login to Docker Hub
         run: >
           echo $DOCKER_PASSWORD |
-          docker login $DOCKER_REGISTRY_URL
+          docker login
           --username $DOCKER_USERNAME --password-stdin
         env:
-          DOCKER_REGISTRY_URL: docker.pkg.github.com
-          DOCKER_USERNAME: ${{ secrets.GITHUB_REGISTRY_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push the gateway image
         run: >
           cd vscode &&
