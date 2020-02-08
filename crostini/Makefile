@@ -14,7 +14,7 @@ compose-push:
 	docker-compose push
 
 compose-pull:
-	docker-compose pull
+	docker-compose pull --no-parallel
 
 setup-crostini:
 	bash install-docker.sh && \

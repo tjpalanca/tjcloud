@@ -3,7 +3,7 @@ version: '2'
 services:
   rstudio:
     build: ../rstudio
-    image: docker.pkg.github.com/tjpalanca/tjcloud/rstudio
+    image: tjpalanca/apps:rstudio-latest
     environment:
       - USER=tjpalanca
       - PASSWORD=crostini
