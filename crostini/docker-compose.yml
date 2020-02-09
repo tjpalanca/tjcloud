@@ -23,6 +23,10 @@ services:
       - /home/troypalanca/.Rprofile:/usr/local/lib/R/etc/Rprofile.site
       - /home/troypalanca/.R/:/home/tjpalanca/.R/
       - /home/troypalanca/.gitconfig:/home/tjpalanca/.gitconfig
+      - /home/troypalanca/.zshrc:/home/tjpalanca/.zshrc
+      - /home/troypalanca/.oh-my-zsh:/home/tjpalanca/.oh-my-zsh
+      - /home/troypalanca/.conda:/home/tjpalanca/.conda
+      - /home/troypalanca/.git-credentials:/home/tjpalanca/.git-credentials
     ports:
       - 8080:8787
       - 8000:8000
