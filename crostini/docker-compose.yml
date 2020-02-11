@@ -28,6 +28,7 @@ services:
       - /home/troypalanca/.conda:/home/tjpalanca/.conda
       - /home/troypalanca/.git-credentials:/home/tjpalanca/.git-credentials
       - /home/troypalanca/.config:/home/tjpalanca/.config
+      - /home/troypalanca/.local:/home/tjpalanca/.local
     ports:
       - 8080:8787
       - 8000:8000
