@@ -34,6 +34,7 @@ jobs:
       - name: Build and push the Rstudio image
         run: >
           cd rstudio &&
+          make docker-pull-latest &&
           make docker-build &&
           make docker-push &&
           make docker-push-latest

@@ -37,12 +37,6 @@ RUN apt-get update && apt-get install -y apt-transport-https && \
 # Install Cloud 66 Toolbelt
 RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | bash
 
-# Install favorite R packages
-RUN install2.r \
-	packrat \
-	here \
-	reticulate
-
 # Install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
@@ -56,7 +50,7 @@ RUN conda update -n base -c defaults conda
 
 # RStudio Server Preview 1.3
 RUN apt-get update && apt-get install gdebi-core
-RUN wget https://s3.amazonaws.com/rstudio-ide-build/desktop/debian9/x86_64/rstudio-1.3.923-amd64.deb -O rstudio.deb
+RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/debian9/x86_64/rstudio-server-1.3.923-amd64.deb -O rstudio.deb
 RUN gdebi --non-interactive rstudio.deb && rm -rf rstudio.deb
 
 # Rprofile.site

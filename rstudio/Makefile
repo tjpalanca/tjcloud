@@ -1,8 +1,11 @@
 VERSION = v1.0
 REPO    = tjpalanca/apps:rstudio
 
+docker-pull-latest:
+	docker pull $(REPO)-latest
+
 docker-build:
-	docker build . --rm -t $(REPO)-$(VERSION)
+	docker build --cache-from=$(REPO)-latest -t $(REPO)-$(VERSION) .
 
 docker-push:
 	docker push $(REPO)-$(VERSION)
