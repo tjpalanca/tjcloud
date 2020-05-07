@@ -6,13 +6,13 @@ on:
           - master
         paths:
           - 'shinyproxy/**'
-          - '.github/workflows/shinyproxy.yml'
+          - '.github/workflows/deploy_shinyproxy.yml'
     pull_request:
         branches:
           - master
         paths:
           - 'shinyproxy/**'
-          - '.github/workflows/shinyproxy.yml'
+          - '.github/workflows/deploy_shinyproxy.yml'
 
 jobs:
     publish_and_deploy:
