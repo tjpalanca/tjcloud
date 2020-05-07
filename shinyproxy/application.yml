@@ -16,7 +16,7 @@ spring:
 
 proxy:
   title: "TJApps"
-  logo-url: file:///opt/shinyproxy/assets/fc_logo.png
+  logo-url: file:///opt/shinyproxy/assets/logo.png
   favicon-path: assets/logo.png
   template-path: ./templates/template
   heartbeat-timeout: 60000
@@ -35,6 +35,6 @@ proxy:
     - id: tjtools
       display-name: TJTools
       container-image: tjpalanca/apps:tjtools-0.1.0
-      description: Random tools for various purposeds
+      description: Random tools for various purposes
       container-env:
         TJTOOLS_PASSWORD: ${TJTOOLS_PASSWORD}
