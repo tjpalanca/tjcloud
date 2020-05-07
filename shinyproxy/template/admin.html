@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head lang="en">
+	<title th:text="${title}"></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" media="screen" th:href="@{${bootstrapCss}}" />
+	<link rel="stylesheet" media="screen" th:href="@{/css/default.css}"/>
+	<script th:src="@{${jqueryJs}}"></script>
+	<script th:src="@{${bootstrapJs}}"></script>
+	<link rel="icon" type="image/png" href="www/favicon.png">
+</head>
+<body>
+	<div th:replace="./navbar :: navbar"></div>
+
+    <div id="admin">
+    	<h3>Active Proxies</h3>
+    	<table border="1">
+    		<tr>
+    			<th>ID</th>
+    			<th>User</th>
+    			<th>Appname</th>
+    			<th>Endpoint</th>
+    			<th>Uptime</th>
+    		</tr>
+    		<tr th:each="proxy: ${proxies}">
+    			<td th:text="${proxy.id}"></td>
+    			<td th:text="${proxy.userId}"></td>
+    			<td th:text="${proxy.spec.id}"></td>
+    			<td th:text="${proxy.targets}"></td>
+    			<td th:text="${proxyUptimes[proxy.id]}"></td>
+    		</tr>
+    	</table>
+    </div>
+</body>
+</html>

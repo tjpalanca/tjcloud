@@ -1,0 +1,45 @@
+name: ShinyProxy Deployment
+
+on:
+    push:
+        branches:
+          - master
+        paths:
+          - 'shinyproxy/**'
+          - '.github/workflows/shinyproxy.yml'
+    pull_request:
+        branches:
+          - master
+        paths:
+          - 'shinyproxy/**'
+          - '.github/workflows/shinyproxy.yml'
+
+jobs:
+    publish_and_deploy:
+        name: Build and deploy app
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout the code
+            uses: actions/checkout@v2
+          - name: Login to Docker Hub
+            run: >-
+                echo ${DOCKERHUB_PASSWORD} |
+                docker login -u ${DOCKERHUB_USERNAME} --password-stdin
+            env:
+                DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+                DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          - name: Retrieve and build the image
+            run: make docker-pull && make docker-build
+            working-directory: ./shinyproxy
+          - name: Test whether the app can be run
+            run: make docker-test
+            working-directory: ./shinyproxy
+          - name: Publish the image
+            if: github.event_name == 'push'
+            run: make docker-publish
+            working-directory: ./shinyproxy
+          - name: Send redeployment hook
+            if: github.event_name == 'push'
+            run: curl -X POST ${C66_REDEPLOY_URL}?services=apps
+            env:
+                DATA_PORTAL_REDEPLOYMENT_HOOK: ${{ secrets.C66_REDEPLOY_URL }}

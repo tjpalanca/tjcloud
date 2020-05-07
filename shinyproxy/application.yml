@@ -1,0 +1,40 @@
+server:
+  useForwardHeaders: true
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    # TLS: 587 SSL: 465 Plain: 25
+    port: 465
+    username: ${SHINYPROXY_EMAIL_APP_USERNAME}
+    password: ${SHINYPROXY_EMAIL_APP_PASSWORD}
+    properties:
+      # For StartTLS
+      # mail.smtp.starttls.enable: true
+      # For SSL
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+
+proxy:
+  title: "TJApps"
+  logo-url: file:///opt/shinyproxy/assets/fc_logo.png
+  favicon-path: assets/logo.png
+  template-path: ./templates/template
+  heartbeat-timeout: 60000
+  port: 8080
+  support:
+    mail-to-address: mail@tjpalanca.com
+  authentication: none
+  container-backend: kubernetes
+  kubernetes:
+    internal-networking: true
+    url: https://kubernetes.default.svc
+    namespace: ${CLOUD66_STACK_NAMESPACE}
+    image-pull-secret: regcred
+    image-pull-policy: ${SHINYPROXY_IMAGE_PULL_POLICY:IfNotPresent}
+  specs:
+    - id: tjtools
+      display-name: TJTools
+      container-image: tjpalanca/apps:tjtools-0.1.0
+      description: Random tools for various purposeds
+      container-env:
+        TJTOOLS_PASSWORD: ${TJTOOLS_PASSWORD}
