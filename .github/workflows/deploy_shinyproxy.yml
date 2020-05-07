@@ -40,6 +40,6 @@ jobs:
             working-directory: ./shinyproxy
           - name: Send redeployment hook
             if: github.event_name == 'push'
-            run: curl -X POST "$C66_REDEPLOY_URL?services=shinyproxy"
+            run: curl -X POST "$C66_REDEPLOY_URL?services=tjapps"
             env:
                 DATA_PORTAL_REDEPLOYMENT_HOOK: ${{ secrets.C66_REDEPLOY_URL }}
