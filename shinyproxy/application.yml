@@ -23,14 +23,7 @@ proxy:
   port: 8080
   support:
     mail-to-address: mail@tjpalanca.com
-  authentication: social
-  social:
-    twitter:
-      app-id: ${SOCIAL_TWITTER_ID}
-      app-secret: ${SOCIAL_TWITTER_SECRET}
-    google:
-      app-id: ${SOCIAL_GOOGLE_ID}
-      app-secret: ${SOCIAL_GOOGLE_SECRET}
+  authentication: none
   container-backend: kubernetes
   kubernetes:
     internal-networking: true
