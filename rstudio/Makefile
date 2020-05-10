@@ -10,6 +10,9 @@ docker-build:
 docker-push:
 	docker push $(REPO)-$(VERSION)
 
+docker-bash:
+	docker run -it --rm $(REPO)-$(VERSION) bash
+
 docker-push-latest:
 	docker tag $(REPO)-$(VERSION) $(REPO)-latest && \
 	docker push $(REPO)-latest
