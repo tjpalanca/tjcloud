@@ -1,5 +1,5 @@
 # RStudio Server Docker Image
-FROM rocker/geospatial:3.6.3
+FROM rocker/geospatial:3.6.1
 MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
