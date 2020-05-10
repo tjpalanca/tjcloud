@@ -55,9 +55,9 @@ RUN apt-get update && apt-get install -y libsodium-dev
 COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
 
 # RStudio Server Preview 1.3
-RUN apt-get update && \
-    apt-get install -y gdebi-core
-RUN wget \
-    https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.3.957-amd64.deb \
-    -O rstudio.deb && \
-    gdebi --non-interactive rstudio.deb && rm -rf rstudio.deb
+# RUN apt-get update && \
+#     apt-get install -y gdebi-core
+# RUN wget \
+#     https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.3.957-amd64.deb \
+#     -O rstudio.deb && \
+#     gdebi --non-interactive rstudio.deb && rm -rf rstudio.deb
