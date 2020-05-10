@@ -48,16 +48,14 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda update -n base -c defaults conda
 
+# Install Google Chrome (Headless Browsing)
+RUN wget \
+    https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
+    rm ./google-chrome-stable_current_amd64.deb
+
 # R Package Linux Dependencies
 RUN apt-get update && apt-get install -y libsodium-dev
 
 # Rprofile.site
 COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
-
-# RStudio Server Preview 1.3
-# RUN apt-get update && \
-#     apt-get install -y gdebi-core
-# RUN wget \
-#     https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.3.957-amd64.deb \
-#     -O rstudio.deb && \
-#     gdebi --non-interactive rstudio.deb && rm -rf rstudio.deb
