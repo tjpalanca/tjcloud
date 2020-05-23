@@ -26,7 +26,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
 # Install Docker Compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
 	-o /usr/local/bin/docker-compose && \
-        chmod +x /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
 
 # Install kubectl
 RUN apt-get update && apt-get install -y apt-transport-https && \
@@ -59,8 +59,3 @@ RUN apt-get update && apt-get install -y libsodium-dev
 
 # Rprofile.site
 COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
-
-# RStudio Server 1.3
-RUN wget https://download2.rstudio.org/server/debian9/x86_64/rstudio-server-1.3.959-amd64.deb && \
-    gdebi --non-interactive rstudio-server-1.3.959-amd64.deb && \
-    rm -rf rstudio-server-1.3.959-amd64.deb
