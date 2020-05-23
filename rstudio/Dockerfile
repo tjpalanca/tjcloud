@@ -59,3 +59,8 @@ RUN apt-get update && apt-get install -y libsodium-dev
 
 # Rprofile.site
 COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
+
+# RStudio Server 1.3
+RUN wget https://download2.rstudio.org/server/debian9/x86_64/rstudio-server-1.3.959-amd64.deb && \
+    gdebi rstudio-server-1.3.959-amd64.deb && \
+    rm -rf rstudio-server-1.3.959-amd64.deb
