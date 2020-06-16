@@ -62,4 +62,5 @@ COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
 
 # RStudio Preview
 RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/debian9/x86_64/rstudio-server-1.3.1023-amd64.deb -O rstudio.deb && \
-    sudo gdebi --non-interactive rstudio.deb
+    gdebi --non-interactive rstudio.deb && \
+    rm rstudio.deb
