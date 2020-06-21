@@ -17,9 +17,7 @@ RUN apt-get update && apt-get -y install \
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
 	apt-key fingerprint 0EBFCD88 && \
 	add-apt-repository \
-	"deb [arch=amd64] https://download.docker.com/linux/debian \
-	$(lsb_release -cs) \
-	stable" && \
+	"deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" && \
 	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
 	usermod -aG docker rstudio && usermod -aG rstudio-server rstudio
 
