@@ -1,5 +1,5 @@
 # RStudio Server Docker Image
-FROM rocker/geospatial:4.0.0
+FROM rocker/geospatial:4.0.2
 MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
@@ -57,8 +57,3 @@ RUN apt-get update && apt-get install -y libsodium-dev
 
 # Rprofile.site
 COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
-
-# RStudio Preview
-RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.3.1039-amd64.deb -O rstudio.deb && \
-    gdebi --non-interactive rstudio.deb && \
-    rm rstudio.deb
