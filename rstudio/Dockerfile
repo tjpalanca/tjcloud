@@ -55,9 +55,6 @@ RUN wget \
 # R Package Linux Dependencies
 RUN apt-get update && apt-get install -y libsodium-dev
 
-# Rprofile.site
-COPY Rprofile.site /usr/local/lib/R/etc/Rprofile.site
-
 # RStudio Preview 1.4
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
     wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.869-amd64.deb -O rstudio.deb && \
