@@ -53,7 +53,10 @@ RUN wget \
     rm ./google-chrome-stable_current_amd64.deb
 
 # R Package Linux Dependencies
-RUN apt-get update && apt-get install -y libsodium-dev
+RUN apt-get update && apt-get install -y
+    libsodium-dev \
+    nodejs \
+    npm
 
 # RStudio Preview 1.4
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
