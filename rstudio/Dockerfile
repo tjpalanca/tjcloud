@@ -53,7 +53,7 @@ RUN wget \
     rm ./google-chrome-stable_current_amd64.deb
 
 # R Package Linux Dependencies
-RUN apt-get update && apt-get install -y
+RUN apt-get update && apt-get install -y \
     libsodium-dev \
     nodejs \
     npm
