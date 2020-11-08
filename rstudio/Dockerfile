@@ -58,8 +58,8 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     npm
 
-# RStudio Preview 1.4
-# RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
-    # wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1010-amd64.deb -O rstudio.deb && \
-    # gdebi --non-interactive rstudio.deb && \
-    # rm rstudio.deb
+# RStudio 
+RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
+    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.3.1093-amd64.deb -O rstudio.deb && \
+    gdebi --non-interactive rstudio.deb && \
+    rm rstudio.deb
