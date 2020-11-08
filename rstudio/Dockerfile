@@ -60,6 +60,6 @@ RUN apt-get update && apt-get install -y \
 
 # RStudio Preview 1.4
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
-    wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.869-amd64.deb -O rstudio.deb && \
+    wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1010-amd64.deb -O rstudio.deb && \
     gdebi --non-interactive rstudio.deb && \
     rm rstudio.deb
