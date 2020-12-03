@@ -1,5 +1,5 @@
 # RStudio Server Docker Image
-FROM rocker/geospatial:4.0.2
+FROM rocker/geospatial:4.0.3
 MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
@@ -58,7 +58,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     npm
 
-# RStudio Preview 1.4
+# RStudio
 RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
     wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1071-amd64.deb -O rstudio.deb && \
     gdebi --non-interactive rstudio.deb && \
