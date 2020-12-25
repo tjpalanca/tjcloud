@@ -37,34 +37,12 @@ jobs:
           make docker-build &&
           make docker-push &&
           make docker-push-latest
-  build_and_publish_gateway_image:
-    name: Build and Publish Gateway Image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-        with:
-          fetch-depth: 1
-      - name: Login to Docker Hub
-        run: >
-          echo $DOCKER_PASSWORD |
-          docker login
-          --username $DOCKER_USERNAME --password-stdin
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build and push the gateway image
-        run: >
-          cd vscode &&
-          make docker-build-gateway &&
-          make docker-push-gateway &&
-          make docker-push-latest-gateway
   redeploy_vscode:
     name: Redeploy VS Code
-    needs: [build_and_publish_vscode_image, build_and_publish_gateway_image]
+    needs: [build_and_publish_vscode_image]
     runs-on: ubuntu-latest
     steps:
       - name: Send Cloud66 redeployment webhook
-        run: curl -X POST "$C66_REDEPLOY_URL?services=vscode-gateway,vscode"
+        run: curl -X POST "$C66_REDEPLOY_URL?services=vscode"
         env:
           C66_REDEPLOY_URL: ${{ secrets.C66_REDEPLOY_URL }}
