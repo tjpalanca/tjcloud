@@ -29,11 +29,12 @@ docker-publish:
 
 # Development ENV
 TEST_ENV = \
-	-e SHINYPROXY_EMAIL_APP_USERNAME="dummy" -e SHINYPROXY_EMAIL_APP_PASSWORD="dummy" \
+	-e SHINYPROXY_EMAIL_APP_USERNAME="dummy" \
+	-e SHINYPROXY_EMAIL_APP_PASSWORD="dummy" \
 	-e CLOUD66_STACK_NAMESPACE="dummy" \
 	-e TJTOOLS_PASSWORD="dummy" \
-	-e SOCIAL_GOOGLE_ID="dummy" -e SOCIAL_GOOGLE_SECRET="dummy" \
-	-e SOCIAL_TWITTER_ID="dummy" -e SOCIAL_TWITTER_SECRET="dummy"
+	-e KEYCLOAK_CLIENT_ID="dummy" \
+	-e KEYCLOAK_CLIENT_SECRET="dummy"
 
 # Shell into the container
 docker-shell:
