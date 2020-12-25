@@ -23,7 +23,14 @@ proxy:
   port: 8080
   support:
     mail-to-address: mail@tjpalanca.com
-  authentication: none
+  authentication: keycloak
+  keycloak:
+    realm: master
+    auth-server-url: https://keycloak.tjpalanca.com:443/auth
+    resource: ${KEYCLOAK_CLIENT_ID}
+    credentials-secret: ${KEYCLOAK_CLIENT_SECRET}
+    confidential-port: 443
+    name-attribute: email
   container-backend: kubernetes
   kubernetes:
     internal-networking: true
