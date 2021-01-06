@@ -1,5 +1,5 @@
 FROM codercom/code-server:3.8.0
-MAINTAINER TJ Palanca <mail@tjpalanca.com>
+LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 
 # Root user
 USER root
@@ -71,8 +71,11 @@ RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2A
 	apt-get install libopenblas-base
 
 # Install Julia
-RUN apt-get update && \
-	apt-get install -y julia
+RUN cd /usr/bin && \
+	wget https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.3-linux-x86_64.tar.gz && \
+	tar zxvf julia-1.5.3-linux-x86_64.tar.gz && \
+	mv julia-1.5.3 julia
+ENV PATH="$PATH:/usr/bin/julia/bin"
 
 # Back to user 
 USER 1000
