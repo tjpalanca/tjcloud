@@ -16,11 +16,11 @@ RUN apt-get update && apt-get -y install \
 	zsh \
 	gnupg \
 	apt-transport-https \
-    libsodium-dev \
-    nodejs \
-    npm \
-    make \
-    wget
+	libsodium-dev \
+	nodejs \
+	npm \
+	make \
+	wget
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
@@ -34,7 +34,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 # Install Docker Compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
 	-o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
+	chmod +x /usr/local/bin/docker-compose
 
 # Install kubectl
 RUN apt-get update && apt-get install -y apt-transport-https && \
@@ -51,16 +51,16 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.d
 
 # Install Anaconda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh
+	/bin/bash ~/miniconda.sh -b -p /opt/conda && \
+	rm ~/miniconda.sh
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda update -n base -c defaults conda
 
 # Install Google Chrome (Headless Browsing)
 RUN wget \
-    https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
-    rm ./google-chrome-stable_current_amd64.deb
+	https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+	sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
+	rm ./google-chrome-stable_current_amd64.deb
 
 # Install R 
 RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' && \
