@@ -7,6 +7,8 @@ RUN apt-get update && apt-get -y install \
 	gdebi-core \
 	apt-utils \
 	curl \
+	gnupg-agent \
+	ca-certificates \
 	nano \
 	software-properties-common \
 	zsh \
@@ -14,10 +16,12 @@ RUN apt-get update && apt-get -y install \
 	apt-transport-https
 
 # Install Docker (to be able to communicate with Docker host)
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-	apt-key fingerprint 0EBFCD88 && \
-	add-apt-repository \
-	"deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" && \
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
+	sudo apt-key fingerprint 0EBFCD88 && \
+	sudo add-apt-repository \
+   	"deb [arch=amd64] https://download.docker.com/linux/debian \
+   	$(lsb_release -cs) \
+   	stable" && \
 	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
 	usermod -aG docker rstudio && usermod -aG rstudio-server rstudio
 
