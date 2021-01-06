@@ -62,6 +62,17 @@ RUN wget \
     sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
 
+# Install R 
+RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' && \
+	sudo add-apt-repository \
+   	"deb http://cloud.r-project.org/bin/linux/debian buster-cran40/" && \
+	apt-get update && \
+	apt-get install -y -t buster-cran40 r-base r-base-dev && \
+	apt-get install libopenblas-base
+
+# Install Julia
+RUN apt-get update && \
+	apt-get install -y julia
+
 # Back to user 
 USER 1000
-
