@@ -13,7 +13,8 @@ RUN apt-get update && apt-get -y install \
 	apt-transport-https \
     libsodium-dev \
     nodejs \
-    npm
+    npm \
+    make
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
