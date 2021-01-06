@@ -62,7 +62,6 @@ RUN wget \
     sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
 
-# Back to coder user 
-USER coder
+# Back to user 
+USER 1000
 
-ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0", "--auth", "none", "--disable-telemetry"]
