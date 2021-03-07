@@ -1,4 +1,4 @@
-FROM codercom/code-server:3.8.0
+FROM codercom/code-server:3.9.0
 LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 
 # Root user
@@ -29,7 +29,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
    	"deb [arch=amd64] https://download.docker.com/linux/debian \
    	$(lsb_release -cs) \
    	stable" && \
-	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io 
+	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # Install Docker Compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
@@ -62,7 +62,7 @@ RUN wget \
 	sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
 	rm ./google-chrome-stable_current_amd64.deb
 
-# Install R 
+# Install R
 RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' && \
 	sudo add-apt-repository \
    	"deb http://cloud.r-project.org/bin/linux/debian buster-cran40/" && \
@@ -77,5 +77,5 @@ RUN cd /usr/bin && \
 	mv julia-1.5.3 julia
 ENV PATH="$PATH:/usr/bin/julia/bin"
 
-# Back to user 
+# Back to user
 USER 1000
