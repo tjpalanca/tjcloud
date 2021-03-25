@@ -72,9 +72,9 @@ RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2A
 
 # Install Julia
 RUN cd /usr/bin && \
-	wget https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.3-linux-x86_64.tar.gz && \
-	tar zxvf julia-1.5.3-linux-x86_64.tar.gz && \
-	mv julia-1.5.3 julia
+	wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.0-linux-x86_64.tar.gz && \
+	tar zxvf julia-1.6.0-linux-x86_64.tar.gz && \
+	mv julia-1.6.0 julia
 ENV PATH="$PATH:/usr/bin/julia/bin"
 
 # Back to user
