@@ -1,4 +1,4 @@
-FROM codercom/code-server:3.9.1
+FROM codercom/code-server:3.9.2
 LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 
 # Root user
