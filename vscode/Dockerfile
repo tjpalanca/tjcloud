@@ -41,6 +41,9 @@ RUN apt-get update && apt-get install -y apt-transport-https && \
 	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
 	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
 	apt-get update && apt-get install -y kubectl
+
+# Install Cloud 66 Toolbelt
+RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | bash
 	
 # Install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
@@ -76,6 +79,3 @@ ENV PATH="$PATH:/usr/bin/julia/bin"
 
 # Back to user
 USER 1000
-
-# Install Cloud 66 Toolbelt
-RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | sudo bash
