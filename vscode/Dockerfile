@@ -74,12 +74,8 @@ RUN cd /usr/bin && \
 	mv julia-1.6.0 julia
 ENV PATH="$PATH:/usr/bin/julia/bin"
 
-# Working Directory
-RUN mkdir -p /home/coder
-WORKDIR /home/coder
-
-# Install Cloud 66 Toolbelt
-RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | USER_HOME="/home/coder" bash
-
 # Back to user
 USER 1000
+
+# Install Cloud 66 Toolbelt
+RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | sudo bash
