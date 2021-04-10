@@ -20,7 +20,8 @@ RUN apt-get update && apt-get -y install \
 	nodejs \
 	npm \
 	make \
-	wget
+	wget \
+	xvfb
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
