@@ -5,6 +5,7 @@ LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 USER root
 
 # Linux Dependencies
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 RUN apt-get update && apt-get -y install \
 	gdebi-core \
 	apt-utils \
