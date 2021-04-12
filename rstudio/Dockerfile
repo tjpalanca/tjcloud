@@ -1,8 +1,9 @@
 # RStudio Server Docker Image
-FROM rocker/geospatial:4.0.3
+FROM rocker/geospatial:4.0.5
 MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 RUN apt-get update && apt-get -y install \
 	gdebi-core \
 	apt-utils \
@@ -13,7 +14,12 @@ RUN apt-get update && apt-get -y install \
 	software-properties-common \
 	zsh \
 	gnupg \
-	apt-transport-https
+	apt-transport-https \
+	libsodium-dev \
+	nodejs \
+	make \
+	wget \
+	xvfb
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
@@ -43,7 +49,7 @@ RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
 
-# Install Anaconda
+# Install Miniconda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh
