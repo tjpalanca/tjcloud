@@ -19,7 +19,8 @@ RUN apt-get update && apt-get -y install \
 	nodejs \
 	make \
 	wget \
-	xvfb
+	xvfb \
+	libsodium-dev
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
@@ -61,12 +62,6 @@ RUN wget \
     https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
-
-# R Package Linux Dependencies
-RUN apt-get update && apt-get install -y \
-    libsodium-dev \
-    nodejs \
-    npm
 
 # RStudio
 # RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
