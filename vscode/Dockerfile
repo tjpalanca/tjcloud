@@ -1,10 +1,11 @@
-FROM codercom/code-server:3.9.0
+FROM codercom/code-server:3.9.3
 LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 
 # Root user
 USER root
 
 # Linux Dependencies
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 RUN apt-get update && apt-get -y install \
 	gdebi-core \
 	apt-utils \
@@ -18,9 +19,9 @@ RUN apt-get update && apt-get -y install \
 	apt-transport-https \
 	libsodium-dev \
 	nodejs \
-	npm \
 	make \
-	wget
+	wget \
+	xvfb
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
@@ -44,7 +45,7 @@ RUN apt-get update && apt-get install -y apt-transport-https && \
 
 # Install Cloud 66 Toolbelt
 RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | bash
-
+	
 # Install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
@@ -72,9 +73,9 @@ RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2A
 
 # Install Julia
 RUN cd /usr/bin && \
-	wget https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.3-linux-x86_64.tar.gz && \
-	tar zxvf julia-1.5.3-linux-x86_64.tar.gz && \
-	mv julia-1.5.3 julia
+	wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.0-linux-x86_64.tar.gz && \
+	tar zxvf julia-1.6.0-linux-x86_64.tar.gz && \
+	mv julia-1.6.0 julia
 ENV PATH="$PATH:/usr/bin/julia/bin"
 
 # Back to user
