@@ -22,8 +22,9 @@ proxy:
   heartbeat-timeout: 60000
   port: 8080
   support:
-    mail-to-address: mail@tjpalanca.com
+    mail-to-address: support@tjpalanca.com
   authentication: keycloak
+  admin-groups: Administrator
   keycloak:
     realm: master
     auth-server-url: https://keycloak.tjpalanca.com:443/auth
