@@ -5,7 +5,7 @@
 <head></head>
 <body>
 	<div th:fragment="navbar" th:if="${showNavbar}" id="navbar">
-		<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #f2f2f2; border-color: transparent;">
+		<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #008080; border-color: transparent;">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<img class="navbar-brand" th:src="${logo}" />
@@ -13,11 +13,11 @@
 				</div>
 				<div class="navbar-form navbar-right">
 					<a role="button" class="btn btn-primary btn-sm" th:if="${isSupportEnabled}"
-						data-toggle="modal" data-target="#reportIssueModal" style="background-color: #2cbf53; border-color: #2cbf53;">Report Issue</a>
-					<a role="button" class="btn btn-primary btn-sm" style="background-color: #2cbf53; border-color: #2cbf53;" href="https://www.tjpalanca.com">Go to my Blog</a>
-				    <a role="button" class="btn btn-primary btn-sm" style="background-color: #2cbf53; border-color: #2cbf53;" href="/">Home</a>
-					<a role="button" class="btn btn-primary btn-sm" style="background-color: #2cbf53; border-color: #2cbf53;" th:href="@{/admin}" th:if="${isAdmin}">Admin</a>
-					<a role="button" class="btn btn-primary btn-sm" style="background-color: #2cbf53; border-color: #2cbf53;" th:href="@{/logout}" th:if="${isLoggedIn}">Sign Out</a>
+						data-toggle="modal" data-target="#reportIssueModal" style="background-color: #008080; border-color: #008080;">Report Issue</a>
+					<a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080;" href="https://www.tjpalanca.com">Go to my Blog</a>
+				    <a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080;" href="/">Home</a>
+					<a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080" th:href="@{/admin}" th:if="${isAdmin}">Admin</a>
+					<a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080" th:href="@{/logout}" th:if="${isLoggedIn}">Sign Out</a>
 				</div>
 				<div class="navbar-right" sec:authorize="isAuthenticated()">
 					<span class="navbar-text" style="color: #3d3029;">

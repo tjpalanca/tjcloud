@@ -38,7 +38,7 @@
                   <div class="caption">
                     <h3 th:text="${app.displayName == null} ? ${app.id} : ${app.displayName}"></h3>
                     <p th:if="${app.description != null}" th:utext="${app.description}"></p>
-                    <p><a th:href="@{/app_direct/}+${app.id}" class="btn btn-primary" role="button" style="background-color: #2cbf53; border-color: #2cbf53;">Launch</a></p>
+                    <p><a th:href="@{/app_direct/}+${app.id}" class="btn btn-primary" role="button" style="background-color: #008080; border-color: #008080;">Launch</a></p>
                   </div>
                 </div>
             </div>
