@@ -9,7 +9,7 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<img class="navbar-brand" th:src="${logo}" />
-					<a class="navbar-brand" style="color: #141414;" th:href="@{/}" th:text="${title}"></a>
+					<a class="navbar-brand" style="color: #3d3029;" th:href="@{/}" th:text="${title}"></a>
 				</div>
 				<div class="navbar-form navbar-right">
 					<a role="button" class="btn btn-primary btn-sm" th:if="${isSupportEnabled}"
@@ -20,7 +20,7 @@
 					<a role="button" class="btn btn-primary btn-sm" style="background-color: #2cbf53; border-color: #2cbf53;" th:href="@{/logout}" th:if="${isLoggedIn}">Sign Out</a>
 				</div>
 				<div class="navbar-right" sec:authorize="isAuthenticated()">
-					<span class="navbar-text" style="color: #141414;">
+					<span class="navbar-text" style="color: #3d3029;">
 						<span class="glyphicon glyphicon-user"></span>
 						<span sec:authentication="name"></span>
 					</span>
