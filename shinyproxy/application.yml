@@ -24,7 +24,7 @@ proxy:
   support:
     mail-to-address: support@tjpalanca.com
   authentication: keycloak
-  admin-groups: Administrator
+  admin-groups: shinyproxy-admin
   keycloak:
     realm: master
     auth-server-url: https://keycloak.tjpalanca.com:443/auth
