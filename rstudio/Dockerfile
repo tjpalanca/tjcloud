@@ -63,8 +63,4 @@ RUN wget \
     sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
 
-# RStudio
-# RUN DEBIAN_FRONTEND=noninteractive apt-get purge -y rstudio-server && \
-#    wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1094-amd64.deb -O rstudio.deb && \
-#    gdebi --non-interactive rstudio.deb && \
-#    rm rstudio.deb
+EXPOSE 8787
