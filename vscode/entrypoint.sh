@@ -21,4 +21,5 @@ runuser -l $DOCKER_USER -c "\
     code-server \
     --auth none \
     --disable-telemetry \
-    --bind-addr 0.0.0.0:8080"
+    --bind-addr 0.0.0.0:8080 \
+    --proxy-domain *.vscode.tjpalanca.com"
