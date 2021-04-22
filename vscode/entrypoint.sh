@@ -18,6 +18,7 @@ usermod -aG docker $DOCKER_USER
 runuser -l $DOCKER_USER -c "\
     USER=$USER \
     HOME=$HOME \
+    PATH=$PATH \
     code-server \
     --auth none \
     --disable-telemetry \
