@@ -1,12 +1,23 @@
-FROM codercom/code-server:3.9.3
+FROM rocker/geospatial:4.0.5
 LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 
-# Root user
-USER root
-
-# Linux Dependencies
+# Linux dependencies
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-RUN apt-get update && apt-get -y install \
+RUN apt-get update \
+ && apt-get install -y \
+    curl \
+    dumb-init \
+    zsh \
+    htop \
+    locales \
+    man \
+    nano \
+    git \
+    procps \
+    openssh-client \
+    sudo \
+    vim.tiny \
+    lsb-release \
 	gdebi-core \
 	apt-utils \
 	curl \
@@ -24,18 +35,19 @@ RUN apt-get update && apt-get -y install \
 	xvfb
 
 # Install Docker (to be able to communicate with Docker host)
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
 	sudo apt-key fingerprint 0EBFCD88 && \
 	sudo add-apt-repository \
-   	"deb [arch=amd64] https://download.docker.com/linux/debian \
-   	$(lsb_release -cs) \
-   	stable" && \
-	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
+	"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+	$(lsb_release -cs) \
+	stable" && \
+	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
+	usermod -aG docker rstudio && usermod -aG rstudio-server rstudio
 
 # Install Docker Compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
 	-o /usr/local/bin/docker-compose && \
-	chmod +x /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
 
 # Install kubectl
 RUN apt-get update && apt-get install -y apt-transport-https && \
@@ -45,7 +57,7 @@ RUN apt-get update && apt-get install -y apt-transport-https && \
 
 # Install Cloud 66 Toolbelt
 RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | bash
-	
+
 # Install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
@@ -63,14 +75,6 @@ RUN wget \
 	sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
 	rm ./google-chrome-stable_current_amd64.deb
 
-# Install R
-RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' && \
-	sudo add-apt-repository \
-   	"deb http://cloud.r-project.org/bin/linux/debian buster-cran40/" && \
-	apt-get update && \
-	apt-get install -y -t buster-cran40 r-base r-base-dev && \
-	apt-get install libopenblas-base
-
 # Install Julia
 RUN cd /usr/bin && \
 	wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.0-linux-x86_64.tar.gz && \
@@ -78,5 +82,13 @@ RUN cd /usr/bin && \
 	mv julia-1.6.0 julia
 ENV PATH="$PATH:/usr/bin/julia/bin"
 
-# Back to user
-USER 1000
+# Install code server binary
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+
+# Copy entrypoint
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+# Expose ports
+EXPOSE 8080
+ENTRYPOINT ["bin/sh"]
+CMD ["-c", "set -ex && Xvfb :99 & export DISPLAY=:99 && /usr/bin/entrypoint.sh"]
