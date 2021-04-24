@@ -77,9 +77,9 @@ RUN wget \
 
 # Install Julia
 RUN cd /usr/bin && \
-	wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.0-linux-x86_64.tar.gz && \
-	tar zxvf julia-1.6.0-linux-x86_64.tar.gz && \
-	mv julia-1.6.0 julia
+	wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.1-linux-x86_64.tar.gz && \
+	tar zxvf julia-1.6.1-linux-x86_64.tar.gz && \
+	mv julia-1.6.1 julia
 ENV PATH="$PATH:/usr/bin/julia/bin"
 
 # Install code server binary
