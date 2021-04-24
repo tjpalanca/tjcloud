@@ -33,6 +33,7 @@ proxy:
     confidential-port: 443
     name-attribute: email
   container-backend: kubernetes
+  container-wait-time: 60000
   kubernetes:
     internal-networking: true
     url: https://kubernetes.default.svc
@@ -42,6 +43,7 @@ proxy:
   specs:
     - id: tjtools
       display-name: TJTools
+      logo-url: file:///opt/shinyproxy/template/template/assets/logo.png
       container-image: tjpalanca/apps:tjtools-0.1.0
       description: Random tools for various purposes
       container-env:
