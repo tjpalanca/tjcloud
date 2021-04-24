@@ -7,12 +7,6 @@ on:
     paths:
     - 'vscode/*'
     - '.github/workflows/deploy_vscode.yml'
-  pull_request:
-    branches:
-    - master
-    paths:
-    - 'vscode/*'
-    - '.github/workflows/deploy_vscode.yml'
 
 jobs:
   build_and_publish_vscode_image:

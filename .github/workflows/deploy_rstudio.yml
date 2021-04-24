@@ -7,12 +7,6 @@ on:
     paths:
     - 'rstudio/*'
     - '.github/workflows/deploy_rstudio.yml'
-  pull_request:
-    branches:
-    - master
-    paths:
-    - 'rstudio/*'
-    - '.github/workflows/deploy_rstudio.yml'
 
 jobs:
   build_and_publish_rstudio_image:
