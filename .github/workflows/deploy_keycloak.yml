@@ -27,7 +27,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push the Keycloak image
         run: >
-          cd rstudio &&
+          cd keycloak &&
           make docker-pull-latest &&
           make docker-build &&
           make docker-push &&
