@@ -44,7 +44,7 @@ proxy:
     - id: tjtools
       display-name: TJTools
       logo-url: file:///opt/shinyproxy/template/template/assets/logo.png
-      container-image: tjpalanca/apps:tjtools-v0.2.0
+      container-image: tjpalanca/apps:tjtools-latest
       description: Random tools for various purposes
       container-env:
         TJTOOLS_PASSWORD: ${TJTOOLS_PASSWORD}
