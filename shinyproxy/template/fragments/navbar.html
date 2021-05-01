@@ -2,7 +2,17 @@
 <html
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head></head>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-63170596-4"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-63170596-4');
+	</script>
+</head>
 <body>
 	<div th:fragment="navbar" th:if="${showNavbar}" id="navbar">
 		<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #f2f2f2; border-color: transparent;">

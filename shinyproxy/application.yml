@@ -39,12 +39,12 @@ proxy:
     url: https://kubernetes.default.svc
     namespace: ${CLOUD66_STACK_NAMESPACE}
     image-pull-secret: regcred
-    image-pull-policy: ${SHINYPROXY_IMAGE_PULL_POLICY:IfNotPresent}
+    image-pull-policy: ${SHINYPROXY_IMAGE_PULL_POLICY:Always}
   specs:
     - id: tjtools
       display-name: TJTools
       logo-url: file:///opt/shinyproxy/template/template/assets/logo.png
-      container-image: tjpalanca/apps:tjtools-0.1.0
+      container-image: tjpalanca/apps:tjtools-latest
       description: Random tools for various purposes
       container-env:
         TJTOOLS_PASSWORD: ${TJTOOLS_PASSWORD}
