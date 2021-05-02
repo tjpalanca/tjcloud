@@ -13,7 +13,7 @@ server {
     client_max_body_size 2G;
     location / {
       proxy_pass http://localhost:8787;
-      proxy_redirect http://localhost:8787/ $scheme://$http_host/;
+      proxy_redirect https://localhost:8787/ \$scheme://\$host/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
@@ -28,7 +28,7 @@ server {
     client_max_body_size 2G;
     location / {
       proxy_pass http://localhost:8888;
-      proxy_redirect http://localhost:8888/ $scheme://$http_host/;
+      proxy_redirect https://localhost:8888/ \$scheme://\$host/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
@@ -43,7 +43,7 @@ server {
     client_max_body_size 2G;
     location / {
       proxy_pass http://localhost:5050;
-      proxy_redirect http://localhost:5050/ $scheme://$http_host/;
+      proxy_redirect https://localhost:5050/ \$scheme://\$host/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
@@ -58,7 +58,7 @@ server {
     client_max_body_size 2G;
     location / {
       proxy_pass http://localhost:3838;
-      proxy_redirect http://localhost:3838/ $scheme://$http_host/;
+      proxy_redirect https://localhost:3838/ \$scheme://\$host/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
