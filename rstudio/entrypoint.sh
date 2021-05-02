@@ -9,11 +9,11 @@ map \$http_upgrade \$connection_upgrade {
 # Main RStudio Server
 server {
     listen 8080;
-    server_name _;
+    server_name $PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:8787/;
-        proxy_redirect http://127.0.0.1:8787/ \$scheme://$PROXY_DOMAIN/;
+        proxy_pass http://127.0.0.1:8787;
+        proxy_redirect http://127.0.0.1:8787/ https://$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -27,7 +27,7 @@ server {
     server_name 8888.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:8888/;
+        proxy_pass http://127.0.0.1:8888;
         proxy_redirect http://127.0.0.1:8888/ \$scheme://\$http_host/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
@@ -42,7 +42,7 @@ server {
     server_name 5050.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:5050/;
+        proxy_pass http://127.0.0.1:5050;
         proxy_redirect http://127.0.0.1:5050/ \$scheme://\$http_host/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
@@ -57,7 +57,7 @@ server {
     server_name 3838.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:3838/;
+        proxy_pass http://127.0.0.1:3838;
         proxy_redirect http://127.0.0.1:3838/ \$scheme://\$http_host/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
