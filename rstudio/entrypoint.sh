@@ -8,7 +8,7 @@ map \$http_upgrade \$connection_upgrade {
 
 # Main RStudio Server
 server {
-    listen 8787;
+    listen 8080;
     server_name _;
     client_max_body_size 2G;
     location / {
@@ -23,7 +23,7 @@ server {
 
 # Port 8888
 server {
-    listen 8787;
+    listen 8080;
     server_name 8888.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
@@ -38,7 +38,7 @@ server {
 
 # Port 5050
 server {
-    listen 8787;
+    listen 8080;
     server_name 5050.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
@@ -53,7 +53,7 @@ server {
 
 # Port 3838
 server {
-    listen 8787;
+    listen 8080;
     server_name 3838.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
