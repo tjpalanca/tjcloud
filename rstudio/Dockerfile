@@ -56,15 +56,13 @@ RUN wget \
     sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
 
-# Start user installations
-USER 1000
-
 # Install Anaconda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
 	/bin/bash ~/miniconda.sh -b -p /opt/conda && \
 	rm ~/miniconda.sh
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda update -n base -c defaults conda
+RUN chown 1000:1000 -R /opt/conda
 
 # Install Julia
 RUN cd /usr/bin && \
@@ -72,8 +70,5 @@ RUN cd /usr/bin && \
 	tar zxvf julia-1.6.1-linux-x86_64.tar.gz && \
 	mv julia-1.6.1 julia
 ENV PATH="$PATH:/usr/bin/julia/bin"
-
-# End user installations
-USER root
 
 EXPOSE 8787
