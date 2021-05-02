@@ -4,7 +4,7 @@ set -eu
 echo "$DOCKER_USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/nopasswd > /dev/null
 
 usermod --login "$DOCKER_USER" rstudio
-usermod -d "/newhome/$DOCKER_USER" $DOCKER_USER
+usermod -d "/home/$DOCKER_USER" $DOCKER_USER
 groupmod -n "$DOCKER_USER" rstudio
 
 export USER="$DOCKER_USER"
