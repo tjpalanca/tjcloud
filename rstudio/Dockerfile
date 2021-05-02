@@ -50,17 +50,30 @@ RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
 
-# Install Miniconda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh
-ENV PATH=/opt/conda/bin:$PATH
-RUN conda update -n base -c defaults conda
-
 # Install Google Chrome (Headless Browsing)
 RUN wget \
     https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
+
+# Start user installations
+USER 1000
+
+# Install Anaconda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+	/bin/bash ~/miniconda.sh -b -p /opt/conda && \
+	rm ~/miniconda.sh
+ENV PATH=/opt/conda/bin:$PATH
+RUN conda update -n base -c defaults conda
+
+# Install Julia
+RUN cd /usr/bin && \
+	wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.1-linux-x86_64.tar.gz && \
+	tar zxvf julia-1.6.1-linux-x86_64.tar.gz && \
+	mv julia-1.6.1 julia
+ENV PATH="$PATH:/usr/bin/julia/bin"
+
+# End user installations
+USER root
 
 EXPOSE 8787
