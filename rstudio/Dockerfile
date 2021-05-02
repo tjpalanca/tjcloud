@@ -61,6 +61,6 @@ RUN wget \
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
 # Expose ports
-EXPOSE 8787
+EXPOSE 8080
 ENTRYPOINT ["bin/sh"]
 CMD ["-c", "set -ex && Xvfb :99 & export DISPLAY=:99 && /usr/bin/entrypoint.sh"]
