@@ -20,7 +20,8 @@ RUN apt-get update && apt-get -y install \
 	make \
 	wget \
 	xvfb \
-	libsodium-dev
+	libsodium-dev \
+	nginx
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
@@ -56,4 +57,10 @@ RUN wget \
     sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
 
+# Copy entrypoint
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+# Expose ports
 EXPOSE 8787
+ENTRYPOINT ["bin/sh"]
+CMD ["-c", "set -ex && Xvfb :99 & export DISPLAY=:99 && /usr/bin/entrypoint.sh"]
