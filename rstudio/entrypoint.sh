@@ -13,7 +13,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://127.0.0.1:8787/;
-        proxy_redirect https://127.0.0.1:8787/ https://$PROXY_DOMAIN;
+        proxy_redirect https://127.0.0.1:8787/ https://$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -28,7 +28,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://127.0.0.1:8888/;
-        proxy_redirect https://127.0.0.1:8888/ https://8888.$PROXY_DOMAIN;
+        proxy_redirect https://127.0.0.1:8888/ https://8888.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -43,7 +43,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://127.0.0.1:5050/;
-        proxy_redirect https://127.0.0.1:5050/ https://5050.$PROXY_DOMAIN;
+        proxy_redirect https://127.0.0.1:5050/ https://5050.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -58,7 +58,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://127.0.0.1:3838/;
-        proxy_redirect https://127.0.0.1:3838/ https://3838.$PROXY_DOMAIN;
+        proxy_redirect https://127.0.0.1:3838/ https://3838.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
