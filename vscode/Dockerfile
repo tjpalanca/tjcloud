@@ -74,26 +74,6 @@ RUN curl -fsSL https://code-server.dev/install.sh | sh
 # Copy entrypoint
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
-# Start user installations
-USER 1000
-
-# Install Anaconda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-	/bin/bash ~/miniconda.sh -b -p /opt/conda && \
-	rm ~/miniconda.sh
-ENV PATH=/opt/conda/bin:$PATH
-RUN conda update -n base -c defaults conda
-
-# Install Julia
-RUN cd /usr/bin && \
-	wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.1-linux-x86_64.tar.gz && \
-	tar zxvf julia-1.6.1-linux-x86_64.tar.gz && \
-	mv julia-1.6.1 julia
-ENV PATH="$PATH:/usr/bin/julia/bin"
-
-# End user installations
-USER root
-
 # Expose ports
 EXPOSE 8080
 ENTRYPOINT ["bin/sh"]
