@@ -13,7 +13,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://127.0.0.1:8787/;
-        proxy_redirect http://127.0.0.1:8787/ \$scheme://\$http_host/;
+        proxy_redirect http://127.0.0.1:8787/ \$scheme://$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
