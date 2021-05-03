@@ -9,6 +9,7 @@ groupmod -n "$DOCKER_USER" rstudio
 
 export USER="$DOCKER_USER"
 export HOME="/home/$DOCKER_USER"
+export PATH="$HOME/.local/share/r-miniconda/bin:$PATH"
 
 sed -i "/coder/d" /etc/sudoers.d/nopasswd
 
