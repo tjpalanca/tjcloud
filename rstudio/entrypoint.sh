@@ -69,5 +69,7 @@ server {
 " > /etc/nginx/sites-enabled/default
 service nginx start
 
+export PATH="/home/$USER/.local/share/r-miniconda/bin:$PATH"
+
 # Run original script
 /init
