@@ -21,7 +21,9 @@ RUN apt-get update && apt-get -y install \
 	wget \
 	xvfb \
 	libsodium-dev \
-	nginx
+	nginx \
+	python3 \
+	python3-pip
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
