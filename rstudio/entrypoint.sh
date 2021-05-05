@@ -36,6 +36,21 @@ server {
     }
 }
 
+# Port 5500
+server {
+    listen 8080;
+    server_name 5050.$PROXY_DOMAIN;
+    client_max_body_size 2G;
+    location / {
+        proxy_pass http://127.0.0.1:5500/;
+        proxy_redirect https://127.0.0.1:5500/ https://5050.$PROXY_DOMAIN/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \$connection_upgrade;
+        proxy_read_timeout 20d;
+    }
+}
+
 # Port 5050
 server {
     listen 8080;
