@@ -39,26 +39,11 @@ server {
 # Port 5500
 server {
     listen 8080;
-    server_name 5050.$PROXY_DOMAIN;
+    server_name 5500.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
         proxy_pass http://127.0.0.1:5500/;
-        proxy_redirect https://127.0.0.1:5500/ https://5050.$PROXY_DOMAIN/;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection \$connection_upgrade;
-        proxy_read_timeout 20d;
-    }
-}
-
-# Port 5050
-server {
-    listen 8080;
-    server_name 5050.$PROXY_DOMAIN;
-    client_max_body_size 2G;
-    location / {
-        proxy_pass http://127.0.0.1:5050/;
-        proxy_redirect https://127.0.0.1:5050/ https://5050.$PROXY_DOMAIN/;
+        proxy_redirect https://127.0.0.1:5500/ https://5500.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -82,6 +67,40 @@ server {
 }
 
 " > /etc/nginx/sites-enabled/default
+echo "
+user $USER;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections 768;
+}
+
+http {
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+    ssl_prefer_server_ciphers on;
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    gzip on;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+
+}
+" > /etc/nginx/nginx.conf
 service nginx start
 
 export PATH="/home/$USER/.local/share/r-miniconda/bin:$PATH"
