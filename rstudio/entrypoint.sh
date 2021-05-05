@@ -68,7 +68,7 @@ server {
 
 " > /etc/nginx/sites-enabled/default
 echo "
-user 1000;
+user rstudio;
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
