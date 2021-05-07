@@ -3,21 +3,21 @@ LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 
 # Linux dependencies
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-RUN apt-get update \
- && apt-get install -y \
-    curl \
-    dumb-init \
-    zsh \
-    htop \
-    locales \
-    man \
-    nano \
-    git \
-    procps \
-    openssh-client \
-    sudo \
-    vim.tiny \
-    lsb-release \
+RUN apt-get update && \
+	apt-get install -y \
+	curl \
+	dumb-init \
+	zsh \
+	htop \
+	locales \
+	man \
+	nano \
+	git \
+	procps \
+	openssh-client \
+	sudo \
+	vim.tiny \
+	lsb-release \
 	gdebi-core \
 	apt-utils \
 	curl \
@@ -32,7 +32,8 @@ RUN apt-get update \
 	nodejs \
 	make \
 	wget \
-	xvfb
+	xvfb \
+	libssh-dev
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
