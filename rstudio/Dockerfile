@@ -21,6 +21,7 @@ RUN apt-get update && apt-get -y install \
 	wget \
 	xvfb \
 	libsodium-dev \
+	libssh-dev \
 	nginx 
 
 # Install Docker (to be able to communicate with Docker host)
