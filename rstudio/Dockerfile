@@ -4,7 +4,21 @@ MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && \
+	apt-get install -y \
+	curl \
+	dumb-init \
+	zsh \
+	htop \
+	locales \
+	man \
+	nano \
+	git \
+	procps \
+	openssh-client \
+	sudo \
+	vim.tiny \
+	lsb-release \
 	gdebi-core \
 	apt-utils \
 	curl \
@@ -20,9 +34,7 @@ RUN apt-get update && apt-get -y install \
 	make \
 	wget \
 	xvfb \
-	libsodium-dev \
-	libssh-dev \
-	nginx 
+	libssh-dev
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
