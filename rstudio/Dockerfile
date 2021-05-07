@@ -34,7 +34,8 @@ RUN apt-get update && \
 	make \
 	wget \
 	xvfb \
-	libssh-dev
+	libssh-dev \
+	nginx
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
