@@ -18,6 +18,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
+        proxy_set_header Host $PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Host $PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Server $PROXY_DOMAIN;
     }
@@ -35,6 +36,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
+        proxy_set_header Host 8888.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Host 8888.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Server 8888.$PROXY_DOMAIN;
     }
@@ -52,6 +54,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
+        proxy_set_header Host 5500.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Host 5500.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Server 5500.$PROXY_DOMAIN;
     }
@@ -69,6 +72,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
+        proxy_set_header Host 3838.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Host 3838.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Server 3838.$PROXY_DOMAIN;
     }
