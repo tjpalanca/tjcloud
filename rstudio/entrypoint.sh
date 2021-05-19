@@ -116,6 +116,12 @@ http {
 service nginx start
 
 export PATH="/home/$USER/.local/share/r-miniconda/bin:$PATH"
+export CLOUD66_STACK_NAMESPACE
+export CLOUD66_STACK_NAMESPACE
+export CLOUD66_SERVER_NAME
+export CLOUD66_SERVICE_NAME
+export CLOUD66_POD_NAME
+export HOSTNAME
 
 # Run original script
 /init
