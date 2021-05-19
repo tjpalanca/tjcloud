@@ -115,13 +115,22 @@ http {
 " > /etc/nginx/nginx.conf
 service nginx start
 
+# Allow non root user to use docker
+usermod -aG docker $USER
+
+# Get root environment and place in system-wide Renviron file
+R_ENVIRON=$(Rscript -e "cat(R.home())")/etc/Renviron.site
+env > $R_ENVIRON
+
+# Remove sensitive enrivonment variables
+sed -i '/^HOME=/d' $R_ENVIRON
+sed -i '/^PWD=/d' $R_ENVIRON
+sed -i '/^PATH=/d' $R_ENVIRON
+sed -i '/^USER=/d' $R_ENVIRON
+sed -i '/^PASSWORD=/d' $R_ENVIRON
+
+# Add miniconda to path
 export PATH="/home/$USER/.local/share/r-miniconda/bin:$PATH"
-export CLOUD66_STACK_NAMESPACE
-export CLOUD66_STACK_NAMESPACE
-export CLOUD66_SERVER_NAME
-export CLOUD66_SERVICE_NAME
-export CLOUD66_POD_NAME
-export HOSTNAME
 
 # Run original script
 /init
