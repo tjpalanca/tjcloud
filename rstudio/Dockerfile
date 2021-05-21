@@ -1,5 +1,5 @@
 # RStudio Server Docker Image
-FROM rocker/geospatial:4.0.5
+FROM rocker/geospatial:4.1.0
 MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
@@ -68,8 +68,14 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.d
 # Install Google Chrome (Headless Browsing)
 RUN wget \
     https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    sudo apt install -y ./google-chrome-stable_current_amd64.deb && \
+    apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
+
+# RStudio Preview
+RUN wget https://s3.amazonaws.com/rstudio-ide-build/desktop/bionic/amd64/rstudio-1.4.1714-amd64.deb \
+    -O rstudio-server.deb && \
+    gdebi rstudio-server.deb && \
+    rm -rf rstudio-server.deb
 
 # Copy entrypoint
 COPY entrypoint.sh /usr/bin/entrypoint.sh
