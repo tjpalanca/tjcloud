@@ -74,7 +74,7 @@ RUN wget \
 # RStudio Preview
 RUN wget https://s3.amazonaws.com/rstudio-ide-build/desktop/bionic/amd64/rstudio-1.4.1714-amd64.deb \
     -O rstudio-server.deb && \
-    gdebi rstudio-server.deb && \
+    gdebi --non-interactive rstudio-server.deb && \
     rm -rf rstudio-server.deb
 
 # Copy entrypoint
