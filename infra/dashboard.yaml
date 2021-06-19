@@ -5,7 +5,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kubernetes-dashboard
-  namespace: paracelsus
+  namespace: spiegel
 
 ---
 
@@ -13,7 +13,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: kubernetes-dashboard-certs
-  namespace: paracelsus
+  namespace: spiegel
 type: Opaque
 
 ---
@@ -22,7 +22,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: kubernetes-dashboard-csrf
-  namespace: paracelsus
+  namespace: spiegel
 type: Opaque
 data:
   csrf: ""
@@ -33,7 +33,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: kubernetes-dashboard-key-holder
-  namespace: paracelsus
+  namespace: spiegel
 type: Opaque
 
 ---
@@ -42,7 +42,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: kubernetes-dashboard-settings
-  namespace: paracelsus
+  namespace: spiegel
 
 ---
 
@@ -50,7 +50,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: kubernetes-dashboard
-  namespace: paracelsus
+  namespace: spiegel
 rules:
     # Allow Dashboard to get, update and delete Dashboard exclusive secrets.
   - apiGroups: [""]
@@ -90,7 +90,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: kubernetes-dashboard
-  namespace: paracelsus
+  namespace: spiegel
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -98,7 +98,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: kubernetes-dashboard
-    namespace: paracelsus
+    namespace: spiegel
 
 ---
 
@@ -113,4 +113,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: kubernetes-dashboard
-    namespace: paracelsus
+    namespace: spiegel
