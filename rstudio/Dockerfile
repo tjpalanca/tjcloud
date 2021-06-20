@@ -72,10 +72,10 @@ RUN wget \
     rm ./google-chrome-stable_current_amd64.deb
 
 # RStudio Preview
-RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1714-amd64.deb \
-    -O rstudio-server.deb && \
-    gdebi --non-interactive rstudio-server.deb && \
-    rm -rf rstudio-server.deb
+# RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1714-amd64.deb \
+#     -O rstudio-server.deb && \
+#     gdebi --non-interactive rstudio-server.deb && \
+#     rm -rf rstudio-server.deb
 
 # Copy entrypoint
 COPY entrypoint.sh /usr/bin/entrypoint.sh
