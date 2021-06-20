@@ -33,13 +33,14 @@ proxy:
     confidential-port: 443
     name-attribute: email
   container-backend: kubernetes
-  container-wait-time: 60000
+  container-wait-time: 120000
   kubernetes:
     internal-networking: true
     url: https://kubernetes.default.svc
     namespace: ${CLOUD66_STACK_NAMESPACE}
-    image-pull-secret: regcred
+    image-pull-secret: ${SHINTPROXY_IMAGE_PULL_SECRET:index.docker.io-v1}
     image-pull-policy: ${SHINYPROXY_IMAGE_PULL_POLICY:Always}
+    node-selector: env=prod
   specs:
     - id: tjtools
       display-name: TJTools
