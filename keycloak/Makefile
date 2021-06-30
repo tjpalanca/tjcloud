@@ -1,5 +1,5 @@
 VERSION = v1.0
-REPO    = tjpalanca/apps:keycloak
+REPO    = ghcr.io/tjpalanca/tjcloud-keycloak:latest
 
 docker-pull-latest:
 	docker pull $(REPO)-latest
