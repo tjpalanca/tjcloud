@@ -17,5 +17,5 @@ docker-bash:
 	docker run -it --rm $(REPO):$(VERSION) bash
 
 docker-push-latest:
-	docker tag $(REPO):$(VERSION) $(REPO)-latest && \
-	docker push $(REPO)-latest
+	docker tag $(REPO):$(VERSION) $(REPO):latest && \
+	docker push $(REPO):latest

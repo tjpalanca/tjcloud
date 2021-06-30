@@ -46,7 +46,7 @@ cluster for easy and quick management.
 ## Keycloak
 
 Keycloak provides identity and access management for my cloud. I add some 
-custom login themese here.
+custom login themes here.
 
 ## ShinyProxy
 
