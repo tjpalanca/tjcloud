@@ -1,4 +1,4 @@
-FROM tjpalanca/apps:rstudio-latest
+FROM ghcr.io/tjpalanca/tjcloud/rstudio:latest
 LABEL maintainer="TJ Palanca <mail@tjpalanca.com>"
 
 # Install code server binary
