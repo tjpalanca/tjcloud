@@ -1,13 +1,13 @@
 # Application Information
-APP_REPO=tjpalanca/apps
+APP_REPO=ghcr.io/tjpalanca/tjcloud
 APP_NAME=shinyproxy
 APP_VERS=1.0.0
 APP_PORT=3838
 
 # Calculated
 NODENAME = $(shell kubectl get pod $(HOSTNAME) -o=jsonpath={'.spec.nodeName'})
-REPO_VER=$(APP_REPO):$(APP_NAME)-$(APP_VERS)
-REPO_LAT=$(APP_REPO):$(APP_NAME)-latest
+REPO_VER=$(APP_REPO)/$(APP_NAME):$(APP_VERS)
+REPO_LAT=$(APP_REPO)/$(APP_NAME):latest
 SHELL:=/bin/bash
 
 # Pull docker image
