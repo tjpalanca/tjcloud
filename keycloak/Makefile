@@ -1,8 +1,8 @@
 VERSION = v1.0
-REPO    = ghcr.io/tjpalanca/tjcloud-keycloak
+REPO    = ghcr.io/tjpalanca/tjcloud/keycloak
 
 docker-pull-latest:
-	docker pull $(REPO):latest
+	-docker pull $(REPO):latest
 
 docker-build:
 	docker build --cache-from=$(REPO):latest -t $(REPO):$(VERSION) .
