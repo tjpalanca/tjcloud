@@ -5,7 +5,7 @@ on:
     branches:
     - master
     paths:
-    - 'keycloak/*'
+    - 'keycloak/**'
     - '.github/workflows/deploy_keycloak.yml'
 
 jobs:
