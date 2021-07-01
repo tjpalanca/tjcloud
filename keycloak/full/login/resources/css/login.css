@@ -20,19 +20,32 @@ body {
   color: #008080 !important;;
 }
 
+.pf-c-form-control:hover {
+  border-bottom: 2px solid #008080;
+}
+
 .pf-c-button:hover::after {
   border-color: #008080 !important;
 }
 
+span > a {
+  color: #008080 !important
+}
+
 div.logo-text {
   background-repeat: no-repeat;
-  height: 63px;
+  height: 100px;
   width: calc(100vw - 20px);
   margin: 0 auto;
   background-position: center;
   background-size: contain;
   padding-right: 0;
   padding-left: 0;
+  text-align: center;
+}
+
+div.logo-text img {
+  max-height: 100px;
 }
 
 .login-pf body {
@@ -170,14 +183,12 @@ div.logo-text {
 /* default - IE compatibility */
 .pf-m-primary {
     color: #FFFFFF;
-    background-color: #0066CC;
-    background-color: var(--pf-global--primary-color--100);
+    background-color: #008080 !important;
 }
 
 /* default - IE compatibility */
 .pf-m-primary:hover {
-    background-color: #004080;
-    background-color: var(--pf-global--primary-color--200);
+    background-color: #005959 !important;
 }
 
 /* default - IE compatibility */
