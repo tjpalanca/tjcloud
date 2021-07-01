@@ -24,8 +24,7 @@ body {
   border-color: #008080 !important;
 }
 
-div.tjpalanca-logo-text {
-  background-image: url(../img/tjpalanca-logo-text.png);
+div.logo-text {
   background-repeat: no-repeat;
   height: 63px;
   width: calc(100vw - 20px);
