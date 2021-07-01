@@ -12,6 +12,15 @@ body {
   color: #3A3B3C !important;
 }
 
+#kc-form-buttons > input {
+  color: white;
+  background-color: #008080;
+}
+
+#kc-form-buttons > input:hover {
+  background-color: #005959;
+}
+
 .card-pf {
   border-color: #008080 !important;
 }
