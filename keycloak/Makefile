@@ -14,7 +14,7 @@ docker-push:
 	docker push $(REPO):$(VERSION)
 
 docker-bash:
-	docker run -it --rm $(REPO):$(VERSION) bash
+	docker run --entrypoint /bin/bash -it --rm $(REPO):$(VERSION)
 
 docker-push-latest:
 	docker tag $(REPO):$(VERSION) $(REPO):latest && \
