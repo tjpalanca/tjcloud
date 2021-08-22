@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKZLM0FPHD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WKZLM0FPHD');
+    </script>
+</head>
+<body>
+	<div th:fragment="navbar" th:if="${showNavbar}" id="navbar">
+		<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #f2f2f2; border-color: transparent;">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<img class="navbar-brand" th:src="${logo}" />
+					<a class="navbar-brand" style="color: #3d3029;" th:href="@{/}" th:text="${title}"></a>
+				</div>
+				<div class="navbar-form navbar-right">
+					<a role="button" class="btn btn-primary btn-sm" th:if="${isSupportEnabled}"
+						data-toggle="modal" data-target="#reportIssueModal" style="background-color: #008080; border-color: #008080;">Report Issue</a>
+					<a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080;" href="https://www.tjpalanca.com">Go to my Blog</a>
+				    <a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080;" href="/">Home</a>
+					<a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080" th:href="@{/admin}" th:if="${isAdmin}">Admin</a>
+					<a role="button" class="btn btn-primary btn-sm" style="background-color: #008080; border-color: #008080" th:href="@{/logout}" th:if="${isLoggedIn}">Sign Out</a>
+				</div>
+				<div class="navbar-right" sec:authorize="isAuthenticated()">
+					<span class="navbar-text" style="color: #3d3029;">
+						<span class="glyphicon glyphicon-user"></span>
+						<span sec:authentication="name"></span>
+					</span>
+				</div>
+			</div>
+		</nav>
+		<div class="modal fade" id="reportIssueModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form role="form" method="post" th:action="@{/issue}">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Report Issue</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="customMessage"><span class="glyphicon glyphicon-chat"></span> Message to add to the report:</label>
+								<textarea class="form-control" name="customMessage" placeholder="Enter message" cols="40" rows="5"></textarea>
+								<input type="hidden" name="currentLocation"></input>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-default btn-success" style="background-color: #008080; border-color: #008080">Submit</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script lang="JavaScript">
+			$(document).ready(function() { $('input[name="currentLocation"]').val(window.location.href); });
+		</script>
+	</div>
+</body>
+</html>

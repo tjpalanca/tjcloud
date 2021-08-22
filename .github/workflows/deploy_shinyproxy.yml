@@ -1,0 +1,44 @@
+name: ShinyProxy Deployment
+
+on:
+    push:
+        branches:
+          - master
+        paths:
+          - 'shinyproxy/**'
+          - '.github/workflows/deploy_shinyproxy.yml'
+    pull_request:
+        branches:
+          - master
+        paths:
+          - 'shinyproxy/**'
+          - '.github/workflows/deploy_shinyproxy.yml'
+
+jobs:
+    publish_and_deploy:
+        name: Build and deploy app
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout the code
+            uses: actions/checkout@v2
+          - name: Login to GitHub Container Registry
+            uses: docker/login-action@v1
+            with:
+              registry: ghcr.io
+              username: ${{ github.repository_owner }}
+              password: ${{ secrets.GITHUB_TOKEN }}
+          - name: Retrieve and build the image
+            run: make docker-pull && make docker-build
+            working-directory: ./shinyproxy
+          - name: Test whether the app can be run
+            run: make docker-test
+            working-directory: ./shinyproxy
+          - name: Publish the image
+            if: github.event_name == 'push'
+            run: make docker-publish
+            working-directory: ./shinyproxy
+          - name: Send redeployment hook
+            if: github.event_name == 'push'
+            run: curl -X POST "$C66_REDEPLOY_URL?services=tjapps"
+            env:
+                C66_REDEPLOY_URL: ${{ secrets.SHINYPROXY_C66_REDEPLOY_URL }}
