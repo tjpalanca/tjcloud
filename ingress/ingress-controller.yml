@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
   name: ingress-nginx
-  namespace: kurakkan
+  namespace: disillusion
 automountServiceAccountToken: true
 ---
 # Source: ingress-nginx/templates/controller-configmap.yaml
@@ -25,7 +25,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
   name: ingress-nginx-controller
-  namespace: kurakkan
+  namespace: disillusion
 data:
 ---
 # Source: ingress-nginx/templates/clusterrole.yaml
@@ -115,7 +115,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ingress-nginx
-    namespace: kurakkan
+    namespace: disillusion
 ---
 # Source: ingress-nginx/templates/controller-role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -129,7 +129,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
   name: ingress-nginx
-  namespace: kurakkan
+  namespace: disillusion
 rules:
   - apiGroups:
       - ''
@@ -215,7 +215,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
   name: ingress-nginx
-  namespace: kurakkan
+  namespace: disillusion
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -223,7 +223,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ingress-nginx
-    namespace: kurakkan
+    namespace: disillusion
 ---
 # Source: ingress-nginx/templates/admission-webhooks/validating-webhook.yaml
 # before changing this value, check the required kubernetes version
@@ -259,7 +259,7 @@ webhooks:
       - v1beta1
     clientConfig:
       service:
-        namespace: kurakkan
+        namespace: disillusion
         name: ingress-nginx-controller-admission
         path: /networking/v1beta1/ingresses
 ---
@@ -278,7 +278,7 @@ metadata:
     app.kubernetes.io/version: 0.47.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
-  namespace: kurakkan
+  namespace: disillusion
 ---
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -326,7 +326,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ingress-nginx-admission
-    namespace: kurakkan
+    namespace: disillusion
 ---
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -343,7 +343,7 @@ metadata:
     app.kubernetes.io/version: 0.47.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
-  namespace: kurakkan
+  namespace: disillusion
 rules:
   - apiGroups:
       - ''
@@ -368,7 +368,7 @@ metadata:
     app.kubernetes.io/version: 0.47.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
-  namespace: kurakkan
+  namespace: disillusion
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -376,7 +376,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ingress-nginx-admission
-    namespace: kurakkan
+    namespace: disillusion
 ---
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/job-createSecret.yaml
 apiVersion: batch/v1
@@ -393,7 +393,7 @@ metadata:
     app.kubernetes.io/version: 0.47.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
-  namespace: kurakkan
+  namespace: disillusion
 spec:
   template:
     metadata:
@@ -450,7 +450,7 @@ metadata:
     app.kubernetes.io/version: 0.47.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
-  namespace: kurakkan
+  namespace: disillusion
 spec:
   template:
     metadata:
@@ -506,7 +506,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
   name: ingress-nginx-controller-admission
-  namespace: kurakkan
+  namespace: disillusion
 spec:
   type: ClusterIP
   ports:

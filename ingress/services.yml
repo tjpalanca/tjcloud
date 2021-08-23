@@ -1,8 +1,7 @@
 version: 2
 services:
-  ingress-nginx-controller:
-    traffic_matches:
-    - <INSERT HOSTNAMES HERE>
+  nginx-ingress-controller:
+    traffic_matches: ["_"]
     service_account_name: ingress-nginx
     tags:
     - shiny
@@ -15,7 +14,7 @@ services:
       /nginx-ingress-controller
       --election-id=ingress-controller-leader
       --ingress-class=nginx
-      --configmap=$(POD_NAMESPACE)/cloud66.app.config.store.where.name.equals.ingress-nginx-controller
+      --configmap=$(POD_NAMESPACE)/cloud66.app.config.store.where.name.equals.nginx-ingress-controller
       --validating-webhook=:8443
       --validating-webhook-certificate=/usr/local/certificates/cert
       --validating-webhook-key=/usr/local/certificates/key
