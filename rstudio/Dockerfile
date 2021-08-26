@@ -82,11 +82,11 @@ RUN wget \
 ENV PATH $PATH:/usr/local/lib/apache-jmeter-5.4.1/bin
 
 # RStudio Preview
-RUN apt-get remove -yq rstudio-server
-RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1725-amd64.deb \
-    -O rstudio-server.deb && \
-    gdebi --non-interactive rstudio-server.deb && \
-    rm -rf rstudio-server.deb
+# RUN apt-get remove -yq rstudio-server
+# RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-1.4.1725-amd64.deb \
+#     -O rstudio-server.deb && \
+#     gdebi --non-interactive rstudio-server.deb && \
+#     rm -rf rstudio-server.deb
 
 # Custom userconf
 COPY userconf.sh /etc/cont-init.d/userconf
