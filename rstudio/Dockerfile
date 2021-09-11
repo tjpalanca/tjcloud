@@ -36,7 +36,8 @@ RUN apt-get update && \
 	xvfb \
 	libssh-dev \
 	nginx \
-	libpoppler-cpp-dev
+	libpoppler-cpp-dev \
+	libnode-dev 
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
