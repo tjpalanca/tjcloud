@@ -4,6 +4,7 @@ MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+RUN apt-get update && apt-get install -y software-properties-common
 RUN add-apt-repository ppa:cran/v8 && \
 	apt-get update && \
 	apt-get install -y libnode-dev
@@ -28,7 +29,6 @@ RUN apt-get update && \
 	gnupg-agent \
 	ca-certificates \
 	nano \
-	software-properties-common \
 	zsh \
 	gnupg \
 	apt-transport-https \
