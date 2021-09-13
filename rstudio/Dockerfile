@@ -4,6 +4,9 @@ MAINTAINER Troy James Palanca <mail@tjpalanca.com>
 
 # Linux Dependencies
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+RUN add-apt-repository ppa:cran/v8 && \
+	apt-get update && \
+	apt-get install -y libnode-dev
 RUN apt-get update && \
 	apt-get install -y \
 	curl \
@@ -36,8 +39,7 @@ RUN apt-get update && \
 	xvfb \
 	libssh-dev \
 	nginx \
-	libpoppler-cpp-dev \
-	libv8-dev 
+	libpoppler-cpp-dev 
 
 # Install Docker (to be able to communicate with Docker host)
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
