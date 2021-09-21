@@ -3,6 +3,7 @@ set -eu
 
 # Modify Users
 sudo echo "$DOCKER_USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/nopasswd > /dev/null
+sudo mkdir -p "/home/$DOCKER_USER"
 sudo usermod --login "$DOCKER_USER" rstudio
 sudo usermod -d "/home/$DOCKER_USER" $DOCKER_USER
 sudo groupmod -n "$DOCKER_USER" rstudio
