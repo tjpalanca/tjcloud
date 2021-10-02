@@ -36,6 +36,7 @@ RUN apt-get update && \
 	xvfb \
 	libssh-dev \
 	nginx \
+	xclip \ 
 	libpoppler-cpp-dev
 
 # Install Docker (to be able to communicate with Docker host)
