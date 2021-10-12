@@ -11,6 +11,7 @@ gluster volume set storage performance.readdir-ahead off
 gluster volume set storage performance.io-cache off
 gluster volume set storage performance.quick-read off
 gluster volume set storage performance.open-behind off
+gluster volume set storage performance.strict-o-direct on
 
 exit
 exit
