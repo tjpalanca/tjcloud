@@ -63,7 +63,7 @@
 body,
 article.markdown-body,
 .d-block {
-  font-family: "IBM Plex Sans", Sans-Serif;
+  font-family: "IBM Plex Sans", sans-serif !important;
 }
 
 td.blob-code,
@@ -73,5 +73,5 @@ div.CodeMirror-code,
 a.branch-name,
 .d-block code,
 code {
-  font-family: "JetBrainsMono", monospace;
+  font-family: "JetBrainsMono", monospace !important;
 }
