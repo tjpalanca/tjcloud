@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 RUN pip3 install -U radian jupyter
 
 # Install Julia
-RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.2-linux-x86_64.tar.gz \
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.7/julia-1.7.0-linux-x86_64.tar.gz \
     -O julia.tar.gz && \
     tar zxvf julia.tar.gz && \
-    mv julia-1.6.2 /usr/local/share/julia && \
+    mv julia-1.7.0 /usr/local/share/julia && \
     ln -s /usr/local/share/julia/bin/julia /usr/local/bin/julia
 
 # Install code server binary
