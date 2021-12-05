@@ -1,4 +1,5 @@
 # Set up glusterfs on the cluster
+# Not used, didn't really impact performance
 
 cx ssh -s 'tjcloud' master
 
@@ -43,3 +44,4 @@ echo 'master.tjcloud.c66.me:/storage /mnt/storage glusterfs defaults,_netdev 0 0
 exit
 
 exit
+
