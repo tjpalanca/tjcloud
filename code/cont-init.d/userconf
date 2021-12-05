@@ -67,7 +67,7 @@ elif [ "$USER" != "$DEFAULT_USER" ]
     usermod -l $USER -d /home/$USER $DEFAULT_USER
     groupmod -n $USER $DEFAULT_USER
     usermod -a -G staff $USER
-    chown -R $USER:$USER /home/$USER
+    # chown -R $USER:$USER /home/$USER
     echo "USER is now $USER"
 fi
 
