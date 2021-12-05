@@ -83,10 +83,10 @@ RUN wget \
 ENV PATH $PATH:/usr/local/lib/apache-jmeter-5.4.1/bin
 
 # RStudio Preview
-RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-2021.09.0%2B351-amd64.deb \
-    -O rstudio-server.deb && \
-    gdebi --non-interactive rstudio-server.deb && \
-    rm -rf rstudio-server.deb
+# RUN wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-2021.09.0%2B351-amd64.deb \
+#     -O rstudio-server.deb && \
+#     gdebi --non-interactive rstudio-server.deb && \
+#     rm -rf rstudio-server.deb
 
 # Custom userconf
 COPY userconf.sh /etc/cont-init.d/userconf
