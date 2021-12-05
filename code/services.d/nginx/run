@@ -24,25 +24,20 @@ server {
         proxy_set_header Host $RSTUDIO_DOMAIN;
         proxy_set_header X-Forwarded-Host $RSTUDIO_DOMAIN;
         proxy_set_header X-Forwarded-Server $RSTUDIO_DOMAIN;
-        proxy_set_header Accept-Encoding gzip;
     }
 }
 
 # VSCode Server
 server {
     listen 8789;
+    listen [::]:8789;
     server_name $VSCODE_DOMAIN;
-    client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:8788/;
-        proxy_redirect https://localhost:8788/ https://$VSCODE_DOMAIN/;
-        proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
-        proxy_read_timeout 20d;
         proxy_set_header Host $VSCODE_DOMAIN;
-        proxy_set_header X-Forwarded-Host $VSCODE_DOMAIN;
-        proxy_set_header X-Forwarded-Server $VSCODE_DOMAIN;
+        proxy_set_header Accept-Encoding gzip;
     }
 }
 
