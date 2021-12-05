@@ -2,7 +2,7 @@
 FROM rocker/geospatial:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
-# Rocker Scripts 
+# Rocker Scripts
 RUN /rocker_scripts/install_python.sh && \
 	/rocker_scripts/install_pyenv.sh && \
 	/rocker_scripts/install_julia.sh
@@ -40,8 +40,8 @@ RUN apt-get update && \
 	wget \
 	libssh-dev \
 	nginx \
-	xclip \ 
-	libpoppler-cpp-dev 
+	xclip \
+	libpoppler-cpp-dev
 
 # Docker
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
@@ -90,10 +90,13 @@ RUN sudo apt-get remove -y rstudio-server && \
 # VS Code Server
 RUN curl -fOL https://github.com/cdr/code-server/releases/download/v3.12.0/code-server_3.12.0_amd64.deb && \
 	dpkg -i code-server_3.12.0_amd64.deb && \
-	rm code-server_3.12.0_amd64.deb 
+	rm code-server_3.12.0_amd64.deb
 RUN pip install -U radian jupyter
 COPY services.d/vscode /etc/services.d/vscode/
+
+# Networking Components and Tweaks
+COPY cont-init.d/userconf /etc/cont-init.d/userconf
 COPY services.d/nginx /etc/services.d/nginx/
 
-# Expose Ports 
+# Expose Ports
 EXPOSE 8888 5050 3838 8789
