@@ -96,7 +96,8 @@ COPY services.d/vscode /etc/services.d/vscode/
 
 # Networking Components and Tweaks
 COPY cont-init.d/userconf /etc/cont-init.d/userconf
-COPY services.d/nginx /etc/services.d/nginx/
+COPY services.d/cleanup /etc/services.d/cleanup
+COPY services.d/nginx /etc/services.d/nginx
 
 # Expose Ports
 EXPOSE 8888 5050 3838 8789
