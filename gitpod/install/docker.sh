@@ -1,7 +1,5 @@
 #!/usr/bin/bash 
 
-apt-get update 
-apt-get install -y software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
 	apt-key fingerprint 0EBFCD88 && \
 	add-apt-repository \

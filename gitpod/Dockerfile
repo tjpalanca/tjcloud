@@ -2,8 +2,12 @@
 FROM rocker/r-ver:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
-# Install sudo 
-RUN apt-get update && apt-get install sudo 
+# Linux Minimums
+RUN apt-get update && \
+	apt-get install -y \
+	curl htop nano git sudo gnupg make wget \
+    software-properties-common gdebi-core
+	apt-transport-https 
 
 # Setup GitPod
 COPY install/gitpod.sh /install/gitpod.sh
