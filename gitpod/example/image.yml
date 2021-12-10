@@ -1,0 +1,7 @@
+# Add this line to use this image
+image: ghcr.io/tjpalanca/tjcloud/gitpod:latest
+
+# Init Tasks to install some dependencies or setups
+tasks:
+  - name: Install Setup
+    init: /setup/*.sh

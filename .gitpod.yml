@@ -1,6 +1,8 @@
 image: ghcr.io/tjpalanca/tjcloud/gitpod:latest
 
 tasks:
+  - name: Production Setup 
+    init: /setup/production.sh
   - name: GitHub Container Regisry Login 
     command: echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin && exit
 
