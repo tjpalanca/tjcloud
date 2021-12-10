@@ -2,6 +2,9 @@
 FROM rocker/r-ver:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
+# Install sudo 
+RUN apt-get update && apt-get install sudo 
+
 # Setup GitPod
 COPY install/gitpod.sh /install/gitpod.sh
 RUN /install/gitpod.sh
