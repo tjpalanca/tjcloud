@@ -20,3 +20,6 @@ RUN /install/docker.sh
 RUN /install/kubectl.sh 
 RUN /install/cx.sh
 RUN /install/tailscale.sh
+
+# Copy examples
+COPY examples /examples

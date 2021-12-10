@@ -1,0 +1,11 @@
+# Add this to .gitpod.yml when connection to the Tailscale VPN is required
+
+tasks:
+  - name: tailscaled
+    command: |
+      sudo tailscaled
+  - name: tailscale
+    command: |
+      sudo -E tailscale up --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
+                           --authkey "${TAILSCALE_AUTH_KEY}"
+experimentalNetwork: true
