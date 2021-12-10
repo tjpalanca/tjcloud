@@ -6,8 +6,7 @@ LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 RUN apt-get update && \
 	apt-get install -y \
 	curl htop nano git sudo gnupg make wget \
-    software-properties-common gdebi-core
-	apt-transport-https 
+    software-properties-common gdebi-core apt-transport-https 
 
 # Setup GitPod
 COPY install/gitpod.sh /install/gitpod.sh
