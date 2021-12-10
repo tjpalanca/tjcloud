@@ -1,0 +1,32 @@
+name: Deploy GitPod to TJCloud
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'gitpod/**'
+    - '.github/workflows/deploy_gitpod.yml'
+
+jobs:
+  build_and_publish_gitpod_image:
+    name: Build and Publish GitPod Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push the Rstudio image
+        run: >
+          cd rstudio &&
+          make docker-pull-latest &&
+          make docker-build &&
+          make docker-push &&
+          make docker-push-latest
