@@ -41,6 +41,7 @@ RUN apt-get update && \
 	libssh-dev \
 	nginx \
 	xclip \
+	xvfb \
 	libpoppler-cpp-dev
 
 # Docker
@@ -97,6 +98,8 @@ COPY services.d/vscode /etc/services.d/vscode/
 # Networking Components and Tweaks
 COPY cont-init.d/userconf /etc/cont-init.d/userconf
 COPY services.d/cleanup /etc/services.d/cleanup
+ENV DISPLAY :1
+COPY services.d/display /etc/services.d/display
 COPY services.d/nginx /etc/services.d/nginx
 
 # Expose Ports
