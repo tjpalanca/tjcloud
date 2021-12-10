@@ -8,3 +8,4 @@ tasks:
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
+    - ms-vscode.makefile-tools
