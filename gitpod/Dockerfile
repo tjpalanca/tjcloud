@@ -12,6 +12,7 @@ RUN /install/nodejs.sh
 COPY install /install
 
 # Developer Tools 
+RUN /install/zsh.sh
 RUN /install/docker.sh 
 RUN /install/kubectl.sh 
 RUN /install/cx.sh
