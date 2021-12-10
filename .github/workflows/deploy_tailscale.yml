@@ -36,6 +36,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Cloud66 redeployment webhook
-        run: curl -X POST "$C66_REDEPLOY_URL?services=tailscale-router'
+        run: curl -X POST "$C66_REDEPLOY_URL?services=tailscale-router"
         env:
           C66_REDEPLOY_URL: ${{ secrets.TAILSCALE_C66_REDEPLOY_URL }}
