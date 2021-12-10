@@ -1,0 +1,5 @@
+image: ghcr.io/tjpalanca/tjcloud/gitpod:latest
+
+vscode:
+  extensions:
+    - ms-azuretools.vscode-docker
