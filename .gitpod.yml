@@ -1,7 +1,8 @@
-file: .gitpod.Dockerfile
+image:
+  file: .gitpod.Dockerfile
 
 tasks:
-  - name: GitHub Container Regisry Login 
+  - name: GitHub Container Registry Login 
     command: echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin && exit
 
 vscode:
