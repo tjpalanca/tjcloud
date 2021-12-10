@@ -18,7 +18,6 @@ RUN /install/zsh.sh
 COPY install/oh-my-zsh.sh /install
 RUN su gitpod -s /install/oh-my-zsh.sh
 ENV SHELL zsh
-RUN touch ~/.zshrc
 
 # Copy other install and examples 
 COPY install /install
