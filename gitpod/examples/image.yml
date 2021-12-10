@@ -1,0 +1,2 @@
+# Add this line to use this image
+image: ghcr.io/tjpalanca/tjcloud/gitpod:latest
