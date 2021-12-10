@@ -19,3 +19,4 @@ RUN su gitpod -s /install/oh-my-zsh.sh
 RUN /install/docker.sh 
 RUN /install/kubectl.sh 
 RUN /install/cx.sh
+RUN /install/tailscale.sh
