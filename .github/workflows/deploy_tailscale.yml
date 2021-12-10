@@ -1,0 +1,41 @@
+name: Deploy Tailscale to TJCloud
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'tailscale/**'
+    - '.github/workflows/deploy_tailscale.yml'
+
+jobs:
+  build_and_publish_tailscale_image:
+    name: Build and Publish Tailscale Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tailscale
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push the Tailscale image
+        run: >
+          cd tailscale &&
+          make docker-pull-latest &&
+          make docker-build &&
+          make docker-push &&
+          make docker-push-latest
+  redeploy_tailscale:
+    name: Redeploy Tailscale
+    needs: [build_and_publish_tailscale_image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Cloud66 redeployment webhook
+        run: curl -X POST "$C66_REDEPLOY_URL?services=tailscale-router'
+        env:
+          C66_REDEPLOY_URL: ${{ secrets.TAILSCALE_C66_REDEPLOY_URL }}
