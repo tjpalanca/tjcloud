@@ -1,12 +1,20 @@
-# RStudio Server Docker Image
-FROM rocker/r-ver:4
+# Bare Ubuntu Image
+FROM ubuntu:focal
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
+
+# Environment
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Linux Minimums
 RUN apt-get update && \
 	apt-get install -y \
 	curl htop nano git sudo gnupg make wget \
-    software-properties-common gdebi-core apt-transport-https 
+    software-properties-common gdebi-core apt-transport-https
+
+# Copy Scripts from Rocker
+RUN git clone --depth 1 https://github.com/rocker-org/rocker-versioned2.git && \
+	cp -R rocker-versioned2/scripts /scripts && \
+	rm -rf rocker-versioned2
 
 # Setup GitPod
 COPY install/gitpod.sh /install/gitpod.sh

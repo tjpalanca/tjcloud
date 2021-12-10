@@ -4,4 +4,4 @@
 /setup/r.sh
 /setup/python.sh
 /setup/js.sh
-/setup/production.sh
+/setup/devtools.sh
