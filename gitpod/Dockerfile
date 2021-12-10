@@ -12,7 +12,10 @@ RUN /install/nodejs.sh
 COPY install /install
 
 # Developer Tools 
+RUN /install/gitpod.sh
 RUN /install/zsh.sh
+ENV SHELL zsh
+RUN su gitpod -s /install/oh-my-zsh.sh
 RUN /install/docker.sh 
 RUN /install/kubectl.sh 
 RUN /install/cx.sh
