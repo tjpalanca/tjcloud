@@ -23,9 +23,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push the Rstudio image
+      - name: Build and push the GitPod image
         run: >
-          cd rstudio &&
+          cd gitpod &&
           make docker-pull-latest &&
           make docker-build &&
           make docker-push &&
