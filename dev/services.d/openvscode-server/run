@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bash
+## load /etc/environment vars first:
+for line in $( cat /etc/environment ) ; do export $line > /dev/null; done
+
+# Set up environment
+chsh --shell /bin/zsh $DOCKER_USER
+export HOME=/home/$DOCKER_USER
+usermod -aG docker $DOCKER_USER
+chown 1000:1000 /var/run/docker.sock
+echo "$DOCKER_USER ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers.d/nopasswd > /dev/null
+
+# Run code-server
+exec s6-setuidgid 1000:1000 \
+    /usr/local/share/openvscode-server/server.sh \
+    --port 8788 \
+    --connection-token $CONNECTION_TOKEN

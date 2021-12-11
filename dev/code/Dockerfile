@@ -34,10 +34,10 @@ RUN /install/cx.sh
 # RStudio Server 
 COPY install/rstudio.sh /install 
 RUN /install/rstudio.sh
-# Code Server
-COPY install/code-server.sh /install 
-RUN /install/code-server.sh
-COPY services.d/code-server /etc/services.d/code-server/
+# Open VS Code Server
+COPY install/openvscode-server.sh /install 
+RUN /install/openvscode-server.sh
+COPY services.d/openvscode-server /etc/services.d/openvscode-server/
 
 # Radian R Console
 COPY install/radian.sh /install 
