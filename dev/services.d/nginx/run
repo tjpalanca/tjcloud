@@ -35,12 +35,13 @@ server {
     server_name $VSCODE_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://localhost:8788/;
+        proxy_pass http://localhost:8788;
+        proxy_redirect http://localhost:8788/ \$scheme://\$host/;
+        proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
         proxy_set_header Host \$host;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection upgrade;
         proxy_set_header Accept-Encoding gzip;
-        proxy_redirect http://localhost:8788/ \$scheme://\$host/;
         proxy_set_header Host \$host;
         proxy_set_header X-Forwarded-Host \$host;
         proxy_set_header X-Forwarded-Server \$host;
@@ -139,5 +140,5 @@ http {
 }
 " > /etc/nginx/nginx.conf
 
-# Start NGINX Server 
+# Start NGINX Server
 nginx -g "daemon off;"
