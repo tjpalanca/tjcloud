@@ -51,3 +51,6 @@ RUN su gitpod -s /install/plutojl.sh
 
 # Copy examples 
 COPY gitpod/example /example
+
+# Change to zsh login shell 
+ENV SHELL /usr/bin/zsh
