@@ -1,8 +1,0 @@
-[Desktop Entry]
-Comment=
-Terminal=false
-Name=Start RStudio (Local)
-Exec=/home/troypalanca/tjcloud/crostini/start-crostini.sh
-Type=Application
-Icon=/home/troypalanca/.local/share/logos/crostini.png
-NoDisplay=false
