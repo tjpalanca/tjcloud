@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 
-wget "https://github.com/cdr/code-server/releases/download/v3.12.0/code-server_3.12.0_amd64.deb" \
+CODE_SERVER_VERSION="4.0.0"
+
+wget "https://github.com/cdr/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server_${CODE_SERVER_VERSION}_amd64.deb" \
 	-O code-server.deb 
 dpkg -i code-server.deb 
 rm code-server.deb

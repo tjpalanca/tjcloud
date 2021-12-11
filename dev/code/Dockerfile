@@ -34,10 +34,10 @@ RUN /install/cx.sh
 # RStudio Server 
 COPY install/rstudio.sh /install 
 RUN /install/rstudio.sh
-# Open VS Code Server
-COPY install/openvscode-server.sh /install 
-RUN /install/openvscode-server.sh
-COPY services.d/openvscode-server /etc/services.d/openvscode-server/
+# Code Server
+COPY install/code-server.sh /install 
+RUN /install/code-server.sh
+COPY services.d/code-server /etc/services.d/
 
 # Radian R Console
 COPY install/radian.sh /install 
@@ -50,17 +50,17 @@ COPY install/plutojl.sh /install
 RUN su rstudio -s /install/plutojl.sh
 
 # User Configuration
-COPY cont-init.d/userconf /etc/cont-init.d/userconf
+COPY cont-init.d/userconf /etc/cont-init.d/
 
 # Cleanup Zombie Processes
-COPY services.d/cleanup /etc/services.d/cleanup
+COPY services.d/cleanup /etc/services.d/
 
 # Xvfb Display
 ENV DISPLAY :1
-COPY services.d/display /etc/services.d/display
+COPY services.d/display /etc/services.d/
 
 # Virtual Host Routing
-COPY services.d/nginx /etc/services.d/nginx
+COPY services.d/nginx /etc/services.d/
 
 # Expose Ports
 EXPOSE 8888 5050 3838 8789
