@@ -5,13 +5,12 @@ docker-pull-latest:
 	-docker pull $(REPO):latest
 
 docker-build:
+	cd ../ && \
 	docker buildx build \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--cache-from=type=registry,ref=$(REPO) \
+		-f code/Dockerfile \
 		-t $(REPO):$(VERSION) .
-
-docker-build-dev:
-	docker buildx build -t $(REPO):$(VERSION) .
 
 docker-push:
 	docker push $(REPO):$(VERSION)

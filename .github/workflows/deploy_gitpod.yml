@@ -5,7 +5,7 @@ on:
     branches:
     - master
     paths:
-    - 'gitpod/**'
+    - 'dev/gitpod/**'
     - '.github/workflows/deploy_gitpod.yml'
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push the GitPod image
         run: >
-          cd gitpod &&
+          cd dev/gitpod &&
           make docker-pull-latest &&
           make docker-build &&
           make docker-push &&

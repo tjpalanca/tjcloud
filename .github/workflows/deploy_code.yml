@@ -5,7 +5,7 @@ on:
     branches:
     - master
     paths:
-    - 'code/**'
+    - 'dev/code/**'
     - '.github/workflows/deploy_code.yml'
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push the Code image
         run: >
-          cd code &&
+          cd dev/code &&
           make docker-pull-latest &&
           make docker-build &&
           make docker-push &&

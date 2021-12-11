@@ -1,5 +1,4 @@
-image:
-  file: .gitpod.Dockerfile
+image: ghcr.io/tjpalanca/tjcloud/gitpod
 
 tasks:
   - name: GitHub Container Registry Login 

@@ -1,33 +1,53 @@
-# Bare Ubuntu Image
-FROM ubuntu:focal
+FROM rocker/geospatial:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
-# Environment
-ARG DEBIAN_FRONTEND=noninteractive
+# Python and Julia
+RUN /rocker_scripts/install_python.sh && \
+	/rocker_scripts/install_pyenv.sh && \
+	/rocker_scripts/install_julia.sh
 
-# Linux Minimums
-RUN apt-get update && \
-	apt-get install -y \
-	curl htop nano git sudo gnupg make wget \
-    software-properties-common gdebi-core apt-transport-https
+# Install scripts
+RUN mkdir -p /install
 
-# Copy Scripts from Rocker
-RUN git clone --depth 1 https://github.com/rocker-org/rocker-versioned2.git && \
-	cp -R rocker-versioned2/scripts /scripts && \
-	rm -rf rocker-versioned2
+# NodeJS 
+COPY install/nodejs.sh /install 
+RUN /install/nodejs.sh
 
-# Setup GitPod
+# Core Dependencies
+COPY install/linux.sh /install 
+RUN /install/linux.sh
+COPY install/r-deps.sh /install 
+RUN /install/r-deps.sh
+COPY install/julia-deps.sh /install 
+RUN /install/julia-deps.sh
+
+# GitPod User
 COPY install/gitpod.sh /install/gitpod.sh
 RUN /install/gitpod.sh
 
-# Setup Terminal
-COPY install/zsh.sh /install
-RUN /install/zsh.sh
+# Oh My Zsh!
 COPY install/oh-my-zsh.sh /install
 RUN su gitpod -s /install/oh-my-zsh.sh
-ENV SHELL zsh
 
-# Copy other install and examples 
-COPY install /install
-COPY example /example
-COPY setup /setup
+# Docker
+COPY install/docker.sh /install 
+RUN /install/docker.sh
+# Kubernetes
+COPY install/kubectl.sh /install 
+RUN /install/kubectl.sh
+# Cloud66 Toolbelt
+COPY install/cx.sh /install 
+RUN /install/cx.sh
+
+# Radian R Console
+COPY install/radian.sh /install 
+RUN /install/radian.sh
+# Jupyter
+COPY install/jupyter.sh /install 
+RUN /install/jupyter.sh
+# Pluto.jl
+COPY install/plutojl.sh /install 
+RUN su gitpod -s /install/plutojl.sh
+
+# Copy examples 
+COPY gitpod/example /example

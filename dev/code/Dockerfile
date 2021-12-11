@@ -1,86 +1,65 @@
-# RStudio Server Docker Image
 FROM rocker/geospatial:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
-# Rocker Scripts
+# Python and Julia
 RUN /rocker_scripts/install_python.sh && \
 	/rocker_scripts/install_pyenv.sh && \
 	/rocker_scripts/install_julia.sh
 
-# Linux Dependencies
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-RUN apt-get update && apt-get install -y \
-	apt-transport-https \
-	apt-utils \
-	ca-certificates \
-	curl \
-	dumb-init \
-	gdebi-core \
-	git \
-	gnupg \
-	gnupg-agent \
-	htop \
-	libpoppler-cpp-dev \
-	libsodium-dev \
-	libssh-dev \
-	locales \
-	lsb-release \
-	make \
-	man \
-	nano \
-	nginx \
-	nodejs \
-	openssh-client \
-	procps \
-	software-properties-common \
-	sudo \
-	vim.tiny \
-	wget \
-	xclip \
-	xvfb \
-	zsh 
+# Install scripts
+RUN mkdir -p /install
+
+# NodeJS 
+COPY install/nodejs.sh /install 
+RUN /install/nodejs.sh
+
+# Core Dependencies
+COPY install/linux.sh /install 
+RUN /install/linux.sh
+COPY install/r-deps.sh /install 
+RUN /install/r-deps.sh
+COPY install/julia-deps.sh /install 
+RUN /install/julia-deps.sh
 
 # Docker
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
-	sudo apt-key fingerprint 0EBFCD88 && \
-	sudo add-apt-repository \
-	"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-	$(lsb_release -cs) \
-	stable" && \
-	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
-	usermod -aG docker rstudio && usermod -aG rstudio-server rstudio
-
+COPY install/docker.sh /install 
+RUN /install/docker.sh
 # Kubernetes
-RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
-	apt-get update && apt-get install -y kubectl
+COPY install/kubectl.sh /install 
+RUN /install/kubectl.sh
+# Cloud66 Toolbelt
+COPY install/cx.sh /install 
+RUN /install/cx.sh
 
-# Cloud 66 Toolbelt
-RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_install.sh | bash
-
-# Git Large File Storage
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
-	apt-get update && apt-get install -y git-lfs
-
-# RStudio Server
-RUN sudo apt-get remove -y rstudio-server && \
-	wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb \
-    -O rstudio-server.deb && \
-    gdebi --non-interactive rstudio-server.deb && \
-    rm -rf rstudio-server.deb
-
-# VS Code Server
-RUN curl -fOL https://github.com/cdr/code-server/releases/download/v4.0.0/code-server_4.0.0_amd64.deb && \
-	dpkg -i code-server_4.0.0_amd64.deb && \
-	rm code-server_4.0.0_amd64.deb
-RUN pip install -U radian jupyter
+# RStudio Server 
+COPY install/rstudio.sh /install 
+RUN /install/rstudio.sh
+# Code Server
+COPY install/code-server.sh /install 
+RUN /install/code-server.sh
 COPY services.d/vscode /etc/services.d/vscode/
 
-# Networking Components and Tweaks
+# Radian R Console
+COPY install/radian.sh /install 
+RUN /install/radian.sh
+# Jupyter
+COPY install/jupyter.sh /install 
+RUN /install/jupyter.sh
+# Pluto.jl
+COPY install/plutojl.sh /install 
+RUN su rstudio -s /install/plutojl.sh
+
+# User Configuration
 COPY cont-init.d/userconf /etc/cont-init.d/userconf
+
+# Cleanup Zombie Processes
 COPY services.d/cleanup /etc/services.d/cleanup
+
+# Xvfb Display
 ENV DISPLAY :1
 COPY services.d/display /etc/services.d/display
+
+# Virtual Host Routing
 COPY services.d/nginx /etc/services.d/nginx
 
 # Expose Ports
