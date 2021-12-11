@@ -9,40 +9,36 @@ RUN /rocker_scripts/install_python.sh && \
 
 # Linux Dependencies
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-RUN apt-get update && \
-	apt-get install -y \
+RUN apt-get update && apt-get install -y \
+	apt-transport-https \
+	apt-utils \
+	ca-certificates \
 	curl \
 	dumb-init \
-	zsh \
+	gdebi-core \
+	git \
+	gnupg \
+	gnupg-agent \
 	htop \
+	libpoppler-cpp-dev \
+	libsodium-dev \
+	libssh-dev \
 	locales \
+	lsb-release \
+	make \
 	man \
 	nano \
-	git \
-	procps \
+	nginx \
+	nodejs \
 	openssh-client \
+	procps \
+	software-properties-common \
 	sudo \
 	vim.tiny \
-	lsb-release \
-	gdebi-core \
-	apt-utils \
-	software-properties-common \
-	curl \
-	gnupg-agent \
-	ca-certificates \
-	nano \
-	zsh \
-	gnupg \
-	apt-transport-https \
-	libsodium-dev \
-	nodejs \
-	make \
 	wget \
-	libssh-dev \
-	nginx \
 	xclip \
 	xvfb \
-	libpoppler-cpp-dev
+	zsh 
 
 # Docker
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
@@ -54,14 +50,8 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
 	usermod -aG docker rstudio && usermod -aG rstudio-server rstudio
 
-# Docker Compose
-RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" \
-	-o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
-
 # Kubernetes
-RUN apt-get update && apt-get install -y apt-transport-https && \
-	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
 	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
 	apt-get update && apt-get install -y kubectl
 
@@ -72,15 +62,6 @@ RUN curl -sSL https://s3.amazonaws.com/downloads.cloud66.com/cx_installation/cx_
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
 	apt-get update && apt-get install -y git-lfs
 
-# Apache JMeter
-RUN wget \
-    https://tjpalanca.sgp1.digitaloceanspaces.com/bin/apache-jmeter-5.4.1.tgz \
-    -O jmeter.tgz && \
-    tar xzvf jmeter.tgz && \
-    rm jmeter.tgz && \
-    mv apache-jmeter-5.4.1 /usr/local/lib/apache-jmeter-5.4.1
-ENV PATH $PATH:/usr/local/lib/apache-jmeter-5.4.1/bin
-
 # RStudio Server
 RUN sudo apt-get remove -y rstudio-server && \
 	wget https://s3.amazonaws.com/rstudio-ide-build/server/bionic/amd64/rstudio-server-2021.09.1-372-amd64.deb \
@@ -89,9 +70,9 @@ RUN sudo apt-get remove -y rstudio-server && \
     rm -rf rstudio-server.deb
 
 # VS Code Server
-RUN curl -fOL https://github.com/cdr/code-server/releases/download/v3.12.0/code-server_3.12.0_amd64.deb && \
-	dpkg -i code-server_3.12.0_amd64.deb && \
-	rm code-server_3.12.0_amd64.deb
+RUN curl -fOL https://github.com/cdr/code-server/releases/download/v4.0.0/code-server_4.0.0_amd64.deb && \
+	dpkg -i code-server.deb && \
+	rm code-server.deb
 RUN pip install -U radian jupyter
 COPY services.d/vscode /etc/services.d/vscode/
 
