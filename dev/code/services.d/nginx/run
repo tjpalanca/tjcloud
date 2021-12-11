@@ -12,18 +12,19 @@ map \$http_upgrade \$connection_upgrade {
 # RStudio Server
 server {
     listen 8789;
+    listen [::]:8789;
     server_name $RSTUDIO_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://localhost:8787/;
-        proxy_redirect https://localhost:8787/ https://$RSTUDIO_DOMAIN/;
+        proxy_pass http://localhost:8787;
+        proxy_redirect http://localhost:8787/ \$scheme://\$host/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host $RSTUDIO_DOMAIN;
-        proxy_set_header X-Forwarded-Host $RSTUDIO_DOMAIN;
-        proxy_set_header X-Forwarded-Server $RSTUDIO_DOMAIN;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Forwarded-Host \$host;
+        proxy_set_header X-Forwarded-Server \$host;
     }
 }
 
@@ -32,66 +33,74 @@ server {
     listen 8789;
     listen [::]:8789;
     server_name $VSCODE_DOMAIN;
+    client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:8788/;
+        proxy_set_header Host \$host;
         proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection \$connection_upgrade;
-        proxy_set_header Host $VSCODE_DOMAIN;
+        proxy_set_header Connection upgrade;
         proxy_set_header Accept-Encoding gzip;
+        proxy_redirect http://localhost:8788/ \$scheme://\$host/;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Forwarded-Host \$host;
+        proxy_set_header X-Forwarded-Server \$host;
     }
 }
 
 # Port 8888
 server {
     listen 8789;
+    listen [::]:8789;
     server_name 8888.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:8888/;
-        proxy_redirect https://localhost:8888/ https://8888.$PROXY_DOMAIN/;
+        proxy_redirect https://localhost:8888/ \$scheme://\$host/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 8888.$PROXY_DOMAIN;
-        proxy_set_header X-Forwarded-Host 8888.$PROXY_DOMAIN;
-        proxy_set_header X-Forwarded-Server 8888.$PROXY_DOMAIN;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Forwarded-Host \$host;
+        proxy_set_header X-Forwarded-Server \$host;
     }
 }
 
 # Port 5500
 server {
     listen 8789;
+    listen [::]:8789;
     server_name 5500.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:5500/;
-        proxy_redirect https://localhost:5500/ https://5500.$PROXY_DOMAIN/;
+        proxy_redirect https://localhost:5500/ \$scheme://\$host/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 5500.$PROXY_DOMAIN;
-        proxy_set_header X-Forwarded-Host 5500.$PROXY_DOMAIN;
-        proxy_set_header X-Forwarded-Server 5500.$PROXY_DOMAIN;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Forwarded-Host \$host;
+        proxy_set_header X-Forwarded-Server \$host;
     }
 }
 
 # Port 3838
 server {
     listen 8789;
+    listen [::]:8789;
     server_name 3838.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:3838/;
-        proxy_redirect https://localhost:3838/ https://3838.$PROXY_DOMAIN/;
+        proxy_redirect https://localhost:3838/ \$scheme://\$host/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 3838.$PROXY_DOMAIN;
-        proxy_set_header X-Forwarded-Host 3838.$PROXY_DOMAIN;
-        proxy_set_header X-Forwarded-Server 3838.$PROXY_DOMAIN;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Forwarded-Host \$host;
+        proxy_set_header X-Forwarded-Server \$host;
     }
 }
 " > /etc/nginx/sites-enabled/default
