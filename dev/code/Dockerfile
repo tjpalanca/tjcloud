@@ -37,7 +37,7 @@ RUN /install/rstudio.sh
 # Code Server
 COPY install/code-server.sh /install 
 RUN /install/code-server.sh
-COPY services.d/vscode /etc/services.d/vscode/
+COPY services.d/code-server /etc/services.d/code-server/
 
 # Radian R Console
 COPY install/radian.sh /install 

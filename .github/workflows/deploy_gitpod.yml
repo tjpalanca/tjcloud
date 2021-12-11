@@ -6,6 +6,7 @@ on:
     - master
     paths:
     - 'dev/gitpod/**'
+    - 'dev/install/**'
     - '.github/workflows/deploy_gitpod.yml'
 
 jobs:

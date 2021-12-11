@@ -6,6 +6,9 @@ on:
     - master
     paths:
     - 'dev/code/**'
+    - 'dev/install/**'
+    - 'dev/services.d/**'
+    - 'dev/cont-init.d/**'
     - '.github/workflows/deploy_code.yml'
 
 jobs:
