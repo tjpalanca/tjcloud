@@ -71,8 +71,8 @@ RUN sudo apt-get remove -y rstudio-server && \
 
 # VS Code Server
 RUN curl -fOL https://github.com/cdr/code-server/releases/download/v4.0.0/code-server_4.0.0_amd64.deb && \
-	dpkg -i code-server.deb && \
-	rm code-server.deb
+	dpkg -i code-server_4.0.0_amd64.deb && \
+	rm code-server_4.0.0_amd64.deb
 RUN pip install -U radian jupyter
 COPY services.d/vscode /etc/services.d/vscode/
 
