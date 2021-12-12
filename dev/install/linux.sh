@@ -17,5 +17,6 @@ apt-get install -y \
 	procps \
 	software-properties-common \
 	sudo \
+	tmux \
 	wget \
 	zsh 
