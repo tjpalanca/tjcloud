@@ -42,8 +42,8 @@ server {
         proxy_set_header Accept-Encoding gzip;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
-        # Enable this is enabling openvscode-server
-        # proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
+        # Enable this if using openvscode-server service
+        # proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\"; 
     }
 }
 
