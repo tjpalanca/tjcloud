@@ -40,12 +40,12 @@ server {
     location / {
         proxy_pass http://localhost:8788;
         proxy_redirect http://localhost:8788/ \$scheme://\$host/;
-        proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
+        # Enable this is enabling openvscode-server
+        # proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
         proxy_set_header Host \$host;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection upgrade;
         proxy_set_header Accept-Encoding gzip;
-        proxy_set_header Host \$host;
         proxy_set_header X-Forwarded-Host \$host;
         proxy_set_header X-Forwarded-Server \$host;
         proxy_set_header X-Real-IP \$remote_addr;
