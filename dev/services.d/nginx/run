@@ -25,6 +25,12 @@ server {
         proxy_set_header Host $RSTUDIO_DOMAIN:443;
         proxy_set_header X-Forwarded-Host $RSTUDIO_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
+        sub_filter '</head>' '<style>$RSTUDIO_CSS</style></head>';
+        sub_filter_once on;
+    }
+    # Fonts serving
+    location /fonts/ {
+        alias /etc/rstudio/fonts/;
     }
 }
 
@@ -47,7 +53,7 @@ server {
         # Enable this if using openvscode-server service
         # proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
         proxy_set_header Accept-Encoding \"\";
-        sub_filter '</head>' '<style>@font-face { font-family: JuliaMono; src: url(\"fonts/JuliaMono-Regular.woff2\"); }</style></head>';
+        sub_filter '</head>' '<style>$VSCODE_CSS</style></head>';
         sub_filter_once on;
     }
     # Fonts serving
