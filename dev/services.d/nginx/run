@@ -45,6 +45,8 @@ server {
         proxy_set_header Host $VSCODE_DOMAIN:443;
         proxy_set_header X-Forwarded-Host $VSCODE_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
+        # Allows custom fonts 
+        proxy_hide_header content-security-policy;
         # Enable this if using openvscode-server service
         # proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
     }
