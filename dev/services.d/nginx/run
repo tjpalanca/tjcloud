@@ -41,15 +41,20 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Accept-Encoding gzip;
         proxy_set_header Host $VSCODE_DOMAIN:443;
         proxy_set_header X-Forwarded-Host $VSCODE_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
-        # Allows custom fonts 
-        proxy_hide_header content-security-policy;
         # Enable this if using openvscode-server service
         # proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
+        proxy_set_header Accept-Encoding \"\";
+        sub_filter '</head>' '<style>@font-face { font-family: JuliaMono; src: url(\"fonts/JuliaMono-Regular.woff2\"); }</style></head>';
+        sub_filter_once on;
     }
+    # Fonts serving
+    location /fonts/ {
+        alias /etc/rstudio/fonts/;
+    }
+
 }
 
 # Port 8888
