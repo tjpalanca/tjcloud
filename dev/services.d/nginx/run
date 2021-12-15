@@ -9,7 +9,7 @@ map \$http_upgrade \$connection_upgrade {
     '' close;
 }
 
-# RStudio Server
+# RStudio Server 
 server {
     listen 8789;
     listen [::]:8789;
@@ -25,6 +25,7 @@ server {
         proxy_set_header Host $RSTUDIO_DOMAIN:443;
         proxy_set_header X-Forwarded-Host $RSTUDIO_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header Accept-Encoding \"\";
         sub_filter '</head>' '<style>$RSTUDIO_CSS</style></head>';
         sub_filter_once on;
     }
