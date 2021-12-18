@@ -9,20 +9,20 @@ map \$http_upgrade \$connection_upgrade {
     '' close;
 }
 
-# RStudio Server 
+# RStudio Server
 server {
     listen 8789;
     listen [::]:8789;
     server_name $RSTUDIO_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:8787/;
-        proxy_redirect https://127.0.0.1:8787/ https://$RSTUDIO_DOMAIN/;
+        proxy_pass http://localhost:8787/;
+        proxy_redirect https://localhost:8787/ https://$RSTUDIO_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host $RSTUDIO_DOMAIN:443;
+        proxy_set_header Host $RSTUDIO_DOMAIN;
         proxy_set_header X-Forwarded-Host $RSTUDIO_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
         proxy_set_header Accept-Encoding \"\";
@@ -49,17 +49,18 @@ server {
     server_name $VSCODE_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:8788/;
-        proxy_redirect https://127.0.0.1:8788/ https://$VSCODE_DOMAIN/;
+        proxy_pass http://localhost:8788/;
+        proxy_redirect https://localhost:8788/ https://$VSCODE_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host $VSCODE_DOMAIN:443;
+        proxy_set_header Host $VSCODE_DOMAIN;
         proxy_set_header X-Forwarded-Host $VSCODE_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
         # Enable this if using openvscode-server service
         # proxy_set_header Cookie \"vscode-tkn=$CONNECTION_TOKEN\";
+        # This is to insert a font declaration for the desired font
         proxy_set_header Accept-Encoding \"\";
         sub_filter '</head>' '<style>@font-face { font-family: JuliaMono; src: url(\"fonts/JuliaMono.woff2\") }</style></head>';
         sub_filter_once on;
@@ -78,13 +79,13 @@ server {
     server_name 8888.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:8888/;
-        proxy_redirect https://127.0.0.1:8888/ https://8888.$PROXY_DOMAIN/;
+        proxy_pass http://localhost:8888/;
+        proxy_redirect https://localhost:8888/ https://8888.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 8888.$PROXY_DOMAIN:443;
+        proxy_set_header Host 8888.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Host 8888.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
     }
@@ -97,13 +98,13 @@ server {
     server_name 5500.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:5500/;
-        proxy_redirect https://127.0.0.1:5500/ https://5500.$PROXY_DOMAIN/;
+        proxy_pass http://localhost:5500/;
+        proxy_redirect https://localhost:5500/ https://5500.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 5500.$PROXY_DOMAIN:443;
+        proxy_set_header Host 5500.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Host 5500.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
     }
@@ -116,13 +117,13 @@ server {
     server_name 3838.$PROXY_DOMAIN;
     client_max_body_size 2G;
     location / {
-        proxy_pass http://127.0.0.1:3838/;
-        proxy_redirect https://127.0.0.1:3838/ https://3838.$PROXY_DOMAIN/;
+        proxy_pass http://localhost:3838/;
+        proxy_redirect https://localhost:3838/ https://3838.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 3838.$PROXY_DOMAIN:443;
+        proxy_set_header Host 3838.$PROXY_DOMAIN;
         proxy_set_header X-Forwarded-Host 3838.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
     }
