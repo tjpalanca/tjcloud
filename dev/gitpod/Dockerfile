@@ -38,6 +38,9 @@ RUN /install/kubectl.sh
 # Cloud66 Toolbelt
 COPY install/cx.sh /install 
 RUN /install/cx.sh
+# S3 command line utility
+COPY install/s3cmd.sh /install 
+RUN /install/s3cmd.sh
 
 # Radian R Console
 COPY install/radian.sh /install 

@@ -48,6 +48,9 @@ RUN /install/jupyter.sh
 # Pluto.jl
 COPY install/plutojl.sh /install 
 RUN su rstudio -s /install/plutojl.sh
+# S3 command line utility
+COPY install/s3cmd.sh /install 
+RUN /install/s3cmd.sh
 
 # User Configuration
 COPY cont-init.d/userconf /etc/cont-init.d/userconf
