@@ -29,6 +29,9 @@ RUN /install/gitpod.sh
 COPY install/oh-my-zsh.sh /install
 RUN su gitpod -s /install/oh-my-zsh.sh
 
+# Terminal Multiplexer 
+COPY install/tmux.sh /install 
+RUN su rstudio -s /install/tmux.sh
 # Docker
 COPY install/docker.sh /install 
 RUN /install/docker.sh

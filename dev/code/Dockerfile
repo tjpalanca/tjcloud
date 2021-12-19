@@ -31,6 +31,9 @@ RUN /install/kubectl.sh
 COPY install/cx.sh /install
 RUN /install/cx.sh
 
+# Terminal Multiplexer 
+COPY install/tmux.sh /install 
+RUN su rstudio -s /install/tmux.sh
 # Radian R Console
 COPY install/radian.sh /install
 RUN /install/radian.sh
