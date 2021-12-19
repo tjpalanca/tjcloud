@@ -26,7 +26,7 @@ COPY install/sudo.sh /install
 RUN /install/sudo.sh
 # Terminal Multiplexer (tmux)
 COPY install/tmux.sh /install 
-RUN su gitpod -s /install/tmux.sh
+RUN su rstudio -s /install/tmux.sh
 # Docker
 COPY install/docker.sh /install 
 RUN /install/docker.sh
