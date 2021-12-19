@@ -22,7 +22,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host $RSTUDIO_DOMAIN;
+        proxy_set_header Host $RSTUDIO_DOMAIN:443;
         proxy_set_header X-Forwarded-Host $RSTUDIO_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
         proxy_set_header Accept-Encoding \"\";
@@ -55,7 +55,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host $VSCODE_DOMAIN;
+        proxy_set_header Host $VSCODE_DOMAIN:443;
         proxy_set_header X-Forwarded-Host $VSCODE_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
         # Enable this if using openvscode-server service
@@ -85,7 +85,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 8888.$PROXY_DOMAIN;
+        proxy_set_header Host 8888.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Host 8888.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
     }
@@ -104,7 +104,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 5500.$PROXY_DOMAIN;
+        proxy_set_header Host 5500.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Host 5500.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
     }
@@ -123,7 +123,7 @@ server {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
         proxy_read_timeout 20d;
-        proxy_set_header Host 3838.$PROXY_DOMAIN;
+        proxy_set_header Host 3838.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Host 3838.$PROXY_DOMAIN:443;
         proxy_set_header X-Forwarded-Proto https;
     }
