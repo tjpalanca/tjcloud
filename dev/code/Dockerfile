@@ -44,8 +44,8 @@ RUN /install/radian.sh
 COPY install/jupyter.sh /install
 RUN /install/jupyter.sh
 # Pluto.jl
-COPY install/plutojl.sh /install
-RUN su rstudio -s /install/plutojl.sh
+COPY install/plutojl.sh /install 
+RUN /install/plutojl.sh
 # S3 command line utility
 COPY install/s3cmd.sh /install
 RUN /install/s3cmd.sh
