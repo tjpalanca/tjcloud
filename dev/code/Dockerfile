@@ -21,34 +21,27 @@ RUN /install/r-deps.sh
 COPY install/julia-deps.sh /install
 RUN /install/julia-deps.sh
 
-# Docker
-COPY install/docker.sh /install
-RUN /install/docker.sh
-# Kubernetes
-COPY install/kubectl.sh /install
-RUN /install/kubectl.sh
-# Cloud66 Toolbelt
-COPY install/cx.sh /install
-RUN /install/cx.sh
-
 # Sudo Permissions 
 COPY install/sudo.sh /install 
 RUN /install/sudo.sh
-# Terminal Multiplexer 
+# Terminal Multiplexer (tmux)
 COPY install/tmux.sh /install 
-RUN su rstudio -s /install/tmux.sh
-# Radian R Console
-COPY install/radian.sh /install
-RUN /install/radian.sh
-# Jupyter
-COPY install/jupyter.sh /install
-RUN /install/jupyter.sh
-# Pluto.jl
-COPY install/plutojl.sh /install 
-RUN /install/plutojl.sh
+RUN su gitpod -s /install/tmux.sh
+# Docker
+COPY install/docker.sh /install 
+RUN /install/docker.sh
+# Kubernetes
+COPY install/kubectl.sh /install 
+RUN /install/kubectl.sh
+# Cloud66 Toolbelt
+COPY install/cx.sh /install 
+RUN /install/cx.sh
 # S3 command line utility
-COPY install/s3cmd.sh /install
+COPY install/s3cmd.sh /install 
 RUN /install/s3cmd.sh
+# Radian R Console
+COPY install/radian.sh /install 
+RUN /install/radian.sh
 
 # RStudio Server
 COPY install/rstudio.sh /install

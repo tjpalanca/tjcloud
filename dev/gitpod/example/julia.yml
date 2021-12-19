@@ -1,0 +1,9 @@
+image: ghcr.io/tjpalanca/tjcloud/gitpod:latest
+
+tasks:
+  - name: Setup Julia Environment 
+    init: julia --project --color=yes -e "import Pkg; Pkg.instantiate();"
+
+vscode:
+  extensions:
+    - julialang.language-julia

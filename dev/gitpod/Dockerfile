@@ -44,16 +44,12 @@ RUN /install/cx.sh
 # S3 command line utility
 COPY install/s3cmd.sh /install 
 RUN /install/s3cmd.sh
-
 # Radian R Console
 COPY install/radian.sh /install 
 RUN /install/radian.sh
-# Jupyter
-COPY install/jupyter.sh /install 
-RUN /install/jupyter.sh
-# Pluto.jl
-COPY install/plutojl.sh /install 
-RUN /install/plutojl.sh
+
+# Environment 
+ENV JULIA_DEPOT_PATH="/workspace/.julia:"
 
 # Copy examples 
 COPY gitpod/example /example
