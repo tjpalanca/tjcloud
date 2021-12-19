@@ -31,6 +31,9 @@ RUN /install/kubectl.sh
 COPY install/cx.sh /install
 RUN /install/cx.sh
 
+# Sudo Permissions 
+COPY install/sudo.sh /install 
+RUN /install/sudo.sh
 # Terminal Multiplexer 
 COPY install/tmux.sh /install 
 RUN su rstudio -s /install/tmux.sh

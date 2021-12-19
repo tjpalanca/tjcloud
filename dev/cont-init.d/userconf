@@ -120,5 +120,3 @@ fi
 
 ## only file-owner (root) should read container_environment files:
 chmod 600 /var/run/s6/container_environment/*
-
-
