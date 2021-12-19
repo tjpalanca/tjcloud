@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-VERSION="3.12.0"
+VERSION="4.0.0"
 
 # wget "https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_amd64.deb" \
 # 	-O code-server.deb
