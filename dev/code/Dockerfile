@@ -54,9 +54,9 @@ RUN /install/s3cmd.sh
 COPY install/rstudio.sh /install
 RUN /install/rstudio.sh
 # Code Server
-COPY install/code-server.sh /install
-RUN /install/code-server.sh
-COPY services.d/code-server /etc/services.d/code-server
+COPY install/openvscode-server.sh /install
+RUN /install/openvscode-server.sh
+COPY services.d/openvscode-server /etc/services.d/openvscode-server
 
 # User Configuration
 COPY cont-init.d/userconf /etc/cont-init.d/userconf

@@ -13,4 +13,4 @@ echo "$DOCKER_USER ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers.d/nopasswd > /d
 exec s6-setuidgid 1000:1000 \
     /usr/local/share/openvscode-server/server.sh \
     --port 8788 \
-    --connection-token $CONNECTION_TOKEN
+    --connection-token 0000

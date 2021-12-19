@@ -29,7 +29,7 @@ RUN /install/gitpod.sh
 COPY install/oh-my-zsh.sh /install
 RUN su gitpod -s /install/oh-my-zsh.sh
 
-# Terminal Multiplexer 
+# Terminal Multiplexer (tmux)
 COPY install/tmux.sh /install 
 RUN su gitpod -s /install/tmux.sh
 # Docker
@@ -53,7 +53,7 @@ COPY install/jupyter.sh /install
 RUN /install/jupyter.sh
 # Pluto.jl
 COPY install/plutojl.sh /install 
-RUN su gitpod -s /install/plutojl.sh
+RUN /install/plutojl.sh
 
 # Copy examples 
 COPY gitpod/example /example
