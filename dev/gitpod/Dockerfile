@@ -2,6 +2,7 @@ FROM rocker/geospatial:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
 # Python and Julia
+ENV JULIA_VERSION=1.7.1
 RUN /rocker_scripts/install_python.sh && \
 	/rocker_scripts/install_pyenv.sh && \
 	/rocker_scripts/install_julia.sh
