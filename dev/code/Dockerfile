@@ -51,6 +51,9 @@ RUN /install/rstudio.sh
 COPY install/openvscode-server.sh /install
 RUN /install/openvscode-server.sh
 COPY services.d/openvscode-server /etc/services.d/openvscode-server
+COPY code/assets/code-192.png /usr/local/share/openvscode-server/resources/server/code-192.png
+COPY code/assets/code-512.png /usr/local/share/openvscode-server/resources/server/code-512.png
+COPY code/assets/favicon.ico /usr/local/share/openvscode-server/resources/server/favicon.ico
 
 # User Configuration
 COPY cont-init.d/userconf /etc/cont-init.d/userconf
