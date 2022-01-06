@@ -14,4 +14,4 @@ exec s6-setuidgid 1000:1000 \
     /usr/bin/code-server \
     --auth none \
     --disable-telemetry \
-    --bind-addr 0.0.0.0:8788 
+    --bind-addr 0.0.0.0:8788
