@@ -51,10 +51,9 @@ RUN /install/rstudio.sh
 COPY install/code-server.sh /install
 RUN /install/code-server.sh
 COPY services.d/code-server /etc/services.d/code-server
-COPY code/assets/code-192.png /usr/lib/code-server/src/browser/media/pwa-icon-192.png
-COPY code/assets/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
-COPY code/assets/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon.png
-COPY code/assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
+COPY code/assets/code-192.png /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/code-192.png
+COPY code/assets/code-512.png /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/code-512.png
+COPY code/assets/favicon.ico /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/favicon.ico
 # COPY install/openvscode-server.sh /install
 # RUN /install/openvscode-server.sh
 # COPY services.d/openvscode-server /etc/services.d/openvscode-server
