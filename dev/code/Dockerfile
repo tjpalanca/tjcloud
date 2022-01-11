@@ -62,7 +62,7 @@ COPY code/assets/favicon.ico /usr/lib/code-server/vendor/modules/code-oss-dev/re
 # COPY code/assets/favicon.ico /usr/local/share/openvscode-server/resources/server/favicon.ico
 
 # User Configuration
-COPY cont-init.d/userconf /etc/cont-init.d/userconf
+COPY cont-init.d/02_userconf /etc/cont-init.d/02_userconf
 
 # Cleanup Zombie Processes
 COPY services.d/cleanup /etc/services.d/userconf
