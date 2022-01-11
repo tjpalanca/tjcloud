@@ -64,9 +64,6 @@ COPY code/assets/favicon.ico /usr/lib/code-server/vendor/modules/code-oss-dev/re
 # User Configuration
 COPY cont-init.d/02_userconf /etc/cont-init.d/02_userconf
 
-# Cleanup Zombie Processes
-COPY services.d/cleanup /etc/services.d/userconf
-
 # Xvfb Display
 ENV DISPLAY :1
 COPY services.d/display /etc/services.d/display
