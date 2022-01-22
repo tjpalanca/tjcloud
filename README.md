@@ -7,9 +7,6 @@
 [![ShinyProxy Deployment](https://github.com/tjpalanca/tjcloud/actions/workflows/deploy_shinyproxy.yml/badge.svg)](https://github.com/tjpalanca/tjcloud/actions/workflows/deploy_shinyproxy.yml)
 <!-- badges: end -->
 
-TJCloud is a cloud environment that allows me to use Chromebooks, iPads, and 
-lower powered device as a primary computing solution for data science and 
-software development. s
+TJCloud is a cloud environment that allows me to use Chromebooks, iPads, and lower powered device as a primary computing solution for data science and software development. 
 
-The stack is deployed on a simple Kubernetes cluster, with each individual
-part served as pods and accessible on a URL through Keycloak.
+The stack is deployed on a simple Kubernetes cluster, with each individual part served as pods and accessible on a URL and protected by Keycloak.
