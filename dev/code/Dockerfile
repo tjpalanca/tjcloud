@@ -45,8 +45,8 @@ COPY install/radian.sh /install
 RUN /install/radian.sh
 
 # RStudio Server
-COPY install/rstudio.sh /install
-RUN /install/rstudio.sh
+# COPY install/rstudio.sh /install
+# RUN /install/rstudio.sh
 # VS Code 
 COPY install/code-server.sh /install
 RUN /install/code-server.sh
