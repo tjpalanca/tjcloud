@@ -17,7 +17,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:8787;
-        proxy_redirect https://localhost:8787/ https://$RSTUDIO_DOMAIN/;
+        # proxy_redirect https://localhost:8787/ https://$RSTUDIO_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -50,7 +50,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:8788;
-        proxy_redirect https://localhost:8788/ https://$VSCODE_DOMAIN/;
+        # proxy_redirect https://localhost:8788/ https://$VSCODE_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -80,7 +80,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:8888;
-        proxy_redirect https://localhost:8888/ https://8888.$PROXY_DOMAIN/;
+        # proxy_redirect https://localhost:8888/ https://8888.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -99,7 +99,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:5500;
-        proxy_redirect https://localhost:5500/ https://5500.$PROXY_DOMAIN/;
+        # proxy_redirect https://localhost:5500/ https://5500.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
@@ -118,7 +118,7 @@ server {
     client_max_body_size 2G;
     location / {
         proxy_pass http://localhost:3838;
-        proxy_redirect https://localhost:3838/ https://3838.$PROXY_DOMAIN/;
+        # proxy_redirect https://localhost:3838/ https://3838.$PROXY_DOMAIN/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection \$connection_upgrade;
