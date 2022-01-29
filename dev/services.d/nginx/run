@@ -27,15 +27,19 @@ server {
         proxy_set_header X-Forwarded-Proto https;
         proxy_set_header Accept-Encoding \"\";
         sub_filter '</head>' '<style>
-        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(4) > div {
-          display: none !important;
-        }
         #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(4),
-        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(5) {
-          z-index: -10 !important;
+        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(2) {
+            inset: 0px 0px 0px !important;
+        }
+        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(5),
+        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(4) {
+            z-index: -10 !important;
+        }
+        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(4) > div {
+            display: none !important;
         }
         #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(6) {
-          bottom: 27px;
+            bottom: 27px;
         }
         </style></head>';
         sub_filter_once on;
