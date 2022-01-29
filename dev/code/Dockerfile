@@ -68,5 +68,8 @@ COPY cont-init.d/02_userconf /etc/cont-init.d/02_userconf
 ENV DISPLAY :1
 COPY services.d/display /etc/services.d/display
 
+# Virtual Host Routing
+COPY services.d/nginx /etc/services.d/nginx
+
 # Expose Ports
-EXPOSE 8888 5500 3838 8787 8788
+EXPOSE 8888 5500 3838 8787 8788 8789
