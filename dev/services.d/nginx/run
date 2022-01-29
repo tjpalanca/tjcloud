@@ -62,7 +62,7 @@ server {
         # proxy_set_header Cookie \"vscode-tkn=0000\";
         # This is to insert a font declaration for the desired font
         proxy_set_header Accept-Encoding \"\";
-        sub_filter '</head>' '<style>@font-face { font-family: JuliaMono; src: url(\"fonts/JuliaMono.woff2\") }</style></head>';
+        sub_filter '</head>' '<style>@font-face { font-family: FiraCode; src: url(\"fonts/FiraCode-VF.woff2\") }</style></head>';
         sub_filter_once on;
     }
     # Fonts serving
