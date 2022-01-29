@@ -27,19 +27,15 @@ server {
         proxy_set_header X-Forwarded-Proto https;
         proxy_set_header Accept-Encoding \"\";
         sub_filter '</head>' '<style>
-        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(2),
-        #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(4) {
-            inset: 0px 0px 0px !important;
-        }
         #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(4) > div {
-            display: none !important;
+          display: none !important;
         }
         #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(4),
         #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(5) {
-            z-index: -10 !important;
+          z-index: -10 !important;
         }
         #rstudio_container > div:nth-child(2) > div > div:nth-child(4) > div > div:nth-child(4) > div > div > div:nth-child(6) {
-            bottom: 27px;
+          bottom: 27px;
         }
         </style></head>';
         sub_filter_once on;
@@ -74,6 +70,63 @@ server {
         alias /etc/rstudio/fonts/;
     }
 
+}
+
+# Port 8888
+server {
+    listen 8789;
+    listen [::]:8789;
+    server_name 8888.$PROXY_DOMAIN;
+    client_max_body_size 2G;
+    location / {
+        proxy_pass http://localhost:8888;
+        proxy_redirect http://localhost:8888/ https://8888.$PROXY_DOMAIN/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \$connection_upgrade;
+        proxy_read_timeout 20d;
+        proxy_set_header Host 8888.$PROXY_DOMAIN:443;
+        proxy_set_header X-Forwarded-Host 8888.$PROXY_DOMAIN:443;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+}
+
+# Port 5500
+server {
+    listen 8789;
+    listen [::]:8789;
+    server_name 5500.$PROXY_DOMAIN;
+    client_max_body_size 2G;
+    location / {
+        proxy_pass http://localhost:5500;
+        proxy_redirect http://localhost:5500/ https://5500.$PROXY_DOMAIN/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \$connection_upgrade;
+        proxy_read_timeout 20d;
+        proxy_set_header Host 5500.$PROXY_DOMAIN:443;
+        proxy_set_header X-Forwarded-Host 5500.$PROXY_DOMAIN:443;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+}
+
+# Port 3838
+server {
+    listen 8789;
+    listen [::]:8789;
+    server_name 3838.$PROXY_DOMAIN;
+    client_max_body_size 2G;
+    location / {
+        proxy_pass http://localhost:3838;
+        # proxy_redirect http://localhost:3838/ https://3838.$PROXY_DOMAIN/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \$connection_upgrade;
+        proxy_read_timeout 20d;
+        proxy_set_header Host 3838.$PROXY_DOMAIN:443;
+        proxy_set_header X-Forwarded-Host 3838.$PROXY_DOMAIN:443;
+        proxy_set_header X-Forwarded-Proto https;
+    }
 }
 " > /etc/nginx/sites-enabled/default
 echo "
