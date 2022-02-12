@@ -10,16 +10,16 @@ RUN /rocker_scripts/install_python.sh && \
 # Install scripts
 RUN mkdir -p /install
 
-# NodeJS 
-COPY install/nodejs.sh /install 
+# NodeJS
+COPY install/nodejs.sh /install
 RUN /install/nodejs.sh
 
 # Core Dependencies
-COPY install/linux.sh /install 
+COPY install/linux.sh /install
 RUN /install/linux.sh
-COPY install/r-deps.sh /install 
+COPY install/r-deps.sh /install
 RUN /install/r-deps.sh
-COPY install/julia-deps.sh /install 
+COPY install/julia-deps.sh /install
 RUN /install/julia-deps.sh
 
 # GitPod User
@@ -31,29 +31,32 @@ COPY install/oh-my-zsh.sh /install
 RUN su gitpod -s /install/oh-my-zsh.sh
 
 # Terminal Multiplexer (tmux)
-COPY install/tmux.sh /install 
+COPY install/tmux.sh /install
 RUN su gitpod -s /install/tmux.sh
 # Docker
-COPY install/docker.sh /install 
+COPY install/docker.sh /install
 RUN /install/docker.sh
 # Kubernetes
-COPY install/kubectl.sh /install 
+COPY install/kubectl.sh /install
 RUN /install/kubectl.sh
 # Cloud66 Toolbelt
-COPY install/cx.sh /install 
+COPY install/cx.sh /install
 RUN /install/cx.sh
 # S3 command line utility
-COPY install/s3cmd.sh /install 
+COPY install/s3cmd.sh /install
 RUN /install/s3cmd.sh
 # Radian R Console
-COPY install/radian.sh /install 
+COPY install/radian.sh /install
 RUN /install/radian.sh
+# Terraform
+COPY install/terraform.sh /install
+RUN /install/terraform.sh
 
-# Environment 
+# Environment
 ENV JULIA_DEPOT_PATH="/workspace/.julia:"
 
-# Copy examples 
+# Copy examples
 COPY gitpod/example /example
 
-# Change to zsh login shell 
+# Change to zsh login shell
 ENV SHELL /usr/bin/zsh
