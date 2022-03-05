@@ -1,4 +1,4 @@
-VERSION = v1.2
+VERSION = v1.3
 REPO    = ghcr.io/tjpalanca/tjcloud/code
 
 docker-pull-latest:
@@ -21,6 +21,10 @@ docker-bash:
 docker-push-latest:
 	docker tag $(REPO):$(VERSION) $(REPO):latest && \
 	docker push $(REPO):latest
+
+docker-publish:
+	make docker-push && \
+	make docker-push-latest
 
 setup:
 	kubectl apply -f permissions.yml
