@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4
+FROM ghcr.io/rocker-org/geospatial:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
 # Python and Julia
