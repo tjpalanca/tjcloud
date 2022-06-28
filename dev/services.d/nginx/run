@@ -67,7 +67,7 @@ server {
         # This is to insert a font declaration for the desired font
         proxy_set_header Accept-Encoding \"\";
         sub_filter '</head>' '
-        <link rel=\"stylesheet\" href=\"/fonts/IosevkaWeb/iosevka-term-ss15.css\">
+        <link rel=\"stylesheet\" href=\"/fonts/JuliaMonoWeb/juliamono.css\">
         </head>';
         sub_filter_once on;
     }
