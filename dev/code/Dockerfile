@@ -4,7 +4,6 @@ LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 # Python and Julia
 ENV JULIA_VERSION=1.7.1
 RUN /rocker_scripts/install_python.sh && \
-	/rocker_scripts/install_pyenv.sh && \
 	/rocker_scripts/install_julia.sh
 
 # Install scripts
@@ -21,6 +20,8 @@ COPY install/r-deps.sh /install
 RUN /install/r-deps.sh
 COPY install/julia-deps.sh /install
 RUN /install/julia-deps.sh
+COPY install/python-deps.sh /install
+RUN /install/python-deps.sh
 
 # Sudo Permissions
 COPY install/sudo.sh /install
