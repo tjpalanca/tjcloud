@@ -47,6 +47,8 @@ RUN /install/radian.sh
 # Terraform
 COPY install/terraform.sh /install
 RUN /install/terraform.sh
+# Quarto 
+RUN /rocker_scripts/install_quarto.sh
 
 # RStudio Server
 # COPY install/rstudio.sh /install
