@@ -51,8 +51,8 @@ RUN /install/terraform.sh
 RUN /rocker_scripts/install_quarto.sh
 
 # RStudio Server
-# COPY install/rstudio.sh /install
-# RUN /install/rstudio.sh
+COPY install/rstudio-server.sh /install
+RUN /install/rstudio-server.sh
 # VS Code via code-server
 COPY install/code-server.sh /install
 RUN /install/code-server.sh
@@ -60,13 +60,6 @@ COPY services.d/code-server /etc/services.d/code-server
 COPY code/assets/code-192.png /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/code-192.png
 COPY code/assets/code-512.png /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/code-512.png
 COPY code/assets/favicon.ico /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/favicon.ico
-# VS Code via openvscode-server
-# COPY install/openvscode-server.sh /install
-# RUN /install/openvscode-server.sh
-# COPY services.d/openvscode-server /etc/services.d/openvscode-server
-# COPY code/assets/code-192.png /usr/local/share/openvscode-server/resources/server/code-192.png
-# COPY code/assets/code-512.png /usr/local/share/openvscode-server/resources/server/code-512.png
-# COPY code/assets/favicon.ico /usr/local/share/openvscode-server/resources/server/favicon.ico
 # Cron Service
 COPY install/cron.sh /install
 RUN /install/cron.sh
