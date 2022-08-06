@@ -57,9 +57,10 @@ RUN /install/rstudio-server.sh
 COPY install/code-server.sh /install
 RUN /install/code-server.sh
 COPY services.d/code-server /etc/services.d/code-server
-COPY code/assets/code-192.png /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/code-192.png
-COPY code/assets/code-512.png /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/code-512.png
-COPY code/assets/favicon.ico /usr/lib/code-server/vendor/modules/code-oss-dev/resources/server/favicon.ico
+COPY code/assets/code-192.png /usr/lib/code-server/src/browser/media/pwa-icon-192.png
+COPY code/assets/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
+COPY code/assets/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
+COPY code/assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
 # Cron Service
 COPY install/cron.sh /install
 RUN /install/cron.sh
