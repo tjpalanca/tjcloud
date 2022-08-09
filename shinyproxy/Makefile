@@ -1,7 +1,7 @@
 # Application Information
 APP_REPO=ghcr.io/tjpalanca/tjcloud
 APP_NAME=shinyproxy
-APP_VERS=1.0.0
+APP_VERS=1.1.0
 APP_PORT=3838
 
 # Calculated
