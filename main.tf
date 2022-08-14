@@ -23,3 +23,13 @@ provider "digitalocean" {
 module "cluster" {
   source = "./modules/cluster"
 }
+
+resource "digitalocean_project" "tjcloud" {
+  name        = "TJCloud"
+  description = "TJ Palanca's Personal Cloud"
+  purpose     = "Machine learning / AI / Data processing"
+  environment = "Production"
+  resources = [
+    module.cluster.cluster_urn
+  ]
+}
