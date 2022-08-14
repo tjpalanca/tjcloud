@@ -1,7 +1,3 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-.DS_Store
-.vscode
-_sandbox.R
+.Rproj.user/
+/.vscode
+/.terraform
