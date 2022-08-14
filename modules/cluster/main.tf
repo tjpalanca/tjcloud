@@ -16,7 +16,7 @@ resource "digitalocean_kubernetes_cluster" "tjcloud" {
 
   node_pool {
     name       = "worker-pool"
-    size       = "c-2"
+    size       = "s-4vcpu-8gb"
     node_count = 1
   }
 }
