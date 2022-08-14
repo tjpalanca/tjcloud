@@ -44,11 +44,6 @@ RUN /install/s3cmd.sh
 # Radian R Console
 COPY install/radian.sh /install
 RUN /install/radian.sh
-# Terraform
-COPY install/terraform.sh /install
-RUN /install/terraform.sh
-# Quarto 
-RUN /rocker_scripts/install_quarto.sh
 
 # RStudio Server
 COPY install/rstudio-server.sh /install
