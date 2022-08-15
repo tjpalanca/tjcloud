@@ -1,5 +1,18 @@
-locals {
-  namespace = "database"
+terraform {
+
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.12.1"
+    }
+  }
+
+}
+
+resource "kubernetes_namespace_v1" "database" {
+  metadata {
+    name = "database"
+  }
 }
 
 module "main_postgres_database" {
@@ -13,6 +26,6 @@ module "main_postgres_database" {
   }
   config = {
     name      = "main"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.database.metadata.0.name
   }
 }
