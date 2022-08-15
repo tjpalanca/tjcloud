@@ -10,7 +10,7 @@ terraform {
 }
 
 resource "digitalocean_kubernetes_cluster" "tjcloud" {
-  name    = "tjcloud"
+  name    = var.cluster_name
   region  = "sgp1"
   version = "1.23.9-do.0"
 
