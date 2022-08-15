@@ -9,10 +9,14 @@ terraform {
 
 }
 
+data "digitalocean_kubernetes_versions" "example" {
+  version_prefix = "1.23."
+}
+
 resource "digitalocean_kubernetes_cluster" "tjcloud" {
   name    = var.cluster_name
   region  = "sgp1"
-  version = "1.23.9-do.0"
+  version = data.digitalocean_kubernetes_versions.example.latest_version
 
   node_pool {
     name       = "worker-pool"
