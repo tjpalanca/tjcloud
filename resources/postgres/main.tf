@@ -24,6 +24,10 @@ resource "kubernetes_service_v1" "postgres_service" {
     selector = {
       app = local.name
     }
+    port {
+      port        = 5432
+      target_port = 5432
+    }
   }
 
 }
@@ -70,7 +74,7 @@ resource "kubernetes_stateful_set_v1" "postgres_database" {
           }
           volume_mount {
             name       = local.name
-            mount_path = "/var/lib/postgresql/data"
+            mount_path = "/var/lib/postgresql"
           }
         }
       }
