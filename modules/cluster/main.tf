@@ -44,12 +44,11 @@ data "cloudflare_zone" "tjp_app" {
   name = "tjp.app"
 }
 
-resource "cloudflare_record" "foobar" {
+resource "cloudflare_record" "nodes" {
   for_each = data.digitalocean_droplet.nodes
   zone_id  = data.cloudflare_zone.tjp_app.zone_id
   name     = "@"
   value    = each.value.ipv4_address
   type     = "A"
-  ttl      = 3600
   proxied  = true
 }
