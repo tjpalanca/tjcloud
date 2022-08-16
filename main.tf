@@ -35,10 +35,6 @@ resource "digitalocean_project" "tjcloud" {
   ]
 }
 
-module "system" {
-  source = "./modules/system"
-}
-
 module "database" {
   source                 = "./modules/database"
   main_postgres_password = var.main_postgres_password
