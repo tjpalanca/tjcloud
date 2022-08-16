@@ -51,4 +51,5 @@ resource "cloudflare_record" "foobar" {
   value    = each.value.ipv4_address
   type     = "A"
   ttl      = 3600
+  proxied  = true
 }
