@@ -495,7 +495,7 @@ resource "kubernetes_job_v1" "ingress_nginx_admission_create" {
             "create",
             "--host=ingress-nginx-controller-admission,ingress-nginx-controller-admission.$(POD_NAMESPACE).svc",
             "--namespace=$(POD_NAMESPACE)",
-            "--secret-name=${local.secret_name}"
+            "--secret-name=ingress-nginx-admission"
           ]
           env {
             name = "POD_NAMESPACE"
