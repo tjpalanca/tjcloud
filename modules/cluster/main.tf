@@ -58,7 +58,7 @@ resource "cloudflare_record" "nodes" {
 }
 
 resource "digitalocean_firewall" "enable_web_access" {
-  name = "k8s-${data.digitalocean_kubernetes_cluster.cluster.id}-web_access"
+  name = "k8s-${data.digitalocean_kubernetes_cluster.cluster.id}-web-access"
   tags = ["k8s:${data.digitalocean_kubernetes_cluster.cluster.id}"]
   inbound_rule {
     protocol         = "tcp"
