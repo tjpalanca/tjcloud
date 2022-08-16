@@ -1,17 +1,14 @@
 terraform {
 
   required_providers {
-
     digitalocean = {
       source  = "digitalocean/digitalocean"
       version = "~> 2.0"
     }
-
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "2.12.1"
     }
-
   }
 
   cloud {
@@ -21,10 +18,6 @@ terraform {
     }
   }
 
-}
-
-provider "digitalocean" {
-  token = var.do_token
 }
 
 module "cluster" {
@@ -40,18 +33,6 @@ resource "digitalocean_project" "tjcloud" {
   resources = [
     module.cluster.cluster_urn
   ]
-}
-
-data "digitalocean_kubernetes_cluster" "tjcloud" {
-  name = var.cluster_name
-}
-
-provider "kubernetes" {
-  host  = data.digitalocean_kubernetes_cluster.tjcloud.endpoint
-  token = data.digitalocean_kubernetes_cluster.tjcloud.kube_config[0].token
-  cluster_ca_certificate = base64decode(
-    data.digitalocean_kubernetes_cluster.tjcloud.kube_config[0].cluster_ca_certificate
-  )
 }
 
 module "system" {

@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 3.0"
+    }
+  }
+}
+
 locals {
   labels = {
     "app.kubernetes.io/instance" = "ingress-nginx"
@@ -306,7 +315,7 @@ resource "kubernetes_service_v1" "ingress_nginx_controller" {
       target_port = "https"
     }
     selector                = local.controller_labels
-    type                    = "LoadBalancer"
+    type                    = "NodePort"
     external_traffic_policy = "Local"
   }
 }
