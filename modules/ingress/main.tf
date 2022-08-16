@@ -283,34 +283,6 @@ resource "kubernetes_config_map_v1" "ingress_nginx_controller" {
   }
 }
 
-resource "kubernetes_service_v1" "ingress_nginx_controller" {
-  metadata {
-    name      = "ingress-nginx-controller"
-    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
-    labels = merge(local.labels, {
-      "app.kubernetes.io/component" = "controller"
-    })
-  }
-
-  spec {
-    port {
-      name      = "http"
-      protocol  = "TCP"
-      port      = 80
-      node_port = 80
-    }
-    port {
-      name      = "https"
-      protocol  = "TCP"
-      port      = 443
-      node_port = 443
-    }
-    selector                = local.controller_labels
-    type                    = "NodePort"
-    external_traffic_policy = "Local"
-  }
-}
-
 resource "kubernetes_service_v1" "ingress_nginx_controller_admission" {
   metadata {
     name      = "ingress-nginx-controller-admission"
@@ -331,7 +303,7 @@ resource "kubernetes_service_v1" "ingress_nginx_controller_admission" {
   }
 }
 
-resource "kubernetes_deployment_v1" "ingress_nginx_controller" {
+resource "kubernetes_daemon_set_v1" "ingress_nginx_controller" {
   metadata {
     name      = "ingress-nginx-controller"
     namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
@@ -374,11 +346,13 @@ resource "kubernetes_deployment_v1" "ingress_nginx_controller" {
           port {
             name           = "http"
             container_port = 80
+            host_port      = 80
             protocol       = "TCP"
           }
           port {
             name           = "https"
             container_port = 443
+            host_port      = 443
             protocol       = "TCP"
           }
           port {
