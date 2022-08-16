@@ -3,6 +3,8 @@ output "cluster" {
 }
 
 output "node_ips" {
-  for_each = data.digitalocean_droplet.nodes
-  value    = each.ipv4_address
+  value = [
+    for name, props in data.digitalocean_droplet.nodes :
+    props.ipv4_address
+  ]
 }
