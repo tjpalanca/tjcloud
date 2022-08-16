@@ -334,7 +334,6 @@ resource "kubernetes_daemon_set_v1" "ingress_nginx_controller" {
           image = "registry.k8s.io/ingress-nginx/controller:v1.3.0@sha256:d1707ca76d3b044ab8a28277a2466a02100ee9f58a86af1535a3edf9323ea1b5"
           args = [
             "/nginx-ingress-controller",
-            "--publish-service=$(POD_NAMESPACE)/ingress-nginx-controller",
             "--election-id=ingress-controller-leader",
             "--controller-class=k8s.io/ingress-nginx",
             "--ingress-class=nginx",
