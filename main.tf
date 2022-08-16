@@ -59,6 +59,10 @@ module "system" {
 }
 
 module "database" {
-  source = "./modules/database"
+  source                 = "./modules/database"
   main_postgres_password = var.main_postgres_password
+}
+
+module "ingress" {
+  source = "./modules/ingress"
 }
