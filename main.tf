@@ -31,7 +31,7 @@ resource "digitalocean_project" "tjcloud" {
   purpose     = "Machine learning / AI / Data processing"
   environment = "Production"
   resources = [
-    module.cluster.cluster_urn
+    module.cluster.cluster.urn
   ]
 }
 

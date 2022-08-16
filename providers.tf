@@ -3,9 +3,9 @@ provider "digitalocean" {
 }
 
 provider "kubernetes" {
-  host  = data.digitalocean_kubernetes_cluster.tjcloud.endpoint
-  token = data.digitalocean_kubernetes_cluster.tjcloud.kube_config[0].token
+  host  = module.cluster.cluster.endpoint
+  token = module.cluster.cluster.kube_config[0].token
   cluster_ca_certificate = base64decode(
-    data.digitalocean_kubernetes_cluster.tjcloud.kube_config[0].cluster_ca_certificate
+    module.cluster.cluster.kube_config[0].cluster_ca_certificate
   )
 }
