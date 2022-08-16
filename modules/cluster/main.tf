@@ -9,14 +9,14 @@ terraform {
 
 }
 
-data "digitalocean_kubernetes_versions" "example" {
+data "digitalocean_kubernetes_versions" "versions" {
   version_prefix = "1.23."
 }
 
 resource "digitalocean_kubernetes_cluster" "cluster" {
   name    = var.cluster_name
   region  = "sgp1"
-  version = data.digitalocean_kubernetes_versions.example.latest_version
+  version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
     name       = "worker-pool"
     size       = "s-4vcpu-8gb"
