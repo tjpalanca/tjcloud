@@ -24,7 +24,6 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   }
 }
 
-data "digitalocean_droplet" "cluster_nodes" {
-  for_each = digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes
-  name     = each.value.name
+data "digitalocean_kubernetes_cluster" "cluster" {
+  name = var.cluster_name
 }
