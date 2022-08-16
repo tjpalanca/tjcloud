@@ -1,0 +1,26 @@
+{
+    "id": "39EB4247",
+    "path": "~/personal/tjcloud/ingress/services.yml",
+    "project_path": "services.yml",
+    "type": "yaml",
+    "hash": "3632342045",
+    "contents": "",
+    "dirty": false,
+    "created": 1625459436406.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "4,29",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1625459453,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1625459453061,
+    "read_only": false,
+    "read_only_alternatives": []
+}
