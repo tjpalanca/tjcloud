@@ -10,7 +10,6 @@ locals {
     "app.kubernetes.io/instance"  = "ingress-nginx"
     "app.kubernetes.io/name"      = "ingress-nginx"
   }
-  secret_name = "ingress-nginx-admission"
 }
 
 resource "kubernetes_namespace_v1" "ingress_nginx" {
@@ -355,7 +354,7 @@ resource "kubernetes_deployment_v1" "ingress_nginx_controller" {
         volume {
           name = "webhook-cert"
           secret {
-            secret_name = local.secret_name
+            secret_name = "ingress-nginx-admission"
           }
         }
         container {
@@ -550,7 +549,7 @@ resource "kubernetes_job_v1" "ingress_nginx_admission_patch" {
             "--webhook-name=ingress-nginx-admission",
             "--namespace=$(POD_NAMESPACE)",
             "--patch-mutating=false",
-            "--secret-name=${local.secret_name}",
+            "--secret-name=ingress-nginx-admission",
             "--patch-failure-policy=Fail"
           ]
           env {
@@ -562,6 +561,9 @@ resource "kubernetes_job_v1" "ingress_nginx_admission_patch" {
             }
           }
           image_pull_policy = "IfNotPresent"
+          security_context {
+            allow_privilege_escalation = false
+          }
         }
         restart_policy = "OnFailure"
         node_selector = {
@@ -607,7 +609,7 @@ resource "kubernetes_validating_webhook_configuration_v1" "ingress_nginx_admissi
       }
     }
     rule {
-      api_groups   = ["netowrking.k8s.io"]
+      api_groups   = ["networking.k8s.io"]
       api_versions = ["v1"]
       operations   = ["CREATE", "UPDATE"]
       resources    = ["ingresses"]
