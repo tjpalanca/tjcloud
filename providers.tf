@@ -9,3 +9,7 @@ provider "kubernetes" {
     module.cluster.cluster.kube_config.0.cluster_ca_certificate
   )
 }
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
