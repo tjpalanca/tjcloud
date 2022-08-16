@@ -2,6 +2,7 @@ output "cluster" {
   value = data.digitalocean_kubernetes_cluster.cluster
 }
 
-output "nodes" {
-  value = data.digitalocean_droplet.nodes
+output "node_ips" {
+  for_each = data.digitalocean_droplet.nodes
+  value    = each.ipv4_address
 }
