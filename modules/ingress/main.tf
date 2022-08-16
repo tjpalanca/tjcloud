@@ -1,5 +1,4 @@
 locals {
-  namespace = "ingress-nginx"
   labels = {
     "app.kubernetes.io/instance" = "ingress-nginx"
     "app.kubernetes.io/name"     = "ingress-nginx"
@@ -14,6 +13,16 @@ locals {
   secret_name = "ingress-nginx-admission"
 }
 
+resource "kubernetes_namespace_v1" "ingress_nginx" {
+  metadata {
+    name = "ingress-nginx"
+    labels = {
+      "app.kubernetes.io/instance" = ingress-nginx
+      "app.kubernetes.io/name"     = ingress-nginx
+    }
+  }
+}
+
 resource "kubernetes_service_account_v1" "ingress_nginx" {
   automount_service_account_token = true
   metadata {
@@ -23,7 +32,7 @@ resource "kubernetes_service_account_v1" "ingress_nginx" {
       }
     )
     name      = "ingress-nginx"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
   }
 }
 
@@ -35,7 +44,7 @@ resource "kubernetes_service_account_v1" "ingress_nginx_admission" {
       }
     )
     name      = "ingress-nginx-admission"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
   }
 }
 
@@ -47,7 +56,7 @@ resource "kubernetes_role_v1" "ingress_nginx" {
       }
     )
     name      = "ingress-nginx"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
   }
   rule {
     verbs      = ["get"]
@@ -111,7 +120,7 @@ resource "kubernetes_role_v1" "ingress_nginx" {
 resource "kubernetes_role_v1" "ingress_nginx_admission" {
   metadata {
     name      = "ingress-nginx-admission"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(
       local.labels, {
         "app.kubernetes.io/component" = "admission-webhook"
@@ -189,7 +198,7 @@ resource "kubernetes_cluster_role_v1" "ingress_nginx_admission" {
 resource "kubernetes_role_binding_v1" "ingress_nginx" {
   metadata {
     name      = "ingress-nginx"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "controller"
     })
@@ -197,7 +206,7 @@ resource "kubernetes_role_binding_v1" "ingress_nginx" {
   subject {
     kind      = "ServiceAccount"
     name      = kubernetes_service_account_v1.ingress_nginx.metadata.0.name
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
@@ -209,7 +218,7 @@ resource "kubernetes_role_binding_v1" "ingress_nginx" {
 resource "kubernetes_role_binding_v1" "ingress_nginx_admission" {
   metadata {
     name      = "ingress-nginx-admission"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "admission-webhook"
     })
@@ -217,7 +226,7 @@ resource "kubernetes_role_binding_v1" "ingress_nginx_admission" {
   subject {
     kind      = "ServiceAccount"
     name      = kubernetes_service_account_v1.ingress_nginx_admission.metadata.0.name
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
@@ -234,7 +243,7 @@ resource "kubernetes_cluster_role_binding_v1" "ingress_nginx" {
   subject {
     kind      = "ServiceAccount"
     name      = kubernetes_service_account_v1.ingress_nginx.metadata.0.name
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
@@ -253,7 +262,7 @@ resource "kubernetes_cluster_role_binding_v1" "ingress_nginx_admission" {
   subject {
     kind      = "ServiceAccount"
     name      = kubernetes_service_account_v1.ingress_nginx_admission.metadata.0.name
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
@@ -265,7 +274,7 @@ resource "kubernetes_cluster_role_binding_v1" "ingress_nginx_admission" {
 resource "kubernetes_config_map_v1" "ingress_nginx_controller" {
   metadata {
     name      = "ingress-nginx-controller"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "controller"
     })
@@ -278,7 +287,7 @@ resource "kubernetes_config_map_v1" "ingress_nginx_controller" {
 resource "kubernetes_service_v1" "ingress_nginx_controller" {
   metadata {
     name      = "ingress-nginx-controller"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "controller"
     })
@@ -306,7 +315,7 @@ resource "kubernetes_service_v1" "ingress_nginx_controller" {
 resource "kubernetes_service_v1" "ingress_nginx_controller_admission" {
   metadata {
     name      = "ingress-nginx-controller-admission"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "controller"
     })
@@ -326,7 +335,7 @@ resource "kubernetes_service_v1" "ingress_nginx_controller_admission" {
 resource "kubernetes_deployment_v1" "ingress_nginx_controller" {
   metadata {
     name      = "ingress-nginx-controller"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "controller"
     })
@@ -465,7 +474,7 @@ resource "kubernetes_deployment_v1" "ingress_nginx_controller" {
 resource "kubernetes_job_v1" "ingress_nginx_admission_create" {
   metadata {
     name      = "ingress-nginx-admission-create"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "admission-webhook"
     })
@@ -517,7 +526,7 @@ resource "kubernetes_job_v1" "ingress_nginx_admission_create" {
 resource "kubernetes_job_v1" "ingress_nginx_admission_patch" {
   metadata {
     name      = "ingress-nginx-admission-patch"
-    namespace = local.namespace
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
     labels = merge(local.labels, {
       "app.kubernetes.io/component" = "admission-webhook"
     })
@@ -592,7 +601,7 @@ resource "kubernetes_validating_webhook_configuration_v1" "ingress_nginx_admissi
     name = "validate.nginx.ingress.kubernetes.io"
     client_config {
       service {
-        namespace = local.namespace
+        namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
         name      = "ingress-nginx-controller-admission"
         path      = "/networking/v1/ingresses"
       }
