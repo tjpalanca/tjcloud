@@ -294,16 +294,16 @@ resource "kubernetes_service_v1" "ingress_nginx_controller" {
 
   spec {
     port {
-      name        = "http"
-      protocol    = "TCP"
-      port        = 80
-      target_port = "http"
+      name      = "http"
+      protocol  = "TCP"
+      port      = 80
+      node_port = 80
     }
     port {
-      name        = "https"
-      protocol    = "TCP"
-      port        = 443
-      target_port = "https"
+      name      = "https"
+      protocol  = "TCP"
+      port      = 443
+      node_port = 443
     }
     selector                = local.controller_labels
     type                    = "NodePort"
