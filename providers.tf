@@ -2,10 +2,6 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-provider "cloudflare" {
-  api_token = var.cloudflare_api_token
-}
-
 provider "kubernetes" {
   host  = data.digitalocean_kubernetes_cluster.tjcloud.endpoint
   token = data.digitalocean_kubernetes_cluster.tjcloud.kube_config[0].token
