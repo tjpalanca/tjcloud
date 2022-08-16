@@ -27,3 +27,11 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 data "digitalocean_kubernetes_cluster" "cluster" {
   name = var.cluster_name
 }
+
+data "digitalocean_droplet" "nodes" {
+  for_each = toset([
+    for node in data.digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes :
+    node.name
+  ])
+  name = each.value
+}
