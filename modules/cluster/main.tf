@@ -56,3 +56,18 @@ resource "cloudflare_record" "nodes" {
   type     = "A"
   proxied  = true
 }
+
+resource "digitalocean_firewall" "enable_web_access" {
+  name = "k8s-${data.digitalocean_kubernetes_cluster.cluster.id}-web_access"
+  tags = ["k8s:${data.digitalocean_kubernetes_cluster.cluster.id}"]
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "80"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "443"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+}
