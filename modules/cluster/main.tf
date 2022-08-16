@@ -13,12 +13,16 @@ terraform {
 
 }
 
+locals {
+  cluster_name = "tjcloud"
+}
+
 data "digitalocean_kubernetes_versions" "versions" {
   version_prefix = "1.23."
 }
 
 resource "digitalocean_kubernetes_cluster" "cluster" {
-  name    = var.cluster_name
+  name    = local.cluster_name
   region  = "sgp1"
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
@@ -29,7 +33,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 }
 
 data "digitalocean_kubernetes_cluster" "cluster" {
-  name = var.cluster_name
+  name = local.cluster_name
 }
 
 data "digitalocean_droplet" "nodes" {

@@ -25,8 +25,7 @@ terraform {
 }
 
 module "cluster" {
-  source       = "./modules/cluster"
-  cluster_name = var.cluster_name
+  source = "./modules/cluster"
 }
 
 resource "digitalocean_project" "tjcloud" {
