@@ -1,14 +1,50 @@
-variable "do_token" {
+variable "cluster_name" {
   type        = string
-  description = "DigitalOcean Access Token"
+  description = "DOKS Cluster Name"
 }
 
-variable "main_postgres_password" {
+variable "do_token" {
   type        = string
-  description = "Main postgres password"
+  description = "DigitalOcean token"
+}
+
+variable "do_region" {
+  type        = string
+  default     = "sgp1"
+  description = "Main DigitalOcean region"
 }
 
 variable "cloudflare_api_token" {
   type        = string
-  description = "API Token for Cloudflare Services"
+  description = "Cloudflare API Token"
+}
+
+variable "main_cloudflare_zone" {
+  type        = string
+  description = "Zone at which the cluster ingress will be exposed"
+}
+
+variable "main_postgres_username" {
+  type        = string
+  description = "Username for the main postgres database"
+}
+
+variable "main_postgres_password" {
+  type        = string
+  description = "Password for the main postgres database"
+}
+
+variable "main_postgres_database" {
+  type        = string
+  description = "Main postgres database"
+}
+
+variable "pgadmin_default_username" {
+  type        = string
+  description = "PGAdmin initialized username"
+}
+
+variable "pgadmin_default_password" {
+  type        = string
+  description = "PGAdmin initialized password"
 }

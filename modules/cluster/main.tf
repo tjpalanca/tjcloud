@@ -13,17 +13,13 @@ terraform {
 
 }
 
-locals {
-  cluster_name = "tjcloud"
-}
-
 data "digitalocean_kubernetes_versions" "versions" {
   version_prefix = "1.23."
 }
 
 resource "digitalocean_kubernetes_cluster" "cluster" {
-  name    = local.cluster_name
-  region  = "sgp1"
+  name    = var.cluster_name
+  region  = var.do_region
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
     name       = "worker-pool"
@@ -33,7 +29,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 }
 
 data "digitalocean_kubernetes_cluster" "cluster" {
-  name = local.cluster_name
+  name = var.cluster_name
 }
 
 data "digitalocean_droplet" "nodes" {
@@ -44,13 +40,13 @@ data "digitalocean_droplet" "nodes" {
   name = each.value
 }
 
-data "cloudflare_zone" "tjp_app" {
-  name = "tjp.app"
+data "cloudflare_zone" "main" {
+  name = var.main_cloudflare_zone
 }
 
 resource "cloudflare_record" "nodes" {
   for_each = data.digitalocean_droplet.nodes
-  zone_id  = data.cloudflare_zone.tjp_app.zone_id
+  zone_id  = data.cloudflare_zone.main.zone_id
   name     = "@"
   value    = each.value.ipv4_address
   type     = "A"

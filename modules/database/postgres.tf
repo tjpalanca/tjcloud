@@ -1,9 +1,9 @@
 module "main_postgres_database" {
   source = "../../resources/postgres"
   database = {
-    username   = "tjpalanca"
+    username   = var.main_postgres_username
     password   = var.main_postgres_password
-    db_name    = "tjpalanca"
+    db_name    = var.main_postgres_database
     db_version = "14"
     storage    = "5Gi"
   }

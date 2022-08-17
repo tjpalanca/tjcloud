@@ -25,7 +25,10 @@ terraform {
 }
 
 module "cluster" {
-  source = "./modules/cluster"
+  source               = "./modules/cluster"
+  cluster_name         = var.cluster_name
+  main_cloudflare_zone = var.main_cloudflare_zone
+  do_region            = var.do_region
 }
 
 resource "digitalocean_project" "tjcloud" {
@@ -40,6 +43,8 @@ resource "digitalocean_project" "tjcloud" {
 
 module "database" {
   source                 = "./modules/database"
+  main_postgres_username = var.main_postgres_username
+  main_postgres_database = var.main_postgres_database
   main_postgres_password = var.main_postgres_password
 }
 
