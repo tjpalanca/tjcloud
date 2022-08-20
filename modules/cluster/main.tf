@@ -23,7 +23,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
     name       = "worker-pool"
-    size       = "s-4vcpu-8gb"
+    size       = "s-2vcpu-4gb"
     node_count = 1
   }
 }
