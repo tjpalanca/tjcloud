@@ -13,19 +13,39 @@ resource "kubernetes_namespace_v1" "pgadmin" {
   }
 }
 
-resource "kubernetes_persistent_volume_claim_v1" "apps" {
+resource "kubernetes_persistent_volume_v1" "apps" {
   metadata {
-    name      = "apps"
-    namespace = kubernetes_namespace_v1.pgadmin.metadata.0.name
+    name = "apps"
   }
   spec {
-    access_modes       = ["ReadWriteOnce"]
+    capacity = {
+      storage = "1Gi"
+    }
+    access_modes       = ["ReadWriteMany"]
     storage_class_name = "do-block-storage"
-    volume_name        = "pvc-13e1990e-08eb-457e-bdfe-1173423fa768"
-    resources {
-      requests = {
-        storage = "0Mi"
+    persistent_volume_source {
+      csi {
+        driver        = "dobs.csi.digitalocean.com"
+        volume_handle = "ecb75916-67ee-4f7d-a5e1-4e9a261c3c59"
+        fs_type       = "ext4"
       }
     }
   }
 }
+
+# resource "kubernetes_persistent_volume_claim_v1" "apps" {
+#   metadata {
+#     name      = "apps"
+#     namespace = kubernetes_namespace_v1.pgadmin.metadata.0.name
+#   }
+#   spec {
+#     access_modes       = ["ReadWriteMany"]
+#     storage_class_name = "do-block-storage"
+#     volume_name        = "apps"
+#     resources {
+#       requests = {
+#         storage = "1Ki"
+#       }
+#     }
+#   }
+# }
