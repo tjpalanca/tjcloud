@@ -46,14 +46,23 @@ module "database" {
   main_postgres_username = var.main_postgres_username
   main_postgres_database = var.main_postgres_database
   main_postgres_password = var.main_postgres_password
+  depends_on = [
+    module.cluster
+  ]
 }
 
 module "ingress" {
   source = "./modules/ingress"
+  depends_on = [
+    module.cluster
+  ]
 }
 
 module "pgadmin" {
   source                   = "./modules/pgadmin"
   pgadmin_default_username = var.pgadmin_default_username
   pgadmin_default_password = var.pgadmin_default_password
+  depends_on = [
+    module.cluster
+  ]
 }

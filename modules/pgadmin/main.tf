@@ -20,6 +20,11 @@ resource "kubernetes_deployment_v1" "pgadmin" {
   }
   spec {
     replicas = 1
+    selector {
+      match_labels = {
+        app = "pgadmin"
+      }
+    }
     template {
       metadata {
         labels = {
@@ -27,12 +32,9 @@ resource "kubernetes_deployment_v1" "pgadmin" {
         }
       }
       spec {
-        selector = {
-          app = "pgadmin"
-        }
         container {
           name  = "pgadmin"
-          image = "docker pull dpage/pgadmin4:6.12"
+          image = "dpage/pgadmin4:6.12"
           port {
             name           = "pgadmin-5050"
             container_port = 5050
