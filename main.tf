@@ -51,6 +51,10 @@ module "database" {
   ]
 }
 
+module "volumes" {
+  source = "./modules/volumes"
+}
+
 module "ingress" {
   source = "./modules/ingress"
   depends_on = [
