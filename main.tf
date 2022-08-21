@@ -1,5 +1,4 @@
 terraform {
-
   required_providers {
     digitalocean = {
       source  = "digitalocean/digitalocean"
@@ -14,14 +13,12 @@ terraform {
       version = "~> 3.0"
     }
   }
-
   cloud {
     organization = "tjpalanca"
     workspaces {
       name = "tjcloud"
     }
   }
-
 }
 
 module "cluster" {
@@ -47,7 +44,7 @@ module "database" {
   main_postgres_database = var.main_postgres_database
   main_postgres_password = var.main_postgres_password
   depends_on = [
-    module.cluster
+    module.cluster.cluster
   ]
 }
 
@@ -58,7 +55,7 @@ module "volumes" {
 module "ingress" {
   source = "./modules/ingress"
   depends_on = [
-    module.cluster
+    module.cluster.cluster
   ]
 }
 
@@ -67,6 +64,6 @@ module "pgadmin" {
   pgadmin_default_username = var.pgadmin_default_username
   pgadmin_default_password = var.pgadmin_default_password
   depends_on = [
-    module.cluster
+    module.cluster.cluster
   ]
 }

@@ -27,3 +27,18 @@ resource "kubernetes_persistent_volume_v1" "apps" {
     }
   }
 }
+
+resource "kubernetes_persistent_volume_claim_v1" "apps_claim" {
+  metadata {
+    name = "apps-claim"
+  }
+  spec {
+    access_modes       = ["ReadWriteMany"]
+    storage_class_name = "do-block-storage"
+    resources {
+      requests = {
+        storage = "50Mi"
+      }
+    }
+  }
+}
