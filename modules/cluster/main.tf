@@ -22,9 +22,14 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   region  = var.do_region
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
-    name       = "worker-pool"
+    name       = "basic-2-4"
     size       = "s-2vcpu-4gb"
     node_count = 1
+  }
+  node_pool {
+    name       = "basic-4-8"
+    size       = "s-4vcpu-8gb"
+    node_count = 0
   }
 }
 
