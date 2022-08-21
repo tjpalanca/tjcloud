@@ -43,18 +43,3 @@ resource "kubernetes_persistent_volume_v1" "apps" {
     }
   }
 }
-
-resource "kubernetes_persistent_volume_claim_v1" "apps" {
-  metadata {
-    name = "apps"
-  }
-  spec {
-    access_modes = ["ReadWriteOnce"]
-    resources {
-      requests = {
-        storage = "1Gi"
-      }
-    }
-    volume_name = kubernetes_persistent_volume_v1.apps.metadata.0.name
-  }
-}

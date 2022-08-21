@@ -76,3 +76,19 @@ resource "kubernetes_deployment_v1" "pgadmin" {
     }
   }
 }
+
+resource "kubernetes_persistent_volume_claim_v1" "apps" {
+  metadata {
+    name      = "apps"
+    namespace = kubernetes_namespace_v1.pgadmin.metadata.0.name
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "1Gi"
+      }
+    }
+    volume_name = kubernetes_persistent_volume_v1.apps.metadata.0.name
+  }
+}
