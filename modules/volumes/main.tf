@@ -25,6 +25,7 @@ resource "kubernetes_persistent_volume_claim_v1" "apps" {
   spec {
     access_modes       = ["ReadWriteOnce"]
     storage_class_name = "do-block-storage"
+    volume_name        = "apps"
     resources {
       requests = {
         storage = "1Ki"
@@ -41,6 +42,7 @@ resource "kubernetes_persistent_volume_claim_v1" "databases" {
   spec {
     access_modes       = ["ReadWriteOnce"]
     storage_class_name = "do-block-storage"
+    volume_name        = "database"
     resources {
       requests = {
         storage = "1Ki"
