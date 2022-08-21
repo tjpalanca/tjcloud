@@ -16,30 +16,3 @@ resource "kubernetes_namespace_v1" "volumes" {
     name = "volumes"
   }
 }
-
-resource "digitalocean_volume" "apps" {
-  region                  = "sgp1"
-  name                    = "apps"
-  size                    = 1
-  initial_filesystem_type = "ext4"
-}
-
-resource "kubernetes_persistent_volume_v1" "apps" {
-  metadata {
-    name = "apps"
-  }
-  spec {
-    capacity = {
-      storage = "1Gi"
-    }
-    access_modes       = ["ReadWriteOnce"]
-    storage_class_name = "do-block-storage"
-    persistent_volume_source {
-      csi {
-        driver        = "dobs.csi.digitalocean.com"
-        volume_handle = digitalocean_volume.apps.id
-        fs_type       = "ext4"
-      }
-    }
-  }
-}
