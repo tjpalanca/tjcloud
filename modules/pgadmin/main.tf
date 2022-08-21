@@ -60,17 +60,6 @@ resource "kubernetes_deployment_v1" "pgadmin" {
             name  = "PGADMIN_CONFIG_SERVER_MODE"
             value = "True"
           }
-          volume_mount {
-            name       = "pgadmin-config"
-            mount_path = "/var/lib/pgadmin/"
-            sub_path   = "pgadmin/config/"
-          }
-        }
-        volume {
-          name = "pgadmin-config"
-          persistent_volume_claim {
-            claim_name = "apps"
-          }
         }
       }
     }
