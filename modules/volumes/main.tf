@@ -16,7 +16,7 @@ resource "kubernetes_persistent_volume_v1" "apps" {
       storage = "1Gi"
     }
     volume_mode        = "Filesystem"
-    access_modes       = ["ReadWriteMany"]
+    access_modes       = ["ReadWriteOnce"]
     storage_class_name = "do-block-storage"
     persistent_volume_source {
       csi {
@@ -33,7 +33,7 @@ resource "kubernetes_persistent_volume_claim_v1" "apps_claim" {
     name = "apps-claim"
   }
   spec {
-    access_modes       = ["ReadWriteMany"]
+    access_modes       = ["ReadWriteOnce"]
     storage_class_name = "do-block-storage"
     resources {
       requests = {
