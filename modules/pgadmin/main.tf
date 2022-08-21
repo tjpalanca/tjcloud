@@ -63,7 +63,7 @@ resource "kubernetes_deployment_v1" "pgadmin" {
           volume_mount {
             name       = "pgadmin-config"
             mount_path = "/var/lib/pgadmin/"
-            sub_path   = "/pgadmin/config/"
+            sub_path   = "pgadmin/config/"
           }
         }
         volume {
