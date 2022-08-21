@@ -91,6 +91,7 @@ resource "kubernetes_stateful_set_v1" "postgres_database" {
             storage = var.database.storage
           }
         }
+        volume_name = "pvc-c0d5b8e9-865f-4d7f-8064-d2bd5990f32d"
       }
     }
 
