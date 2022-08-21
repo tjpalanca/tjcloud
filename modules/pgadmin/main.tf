@@ -27,6 +27,9 @@ resource "kubernetes_deployment_v1" "pgadmin" {
         }
       }
       spec {
+        selector = {
+          app = "pgadmin"
+        }
         container {
           name  = "pgadmin"
           image = "docker pull dpage/pgadmin4:6.12"
