@@ -17,12 +17,12 @@ resource "kubernetes_namespace_v1" "volumes" {
   }
 }
 
-# resource "digitalocean_volume" "apps" {
-#   region                  = "sgp1"
-#   name                    = "apps"
-#   size                    = 1
-#   initial_filesystem_type = "ext4"
-# }
+resource "digitalocean_volume" "apps" {
+  region                  = "sgp1"
+  name                    = "apps"
+  size                    = 1
+  initial_filesystem_type = "ext4"
+}
 
 resource "kubernetes_persistent_volume_v1" "apps" {
   metadata {
@@ -37,7 +37,7 @@ resource "kubernetes_persistent_volume_v1" "apps" {
     persistent_volume_source {
       csi {
         driver        = "dobs.csi.digitalocean.com"
-        volume_handle = "ecb75916-67ee-4f7d-a5e1-4e9a261c3c59"
+        volume_handle = digitalocean_volume.apps.id
         fs_type       = "ext4"
       }
     }
