@@ -51,3 +51,9 @@ module "database" {
 module "ingress" {
   source = "./modules/ingress"
 }
+
+module "pgadmin" {
+  source                   = "./modules/pgadmin"
+  pgadmin_default_username = var.pgadmin_default_username
+  pgadmin_default_password = var.pgadmin_default_password
+}

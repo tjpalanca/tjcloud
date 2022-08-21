@@ -1,7 +1,9 @@
 terraform {
-  kubernetes = {
-    source  = "hashicorp/kubernetes"
-    version = "2.12.1"
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.12.1"
+    }
   }
 }
 
@@ -19,11 +21,20 @@ resource "kubernetes_deployment_v1" "pgadmin" {
   spec {
     replicas = 1
     template {
+      metadata {
+        labels = {
+          app = "pgadmin"
+        }
+      }
       spec {
         container {
           name  = "pgadmin"
           image = "docker pull dpage/pgadmin4:6.12"
-          port  = 5050
+          port {
+            name           = "pgadmin-5050"
+            container_port = 5050
+            protocol       = "TCP"
+          }
           env {
             name  = "PGADMIN_DEFAULT_EMAIL"
             value = var.pgadmin_default_username
