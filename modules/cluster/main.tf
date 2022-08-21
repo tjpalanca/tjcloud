@@ -22,16 +22,25 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   region  = var.do_region
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
-    name       = "basic-2-4"
+    name       = "default"
     size       = "s-2vcpu-4gb"
     node_count = 1
   }
-  node_pool {
-    name       = "basic-4-8"
-    size       = "s-4vcpu-8gb"
-    node_count = 0
-  }
 }
+
+# resource "digitalocean_kubernetes_node_pool" "basic-2-4" {
+#   cluster_id = digitalocean_kubernetes_cluster.cluster.id
+#   name       = "basic-2-4"
+#   size       = "s-2vcpu-4gb"
+#   node_count = 1
+# }
+
+# resource "digitalocean_kubernetes_node_pool" "basic-4-8" {
+#   cluster_id = digitalocean_kubernetes_cluster.cluster.id
+#   name       = "basic-4-8"
+#   size       = "s-4vcpu-8gb"
+#   node_count = 0
+# }
 
 data "digitalocean_kubernetes_cluster" "cluster" {
   name = var.cluster_name
