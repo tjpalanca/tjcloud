@@ -23,26 +23,9 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
     name       = "stateful"
-    size       = "s-4vcpu-8gb"
+    size       = "s-2vcpu-4gb"
     node_count = 1
   }
-}
-
-data "digitalocean_kubernetes_cluster" "cluster" {
-  name = var.cluster_name
-}
-
-resource "digitalocean_volume" "data" {
-  region                  = "sgp1"
-  name                    = "${var.cluster_name}-data"
-  size                    = 10
-  initial_filesystem_type = "ext4"
-  description             = "${var.cluster_name} main data volume"
-}
-
-resource "digitalocean_volume_attachment" "data" {
-  droplet_id = data.digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes.0.droplet_id
-  volume_id  = digitalocean_volume.data.id
 }
 
 data "digitalocean_droplet" "nodes" {
