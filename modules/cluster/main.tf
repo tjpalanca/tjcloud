@@ -23,7 +23,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
     name       = "stateful"
-    size       = "s-2vcpu-4gb"
+    size       = "s-4vcpu-8gb"
     node_count = 1
   }
 }
