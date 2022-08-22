@@ -17,23 +17,6 @@ resource "kubernetes_namespace_v1" "volumes" {
   }
 }
 
-resource "kubernetes_persistent_volume_claim_v1" "apps" {
-  metadata {
-    name      = "apps"
-    namespace = kubernetes_namespace_v1.volumes.metadata.0.name
-  }
-  spec {
-    access_modes       = ["ReadWriteOnce"]
-    storage_class_name = "do-block-storage"
-    volume_name        = "apps"
-    resources {
-      requests = {
-        storage = "1Ki"
-      }
-    }
-  }
-}
-
 resource "kubernetes_persistent_volume_claim_v1" "databases" {
   metadata {
     name      = "databases"
@@ -42,7 +25,6 @@ resource "kubernetes_persistent_volume_claim_v1" "databases" {
   spec {
     access_modes       = ["ReadWriteOnce"]
     storage_class_name = "do-block-storage"
-    volume_name        = "database"
     resources {
       requests = {
         storage = "1Ki"

@@ -32,7 +32,7 @@ resource "kubernetes_service_v1" "postgres_service" {
 
 }
 
-resource "kubernetes_stateful_set_v1" "postgres_database" {
+resource "kubernetes_deployment_v1" "postgres_database" {
 
   metadata {
     name      = local.name
@@ -75,6 +75,7 @@ resource "kubernetes_stateful_set_v1" "postgres_database" {
           volume_mount {
             name       = local.name
             mount_path = "/var/lib/postgresql"
+            sub_path   = "postgres/${var.config.name}"
           }
         }
       }
@@ -91,7 +92,7 @@ resource "kubernetes_stateful_set_v1" "postgres_database" {
             storage = var.database.storage
           }
         }
-        volume_name = "pvc-c0d5b8e9-865f-4d7f-8064-d2bd5990f32d"
+        volume_name = var.pvc_volume_name
       }
     }
 

@@ -16,3 +16,8 @@ variable "config" {
   })
   description = "General configuration"
 }
+
+variable "pvc_volume_name" {
+  type        = string
+  description = "Volume name for the persistent volume claim"
+}
