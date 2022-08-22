@@ -9,3 +9,7 @@ variable "main_postgres_password" {
 variable "main_postgres_database" {
   type = string
 }
+
+variable "main_postgres_vol_name" {
+  type = string
+}

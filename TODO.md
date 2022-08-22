@@ -1,0 +1,3 @@
+- [ ] Set up pgadmin 
+    - [ ] Kubernetes PVCs in DigitalOcean
+        - [x] Two shared PVCs with same volume name

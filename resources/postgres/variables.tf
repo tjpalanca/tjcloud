@@ -13,11 +13,7 @@ variable "config" {
   type = object({
     name      = string
     namespace = string
+    vol_name  = string
   })
   description = "General configuration"
-}
-
-variable "pvc_volume_name" {
-  type        = string
-  description = "Volume name for the persistent volume claim"
 }

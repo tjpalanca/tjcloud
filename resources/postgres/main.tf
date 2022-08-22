@@ -40,8 +40,7 @@ resource "kubernetes_deployment_v1" "postgres_database" {
   }
 
   spec {
-    replicas     = 1
-    service_name = local.name
+    replicas = 1
     selector {
       match_labels = {
         "app" = local.name
@@ -78,23 +77,30 @@ resource "kubernetes_deployment_v1" "postgres_database" {
             sub_path   = "postgres/${var.config.name}"
           }
         }
-      }
-    }
-    volume_claim_template {
-      metadata {
-        name = local.name
-      }
-      spec {
-        access_modes       = ["ReadWriteOnce"]
-        storage_class_name = "do-block-storage"
-        resources {
-          requests = {
-            storage = var.database.storage
+        volume {
+          name = local.name
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim_v1.postgres_pvc.metadata.0.name
           }
         }
-        volume_name = var.pvc_volume_name
       }
     }
+  }
+}
 
+resource "kubernetes_persistent_volume_claim_v1" "postgres_pvc" {
+  metadata {
+    name      = local.name
+    namespace = var.config.namespace
+  }
+  spec {
+    access_modes       = ["ReadWriteOnce"]
+    storage_class_name = "do-block-storage"
+    resources {
+      requests = {
+        storage = "3Gi"
+      }
+    }
+    volume_name = var.config.vol_name
   }
 }
