@@ -30,7 +30,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 
 data "digitalocean_droplet" "nodes" {
   for_each = toset([
-    for node in data.digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes :
+    for node in digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes :
     node.name
   ])
   name = each.value
@@ -50,8 +50,8 @@ resource "cloudflare_record" "nodes" {
 }
 
 resource "digitalocean_firewall" "enable_web_access" {
-  name = "k8s-web-access-${data.digitalocean_kubernetes_cluster.cluster.id}"
-  tags = ["k8s:${data.digitalocean_kubernetes_cluster.cluster.id}"]
+  name = "k8s-web-access-${digitalocean_kubernetes_cluster.cluster.id}"
+  tags = ["k8s:${digitalocean_kubernetes_cluster.cluster.id}"]
   inbound_rule {
     protocol         = "tcp"
     port_range       = "80"
