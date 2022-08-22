@@ -1,9 +1,10 @@
 - [ ] Set up pgadmin 
-    - [ ] Kubernetes PVCs in DigitalOcean
+    - [x] Kubernetes PVCs in DigitalOcean
         - [x] Two shared PVCs with same volume name
             - Doesn't work, the PVC stays there indefinitely
             - Any further and it gets too hacky for my taste
     - [ ] Setting up an NFS store within Kubernetes
+        - https://github.com/openebs/dynamic-nfs-provisioner/blob/develop/docs/intro.md
     - [ ] Setting up a droplet to serve as storage
         - Cost will be a factor
     - [ ] Just using separate PVCs for everything
