@@ -1,3 +1,12 @@
 - [ ] Set up pgadmin 
     - [ ] Kubernetes PVCs in DigitalOcean
         - [x] Two shared PVCs with same volume name
+            - Doesn't work, the PVC stays there indefinitely
+            - Any further and it gets too hacky for my taste
+    - [ ] Setting up an NFS store within Kubernetes
+    - [ ] Setting up a droplet to serve as storage
+        - Cost will be a factor
+    - [ ] Just using separate PVCs for everything
+        - Won't this inhibit sharing data?
+            _ I am relatively sure the answer is yes.
+    - [ ] Trying a configmap for these files
