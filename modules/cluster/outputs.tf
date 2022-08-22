@@ -1,3 +1,3 @@
 output "cluster" {
-  value = digitalocean_kubernetes_cluster.cluster
+  value = data.digitalocean_kubernetes_cluster.cluster
 }
