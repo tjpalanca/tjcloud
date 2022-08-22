@@ -35,10 +35,14 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 
 resource "digitalocean_kubernetes_node_pool" "worker" {
   cluster_id = digitalocean_kubernetes_cluster.cluster.id
-
   name       = "worker"
   size       = "s-4vcpu-8gb"
   node_count = 1
+  taint {
+    key    = "workloadKind"
+    value  = "stateless"
+    effect = "NoSchedule"
+  }
 }
 
 data "digitalocean_kubernetes_cluster" "cluster" {
