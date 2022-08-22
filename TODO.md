@@ -11,3 +11,4 @@
         - Won't this inhibit sharing data?
             _ I am relatively sure the answer is yes.
     - [ ] Trying a configmap for these files
+- [ ] Allow for easy resizing without recreating the cluster

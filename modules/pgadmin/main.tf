@@ -60,26 +60,8 @@ resource "kubernetes_deployment_v1" "pgadmin" {
             name  = "PGADMIN_CONFIG_SERVER_MODE"
             value = "True"
           }
-          volume_mount {
-            name       = "pgadmin-config"
-            mount_path = "/var/lib/pgadmin/"
-            read_only  = false
-          }
-        }
-        volume {
-          name = "pgadmin-config"
-          config_map {
-            name = "pgadmin-config"
-          }
         }
       }
     }
-  }
-}
-
-resource "kubernetes_config_map_v1" "pgadmin_config" {
-  metadata {
-    name      = "pgadmin-config"
-    namespace = kubernetes_namespace_v1.pgadmin.metadata.0.name
   }
 }
