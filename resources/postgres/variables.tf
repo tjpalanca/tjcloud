@@ -13,7 +13,6 @@ variable "config" {
   type = object({
     name      = string
     namespace = string
-    vol_name  = string
   })
   description = "General configuration"
 }

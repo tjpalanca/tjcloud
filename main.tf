@@ -38,16 +38,11 @@ resource "digitalocean_project" "tjcloud" {
   ]
 }
 
-module "volumes" {
-  source = "./modules/volumes"
-}
-
 module "database" {
   source                 = "./modules/database"
   main_postgres_username = var.main_postgres_username
   main_postgres_database = var.main_postgres_database
   main_postgres_password = var.main_postgres_password
-  main_postgres_vol_name = module.volumes.databases.spec.0.volume_name
   depends_on = [
     module.cluster.cluster
   ]

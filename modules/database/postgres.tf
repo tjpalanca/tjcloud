@@ -10,6 +10,5 @@ module "main_postgres_database" {
   config = {
     name      = "main"
     namespace = kubernetes_namespace_v1.database.metadata.0.name
-    vol_name  = var.main_postgres_vol_name
   }
 }

@@ -101,6 +101,5 @@ resource "kubernetes_persistent_volume_claim_v1" "postgres_pvc" {
         storage = "3Gi"
       }
     }
-    volume_name = var.config.vol_name
   }
 }
