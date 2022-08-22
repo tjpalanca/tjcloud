@@ -23,9 +23,22 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
     name       = "default"
-    size       = "s-2vcpu-4gb"
+    size       = "s-1vcpu-2gb"
     node_count = 1
+    taint {
+      key    = "workloadKind"
+      value  = "stateful"
+      effect = "NoSchedule"
+    }
   }
+}
+
+resource "digitalocean_kubernetes_node_pool" "worker" {
+  cluster_id = digitalocean_kubernetes_cluster.cluster.id
+
+  name       = "worker"
+  size       = "s-4vcpu-8gb"
+  node_count = 1
 }
 
 data "digitalocean_kubernetes_cluster" "cluster" {
