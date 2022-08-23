@@ -47,6 +47,9 @@ resource "digitalocean_kubernetes_node_pool" "worker" {
 
 data "digitalocean_kubernetes_cluster" "cluster" {
   name = var.cluster_name
+  depends_on = [
+    digitalocean_kubernetes_cluster.cluster
+  ]
 }
 
 data "digitalocean_droplet" "nodes" {
