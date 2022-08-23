@@ -22,26 +22,26 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   region  = var.do_region
   version = data.digitalocean_kubernetes_versions.versions.latest_version
   node_pool {
-    name       = "default"
+    name       = "stateless"
     size       = "s-1vcpu-2gb"
     node_count = 1
     taint {
-      key    = "workloadKind"
+      key    = "workload"
       value  = "stateful"
-      effect = "NoSchedule"
+      effect = "NoExecute"
     }
   }
 }
 
 resource "digitalocean_kubernetes_node_pool" "worker" {
   cluster_id = digitalocean_kubernetes_cluster.cluster.id
-  name       = "worker"
-  size       = "s-4vcpu-8gb"
+  name       = "stateful"
+  size       = "s-2vcpu-4gb"
   node_count = 1
   taint {
-    key    = "workloadKind"
+    key    = "workload"
     value  = "stateless"
-    effect = "NoSchedule"
+    effect = "NoExecute"
   }
 }
 

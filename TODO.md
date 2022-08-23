@@ -3,12 +3,16 @@
         - [x] Two shared PVCs with same volume name
             - Doesn't work, the PVC stays there indefinitely
             - Any further and it gets too hacky for my taste
-    - [ ] Setting up an NFS store within Kubernetes
+    - [x] Setting up an NFS store within Kubernetes
         - https://github.com/openebs/dynamic-nfs-provisioner/blob/develop/docs/intro.md
-    - [ ] Setting up a droplet to serve as storage
+        - Decided against this - this is too much overhead for a simple cluster
+    - [x] Setting up a droplet to serve as storage
         - Cost will be a factor
-    - [ ] Just using separate PVCs for everything
+        - Also decided against this, slow disk for not much gain
+    - [x] Just using separate PVCs for everything
         - Won't this inhibit sharing data?
             _ I am relatively sure the answer is yes.
-    - [ ] Trying a configmap for these files
+            - Reason why I'm not doing it.
+    - [x] Trying a configmap for these files
+        - Configmaps are read only
 - [ ] Allow for easy resizing without recreating the cluster
