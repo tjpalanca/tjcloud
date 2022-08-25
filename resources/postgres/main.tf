@@ -48,6 +48,12 @@ resource "kubernetes_deployment_v1" "postgres_database" {
         }
       }
       spec {
+        toleration {
+          key      = "environment"
+          operator = "Equals"
+          value    = var.config.environment
+          effect   = "NoExecute"
+        }
         container {
           name  = "database"
           image = "postgres:${var.database.db_version}"
