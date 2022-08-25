@@ -48,18 +48,18 @@ module "database" {
   ]
 }
 
-module "ingress" {
-  source = "./modules/ingress"
-  depends_on = [
-    module.cluster.cluster
-  ]
-}
+# module "ingress" {
+#   source = "./modules/ingress"
+#   depends_on = [
+#     module.cluster.cluster
+#   ]
+# }
 
-module "pgadmin" {
-  source                   = "./modules/pgadmin"
-  pgadmin_default_username = var.pgadmin_default_username
-  pgadmin_default_password = var.pgadmin_default_password
-  depends_on = [
-    module.cluster.cluster
-  ]
-}
+# module "pgadmin" {
+#   source                   = "./modules/pgadmin"
+#   pgadmin_default_username = var.pgadmin_default_username
+#   pgadmin_default_password = var.pgadmin_default_password
+#   depends_on = [
+#     module.cluster.cluster
+#   ]
+# }

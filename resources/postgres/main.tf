@@ -1,12 +1,10 @@
 terraform {
-
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "2.12.1"
     }
   }
-
 }
 
 locals {
@@ -14,12 +12,10 @@ locals {
 }
 
 resource "kubernetes_service_v1" "postgres_service" {
-
   metadata {
     name      = local.name
     namespace = var.config.namespace
   }
-
   spec {
     selector = {
       app = local.name
@@ -29,7 +25,6 @@ resource "kubernetes_service_v1" "postgres_service" {
       target_port = 5432
     }
   }
-
 }
 
 resource "kubernetes_deployment_v1" "postgres_database" {
@@ -98,7 +93,7 @@ resource "kubernetes_persistent_volume_claim_v1" "postgres_pvc" {
     storage_class_name = "do-block-storage"
     resources {
       requests = {
-        storage = "3Gi"
+        storage = var.database.storage
       }
     }
   }
