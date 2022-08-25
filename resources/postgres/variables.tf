@@ -11,8 +11,9 @@ variable "database" {
 
 variable "config" {
   type = object({
-    name      = string
-    namespace = string
+    name        = string
+    namespace   = string
+    environment = string
   })
   description = "General configuration"
 }

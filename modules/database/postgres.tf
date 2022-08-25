@@ -8,7 +8,8 @@ module "main_postgres_database" {
     storage    = "3Gi"
   }
   config = {
-    name      = "main"
-    namespace = kubernetes_namespace_v1.database.metadata.0.name
+    name        = "main"
+    namespace   = kubernetes_namespace_v1.database.metadata.0.name
+    environment = "production"
   }
 }

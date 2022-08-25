@@ -32,7 +32,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
     node_count = 1
     taint {
       key    = "environment"
-      value  = "development"
+      value  = "production"
       effect = "NoExecute"
     }
   }
@@ -45,7 +45,7 @@ resource "digitalocean_kubernetes_node_pool" "development" {
   node_count = local.node_count.development
   taint {
     key    = "environment"
-    value  = "production"
+    value  = "development"
     effect = "NoExecute"
   }
 }
