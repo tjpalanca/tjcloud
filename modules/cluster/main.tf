@@ -29,11 +29,9 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   node_pool {
     name       = "production"
     size       = "s-2vcpu-4gb"
-    node_count = 1
-    taint {
-      key    = "environment"
-      value  = "production"
-      effect = "NoExecute"
+    node_count = local.node_count.production
+    labels = {
+      environment = "production"
     }
   }
 }
@@ -43,11 +41,21 @@ resource "digitalocean_kubernetes_node_pool" "development" {
   name       = "development"
   size       = "s-2vcpu-4gb"
   node_count = local.node_count.development
-  taint {
-    key    = "environment"
-    value  = "development"
-    effect = "NoExecute"
+  labels = {
+    environment = "development"
   }
+}
+
+resource "digitalocean_volume" "development" {
+  region                  = var.do_region
+  name                    = "development"
+  size                    = 40
+  initial_filesystem_type = "ext4"
+}
+
+resource "digitalocean_volume_attachment" "foobar" {
+  droplet_id = digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes.0.droplet_id
+  volume_id  = digitalocean_volume.development.id
 }
 
 data "digitalocean_droplet" "production_nodes" {

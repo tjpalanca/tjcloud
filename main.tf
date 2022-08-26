@@ -28,7 +28,7 @@ module "cluster" {
   do_region            = var.do_region
 }
 
-resource "digitalocean_project" "tjcloud" {
+resource "digitalocean_project" "main" {
   name        = "TJCloud"
   description = "TJ Palanca's Personal Cloud"
   purpose     = "Machine learning / AI / Data processing"
