@@ -48,11 +48,8 @@ resource "kubernetes_deployment_v1" "postgres_database" {
         }
       }
       spec {
-        toleration {
-          key      = "environment"
-          operator = "Equals"
-          value    = var.config.environment
-          effect   = "NoExecute"
+        node_selector = {
+          "environment" = var.config.environment
         }
         container {
           name  = "database"

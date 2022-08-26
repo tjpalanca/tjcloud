@@ -33,9 +33,7 @@ resource "digitalocean_project" "main" {
   description = "TJ Palanca's Personal Cloud"
   purpose     = "Machine learning / AI / Data processing"
   environment = "Production"
-  resources = [
-    module.cluster.cluster.urn
-  ]
+  resources   = module.cluster.urns
 }
 
 # module "database" {

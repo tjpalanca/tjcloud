@@ -36,6 +36,18 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   }
 }
 
+resource "digitalocean_volume" "production" {
+  region                  = var.do_region
+  name                    = "production"
+  size                    = 10
+  initial_filesystem_type = "ext4"
+}
+
+resource "digitalocean_volume_attachment" "production" {
+  droplet_id = digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes.0.droplet_id
+  volume_id  = digitalocean_volume.production.id
+}
+
 resource "digitalocean_kubernetes_node_pool" "development" {
   cluster_id = digitalocean_kubernetes_cluster.cluster.id
   name       = "development"
@@ -53,7 +65,7 @@ resource "digitalocean_volume" "development" {
   initial_filesystem_type = "ext4"
 }
 
-resource "digitalocean_volume_attachment" "foobar" {
+resource "digitalocean_volume_attachment" "development" {
   droplet_id = digitalocean_kubernetes_node_pool.development.nodes.0.droplet_id
   volume_id  = digitalocean_volume.development.id
 }
