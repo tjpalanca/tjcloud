@@ -15,6 +15,17 @@ data "digitalocean_kubernetes_versions" "versions" {
   version_prefix = "1.23."
 }
 
+locals {
+  production = {
+    node_count  = 1
+    volume_size = 10
+  }
+  development = {
+    node_count  = 1
+    volume_size = 40
+  }
+}
+
 resource "digitalocean_kubernetes_cluster" "cluster" {
   name    = var.cluster_name
   region  = var.do_region
@@ -22,7 +33,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   node_pool {
     name       = "production"
     size       = "s-2vcpu-4gb"
-    node_count = var.production.node_count
+    node_count = local.production.node_count
     labels = {
       environment = "production"
     }
@@ -32,7 +43,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 resource "digitalocean_volume" "production" {
   region                  = var.do_region
   name                    = "production"
-  size                    = var.production.volume_size
+  size                    = local.production.volume_size
   initial_filesystem_type = "ext4"
 }
 
@@ -45,7 +56,7 @@ resource "digitalocean_kubernetes_node_pool" "development" {
   cluster_id = digitalocean_kubernetes_cluster.cluster.id
   name       = "development"
   size       = "s-2vcpu-4gb"
-  node_count = var.development.node_count
+  node_count = local.development.node_count
   labels = {
     environment = "development"
   }
@@ -54,7 +65,7 @@ resource "digitalocean_kubernetes_node_pool" "development" {
 resource "digitalocean_volume" "development" {
   region                  = var.do_region
   name                    = "development"
-  size                    = var.development.volume_size
+  size                    = local.development.volume_size
   initial_filesystem_type = "ext4"
 }
 
@@ -64,7 +75,7 @@ resource "digitalocean_volume_attachment" "development" {
 }
 
 data "digitalocean_droplet" "production_nodes" {
-  count = local.node_count.production
+  count = local.production.node_count
   name  = digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes[count.index].name
 }
 
@@ -72,8 +83,8 @@ data "cloudflare_zone" "main" {
   name = var.main_cloudflare_zone
 }
 
-resource "cloudflare_record" "nodes" {
-  count   = local.node_count.production
+resource "cloudflare_record" "production_nodes" {
+  count   = local.production.node_count
   zone_id = data.cloudflare_zone.main.zone_id
   name    = "@"
   value   = data.digitalocean_droplet.production_nodes[count.index].ipv4_address
