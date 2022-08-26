@@ -54,7 +54,7 @@ resource "digitalocean_volume" "development" {
 }
 
 resource "digitalocean_volume_attachment" "foobar" {
-  droplet_id = digitalocean_kubernetes_cluster.cluster.node_pool.0.nodes.0.droplet_id
+  droplet_id = digitalocean_kubernetes_node_pool.development.nodes.0.droplet_id
   volume_id  = digitalocean_volume.development.id
 }
 
