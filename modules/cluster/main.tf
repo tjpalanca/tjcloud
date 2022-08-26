@@ -15,13 +15,6 @@ data "digitalocean_kubernetes_versions" "versions" {
   version_prefix = "1.23."
 }
 
-locals {
-  node_count = {
-    production  = 1
-    development = 1
-  }
-}
-
 resource "digitalocean_kubernetes_cluster" "cluster" {
   name    = var.cluster_name
   region  = var.do_region
@@ -29,7 +22,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   node_pool {
     name       = "production"
     size       = "s-2vcpu-4gb"
-    node_count = local.node_count.production
+    node_count = var.production.node_count
     labels = {
       environment = "production"
     }
@@ -39,7 +32,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 resource "digitalocean_volume" "production" {
   region                  = var.do_region
   name                    = "production"
-  size                    = 10
+  size                    = var.production.volume_size
   initial_filesystem_type = "ext4"
 }
 
@@ -52,7 +45,7 @@ resource "digitalocean_kubernetes_node_pool" "development" {
   cluster_id = digitalocean_kubernetes_cluster.cluster.id
   name       = "development"
   size       = "s-2vcpu-4gb"
-  node_count = local.node_count.development
+  node_count = var.development.node_count
   labels = {
     environment = "development"
   }
@@ -61,7 +54,7 @@ resource "digitalocean_kubernetes_node_pool" "development" {
 resource "digitalocean_volume" "development" {
   region                  = var.do_region
   name                    = "development"
-  size                    = 40
+  size                    = var.development.volume_size
   initial_filesystem_type = "ext4"
 }
 

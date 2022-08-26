@@ -26,6 +26,14 @@ module "cluster" {
   cluster_name         = var.cluster_name
   main_cloudflare_zone = var.main_cloudflare_zone
   do_region            = var.do_region
+  production = {
+    node_count  = 1
+    volume_size = 10
+  }
+  development = {
+    node_count  = 1
+    volume_size = 40
+  }
 }
 
 resource "digitalocean_project" "main" {
