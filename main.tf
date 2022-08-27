@@ -26,6 +26,8 @@ module "cluster" {
   cluster_name         = var.cluster_name
   main_cloudflare_zone = var.main_cloudflare_zone
   linode_region        = var.linode_region
+  root_password        = var.root_password
+  linode_token         = var.linode_token
 }
 
 # resource "digitalocean_project" "main" {

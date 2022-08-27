@@ -3,17 +3,6 @@ variable "cluster_name" {
   description = "DOKS Cluster Name"
 }
 
-variable "do_token" {
-  type        = string
-  description = "DigitalOcean token"
-}
-
-variable "do_region" {
-  type        = string
-  default     = "sgp1"
-  description = "Main DigitalOcean region"
-}
-
 variable "linode_token" {
   type        = string
   description = "Linode API Token"
@@ -23,6 +12,11 @@ variable "linode_region" {
   type        = string
   default     = "ap-south"
   description = "Main Linode region"
+}
+
+variable "root_password" {
+  type        = string
+  description = "Root password for linode instances"
 }
 
 variable "cloudflare_api_token" {
