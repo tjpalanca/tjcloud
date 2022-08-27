@@ -10,10 +10,8 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-# provider "kubernetes" {
-#   host  = module.cluster.cluster.endpoint
-#   token = module.cluster.cluster.kube_config.0.token
-#   cluster_ca_certificate = base64decode(
-#     module.cluster.cluster.kube_config.0.cluster_ca_certificate
-#   )
-# }
+provider "kubernetes" {
+  host  = module.cluster.kubeconfig.endpoint
+  token = module.cluster.kubeconfig.token
+  # cluster_ca_certificate = module.cluster.kubeconfig.cluster_ca_certificate
+}
