@@ -4,8 +4,8 @@ locals {
 
 output "kubeconfig" {
   value = {
-    endpoint = local.kubeconfig.clusters.0.cluster.server
-    token    = local.kubeconfig.users.0.user.token
-    # cluster_ca_certificate = local.kubeconfig.clusters.0.cluster.server
+    endpoint               = local.kubeconfig.clusters.0.cluster.server
+    token                  = local.kubeconfig.users.0.user.token
+    cluster_ca_certificate = local.kubeconfig.clusters.0.cluster.certificate_authority_data
   }
 }
