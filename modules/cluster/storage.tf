@@ -5,7 +5,7 @@ locals {
 resource "linode_volume" "cluster_data" {
   label     = "${var.cluster_name}-data"
   region    = var.linode_region
-  linode_id = local.main_node.instance_id
+  linode_id = local.main_node.id
 
   provisioner "local-exec" {
     command = <<EOF
