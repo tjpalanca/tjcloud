@@ -26,11 +26,9 @@ resource "linode_lke_cluster" "cluster" {
   label       = var.cluster_name
   k8s_version = "1.23"
   region      = var.linode_region
+  tags        = [var.cluster_name]
   pool {
     type  = "g6-standard-4"
     count = 1
-    tags = {
-      cluster = var.cluster_name
-    }
   }
 }
