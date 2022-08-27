@@ -1,5 +1,5 @@
 locals {
-  main_node = data.linode_instances.production_nodes.0.instances.0
+  main_node   = data.linode_instances.production_nodes.0.instances.0
   volume_name = "${var.cluster_name}-data"
 }
 
@@ -45,8 +45,9 @@ resource "linode_volume" "cluster_data" {
       <<EOF
       if ! lsblk -o NAME,FSTYPE | grep $DEVICE | grep $FSTYPE; then
           mkfs.ext4 $DEVICE
-      fi 
-      EOF,
+      fi
+      EOF
+      ,
       "mkdir -p /mnt/${local.volume_name}",
       "mount ${self.filesystem_path} /mnt/${local.volume_name}"
     ]
