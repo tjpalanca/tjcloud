@@ -11,7 +11,8 @@ resource "linode_volume" "cluster_data" {
 resource "null_resource" "mount_volume" {
 
   triggers = {
-    main_node_instance_id = local.main_node.id
+    main_node_instance_id  = local.main_node.id
+    cluster_data_volume_id = linode_volume.cluster_data.id
   }
 
   provisioner "remote-exec" {
@@ -22,7 +23,7 @@ resource "null_resource" "mount_volume" {
       host     = local.main_node.ip_address
     }
     inline = [
-      "export DEVICE='${self.filesystem_path}'",
+      "export DEVICE='${linode_volume.cluster_data.filesystem_path}'",
       "export FSTYPE='ext4'",
       <<EOF
       if ! lsblk -o NAME,FSTYPE | grep $DEVICE | grep $FSTYPE; then
@@ -31,7 +32,7 @@ resource "null_resource" "mount_volume" {
       EOF
       ,
       "mkdir -p /mnt/${local.volume_name}",
-      "mount ${self.filesystem_path} /mnt/${local.volume_name}"
+      "mount ${linode_volume.cluster_data.filesystem_path} /mnt/${local.volume_name}"
     ]
   }
 

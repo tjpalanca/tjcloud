@@ -1,5 +1,5 @@
 - [ ] Set up pgadmin 
-- [ ] Move to Linode, it's cheaper (presumably this is one of the benefits of using terraform so this better be useful!
+- [x] Move to Linode, it's cheaper (presumably this is one of the benefits of using terraform so this better be useful!
 - [ ] Set up some non-hack to enable persistent storage on pods
     - [x] Kubernetes PVCs in DigitalOcean
         - [x] Two shared PVCs with same volume name
@@ -25,7 +25,9 @@
             - Let me try if I can mount it from a pod automatically.
                 - Seems too difficult and kind of a hack 
         - I'm abandoning this as I don't think it's feasible.
-    - [ ] Use Rook Ceph NFS 
+    - [x] Use Rook Ceph NFS 
+        - still too complex 
+    - [ ] Use Terraform Provisioners to mount volumes to cluster
 - [x] Allow for easy resizing without recreating the cluster
     - Have 2 node pools for this production and development. To resize we just kill
       or replace the development node pool. I don't expect to resize the production 
