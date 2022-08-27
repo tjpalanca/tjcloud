@@ -1,4 +1,4 @@
 output "kubeconfig" {
-  value     = module.cluster.kubeconfig
-  sensitive = true
+  value     = nonsensitive(module.cluster.kubeconfig)
+  sensitive = false
 }
