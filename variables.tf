@@ -21,7 +21,7 @@ variable "linode_token" {
 
 variable "linode_region" {
   type        = string
-  default     = "sgp1"
+  default     = "ap-south"
   description = "Main Linode region"
 }
 
