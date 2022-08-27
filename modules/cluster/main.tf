@@ -13,7 +13,7 @@ resource "linode_lke_cluster" "cluster" {
   region      = var.linode_region
 
   pool {
-    type  = "g6-standard-2"
+    type  = "g6-standard-4"
     count = 1
   }
 }
