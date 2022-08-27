@@ -1,9 +1,5 @@
 terraform {
   required_providers {
-    # digitalocean = {
-    #   source  = "digitalocean/digitalocean"
-    #   version = "~> 2.0"
-    # }
     linode = {
       source  = "linode/linode"
       version = "1.29.2"
