@@ -17,8 +17,8 @@ resource "linode_volume" "cluster_data" {
     environment = {
       TOKEN       = nonsensitive(var.linode_token)
       PASSWORD    = nonsensitive(var.root_password)
-      INSTANCE_ID = nonsensitive(local.main_node.id)
-      DISK_ID     = nonsensitive(local.main_node.disk.0.id)
+      INSTANCE_ID = local.main_node.id
+      DISK_ID     = local.main_node.disk.0.id
     }
   }
 }
