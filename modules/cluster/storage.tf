@@ -12,7 +12,7 @@ resource "linode_volume" "cluster_data" {
       curl -H "Content-Type: application/json" \
       -H "Authorization: Bearer $TOKEN" \
       -X POST -d '{"password": "$PASSWORD"}' \
-      https://api.linode.com/v4/linode/instances/$INSTANCE_ID/disks/$DISK_ID/password"
+      https://api.linode.com/v4/linode/instances/$INSTANCE_ID/disks/$DISK_ID/password
     EOF
     environment = {
       TOKEN       = var.linode_token
