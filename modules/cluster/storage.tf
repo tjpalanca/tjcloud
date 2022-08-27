@@ -8,17 +8,15 @@ resource "linode_volume" "cluster_data" {
   linode_id = local.main_node.id
 
   provisioner "local-exec" {
-    command = <<EOF
-      curl -H "Content-Type: application/json" \
-      -H "Authorization: Bearer $TOKEN" \
-      -X POST -d '{"password": "$PASSWORD"}' \
-      https://api.linode.com/v4/linode/instances/$INSTANCE_ID/disks/$DISK_ID/password
-    EOF
+    command = <<EOT
+      curl -H "Content-Type: application/json" 
+      -H "Authorization: Bearer $TOKEN" 
+      -X POST -d '{"password": "$PASSWORD"}' 
+      https://api.linode.com/v4/linode/instances/${local.main_node.id}/disks/${local.main_node.disk.0.id}/password
+    EOT
     environment = {
-      TOKEN       = nonsensitive(var.linode_token)
-      PASSWORD    = nonsensitive(var.root_password)
-      INSTANCE_ID = local.main_node.id
-      DISK_ID     = local.main_node.disk.0.id
+      TOKEN    = nonsensitive(var.linode_token)
+      PASSWORD = nonsensitive(var.root_password)
     }
   }
 }
