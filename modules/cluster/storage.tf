@@ -15,6 +15,10 @@ resource "null_resource" "mount_volume" {
     cluster_data_volume_id = linode_volume.cluster_data.id
   }
 
+  depends_on = [
+    null_resource.reset_root_password
+  ]
+
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
