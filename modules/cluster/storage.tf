@@ -9,6 +9,7 @@ resource "linode_volume" "cluster_data" {
 
   provisioner "local-exec" {
     command = <<EOF
+      sleep 10 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
         -X POST \
