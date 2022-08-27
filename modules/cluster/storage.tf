@@ -15,10 +15,10 @@ resource "linode_volume" "cluster_data" {
       https://api.linode.com/v4/linode/instances/$INSTANCE_ID/disks/$DISK_ID/password
     EOF
     environment = {
-      TOKEN       = var.linode_token
-      PASSWORD    = var.root_password
-      INSTANCE_ID = local.main_node.id
-      DISK_ID     = local.main_node.disk.0.id
+      TOKEN       = nonsensitive(var.linode_token)
+      PASSWORD    = nonsensitive(var.root_password)
+      INSTANCE_ID = nonsensitive(local.main_node.id)
+      DISK_ID     = nonsensitive(local.main_node.disk.0.id)
     }
   }
 }
