@@ -26,11 +26,11 @@ resource "linode_lke_cluster" "cluster" {
 }
 
 data "linode_instances" "production_nodes" {
+  count = local.node_count
   filter {
     name = "id"
     values = [
-      for node in linode_lke_cluster.cluster.pool.0.nodes :
-      node.instance_id
+      linode_lke_cluster.cluster.pool.0.nodes[count.index].instance_id
     ]
   }
 }
@@ -39,18 +39,14 @@ data "cloudflare_zone" "main" {
   name = var.main_cloudflare_zone
 }
 
-output "instances" {
-  value = data.linode_instances.production_nodes
+resource "cloudflare_record" "production_nodes" {
+  count   = local.node_count
+  zone_id = data.cloudflare_zone.main.zone_id
+  name    = "@"
+  value   = data.linode_instances.production_nodes[count.index].instances.0.ip_address
+  type    = "A"
+  proxied = true
+  depends_on = [
+    linode_lke_cluster.cluster
+  ]
 }
-
-# resource "cloudflare_record" "production_nodes" {
-#   count   = local.node_count
-#   zone_id = data.cloudflare_zone.main.zone_id
-#   name    = "@"
-#   value   = data.digitalocean_droplet.production_nodes[count.index].ipv4_address
-#   type    = "A"
-#   proxied = true
-#   depends_on = [
-#     digitalocean_kubernetes_cluster.cluster
-#   ]
-# }
