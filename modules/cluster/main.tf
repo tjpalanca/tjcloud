@@ -12,23 +12,45 @@ terraform {
 }
 
 locals {
-  production = {
-    node_count  = 1
-    volume_size = 10
-  }
-  development = {
-    node_count  = 1
-    volume_size = 40
-  }
+  node_count = 1
 }
 
 resource "linode_lke_cluster" "cluster" {
   label       = var.cluster_name
   k8s_version = "1.23"
   region      = var.linode_region
-  tags        = [var.cluster_name]
   pool {
     type  = "g6-standard-4"
-    count = 1
+    count = local.node_count
   }
 }
+
+data "linode_instances" "production_nodes" {
+  filter {
+    name = "id"
+    values = [
+      for node in linode_lke_cluster.cluster.pool.0.nodes :
+      node.instance_id
+    ]
+  }
+}
+
+data "cloudflare_zone" "main" {
+  name = var.main_cloudflare_zone
+}
+
+output "instances" {
+  value = data.linode_instances.production_nodes
+}
+
+# resource "cloudflare_record" "production_nodes" {
+#   count   = local.node_count
+#   zone_id = data.cloudflare_zone.main.zone_id
+#   name    = "@"
+#   value   = data.digitalocean_droplet.production_nodes[count.index].ipv4_address
+#   type    = "A"
+#   proxied = true
+#   depends_on = [
+#     digitalocean_kubernetes_cluster.cluster
+#   ]
+# }
