@@ -13,6 +13,7 @@ terraform {
 
 locals {
   node_count = 1
+  main_node  = data.linode_instances.production_nodes.0.instances.0
 }
 
 resource "linode_lke_cluster" "cluster" {
@@ -33,4 +34,36 @@ data "linode_instances" "production_nodes" {
       linode_lke_cluster.cluster.pool.0.nodes[count.index].instance_id
     ]
   }
+}
+
+resource "null_resource" "reset_root_password" {
+
+  triggers = {
+    main_node_instance_id = local.main_node.id
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
+      sleep 10 && \
+      curl -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $TOKEN" \
+        -X POST \
+        https://api.linode.com/v4/linode/instances/${local.main_node.id}/shutdown && \
+      sleep 30 && \
+      curl -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $TOKEN" \
+        -X POST -d "{\"password\": \"$PASSWORD\"}" \
+        https://api.linode.com/v4/linode/instances/${local.main_node.id}/disks/${local.main_node.disk.0.id}/password && \
+      sleep 5 && \
+      curl -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $TOKEN" \
+        -X POST \
+        https://api.linode.com/v4/linode/instances/${local.main_node.id}/boot
+    EOF
+    environment = {
+      TOKEN    = var.linode_token
+      PASSWORD = var.root_password
+    }
+  }
+
 }
