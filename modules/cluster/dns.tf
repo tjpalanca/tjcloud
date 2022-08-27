@@ -1,13 +1,3 @@
-data "linode_instances" "production_nodes" {
-  count = local.node_count
-  filter {
-    name = "id"
-    values = [
-      linode_lke_cluster.cluster.pool.0.nodes[count.index].instance_id
-    ]
-  }
-}
-
 data "cloudflare_zone" "main" {
   name = var.main_cloudflare_zone
 }

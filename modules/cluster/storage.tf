@@ -1,5 +1,5 @@
 locals {
-  main_node = linode_lke_cluster.cluster.pool.0.nodes.0
+  main_node = data.linode_instances.production_nodes.0.instances.0
 }
 
 resource "linode_volume" "cluster_data" {
