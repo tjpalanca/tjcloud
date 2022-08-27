@@ -1,8 +1,12 @@
 terraform {
   required_providers {
-    digitalocean = {
-      source  = "digitalocean/digitalocean"
-      version = "~> 2.0"
+    # digitalocean = {
+    #   source  = "digitalocean/digitalocean"
+    #   version = "~> 2.0"
+    # }
+    linode = {
+      source  = "linode/linode"
+      version = "1.29.2"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -25,16 +29,16 @@ module "cluster" {
   source               = "./modules/cluster"
   cluster_name         = var.cluster_name
   main_cloudflare_zone = var.main_cloudflare_zone
-  do_region            = var.do_region
+  linode_region        = var.linode_region
 }
 
-resource "digitalocean_project" "main" {
-  name        = "TJCloud"
-  description = "TJ Palanca's Personal Cloud"
-  purpose     = "Machine learning / AI / Data processing"
-  environment = "Production"
-  resources   = module.cluster.urns
-}
+# resource "digitalocean_project" "main" {
+#   name        = "TJCloud"
+#   description = "TJ Palanca's Personal Cloud"
+#   purpose     = "Machine learning / AI / Data processing"
+#   environment = "Production"
+#   resources   = module.cluster.urns
+# }
 
 # module "database" {
 #   source                 = "./modules/database"

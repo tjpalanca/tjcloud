@@ -1,5 +1,9 @@
-provider "digitalocean" {
-  token = var.do_token
+# provider "digitalocean" {
+#   token = var.do_token
+# }
+
+provider "linode" {
+  token = var.linode_token
 }
 
 provider "kubernetes" {

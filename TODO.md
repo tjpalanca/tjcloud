@@ -1,4 +1,6 @@
 - [ ] Set up pgadmin 
+- [ ] Move to Linode, it's cheaper (presumably this is one of the benefits of using terraform so this better be useful!
+- [ ] Set up some non-hack to enable persistent storage on pods
     - [x] Kubernetes PVCs in DigitalOcean
         - [x] Two shared PVCs with same volume name
             - Doesn't work, the PVC stays there indefinitely
@@ -6,6 +8,8 @@
     - [x] Setting up an NFS store within Kubernetes
         - https://github.com/openebs/dynamic-nfs-provisioner/blob/develop/docs/intro.md
         - Decided against this - this is too much overhead for a simple cluster
+        - Reconsidering this again, if I'm considering Rook Ceph NFS this might be simpler
+        - Nah this is marked as beta
     - [x] Setting up a droplet to serve as storage
         - Cost will be a factor
         - Also decided against this, slow disk for not much gain
@@ -15,4 +19,14 @@
             - Reason why I'm not doing it.
     - [x] Trying a configmap for these files
         - Configmaps are read only
-- [ ] Allow for easy resizing without recreating the cluster
+    - [x] Mount volumes using terraform and use `local` PersistentVolume type
+        - Need to verify if it actually works by SSHing into the boxes and verifying.
+        - OK, so it isn't actually mounting automatically.
+            - Let me try if I can mount it from a pod automatically.
+                - Seems too difficult and kind of a hack 
+        - I'm abandoning this as I don't think it's feasible.
+    - [ ] Use Rook Ceph NFS 
+- [x] Allow for easy resizing without recreating the cluster
+    - Have 2 node pools for this production and development. To resize we just kill
+      or replace the development node pool. I don't expect to resize the production 
+      one, or we can just add another production node pool.

@@ -14,6 +14,17 @@ variable "do_region" {
   description = "Main DigitalOcean region"
 }
 
+variable "linode_token" {
+  type        = string
+  description = "Linode API Token"
+}
+
+variable "linode_region" {
+  type        = string
+  default     = "sgp1"
+  description = "Main Linode region"
+}
+
 variable "cloudflare_api_token" {
   type        = string
   description = "Cloudflare API Token"
