@@ -14,6 +14,10 @@ variable "root_password" {
   type = string
 }
 
+variable "local_ssh_key" {
+  type = string
+}
+
 variable "main_cloudflare_zone" {
   type = string
 }

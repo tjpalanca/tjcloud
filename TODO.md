@@ -1,5 +1,7 @@
 - [ ] Set up pgadmin 
 - [x] Move to Linode, it's cheaper (presumably this is one of the benefits of using terraform so this better be useful!
+    - [x] Get Kubernetes provider to receive those credentials 
+    - [x] Terraform was quite good
 - [ ] Set up some non-hack to enable persistent storage on pods
     - [x] Kubernetes PVCs in DigitalOcean
         - [x] Two shared PVCs with same volume name
@@ -28,7 +30,14 @@
     - [x] Use Rook Ceph NFS 
         - still too complex 
     - [ ] Use Terraform Provisioners to mount volumes to cluster
+        - Was able to get the root password reset via the Linode API so we can access 
+        - Was also able to ssh in and mount the filesystem from the device
+        - [ ] Need to grant SSH keys access
+        - [ ] Need to avoid mounting the filesystem if it's not there
 - [x] Allow for easy resizing without recreating the cluster
     - Have 2 node pools for this production and development. To resize we just kill
       or replace the development node pool. I don't expect to resize the production 
       one, or we can just add another production node pool.
+    - Linode solves this problem, no need for 2 node pools.
+- [ ] Add node problem detector
+- [ ] Enable Linode LongView

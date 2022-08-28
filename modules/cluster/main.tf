@@ -67,3 +67,37 @@ resource "null_resource" "reset_root_password" {
   }
 
 }
+
+resource "null_resource" "add_local_ssh_key" {
+
+  triggers = {
+    main_node_instance_id = local.main_node.id
+  }
+
+  provisioner "remote-exec" {
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = var.root_password
+      host     = local.main_node.ip_address
+    }
+    inline = [
+      "echo ${var.local_ssh_key} > ~/.ssh/authorized_keys"
+    ]
+  }
+
+}
+
+resource "null_resource" "inspect_environment" {
+  provisioner "remote-exec" {
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = var.root_password
+      host     = local.main_node.ip_address
+    }
+    inline = [
+      "which python"
+    ]
+  }
+}

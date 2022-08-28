@@ -19,6 +19,11 @@ variable "root_password" {
   description = "Root password for linode instances"
 }
 
+variable "local_ssh_key" {
+  type        = string
+  description = "SSH Key for the local machine for access"
+}
+
 variable "cloudflare_api_token" {
   type        = string
   description = "Cloudflare API Token"
