@@ -18,6 +18,6 @@ variable "local_ssh_key" {
   type = string
 }
 
-variable "main_cloudflare_zone" {
+variable "cloudflare_zone" {
   type = string
 }

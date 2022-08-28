@@ -9,6 +9,8 @@ terraform {
 
 locals {
   name = "${var.config.name}-postgres"
+  port = 5432
+  path = "database/postgres/${var.config.name}"
 }
 
 resource "kubernetes_service_v1" "postgres_service" {
@@ -21,8 +23,8 @@ resource "kubernetes_service_v1" "postgres_service" {
       app = local.name
     }
     port {
-      port        = 5432
-      target_port = 5432
+      port        = local.port
+      target_port = local.port
     }
   }
 }
@@ -48,14 +50,11 @@ resource "kubernetes_deployment_v1" "postgres_database" {
         }
       }
       spec {
-        node_selector = {
-          "environment" = var.config.environment
-        }
         container {
           name  = "database"
           image = "postgres:${var.database.db_version}"
           port {
-            container_port = 5432
+            container_port = local.port
           }
           env {
             name  = "POSTGRES_PASSWORD"
@@ -72,13 +71,13 @@ resource "kubernetes_deployment_v1" "postgres_database" {
           volume_mount {
             name       = local.name
             mount_path = "/var/lib/postgresql"
-            sub_path   = "postgres/${var.config.name}"
+            sub_path   = local.path
           }
         }
         volume {
           name = local.name
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim_v1.postgres_pvc.metadata.0.name
+            claim_name = module.postgres_volume.claim_name
           }
         }
       }
@@ -86,18 +85,10 @@ resource "kubernetes_deployment_v1" "postgres_database" {
   }
 }
 
-resource "kubernetes_persistent_volume_claim_v1" "postgres_pvc" {
-  metadata {
-    name      = local.name
-    namespace = var.config.namespace
-  }
-  spec {
-    access_modes       = ["ReadWriteOnce"]
-    storage_class_name = "do-block-storage"
-    resources {
-      requests = {
-        storage = var.database.storage
-      }
-    }
-  }
+module "postgres_volume" {
+  source = "../local_volume"
+  name   = local.name
+  path   = local.path
+  node   = var.config.node
+  size   = var.config.storage
 }

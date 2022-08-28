@@ -1,8 +1,10 @@
+## Terraform Migration
+
 - [ ] Set up pgadmin 
 - [x] Move to Linode, it's cheaper (presumably this is one of the benefits of using terraform so this better be useful!
     - [x] Get Kubernetes provider to receive those credentials 
     - [x] Terraform was quite good
-- [ ] Set up some non-hack to enable persistent storage on pods
+- [x] Set up some non-hack to enable persistent storage on pods
     - [x] Kubernetes PVCs in DigitalOcean
         - [x] Two shared PVCs with same volume name
             - Doesn't work, the PVC stays there indefinitely
@@ -29,15 +31,18 @@
         - I'm abandoning this as I don't think it's feasible.
     - [x] Use Rook Ceph NFS 
         - still too complex 
-    - [ ] Use Terraform Provisioners to mount volumes to cluster
+    - [x] WORKING - Use Terraform Provisioners to mount volumes to cluster
         - Was able to get the root password reset via the Linode API so we can access 
         - Was also able to ssh in and mount the filesystem from the device
         - [x] Need to grant SSH keys access - done via a provisioner
-        - [ ] Need to avoid mounting the filesystem if it's not there
+        - [x] Need to avoid mounting the filesystem if it's not there
+        - [x] Automount
 - [x] Allow for easy resizing without recreating the cluster
     - Have 2 node pools for this production and development. To resize we just kill
       or replace the development node pool. I don't expect to resize the production 
       one, or we can just add another production node pool.
     - Linode solves this problem, no need for 2 node pools.
+- [ ] Add main postgres instance
 - [ ] Add node problem detector
-- [ ] Enable Linode LongView
+- [ ] Enable Linode LongView for monitoring memory
+- [ ] Expose Kubernetes Dashboard at system.tjp.app

@@ -10,6 +10,10 @@ output "kubeconfig" {
   }
 }
 
-output "voume_mount" {
-  value = local.volume_mount
+output "main_node" {
+  value = local.main_node
+}
+
+output "main_nodes" {
+  value = local.main_nodes
 }
