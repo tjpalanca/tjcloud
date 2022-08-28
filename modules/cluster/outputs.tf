@@ -11,11 +11,11 @@ output "kubeconfig" {
 }
 
 output "main_node" {
-  value = data.linode_instances.main_nodes.instances.0
+  value = local.main_nodes.0
 }
 
 output "main_nodes" {
-  value = data.linode_instances.main_nodes.instances
+  value = local.main_nodes
 }
 
 output "local_storage_class" {

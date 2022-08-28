@@ -26,14 +26,17 @@ resource "linode_lke_cluster" "cluster" {
 }
 
 data "linode_instances" "main_nodes" {
+  count = var.num_main_nodes
   filter {
-    name = "id"
-    values = [
-      for node in linode_lke_cluster.cluster.pool.0.nodes :
-      node.instance_id
-    ]
+    name   = "id"
+    values = [linode_lke_cluster.cluster.pool.0.nodes[count.index].instance_id]
   }
   depends_on = [
     linode_lke_cluster.cluster
   ]
+}
+
+locals {
+  main_nodes = [for data in data.linode_instances.main_nodes : data.instances.0]
+  main_node  = local.main_nodes.0
 }

@@ -31,16 +31,16 @@ module "cluster" {
   local_ssh_key   = var.local_ssh_key
 }
 
-module "database" {
-  source                 = "./modules/database"
-  main_postgres_username = var.main_postgres_username
-  main_postgres_database = var.main_postgres_database
-  main_postgres_password = var.main_postgres_password
-  main_postgres_node_id  = module.cluster.main_node.id
-  depends_on = [
-    module.cluster.cluster
-  ]
-}
+# module "database" {
+#   source                 = "./modules/database"
+#   main_postgres_username = var.main_postgres_username
+#   main_postgres_database = var.main_postgres_database
+#   main_postgres_password = var.main_postgres_password
+#   main_postgres_node_id  = module.cluster.main_node.id
+#   depends_on = [
+#     module.cluster.cluster
+#   ]
+# }
 
 # module "ingress" {
 #   source = "./modules/ingress"

@@ -8,17 +8,17 @@ resource "null_resource" "reset_root_password" {
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
         -X POST \
-        https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/shutdown && \
+        https://api.linode.com/v4/linode/instances/${local.main_nodes[count.index].id}/shutdown && \
       sleep 30 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
         -X POST -d "{\"password\": \"$PASSWORD\"}" \
-        https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/disks/${data.linode_instances.main_nodes.instances[count.index].disk.0.id}/password && \
+        https://api.linode.com/v4/linode/instances/${local.main_nodes[count.index].id}/disks/${local.main_nodes[count.index].disk.0.id}/password && \
       sleep 5 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
         -X POST \
-        https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/boot
+        https://api.linode.com/v4/linode/instances/${local.main_nodes[count.index].id}/boot
     EOF
     environment = {
       TOKEN    = var.linode_token
@@ -41,7 +41,7 @@ resource "null_resource" "add_local_ssh_key" {
       type     = "ssh"
       user     = "root"
       password = var.root_password
-      host     = data.linode_instances.main_nodes.instances[count.index].ip_address
+      host     = local.main_nodes[count.index].ip_address
     }
     inline = [
       "echo ${var.local_ssh_key} > ~/.ssh/authorized_keys"

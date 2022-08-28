@@ -2,7 +2,7 @@ resource "linode_volume" "main_node_volume" {
   label     = "${var.cluster_name}-main"
   region    = var.linode_region
   size      = 50
-  linode_id = data.linode_instances.main_nodes.instances.0.id
+  linode_id = local.main_node.id
   depends_on = [
     null_resource.reset_root_password
   ]
@@ -11,7 +11,7 @@ resource "linode_volume" "main_node_volume" {
 resource "null_resource" "mount_main_node_volume" {
 
   triggers = {
-    main_node_instance_id  = data.linode_instances.main_nodes.instances.0.id
+    main_node_instance_id  = local.main_node.id
     cluster_data_volume_id = linode_volume.main_node_volume.id
   }
 
@@ -24,7 +24,7 @@ resource "null_resource" "mount_main_node_volume" {
       type     = "ssh"
       user     = "root"
       password = var.root_password
-      host     = data.linode_instances.main_nodes.instances.0.ip_address
+      host     = local.main_node.ip_address
     }
     inline = [
       "export DEVICE='${linode_volume.main_node_volume.filesystem_path}'",
