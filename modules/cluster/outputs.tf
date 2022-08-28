@@ -10,14 +10,18 @@ output "kubeconfig" {
   }
 }
 
-output "main_node" {
-  value = local.main_nodes.0
+output "instance_data" {
+  value = data.linode_instances.main_nodes.instances
 }
 
-output "main_nodes" {
-  value = local.main_nodes
-}
+# output "main_node" {
+#   value = local.main_node
+# }
 
-output "local_storage_class" {
-  value = kubernetes_storage_class_v1.local_storage
-}
+# output "main_nodes" {
+#   value = local.main_nodes
+# }
+
+# output "local_storage_class" {
+#   value = kubernetes_storage_class_v1.local_storage
+# }
