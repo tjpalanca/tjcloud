@@ -3,6 +3,9 @@ resource "linode_volume" "main_node_volume" {
   region    = var.linode_region
   size      = 50
   linode_id = data.linode_instances.main_nodes.instances.0.id
+  depends_on = [
+    null_resource.reset_root_password
+  ]
 }
 
 resource "null_resource" "mount_main_node_volume" {

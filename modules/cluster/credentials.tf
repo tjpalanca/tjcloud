@@ -32,6 +32,10 @@ resource "null_resource" "add_local_ssh_key" {
 
   count = var.num_main_nodes
 
+  depends_on = [
+    null_resource.reset_root_password
+  ]
+
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
