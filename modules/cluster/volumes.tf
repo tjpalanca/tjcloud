@@ -2,9 +2,9 @@ resource "linode_volume" "main_node_volume" {
   label     = "${var.cluster_name}-main"
   region    = var.linode_region
   size      = 50
-  linode_id = local.main_node.id
+  linode_id = data.linode_instances.main_nodes.instances.0.id
   depends_on = [
-    null_resource.reset_root_password
+    time_sleep.cluster_ready
   ]
 }
 
