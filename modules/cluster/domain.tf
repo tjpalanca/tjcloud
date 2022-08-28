@@ -3,10 +3,10 @@ data "cloudflare_zone" "main" {
 }
 
 resource "cloudflare_record" "main_nodes" {
-  count   = local.node_count
+  count   = local.num_main_nodes
   zone_id = data.cloudflare_zone.main.zone_id
   name    = "@"
-  value   = local.main_nodes[count.index].ip_address
+  value   = data.linode_instances.main_nodes.instances[count.index].ip_address
   type    = "A"
   proxied = true
   depends_on = [

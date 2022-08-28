@@ -6,13 +6,13 @@ locals {
 resource "linode_volume" "main_node_volume" {
   label     = local.volume_name
   region    = var.linode_region
-  linode_id = local.main_node.id
+  linode_id = data.linode_instances.main_nodes.instances.0.id
 }
 
 resource "null_resource" "mount_main_node_volume" {
 
   triggers = {
-    main_node_instance_id  = local.main_node.id
+    main_node_instance_id  = data.linode_instances.main_nodes.instances.0.id
     cluster_data_volume_id = linode_volume.main_node_volume.id
   }
 
@@ -25,7 +25,7 @@ resource "null_resource" "mount_main_node_volume" {
       type     = "ssh"
       user     = "root"
       password = var.root_password
-      host     = local.main_node.ip_address
+      host     = data.linode_instances.main_nodes.instances.0.ip_address
     }
     inline = [
       "export DEVICE='${linode_volume.main_node_volume.filesystem_path}'",

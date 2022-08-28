@@ -16,9 +16,7 @@ terraform {
 }
 
 locals {
-  node_count = 1
-  main_nodes = data.linode_instances.main_nodes.instances
-  main_node  = local.main_nodes.0
+  num_main_nodes = 1
 }
 
 resource "linode_lke_cluster" "cluster" {
@@ -27,7 +25,7 @@ resource "linode_lke_cluster" "cluster" {
   region      = var.linode_region
   pool {
     type  = "g6-standard-4"
-    count = local.node_count
+    count = local.num_main_nodes
   }
 }
 
