@@ -9,3 +9,7 @@ output "kubeconfig" {
     cluster_ca_certificate = base64decode(local.kubeconfig.clusters.0.cluster["certificate-authority-data"])
   }
 }
+
+output "voume_mount" {
+  value = local.voume_mount
+}
