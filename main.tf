@@ -28,6 +28,7 @@ module "cluster" {
   linode_region        = var.linode_region
   root_password        = var.root_password
   linode_token         = var.linode_token
+  local_ssh_key        = var.local_ssh_key
 }
 
 # resource "digitalocean_project" "main" {
