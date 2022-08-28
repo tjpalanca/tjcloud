@@ -11,5 +11,5 @@ output "kubeconfig" {
 }
 
 output "voume_mount" {
-  value = local.voume_mount
+  value = local.volume_mount
 }
