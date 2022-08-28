@@ -98,7 +98,8 @@ resource "null_resource" "inspect_environment" {
       host     = local.main_node.ip_address
     }
     inline = [
-      "python --version"
+      "echo $SHELL",
+      "echo $(python3 --version)"
     ]
   }
 

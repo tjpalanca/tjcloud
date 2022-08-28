@@ -28,15 +28,11 @@ resource "null_resource" "mount_volume" {
     }
     inline = [
       "export DEVICE='${linode_volume.cluster_data.filesystem_path}'",
+      "export MOUNTP=/mnt/${local.volume_name}",
       "export FSTYPE='ext4'",
-      <<EOF
-      if ! lsblk -o NAME,FSTYPE | grep $DEVICE | grep $FSTYPE; then
-          mkfs.ext4 $DEVICE
-      fi
-      EOF
-      ,
-      "mkdir -p /mnt/${local.volume_name}",
-      "mount ${linode_volume.cluster_data.filesystem_path} /mnt/${local.volume_name}"
+      "blkid --match-token TYPE=$FSTYPE $DEVICE || mkfs.ext4 $DEVICE",
+      "mkdir -p $MOUNTPOINT",
+      "mount $DEVICE $MOUNTPOINT"
     ]
   }
 
