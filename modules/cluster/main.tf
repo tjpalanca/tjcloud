@@ -15,10 +15,6 @@ terraform {
   }
 }
 
-locals {
-  num_main_nodes = 1
-}
-
 resource "linode_lke_cluster" "cluster" {
   label       = var.cluster_name
   k8s_version = "1.23"
@@ -37,4 +33,7 @@ data "linode_instances" "main_nodes" {
       node.instance_id
     ]
   }
+  depends_on = [
+    linode_lke_cluster.cluster
+  ]
 }
