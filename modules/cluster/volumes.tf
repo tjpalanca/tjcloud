@@ -1,10 +1,5 @@
-locals {
-  volume_name  = "${var.cluster_name}-data"
-  volume_mount = "/mnt/${local.volume_name}"
-}
-
 resource "linode_volume" "main_node_volume" {
-  label     = local.volume_name
+  label     = "${var.cluster_name}-main"
   region    = var.linode_region
   linode_id = data.linode_instances.main_nodes.instances.0.id
 }
@@ -29,7 +24,7 @@ resource "null_resource" "mount_main_node_volume" {
     }
     inline = [
       "export DEVICE='${linode_volume.main_node_volume.filesystem_path}'",
-      "export MOUNTPOINT=${local.volume_mount}",
+      "export MOUNTPOINT=/mnt/${linode_volume.main_node_volume.label}",
       "export FSTYPE='ext4'",
       "blkid --match-token TYPE=$FSTYPE $DEVICE || mkfs.ext4 $DEVICE",
       "mkdir -p $MOUNTPOINT",

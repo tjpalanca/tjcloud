@@ -10,6 +10,6 @@ variable "main_postgres_database" {
   type = string
 }
 
-variable "main_node" {
+variable "main_postgres_node_id" {
   type = string
 }

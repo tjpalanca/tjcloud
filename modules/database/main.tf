@@ -23,7 +23,7 @@ resource "kubernetes_namespace_v1" "database" {
 #   }
 #   config = {
 #     name      = "main"
-#     node      = var.main_node
+#     node      = var.main_postgres_node_id
 #     storage   = "5Gi"
 #     namespace = kubernetes_namespace_v1.database.metadata.0.name
 #   }

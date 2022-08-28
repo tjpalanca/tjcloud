@@ -8,9 +8,9 @@ terraform {
 }
 
 locals {
-  name = "${var.config.name}-postgres"
+  name = "postgres-${var.config.name}"
+  path = "postgres/${var.config.name}"
   port = 5432
-  path = "database/postgres/${var.config.name}"
 }
 
 resource "kubernetes_service_v1" "postgres_service" {
@@ -30,23 +30,21 @@ resource "kubernetes_service_v1" "postgres_service" {
 }
 
 resource "kubernetes_deployment_v1" "postgres_database" {
-
   metadata {
     name      = local.name
     namespace = var.config.namespace
   }
-
   spec {
     replicas = 1
     selector {
       match_labels = {
-        "app" = local.name
+        app = local.name
       }
     }
     template {
       metadata {
         labels = {
-          "app" = local.name
+          app = local.name
         }
       }
       spec {
