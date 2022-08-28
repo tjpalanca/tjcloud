@@ -89,6 +89,7 @@ resource "null_resource" "add_local_ssh_key" {
 }
 
 resource "null_resource" "inspect_environment" {
+
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
@@ -97,7 +98,8 @@ resource "null_resource" "inspect_environment" {
       host     = local.main_node.ip_address
     }
     inline = [
-      "echo $(which python)"
+      "python --version"
     ]
   }
+
 }
