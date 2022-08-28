@@ -33,7 +33,8 @@ resource "null_resource" "mount_volume" {
       "export FSTYPE='ext4'",
       "blkid --match-token TYPE=$FSTYPE $DEVICE || mkfs.ext4 $DEVICE",
       "mkdir -p $MOUNTPOINT",
-      "mount $DEVICE $MOUNTPOINT"
+      "mount $DEVICE $MOUNTPOINT",
+      "echo \"$DEVICE $MOUNTPOINT ext4 defaults,noatime,nofail 0 2\" >> /etc/fstab"
     ]
   }
 
