@@ -97,7 +97,7 @@ resource "null_resource" "inspect_environment" {
       host     = local.main_node.ip_address
     }
     inline = [
-      "which python"
+      "echo $(which python)"
     ]
   }
 }

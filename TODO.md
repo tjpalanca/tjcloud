@@ -32,7 +32,7 @@
     - [ ] Use Terraform Provisioners to mount volumes to cluster
         - Was able to get the root password reset via the Linode API so we can access 
         - Was also able to ssh in and mount the filesystem from the device
-        - [ ] Need to grant SSH keys access
+        - [x] Need to grant SSH keys access - done via a provisioner
         - [ ] Need to avoid mounting the filesystem if it's not there
 - [x] Allow for easy resizing without recreating the cluster
     - Have 2 node pools for this production and development. To resize we just kill
