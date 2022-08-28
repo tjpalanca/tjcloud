@@ -25,7 +25,7 @@ resource "linode_lke_cluster" "cluster" {
   }
 }
 
-resource "time_sleep" "cluster_creation" {
+resource "time_sleep" "cluster_created" {
   depends_on      = [linode_lke_cluster.cluster]
   create_duration = "30s"
 }
@@ -36,6 +36,6 @@ data "linode_instances" "main_nodes" {
     values = [for node in linode_lke_cluster.cluster.pool.0.nodes : node.instance_id]
   }
   depends_on = [
-    time_sleep.cluster_creation
+    time_sleep.cluster_created
   ]
 }
