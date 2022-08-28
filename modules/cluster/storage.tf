@@ -28,7 +28,7 @@ resource "null_resource" "mount_volume" {
     }
     inline = [
       "export DEVICE='${linode_volume.cluster_data.filesystem_path}'",
-      "export MOUNTP=/mnt/${local.volume_name}",
+      "export MOUNTPOINT=/mnt/${local.volume_name}",
       "export FSTYPE='ext4'",
       "blkid --match-token TYPE=$FSTYPE $DEVICE || mkfs.ext4 $DEVICE",
       "mkdir -p $MOUNTPOINT",
