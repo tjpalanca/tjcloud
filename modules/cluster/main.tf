@@ -25,7 +25,7 @@ resource "linode_lke_cluster" "cluster" {
   region      = var.linode_region
   pool {
     type  = "g6-standard-4"
-    count = local.num_main_nodes
+    count = var.num_main_nodes
   }
 }
 

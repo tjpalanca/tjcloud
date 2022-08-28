@@ -1,6 +1,6 @@
 resource "null_resource" "reset_root_password" {
 
-  count = local.num_main_nodes
+  count = var.num_main_nodes
 
   provisioner "local-exec" {
     command = <<EOF
@@ -30,7 +30,7 @@ resource "null_resource" "reset_root_password" {
 
 resource "null_resource" "add_local_ssh_key" {
 
-  count = local.num_main_nodes
+  count = var.num_main_nodes
 
   provisioner "remote-exec" {
     connection {

@@ -2,6 +2,11 @@ variable "cluster_name" {
   type = string
 }
 
+variable "num_main_nodes" {
+  type    = number
+  default = 1
+}
+
 variable "linode_region" {
   type = string
 }
