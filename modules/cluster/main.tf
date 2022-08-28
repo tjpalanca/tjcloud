@@ -25,9 +25,17 @@ resource "linode_lke_cluster" "cluster" {
   }
 }
 
+resource "time_sleep" "cluster_creation" {
+  depends_on      = [linode_lke_cluster.cluster]
+  create_duration = "30s"
+}
+
 data "linode_instances" "main_nodes" {
   filter {
     name   = "id"
     values = [for node in linode_lke_cluster.cluster.pool.0.nodes : node.instance_id]
   }
+  depends_on = [
+    time_sleep.cluster_creation
+  ]
 }
