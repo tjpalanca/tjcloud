@@ -1,4 +1,4 @@
 output "instances" {
-  value     = nonsensitive(module.cluster.instance_data)
+  value     = module.cluster.instance_data
   sensitive = false
 }
