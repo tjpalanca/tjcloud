@@ -1,6 +1,7 @@
 resource "linode_volume" "main_node_volume" {
   label     = "${var.cluster_name}-main"
   region    = var.linode_region
+  size      = 50
   linode_id = data.linode_instances.main_nodes.instances.0.id
 }
 
