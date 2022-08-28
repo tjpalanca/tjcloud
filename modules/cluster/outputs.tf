@@ -17,3 +17,7 @@ output "main_node" {
 output "main_nodes" {
   value = local.main_nodes
 }
+
+output "local_storage_class" {
+  value = kubernetes_storage_class_v1.local_storage
+}
