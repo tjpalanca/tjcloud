@@ -33,8 +33,7 @@ resource "kubernetes_deployment_v1" "postgres_database" {
     namespace = var.config.namespace
   }
   spec {
-    replicas  = 1
-    node_name = var.config.node_name
+    replicas = 1
     selector {
       match_labels = {
         app = var.config.name
@@ -47,6 +46,7 @@ resource "kubernetes_deployment_v1" "postgres_database" {
         }
       }
       spec {
+        node_name = var.config.node_name
         container {
           name  = "postgres-database"
           image = "postgres:${var.database.version}"
