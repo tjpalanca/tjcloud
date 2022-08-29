@@ -2,6 +2,11 @@ resource "null_resource" "reset_root_password" {
 
   count = var.num_main_nodes
 
+  depends_on = [
+    time_sleep.cluster_created,
+    data.linode_instances.main_nodes
+  ]
+
   provisioner "local-exec" {
     command = <<EOF
       sleep 10 && \
@@ -21,8 +26,8 @@ resource "null_resource" "reset_root_password" {
         https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/boot
     EOF
     environment = {
-      TOKEN    = var.linode_token
-      PASSWORD = var.root_password
+      TOKEN    = nonsensitive(var.linode_token)
+      PASSWORD = nonsensitive(var.root_password)
     }
   }
 
