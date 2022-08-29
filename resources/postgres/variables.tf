@@ -15,6 +15,7 @@ variable "config" {
     volume_name  = string
     node_name    = string
     storage_size = string
+    service_type = string
   })
   description = "General configuration"
 }
