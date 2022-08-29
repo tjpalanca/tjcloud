@@ -47,7 +47,7 @@ resource "kubernetes_deployment_v1" "postgres_database" {
       }
       spec {
         container {
-          name  = "postgres_database"
+          name  = "postgres-database"
           image = "postgres:${var.database.version}"
           port {
             container_port = local.port
