@@ -72,7 +72,7 @@ resource "kubernetes_deployment_v1" "postgres_database" {
         volume {
           name = var.config.name
           persistent_volume_claim {
-            claim_name = module.postgres_volume.persistent_volume_claim.metadata.0.name
+            claim_name = var.config.name
           }
         }
       }
