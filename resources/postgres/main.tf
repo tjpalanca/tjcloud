@@ -17,6 +17,7 @@ resource "kubernetes_service_v1" "postgres_service" {
     namespace = var.config.namespace
   }
   spec {
+    type = var.config.service_type
     selector = {
       app = var.config.name
     }

@@ -44,6 +44,7 @@
     - Linode solves this problem, no need for 2 node pools.
 - [x] Add main postgres instance
     - [x] Expose it to the outside world so I can use other SQL clients and to Terraform?
+        - Using a NodePort
         - [ ] Terraform Cloud Firewall 
         - [ ] Some VPN for local dynamic use?
 - [ ] Add ingress

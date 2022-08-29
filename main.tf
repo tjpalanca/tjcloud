@@ -12,6 +12,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 3.0"
     }
+    tfe = {
+      source  = "hashicorp/tfe"
+      version = "~> 0.35.0"
+    }
   }
   cloud {
     organization = "tjpalanca"
