@@ -3,13 +3,11 @@ resource "null_resource" "reset_root_password" {
   count = var.num_main_nodes
 
   depends_on = [
-    time_sleep.cluster_created,
-    data.linode_instances.main_nodes
+    time_sleep.cluster_created
   ]
 
   provisioner "local-exec" {
     command = <<EOF
-      sleep 10 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
         -X POST \
@@ -17,8 +15,8 @@ resource "null_resource" "reset_root_password" {
       sleep 30 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
-        -X POST -d "{\"password\": \"$PASSWORD\"}" \
-        https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].disk.0.id}/password && \
+        -X POST -d "{\"root_pass\": \"$PASSWORD\"}" \
+        https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/password && \
       sleep 5 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
