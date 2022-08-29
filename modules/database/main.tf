@@ -27,6 +27,7 @@ module "main_postgres_database" {
     namespace    = kubernetes_namespace_v1.database.metadata.0.name
     volume_name  = var.main_postgres_volume_name
     node_name    = var.main_postgres_node_name
+    node_ip      = var.main_postgres_node_ip
     service_type = "NodePort"
   }
 }

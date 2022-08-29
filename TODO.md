@@ -47,6 +47,7 @@
         - Using a NodePort
         - [ ] Terraform Cloud Firewall 
         - [ ] Some VPN for local dynamic use?
+        - [ ] Set up SSL
 - [ ] Add ingress
 - [ ] Set up keycloak
 - [ ] Set up pgadmin with proxy

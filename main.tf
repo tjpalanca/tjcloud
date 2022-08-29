@@ -2,11 +2,11 @@ terraform {
   required_providers {
     linode = {
       source  = "linode/linode"
-      version = "1.29.2"
+      version = "~> 1.29.2"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.12.1"
+      version = "~> 2.12.1"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -15,6 +15,10 @@ terraform {
     tfe = {
       source  = "hashicorp/tfe"
       version = "~> 0.35.0"
+    }
+    postgresql = {
+      source  = "cyrilgdn/postgresql"
+      version = "~> 1.17.1"
     }
   }
   cloud {
@@ -41,6 +45,7 @@ module "database" {
   main_postgres_database    = var.main_postgres_database
   main_postgres_password    = var.main_postgres_password
   main_postgres_node_name   = module.cluster.main_node.label
+  main_postgres_node_ip     = module.cluster.main_node.ip_address
   main_postgres_volume_name = module.cluster.main_node_volume.label
   depends_on = [
     module.cluster
@@ -52,6 +57,13 @@ module "ingress" {
   depends_on = [
     module.cluster
   ]
+}
+
+module "keycloak" {
+  source = "./modules/keycloak"
+  providers = {
+    postgresql = postgresql.main
+  }
 }
 
 # module "pgadmin" {

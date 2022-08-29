@@ -14,6 +14,7 @@ variable "config" {
     namespace    = string
     volume_name  = string
     node_name    = string
+    node_ip      = string
     storage_size = string
     service_type = string
   })
