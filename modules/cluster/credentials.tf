@@ -58,5 +58,5 @@ resource "time_sleep" "cluster_ready" {
     null_resource.add_local_ssh_key,
     null_resource.reset_root_password
   ]
-  create_duration = "10s"
+  create_duration = "30s"
 }
