@@ -33,7 +33,8 @@ resource "kubernetes_deployment_v1" "postgres_database" {
     namespace = var.config.namespace
   }
   spec {
-    replicas = 1
+    replicas  = 1
+    node_name = var.config.node_name
     selector {
       match_labels = {
         app = var.config.name
