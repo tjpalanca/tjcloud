@@ -38,14 +38,17 @@ module "database" {
   main_postgres_password    = var.main_postgres_password
   main_postgres_node_name   = module.cluster.main_node.label
   main_postgres_volume_name = module.cluster.main_node_volume.label
+  depends_on = [
+    module.cluster
+  ]
 }
 
-# module "ingress" {
-#   source = "./modules/ingress"
-#   depends_on = [
-#     module.cluster.cluster
-#   ]
-# }
+module "ingress" {
+  source = "./modules/ingress"
+  depends_on = [
+    module.cluster
+  ]
+}
 
 # module "pgadmin" {
 #   source                   = "./modules/pgadmin"

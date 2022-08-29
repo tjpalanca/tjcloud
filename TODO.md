@@ -1,6 +1,5 @@
 ## Terraform Migration
 
-- [ ] Set up pgadmin 
 - [x] Move to Linode, it's cheaper (presumably this is one of the benefits of using terraform so this better be useful!
     - [x] Get Kubernetes provider to receive those credentials 
     - [x] Terraform was quite good
@@ -37,12 +36,19 @@
         - [x] Need to grant SSH keys access - done via a provisioner
         - [x] Need to avoid mounting the filesystem if it's not there
         - [x] Automount
+        - [x] Ended up using `hostPath` and `nodeSelector` for simplicity.
 - [x] Allow for easy resizing without recreating the cluster
     - Have 2 node pools for this production and development. To resize we just kill
       or replace the development node pool. I don't expect to resize the production 
       one, or we can just add another production node pool.
     - Linode solves this problem, no need for 2 node pools.
-- [ ] Add main postgres instance
+- [x] Add main postgres instance
+    - [x] Expose it to the outside world so I can use other SQL clients and to Terraform?
+        - [ ] Terraform Cloud Firewall 
+        - [ ] Some VPN for local dynamic use?
+- [ ] Add ingress
+- [ ] Set up keycloak
+- [ ] Set up pgadmin with proxy
 - [ ] Add node problem detector
 - [ ] Enable Linode LongView for monitoring memory
 - [ ] Expose Kubernetes Dashboard at system.tjp.app
