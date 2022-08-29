@@ -3,6 +3,11 @@ variable "name" {
   description = "Name of the PersistentVolume and PersistentVolumeClaim"
 }
 
+variable "namespace" {
+  type        = string
+  description = "Kubernetes Namespace"
+}
+
 variable "size" {
   type        = string
   description = "Size of the PersistentVolume and PersistentVolumeClaim"

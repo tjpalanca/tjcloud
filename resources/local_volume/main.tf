@@ -39,7 +39,8 @@ resource "kubernetes_persistent_volume_v1" "volume" {
 
 resource "kubernetes_persistent_volume_claim_v1" "volume_claim" {
   metadata {
-    name = var.name
+    name      = var.name
+    namespace = var.namespace
   }
   spec {
     access_modes       = ["ReadWriteOnce"]

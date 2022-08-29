@@ -83,6 +83,7 @@ resource "kubernetes_deployment_v1" "postgres_database" {
 module "postgres_volume" {
   source             = "../local_volume"
   name               = var.config.name
+  namespace          = var.config.namespace
   size               = var.config.storage_size
   node_name          = var.config.node_name
   node_path          = "/mnt/${var.config.volume_name}/postgres/${var.config.name}"
