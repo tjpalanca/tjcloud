@@ -1,19 +1,24 @@
 variable "name" {
   type        = string
-  description = "Name fo the PersistentVolume and PersistentVolumeClaim"
+  description = "Name of the PersistentVolume and PersistentVolumeClaim"
 }
 
 variable "size" {
   type        = string
-  description = "Size of the volumes"
+  description = "Size of the PersistentVolume and PersistentVolumeClaim"
 }
 
-variable "path" {
+variable "node_name" {
   type        = string
-  description = "Path inside the node that local volume is attached"
+  description = "Name of the node that local volume is attached"
 }
 
-variable "node" {
+variable "node_path" {
   type        = string
-  description = "ID of the node to which the volume is attached"
+  description = "Path inside the node where local volume is attached, including the subpath for shared volumes"
+}
+
+variable "storage_class_name" {
+  type        = string
+  description = "Storage class used for the volume"
 }

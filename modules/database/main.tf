@@ -13,18 +13,20 @@ resource "kubernetes_namespace_v1" "database" {
   }
 }
 
-# module "main_postgres_database" {
-#   source = "../../resources/postgres"
-#   database = {
-#     username   = var.main_postgres_username
-#     password   = var.main_postgres_password
-#     db_name    = var.main_postgres_database
-#     db_version = "14"
-#   }
-#   config = {
-#     name      = "main"
-#     node      = var.main_postgres_node_id
-#     storage   = "5Gi"
-#     namespace = kubernetes_namespace_v1.database.metadata.0.name
-#   }
-# }
+module "main_postgres_database" {
+  source = "../../resources/postgres"
+  database = {
+    username = var.main_postgres_username
+    password = var.main_postgres_password
+    name     = var.main_postgres_database
+    version  = "14"
+  }
+  config = {
+    name               = "main-postgres-database"
+    storage_size       = "5Gi"
+    namespace          = kubernetes_namespace_v1.database.metadata.0.name
+    volume_name        = var.main_postgres_volume_name
+    node_name          = var.main_postgres_node_name
+    storage_class_name = var.main_postgres_storage_class_name
+  }
+}

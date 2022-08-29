@@ -17,10 +17,10 @@ resource "kubernetes_persistent_volume_v1" "volume" {
     }
     access_modes                     = ["ReadWriteOnce"]
     persistent_volume_reclaim_policy = "Retain"
-    storage_class_name               = "local-storage"
+    storage_class_name               = var.storage_class_name
     persistent_volume_source {
       local {
-        path = var.path
+        path = var.node_path
       }
     }
     node_affinity {
@@ -29,7 +29,7 @@ resource "kubernetes_persistent_volume_v1" "volume" {
           match_expressions {
             key      = "kubernetes.io/hostname"
             operator = "In"
-            values   = [var.node]
+            values   = [var.node_name]
           }
         }
       }
@@ -43,7 +43,7 @@ resource "kubernetes_persistent_volume_claim_v1" "volume_claim" {
   }
   spec {
     access_modes       = ["ReadWriteOnce"]
-    storage_class_name = "local-storage"
+    storage_class_name = var.storage_class_name
     resources {
       requests = {
         storage = var.size
@@ -53,13 +53,4 @@ resource "kubernetes_persistent_volume_claim_v1" "volume_claim" {
   depends_on = [
     kubernetes_persistent_volume_v1.volume
   ]
-}
-
-resource "kubernetes_storage_class_v1" "local_storage" {
-  metadata {
-    name = "local-storage"
-  }
-  storage_provisioner = "kubernetes.io/no-provisioner"
-  volume_binding_mode = "WaitForFirstConsumer"
-  reclaim_policy      = "Retain"
 }
