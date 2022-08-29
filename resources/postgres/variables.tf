@@ -10,12 +10,11 @@ variable "database" {
 
 variable "config" {
   type = object({
-    name               = string
-    namespace          = string
-    volume_name        = string
-    node_name          = string
-    storage_size       = string
-    storage_class_name = string
+    name         = string
+    namespace    = string
+    volume_name  = string
+    node_name    = string
+    storage_size = string
   })
   description = "General configuration"
 }

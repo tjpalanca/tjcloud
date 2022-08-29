@@ -22,11 +22,10 @@ module "main_postgres_database" {
     version  = "14"
   }
   config = {
-    name               = "main-postgres-database"
-    storage_size       = "5Gi"
-    namespace          = kubernetes_namespace_v1.database.metadata.0.name
-    volume_name        = var.main_postgres_volume_name
-    node_name          = var.main_postgres_node_name
-    storage_class_name = var.main_postgres_storage_class_name
+    name         = "main-postgres-database"
+    storage_size = "5Gi"
+    namespace    = kubernetes_namespace_v1.database.metadata.0.name
+    volume_name  = var.main_postgres_volume_name
+    node_name    = var.main_postgres_node_name
   }
 }

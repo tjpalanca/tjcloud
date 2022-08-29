@@ -21,7 +21,3 @@ output "main_nodes" {
 output "main_node_volume" {
   value = linode_volume.main_node_volume
 }
-
-output "local_storage_class" {
-  value = kubernetes_storage_class_v1.local_storage
-}
