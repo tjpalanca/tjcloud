@@ -13,7 +13,8 @@ terraform {
 
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
-    name = var.name
+    name      = var.name
+    namespace = var.namespace
   }
   spec {
     ingress_class_name = var.ingress_class_name

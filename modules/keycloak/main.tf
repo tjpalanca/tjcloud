@@ -50,6 +50,7 @@ module "keycloak" {
 module "keycloak_ingress" {
   source       = "../../resources/ingress"
   name         = "keycloak"
+  namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
   host         = "keycloak"
   zone         = var.keycloak.cloudflare_zone
   service_name = module.keycloak.service_name

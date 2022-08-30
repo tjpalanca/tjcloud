@@ -3,6 +3,11 @@ variable "name" {
   description = "Name of the ingress"
 }
 
+variable "namespace" {
+  type        = string
+  description = "Namespace of the ingress"
+}
+
 variable "host" {
   type        = string
   description = "Host name to respond to"
