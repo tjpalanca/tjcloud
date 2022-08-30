@@ -63,13 +63,16 @@ module "ingress" {
   ]
 }
 
-# module "keycloak" {
-#   source = "./modules/keycloak"
-#   providers = {
-#     postgresql = postgresql.main
-#   }
-#   database = module.database.main_postgres_database_credentials
-# }
+module "keycloak" {
+  source = "./modules/keycloak"
+  providers = {
+    postgresql = postgresql.main
+  }
+  database = module.database.main_postgres_database_credentials
+  keycloak = {
+    version = "19.0"
+  }
+}
 
 # module "pgadmin" {
 #   source                   = "./modules/pgadmin"

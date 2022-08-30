@@ -4,10 +4,6 @@ terraform {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
     }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "2.12.1"
-    }
     docker = {
       source  = "kreuzwerker/docker"
       version = "~> 2.20.2"
@@ -18,3 +14,40 @@ terraform {
 resource "postgresql_database" "keycloak" {
   name = "keycloak"
 }
+
+module "keycloak" {
+  source       = "../../resources/application"
+  name         = "keycloak"
+  namespace    = "keycloak"
+  service_type = "ClusterIP"
+  ports        = [8080]
+  replicas     = 1
+  image        = "quay.io/keycloak/keycloak:${var.keycloak.version}"
+  env_vars = {
+    DB_VENDOR                = "postgres"
+    DB_ADDR                  = var.database.internal_name
+    DB_PORT                  = var.database.internal_port
+    DB_DATABASE              = "keycloak"
+    DB_USER                  = var.database.username
+    DB_PASSWORD              = var.database.password
+    PROXY_ADDRESS_FORWARDING = "true"
+  }
+}
+
+# module "keycloak_ingress" {
+#   source
+# }
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: ingress-myservicea
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: myservicea.foo.org
+#     http:
+#       paths:
+#       - path: /
+#         backend:
+#           serviceName: myservicea
+#           servicePort: 80

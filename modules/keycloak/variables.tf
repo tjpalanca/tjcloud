@@ -6,3 +6,9 @@ variable "database" {
     internal_port = string
   })
 }
+
+variable "keycloak" {
+  type = object({
+    version = string
+  })
+}
