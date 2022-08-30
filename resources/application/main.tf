@@ -51,6 +51,7 @@ resource "kubernetes_deployment_v1" "deployment" {
           name    = var.name
           image   = var.image
           command = var.command
+          args    = var.command_args
           dynamic "port" {
             for_each = var.ports
             content {

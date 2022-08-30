@@ -55,5 +55,11 @@ variable "volumes" {
 variable "command" {
   type        = list(string)
   default     = null
-  description = "Command to run in the pod"
+  description = "Command to run in the pod; same as entrypoint in Docker"
+}
+
+variable "command_args" {
+  type        = list(string)
+  default     = null
+  description = "Args against the command; same as command in Docker"
 }

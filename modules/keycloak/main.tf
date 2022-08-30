@@ -28,7 +28,7 @@ module "keycloak" {
   service_type = "ClusterIP"
   ports        = [8080]
   replicas     = 1
-  command      = ["start-dev"]
+  command_args = ["start-dev"]
   image        = "quay.io/keycloak/keycloak:${var.keycloak.version}"
   env_vars = {
     DB_VENDOR                = "postgres"
