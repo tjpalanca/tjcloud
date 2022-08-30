@@ -71,6 +71,10 @@ module "keycloak" {
   database = module.database.main_postgres_database_credentials
   keycloak = {
     version = "19.0"
+    admin = {
+      username = var.keycloak_admin_username
+      password = var.keycloak_admin_password
+    }
   }
 }
 

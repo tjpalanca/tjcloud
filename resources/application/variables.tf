@@ -51,3 +51,9 @@ variable "volumes" {
   default     = []
   description = "Volumes to be mounted into the container"
 }
+
+variable "command" {
+  type        = list(string)
+  default     = null
+  description = "Command to run in the pod"
+}

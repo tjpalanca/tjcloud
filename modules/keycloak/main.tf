@@ -28,6 +28,7 @@ module "keycloak" {
   service_type = "ClusterIP"
   ports        = [8080]
   replicas     = 1
+  command      = ["start-dev"]
   image        = "quay.io/keycloak/keycloak:${var.keycloak.version}"
   env_vars = {
     DB_VENDOR                = "postgres"
@@ -37,6 +38,8 @@ module "keycloak" {
     DB_USER                  = var.database.username
     DB_PASSWORD              = var.database.password
     PROXY_ADDRESS_FORWARDING = "true"
+    KEYCLOAK_ADMIN           = var.keycloak.admin.username
+    KEYCLOAK_ADMIN_PASSWORD  = var.keycloak.admin.password
   }
 }
 

@@ -58,3 +58,13 @@ variable "pgadmin_default_password" {
   type        = string
   description = "PGAdmin initialized password"
 }
+
+variable "keycloak_admin_username" {
+  type        = string
+  description = "Keycloak initialized username"
+}
+
+variable "keycloak_admin_password" {
+  type        = string
+  description = "Keycloak initialized password"
+}

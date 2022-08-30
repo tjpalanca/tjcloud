@@ -48,8 +48,9 @@ resource "kubernetes_deployment_v1" "deployment" {
       spec {
         node_name = var.node_name
         container {
-          name  = var.name
-          image = var.image
+          name    = var.name
+          image   = var.image
+          command = var.command
           dynamic "port" {
             for_each = var.ports
             content {

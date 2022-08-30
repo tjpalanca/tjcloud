@@ -10,5 +10,9 @@ variable "database" {
 variable "keycloak" {
   type = object({
     version = string
+    admin = object({
+      username = string
+      password = string
+    })
   })
 }
