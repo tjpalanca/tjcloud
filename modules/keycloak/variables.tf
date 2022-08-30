@@ -14,5 +14,6 @@ variable "keycloak" {
       username = string
       password = string
     })
+    cloudflare_zone = string
   })
 }

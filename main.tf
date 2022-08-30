@@ -75,6 +75,7 @@ module "keycloak" {
       username = var.keycloak_admin_username
       password = var.keycloak_admin_password
     }
+    cloudflare_zone = var.main_cloudflare_zone
   }
 }
 

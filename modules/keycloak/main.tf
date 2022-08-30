@@ -21,12 +21,16 @@ resource "kubernetes_namespace_v1" "keycloak" {
   }
 }
 
+locals {
+  port = 8080
+}
+
 module "keycloak" {
   source       = "../../resources/application"
   name         = "keycloak"
   namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
   service_type = "ClusterIP"
-  ports        = [8080]
+  ports        = [local.port]
   replicas     = 1
   command_args = ["start-dev"]
   image        = "quay.io/keycloak/keycloak:${var.keycloak.version}"
@@ -43,20 +47,11 @@ module "keycloak" {
   }
 }
 
-# module "keycloak_ingress" {
-#   source
-# }
-# apiVersion: networking.k8s.io/v1beta1
-# kind: Ingress
-# metadata:
-#   name: ingress-myservicea
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#   - host: myservicea.foo.org
-#     http:
-#       paths:
-#       - path: /
-#         backend:
-#           serviceName: myservicea
-#           servicePort: 80
+module "keycloak_ingress" {
+  source       = "../../resources/ingress"
+  name         = "keycloak"
+  host         = "keycloak"
+  zone         = var.keycloak.cloudflare_zone
+  service_name = module.keycloak.service_name
+  service_port = local.port
+}
