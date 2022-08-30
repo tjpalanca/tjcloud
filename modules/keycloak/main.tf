@@ -15,10 +15,16 @@ resource "postgresql_database" "keycloak" {
   name = "keycloak"
 }
 
+resource "kubernetes_namespace_v1" "keycloak" {
+  metadata {
+    name = "keycloak"
+  }
+}
+
 module "keycloak" {
   source       = "../../resources/application"
   name         = "keycloak"
-  namespace    = "keycloak"
+  namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
   service_type = "ClusterIP"
   ports        = [8080]
   replicas     = 1
