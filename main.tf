@@ -20,6 +20,10 @@ terraform {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
     }
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 2.20.2"
+    }
   }
   cloud {
     organization = "tjpalanca"
@@ -59,12 +63,13 @@ module "ingress" {
   ]
 }
 
-module "keycloak" {
-  source = "./modules/keycloak"
-  providers = {
-    postgresql = postgresql.main
-  }
-}
+# module "keycloak" {
+#   source = "./modules/keycloak"
+#   providers = {
+#     postgresql = postgresql.main
+#   }
+#   database = module.database.main_postgres_database_credentials
+# }
 
 # module "pgadmin" {
 #   source                   = "./modules/pgadmin"

@@ -22,3 +22,7 @@ provider "postgresql" {
   sslmode         = "disable"
   connect_timeout = 15
 }
+
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}
