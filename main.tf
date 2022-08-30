@@ -56,12 +56,12 @@ module "database" {
   ]
 }
 
-# module "ingress" {
-#   source = "./modules/ingress"
-#   depends_on = [
-#     module.cluster
-#   ]
-# }
+module "ingress_controller" {
+  source = "./modules/ingress_controller"
+  depends_on = [
+    module.cluster
+  ]
+}
 
 module "keycloak" {
   source = "./modules/keycloak"
