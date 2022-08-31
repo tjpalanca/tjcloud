@@ -44,6 +44,7 @@ module "keycloak" {
     PROXY_ADDRESS_FORWARDING = "true"
     KEYCLOAK_ADMIN           = var.keycloak.admin.username
     KEYCLOAK_ADMIN_PASSWORD  = var.keycloak.admin.password
+    KC_PROXY                 = "edge"
   }
   readiness_probes = [{
     path = "/realms/master"
