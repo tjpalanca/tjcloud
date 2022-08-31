@@ -73,6 +73,16 @@ resource "kubernetes_deployment_v1" "deployment" {
               mount_path = volume.value.mount_path
             }
           }
+          dynamic "readiness_probe" {
+            for_each = var.readiness_probes
+            iterator = probe
+            content {
+              http_get {
+                path = probe.value.path
+                port = probe.value.port
+              }
+            }
+          }
         }
         dynamic "volume" {
           for_each = var.volumes

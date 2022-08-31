@@ -45,6 +45,10 @@ module "keycloak" {
     KEYCLOAK_ADMIN           = var.keycloak.admin.username
     KEYCLOAK_ADMIN_PASSWORD  = var.keycloak.admin.password
   }
+  readiness_probes = [{
+    path = "/realms/master"
+    port = local.port
+  }]
 }
 
 module "keycloak_ingress" {

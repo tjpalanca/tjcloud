@@ -63,3 +63,12 @@ variable "command_args" {
   default     = null
   description = "Args against the command; same as command in Docker"
 }
+
+variable "readiness_probes" {
+  type = list(object({
+    path = string
+    port = number
+  }))
+  default     = []
+  description = "HTTP endpoints as readiness probes"
+}
