@@ -14,7 +14,7 @@ resource "keycloak_group" "tester" {
 }
 
 resource "keycloak_user" "admin_users" {
-  for_each = var.settings.admin_emails
+  for_each = toset(var.settings.admin_emails)
   realm_id = keycloak_realm.main.id
   username = each.value
   email    = each.value
