@@ -10,7 +10,7 @@ resource "keycloak_authentication_execution" "review_profile" {
   requirement       = "REQUIRED"
 }
 
-resource "keycloak_authentication_subflow" "user_creation_or_linking" {
+resource "keycloak_authentication_subflow" "link_or_create_user" {
   realm_id          = keycloak_realm.main.id
   alias             = "Link or create user"
   parent_flow_alias = keycloak_authentication_flow.autolink.alias
@@ -23,18 +23,18 @@ resource "keycloak_authentication_subflow" "user_creation_or_linking" {
 
 resource "keycloak_authentication_execution" "create_user_if_unique" {
   realm_id          = keycloak_realm.main.id
-  parent_flow_alias = keycloak_authentication_subflow.user_creation_or_linking.alias
+  parent_flow_alias = keycloak_authentication_subflow.link_or_create_user.alias
   authenticator     = "idp-create-user-if-unique"
   requirement       = "ALTERNATIVE"
   depends_on = [
-    keycloak_authentication_subflow.user_creation_or_linking
+    keycloak_authentication_subflow.link_or_create_user
   ]
 }
 
 resource "keycloak_authentication_subflow" "handle_existing_account" {
   realm_id          = keycloak_realm.main.id
   alias             = "Handle existing account"
-  parent_flow_alias = keycloak_authentication_subflow.user_creation_or_linking.alias
+  parent_flow_alias = keycloak_authentication_subflow.link_or_create_user.alias
   provider_id       = "basic-flow"
   requirement       = "ALTERNATIVE"
   depends_on = [
