@@ -29,7 +29,7 @@ resource "cloudflare_origin_ca_certificate" "origin_ca" {
 resource "kubernetes_secret_v1" "origin_ca" {
   metadata {
     name      = "origin-ca"
-    namespace = "ingress-nginx"
+    namespace = "keycloak"
   }
   data = {
     "tls.key" = var.cloudflare_origin_ca.private_key
