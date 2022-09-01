@@ -34,7 +34,7 @@ resource "keycloak_authentication_execution" "create_user_if_unique" {
 resource "keycloak_authentication_subflow" "handle_existing_account" {
   realm_id          = keycloak_realm.main.id
   alias             = "Handle existing account"
-  parent_flow_alias = keycloak_authentication_flow.user_creation_or_linking.alias
+  parent_flow_alias = keycloak_authentication_subflow.user_creation_or_linking.alias
   provider_id       = "basic-flow"
   requirement       = "ALTERNATIVE"
   depends_on = [
