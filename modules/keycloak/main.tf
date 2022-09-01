@@ -67,5 +67,5 @@ module "keycloak_ingress" {
 }
 
 resource "keycloak_realm" "main" {
-  realm = var.settings.realm_name
+  realm = var.keycloak.settings.realm_name
 }

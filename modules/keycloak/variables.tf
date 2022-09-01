@@ -9,15 +9,12 @@ variable "database" {
 
 variable "keycloak" {
   type = object({
-    version = string
+    version   = string
+    subdomain = string
     admin = object({
       username = string
       password = string
     })
     cloudflare_zone = string
-    settings = object({
-      realm_name = string
-
-    })
   })
 }
