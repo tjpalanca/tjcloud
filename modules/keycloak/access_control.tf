@@ -24,5 +24,7 @@ resource "keycloak_user" "admin_users" {
 resource "keycloak_group_memberships" "admin_users" {
   realm_id = keycloak_realm.main.id
   group_id = keycloak_group.administrator.id
-  members  = var.settings.admin_emails
+  members = [
+    for user in keycloak_user.admin_users : user.username
+  ]
 }
