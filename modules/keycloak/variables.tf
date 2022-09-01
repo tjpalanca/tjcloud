@@ -15,5 +15,9 @@ variable "keycloak" {
       password = string
     })
     cloudflare_zone = string
+    settings = object({
+      realm_name = string
+
+    })
   })
 }
