@@ -45,3 +45,9 @@ variable "tls_secret_name" {
   default     = null
   description = "Kubernetes secret holding the TLS certificate"
 }
+
+variable "annotations" {
+  type        = map(string)
+  default     = {}
+  description = "Additional annotations to the ingress"
+}

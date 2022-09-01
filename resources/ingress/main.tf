@@ -17,8 +17,9 @@ locals {
 
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
-    name      = var.name
-    namespace = var.namespace
+    name        = var.name
+    namespace   = var.namespace
+    annotations = var.annotations
   }
   spec {
     ingress_class_name = var.ingress_class_name

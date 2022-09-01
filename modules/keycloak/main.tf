@@ -64,6 +64,9 @@ module "keycloak_ingress" {
   zone         = var.keycloak.cloudflare_zone
   service_name = module.keycloak.service_name
   service_port = local.port
+  annotations = {
+    "nginx.ingress.kubernetes.io/proxy-buffer-size" = "128k"
+  }
 }
 
 resource "keycloak_realm" "main" {
