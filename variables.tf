@@ -29,6 +29,11 @@ variable "cloudflare_api_token" {
   description = "Cloudflare API Token"
 }
 
+variable "cloudflare_origin_ca_key" {
+  type        = string
+  description = "Private Key for Origin CA"
+}
+
 variable "cloudflare_origin_ca_private_key" {
   type        = string
   description = "Private Key for Origin CA"
