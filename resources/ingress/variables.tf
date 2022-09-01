@@ -39,3 +39,9 @@ variable "ingress_class_name" {
   default     = "nginx"
   description = "Class of the ingress to be provisioned"
 }
+
+variable "tls_secret_name" {
+  type        = string
+  default     = "origin-ca"
+  description = "Kubernetes secret holding the TLS certificate"
+}

@@ -11,6 +11,10 @@ terraform {
   }
 }
 
+locals {
+  domain = "${var.host}.${var.zone}"
+}
+
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
     name      = var.name
@@ -18,8 +22,12 @@ resource "kubernetes_ingress_v1" "ingress" {
   }
   spec {
     ingress_class_name = var.ingress_class_name
+    tls {
+      hosts       = [local.domain]
+      secret_name = var.tls_secret_name
+    }
     rule {
-      host = "${var.host}.${var.zone}"
+      host = local.domain
       http {
         path {
           path = var.path
