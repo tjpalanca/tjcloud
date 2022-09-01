@@ -595,6 +595,6 @@ resource "kubernetes_validating_webhook_configuration_v1" "ingress_nginx_admissi
     admission_review_versions = ["v1"]
   }
   lifecycle {
-    ignore_changes = [webhook.0.client_config.ca_bundle]
+    ignore_changes = [webhook.0.client_config.0.ca_bundle]
   }
 }
