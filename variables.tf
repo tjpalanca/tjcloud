@@ -103,3 +103,8 @@ variable "google_client_secret" {
   type        = string
   description = "Google OAuth Client Secret"
 }
+
+variable "admin_emails" {
+  type        = list(string)
+  description = "List of emails that will be Administrator in the realm"
+}

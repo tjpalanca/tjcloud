@@ -89,7 +89,8 @@ module "keycloak" {
     password = var.keycloak_admin_password
   }
   settings = {
-    realm_name = var.cluster_name
+    realm_name   = var.cluster_name
+    admin_emails = var.admin_emails
   }
   identity_providers = {
     google = {

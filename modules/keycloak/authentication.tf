@@ -12,7 +12,7 @@ resource "keycloak_authentication_execution" "review_profile" {
 
 resource "keycloak_authentication_subflow" "link_or_create_user" {
   realm_id          = keycloak_realm.main.id
-  alias             = "Link or create user"
+  alias             = "djdjdjjddjdj"
   parent_flow_alias = keycloak_authentication_flow.autolink.alias
   provider_id       = "basic-flow"
   requirement       = "REQUIRED"
