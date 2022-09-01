@@ -14,15 +14,15 @@ resource "keycloak_group" "tester" {
 }
 
 resource "keycloak_user" "admin_users" {
-  for_each = var.admin_emails
+  for_each = var.settings.admin_emails
   realm_id = keycloak_realm.main.id
   username = each.value
-  enabled  = true
   email    = each.value
+  enabled  = true
 }
 
 resource "keycloak_group_memberships" "admin_users" {
-  realm_id = keycloak_realm.realm.id
+  realm_id = keycloak_realm.main.id
   group_id = keycloak_group.administrator.id
-  members  = var.admin_emails
+  members  = var.settings.admin_emails
 }
