@@ -29,9 +29,8 @@ variable "cloudflare_zone" {
 
 variable "cloudflare_origin_ca" {
   type = object({
-    private_key      = string
-    private_key_algo = string
-    common_name      = string
-    organization     = string
+    private_key  = string
+    common_name  = string
+    organization = string
   })
 }

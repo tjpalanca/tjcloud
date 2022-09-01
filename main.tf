@@ -42,10 +42,9 @@ module "cluster" {
   linode_token    = var.linode_token
   local_ssh_key   = var.local_ssh_key
   cloudflare_origin_ca = {
-    common_name      = var.cloudflare_origin_ca_common_name
-    organization     = var.cloudflare_origin_ca_organization
-    private_key      = var.cloudflare_origin_ca_private_key
-    private_key_algo = var.cloudflare_origin_ca_private_key_algo
+    common_name  = var.cloudflare_origin_ca_common_name
+    organization = var.cloudflare_origin_ca_organization
+    private_key  = var.cloudflare_origin_ca_private_key
   }
 }
 
