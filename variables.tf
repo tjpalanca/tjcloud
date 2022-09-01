@@ -83,3 +83,13 @@ variable "cloudflare_origin_ca_private_key_algo" {
   type        = string
   description = "Algorithm used for Private Key"
 }
+
+variable "cloudflare_origin_ca_common_name" {
+  type        = string
+  description = "Origin CA Common Name"
+}
+
+variable "cloudflare_origin_ca_organization" {
+  type        = string
+  description = "Origin CA Organization"
+}

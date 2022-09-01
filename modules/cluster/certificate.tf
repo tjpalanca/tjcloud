@@ -1,6 +1,10 @@
 resource "tls_cert_request" "origin_ca_cert_request" {
-  key_algorithm   = var.cloudflare_origin_ca_private_key_algo
-  private_key_pem = var.cloudflare_origin_ca_private_key
+  key_algorithm   = var.cloudflare_origin_ca.private_key
+  private_key_pem = var.cloudflare_origin_ca.private_key_algo
+  subject {
+    common_name  = var.cloudflare_origin_ca.common_name
+    organization = var.cloudflare_origin_ca.organization
+  }
 }
 
 resource "cloudflare_origin_ca_certificate" "origin_ca" {

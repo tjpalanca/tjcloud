@@ -26,3 +26,12 @@ variable "local_ssh_key" {
 variable "cloudflare_zone" {
   type = string
 }
+
+variable "cloudflare_origin_ca" {
+  type = object({
+    private_key      = string
+    private_key_algo = string
+    common_name      = string
+    organization     = string
+  })
+}
