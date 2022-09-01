@@ -29,9 +29,19 @@ variable "cloudflare_api_token" {
   description = "Cloudflare API Token"
 }
 
-variable "cloudflare_origin_ca_key" {
+variable "cloudflare_origin_ca_private_key" {
   type        = string
-  description = "Cloudflare Origin CA Key"
+  description = "Private Key for Origin CA"
+}
+
+variable "cloudflare_origin_ca_common_name" {
+  type        = string
+  description = "Origin CA Common Name"
+}
+
+variable "cloudflare_origin_ca_organization" {
+  type        = string
+  description = "Origin CA Organization"
 }
 
 variable "main_cloudflare_zone" {
@@ -72,19 +82,4 @@ variable "keycloak_admin_username" {
 variable "keycloak_admin_password" {
   type        = string
   description = "Keycloak initialized password"
-}
-
-variable "cloudflare_origin_ca_private_key" {
-  type        = string
-  description = "Private Key for Origin CA"
-}
-
-variable "cloudflare_origin_ca_common_name" {
-  type        = string
-  description = "Origin CA Common Name"
-}
-
-variable "cloudflare_origin_ca_organization" {
-  type        = string
-  description = "Origin CA Organization"
 }
