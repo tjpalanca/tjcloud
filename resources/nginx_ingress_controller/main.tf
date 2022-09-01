@@ -594,4 +594,7 @@ resource "kubernetes_validating_webhook_configuration_v1" "ingress_nginx_admissi
     side_effects              = "None"
     admission_review_versions = ["v1"]
   }
+  lifecycle {
+    ignore_changes = [webhook.client_config.ca_bundle]
+  }
 }
