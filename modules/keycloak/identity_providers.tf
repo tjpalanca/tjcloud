@@ -5,5 +5,6 @@ resource "keycloak_oidc_google_identity_provider" "google" {
   trust_email                   = true
   hosted_domain                 = "*"
   sync_mode                     = "IMPORT"
+  store_token                   = false
   first_broker_login_flow_alias = keycloak_authentication_flow.autolink.alias
 }
