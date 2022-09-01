@@ -50,7 +50,11 @@
         - [ ] Set up SSL
 - [ ] Add ingress
 - [ ] Set up keycloak
+    - Having an issue where there is mixed content, I suspect it's because cloudflare is 
+      proxying HTTPS so the ingress and keycloak don't know that they should serve 
+      paths at HTTPS
 - [ ] Set up pgadmin with proxy
 - [ ] Add node problem detector
 - [ ] Enable Linode LongView for monitoring memory
-- [ ] Expose Kubernetes Dashboard at system.tjp.app
+- [ ] Expose Kubernetes Dashboard at system
+- [ ] Set up cloudflare authenticated origin pulls
