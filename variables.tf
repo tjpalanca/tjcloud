@@ -29,6 +29,11 @@ variable "cloudflare_api_token" {
   description = "Cloudflare API Token"
 }
 
+variable "cloudflare_origin_ca_key" {
+  type        = string
+  description = "Cloudflare Origin CA Key"
+}
+
 variable "main_cloudflare_zone" {
   type        = string
   description = "Zone at which the cluster ingress will be exposed"

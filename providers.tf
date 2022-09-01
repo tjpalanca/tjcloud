@@ -3,7 +3,8 @@ provider "linode" {
 }
 
 provider "cloudflare" {
-  api_token = var.cloudflare_api_token
+  api_token            = var.cloudflare_api_token
+  api_user_service_key = var.cloudflare_origin_ca_key
 }
 
 provider "kubernetes" {

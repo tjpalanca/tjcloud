@@ -3,3 +3,4 @@
 .env
 **/sandbox.*
 *.auto.tfvars
+.DS_Store
