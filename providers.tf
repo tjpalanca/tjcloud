@@ -27,3 +27,10 @@ provider "postgresql" {
 provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
+
+provider "keycloak" {
+  client_id = "admin-cli"
+  username  = var.keycloak_admin_username
+  password  = var.keycloak_admin_password
+  url       = "http://${var.keycloak_subdomain}.${var.main_cloudflare_zone}"
+}

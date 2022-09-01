@@ -1,6 +1,6 @@
 variable "cluster_name" {
   type        = string
-  description = "DOKS Cluster Name"
+  description = "Kubernetes Cluster Name"
 }
 
 variable "linode_token" {
@@ -87,4 +87,9 @@ variable "keycloak_admin_username" {
 variable "keycloak_admin_password" {
   type        = string
   description = "Keycloak initialized password"
+}
+
+variable "keycloak_subdomain" {
+  type        = string
+  description = "Subdomain of keycloak"
 }

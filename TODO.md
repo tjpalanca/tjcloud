@@ -53,6 +53,9 @@
     - Having an issue where there is mixed content, I suspect it's because cloudflare is 
       proxying HTTPS so the ingress and keycloak don't know that they should serve 
       paths at HTTPS
+    - [x] Fixed by adding an origin certificate for nginx ingress to use
+    - [ ] Authenticate keycloak provider 
+    - [ ] Build custom docker image with keycloak themes
 - [ ] Set up pgadmin with proxy
 - [ ] Add node problem detector
 - [ ] Enable Linode LongView for monitoring memory

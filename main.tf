@@ -24,6 +24,10 @@ terraform {
       source  = "kreuzwerker/docker"
       version = "~> 2.20.2"
     }
+    keycloak = {
+      source  = "mrparkers/keycloak"
+      version = "3.10.0"
+    }
   }
   cloud {
     organization = "tjpalanca"
@@ -76,12 +80,16 @@ module "keycloak" {
   }
   database = module.database.main_postgres_database_credentials
   keycloak = {
-    version = "19.0"
+    version         = "19.0"
+    cloudflare_zone = var.main_cloudflare_zone
+    subdomain       = var.keycloak_subdomain
     admin = {
       username = var.keycloak_admin_username
       password = var.keycloak_admin_password
     }
-    cloudflare_zone = var.main_cloudflare_zone
+    settings = {
+      realm_name = var.cluster_name
+    }
   }
 }
 

@@ -8,7 +8,15 @@ terraform {
       source  = "kreuzwerker/docker"
       version = "~> 2.20.2"
     }
+    keycloak = {
+      source  = "mrparkers/keycloak"
+      version = "3.10.0"
+    }
   }
+}
+
+locals {
+  port = 8080
 }
 
 resource "postgresql_database" "keycloak" {
@@ -19,10 +27,6 @@ resource "kubernetes_namespace_v1" "keycloak" {
   metadata {
     name = "keycloak"
   }
-}
-
-locals {
-  port = 8080
 }
 
 module "keycloak" {
@@ -56,8 +60,12 @@ module "keycloak_ingress" {
   source       = "../../resources/ingress"
   name         = "keycloak"
   namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
-  host         = "keycloak"
+  host         = var.keycloak.subdomain
   zone         = var.keycloak.cloudflare_zone
   service_name = module.keycloak.service_name
   service_port = local.port
+}
+
+resource "keycloak_realm" "main" {
+  realm = var.settings.realm_name
 }
