@@ -73,3 +73,13 @@ variable "keycloak_admin_password" {
   type        = string
   description = "Keycloak initialized password"
 }
+
+variable "cloudflare_origin_ca_private_key" {
+  type        = string
+  description = "Private Key for Origin CA"
+}
+
+variable "cloudflare_origin_ca_private_key_algo" {
+  type        = string
+  description = "Algorithm used for Private Key"
+}

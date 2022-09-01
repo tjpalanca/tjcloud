@@ -1,5 +1,11 @@
+resource "tls_cert_request" "origin_ca_cert_request" {
+  key_algorithm   = var.cloudflare_origin_ca_private_key_algo
+  private_key_pem = var.cloudflare_origin_ca_private_key
+}
+
 resource "cloudflare_origin_ca_certificate" "origin_ca" {
-  hostnames          = [var.cloudflare_zone, "*.${var.cloudflare_zone}"]
+  csr                = tls_cert_request.origin_ca_cert_request.cert_request_pem
+  hostnames          = [var.main_cloudflare_zone, "*.${var.main_cloudflare_zone}"]
   request_type       = "origin-rsa"
   requested_validity = 15 * 365
 }
