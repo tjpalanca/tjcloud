@@ -341,7 +341,8 @@ resource "kubernetes_daemon_set_v1" "ingress_nginx_controller" {
             "--configmap=$(POD_NAMESPACE)/ingress-nginx-controller",
             "--validating-webhook=:8443",
             "--validating-webhook-certificate=/usr/local/certificates/cert",
-            "--validating-webhook-key=/usr/local/certificates/key"
+            "--validating-webhook-key=/usr/local/certificates/key",
+            "--default-ssl-certificate=${var.default_ssl_certificate}"
           ]
           port {
             name           = "http"

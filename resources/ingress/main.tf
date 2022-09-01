@@ -45,8 +45,6 @@ resource "kubernetes_ingress_v1" "ingress" {
   }
 }
 
-
-
 data "cloudflare_zone" "zone" {
   name = var.zone
 }

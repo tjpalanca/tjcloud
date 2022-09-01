@@ -42,6 +42,6 @@ variable "ingress_class_name" {
 
 variable "tls_secret_name" {
   type        = string
-  default     = "origin-ca"
+  default     = null
   description = "Kubernetes secret holding the TLS certificate"
 }

@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-module "nginx_ingress_controller" {
-  source = "../../resources/nginx_ingress_controller"
-}
-
 resource "tls_cert_request" "origin_ca_cert_request" {
   private_key_pem = var.cloudflare_origin_ca.private_key
   subject {
@@ -27,13 +23,18 @@ resource "cloudflare_origin_ca_certificate" "origin_ca" {
 }
 
 resource "kubernetes_secret_v1" "origin_ca" {
+  type = "kubernetes.io/tls"
   metadata {
     name      = "origin-ca"
-    namespace = "keycloak"
+    namespace = "ingress-nginx"
   }
   data = {
     "tls.key" = var.cloudflare_origin_ca.private_key
     "tls.crt" = cloudflare_origin_ca_certificate.origin_ca.certificate
   }
-  type = "kubernetes.io/tls"
+}
+
+module "nginx_ingress_controller" {
+  source                  = "../../resources/nginx_ingress_controller"
+  default_ssl_certificate = "${kubernetes_secret_v1.origin_ca.metadata.0.namespace}/${kubernetes_secret_v1.origin_ca.metadata.0.name}"
 }
