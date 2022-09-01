@@ -65,7 +65,7 @@ module "keycloak_ingress" {
   service_name = module.keycloak.service_name
   service_port = local.port
   annotations = {
-    "nginx.ingress.kubernetes.io/proxy-buffer-size" = "128k"
+    "nginx.ingress.kubernetes.io/proxy-buffer-size" = "256k"
   }
 }
 
