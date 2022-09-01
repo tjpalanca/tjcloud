@@ -9,15 +9,30 @@ variable "database" {
 
 variable "keycloak" {
   type = object({
-    version   = string
-    subdomain = string
-    admin = object({
-      username = string
-      password = string
-    })
+    version         = string
+    subdomain       = string
     cloudflare_zone = string
-    settings = object({
-      realm_name = string
+  })
+}
+
+variable "admin" {
+  type = object({
+    username = string
+    password = string
+  })
+}
+
+variable "settings" {
+  type = object({
+    realm_name = string
+  })
+}
+
+variable "identity_providers" {
+  type = object({
+    google = object({
+      client_id     = string
+      client_secret = string
     })
   })
 }

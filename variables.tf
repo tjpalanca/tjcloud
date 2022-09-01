@@ -93,3 +93,13 @@ variable "keycloak_subdomain" {
   type        = string
   description = "Subdomain of keycloak"
 }
+
+variable "google_client_id" {
+  type        = string
+  description = "Google OAuth Client ID"
+}
+
+variable "google_client_secret" {
+  type        = string
+  description = "Google OAuth Client Secret"
+}

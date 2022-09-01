@@ -83,12 +83,18 @@ module "keycloak" {
     version         = "19.0"
     cloudflare_zone = var.main_cloudflare_zone
     subdomain       = var.keycloak_subdomain
-    admin = {
-      username = var.keycloak_admin_username
-      password = var.keycloak_admin_password
-    }
-    settings = {
-      realm_name = var.cluster_name
+  }
+  admin = {
+    username = var.keycloak_admin_username
+    password = var.keycloak_admin_password
+  }
+  settings = {
+    realm_name = var.cluster_name
+  }
+  identity_providers = {
+    google = {
+      client_id     = var.google_client_id
+      client_secret = var.google_client_secret
     }
   }
 }

@@ -46,8 +46,8 @@ module "keycloak" {
     DB_USER                  = var.database.username
     DB_PASSWORD              = var.database.password
     PROXY_ADDRESS_FORWARDING = "true"
-    KEYCLOAK_ADMIN           = var.keycloak.admin.username
-    KEYCLOAK_ADMIN_PASSWORD  = var.keycloak.admin.password
+    KEYCLOAK_ADMIN           = var.admin.username
+    KEYCLOAK_ADMIN_PASSWORD  = var.admin.password
     KC_PROXY                 = "edge"
   }
   readiness_probes = [{
@@ -67,5 +67,5 @@ module "keycloak_ingress" {
 }
 
 resource "keycloak_realm" "main" {
-  realm = var.keycloak.settings.realm_name
+  realm = var.settings.realm_name
 }
