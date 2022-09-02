@@ -113,3 +113,18 @@ variable "admin_emails" {
   type        = list(string)
   description = "List of emails that will be Administrator in the realm"
 }
+
+variable "ghcr_username" {
+  type        = string
+  description = "Username for GitHub Container Registry"
+}
+
+variable "ghcr_password" {
+  type        = string
+  description = "Password (token) for GitHub Container Registry"
+}
+
+variable "ghcr_email" {
+  type        = string
+  description = "Email for GitHub Container Registry"
+}

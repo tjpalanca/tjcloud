@@ -37,6 +37,15 @@ terraform {
   }
 }
 
+locals {
+  ghcr_registry = {
+    server   = "ghcr.io"
+    username = var.ghcr_username
+    password = var.ghcr_password
+    email    = var.ghcr_email
+  }
+}
+
 module "cluster" {
   source          = "./modules/cluster"
   cluster_name    = var.cluster_name
@@ -71,6 +80,16 @@ module "ingress_controller" {
   depends_on = [
     module.cluster
   ]
+}
+
+module "keycloak_image" {
+  source        = "./elements/kaniko_build"
+  name          = "keycloak"
+  registry      = local.ghcr_registry
+  build_context = "modules/keycloak/image"
+  destination   = "ghcr.io/tjpalanca/tjcloud/keycloak:v1.0"
+  node          = module.cluster.main_node
+  root_password = var.root_password
 }
 
 module "keycloak" {
