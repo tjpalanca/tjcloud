@@ -89,6 +89,11 @@ variable "keycloak_admin_password" {
   description = "Keycloak initialized password"
 }
 
+variable "keycloak_display_name" {
+  type        = string
+  description = "Keycloak display name for login page"
+}
+
 variable "keycloak_subdomain" {
   type        = string
   description = "Subdomain of keycloak"

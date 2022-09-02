@@ -56,9 +56,10 @@
     - [x] Fixed by adding an origin certificate for nginx ingress to use
     - [x] Authenticate keycloak provider 
     - [ ] Build custom docker image with keycloak themes
-    - [ ] Set up identity providers
+    - [x] Set up identity providers
 - [ ] Set up pgadmin with proxy
 - [ ] Add node problem detector
 - [ ] Enable Linode LongView for monitoring memory
 - [ ] Expose Kubernetes Dashboard at system
 - [ ] Set up cloudflare authenticated origin pulls
+- [ ] Set up rmeaining identity providers on Keycloak 

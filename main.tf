@@ -91,6 +91,7 @@ module "keycloak" {
   settings = {
     realm_name   = var.cluster_name
     admin_emails = var.admin_emails
+    display_name = var.keycloak_display_name
   }
   identity_providers = {
     google = {

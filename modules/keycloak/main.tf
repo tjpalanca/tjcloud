@@ -68,7 +68,3 @@ module "keycloak_ingress" {
     "nginx.ingress.kubernetes.io/proxy-buffer-size" = "256k"
   }
 }
-
-resource "keycloak_realm" "main" {
-  realm = var.settings.realm_name
-}
