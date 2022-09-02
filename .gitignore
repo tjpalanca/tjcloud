@@ -4,3 +4,4 @@
 **/sandbox.*
 *.auto.tfvars
 .DS_Store
+.Rproj.user
