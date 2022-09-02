@@ -30,7 +30,7 @@ resource "kubernetes_namespace_v1" "keycloak" {
 }
 
 module "keycloak" {
-  source       = "../../resources/application"
+  source       = "../../elements/application"
   name         = "keycloak"
   namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
   service_type = "ClusterIP"
@@ -57,7 +57,7 @@ module "keycloak" {
 }
 
 module "keycloak_ingress" {
-  source       = "../../resources/ingress"
+  source       = "../../elements/ingress"
   name         = "keycloak"
   namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
   host         = var.keycloak.subdomain

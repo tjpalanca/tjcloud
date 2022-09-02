@@ -14,7 +14,7 @@ resource "kubernetes_namespace_v1" "database" {
 }
 
 module "main_postgres_database" {
-  source = "../../resources/postgres"
+  source = "../../elements/postgres"
   database = {
     username = var.main_postgres_username
     password = var.main_postgres_password

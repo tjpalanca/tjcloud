@@ -35,6 +35,6 @@ resource "kubernetes_secret_v1" "origin_ca" {
 }
 
 module "nginx_ingress_controller" {
-  source                  = "../../resources/nginx_ingress_controller"
+  source                  = "../../elements/nginx_ingress_controller"
   default_ssl_certificate = "${kubernetes_secret_v1.origin_ca.metadata.0.namespace}/${kubernetes_secret_v1.origin_ca.metadata.0.name}"
 }
