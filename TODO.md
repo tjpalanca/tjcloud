@@ -64,3 +64,4 @@
 - [ ] Expose Kubernetes Dashboard at system
 - [ ] Set up cloudflare authenticated origin pulls
 - [ ] Set up rmeaining identity providers on Keycloak 
+- [ ] Add image caching for Kaniko
