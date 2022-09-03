@@ -4,14 +4,6 @@ terraform {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
     }
-    docker = {
-      source  = "kreuzwerker/docker"
-      version = "~> 2.20.2"
-    }
-    keycloak = {
-      source  = "mrparkers/keycloak"
-      version = "3.10.0"
-    }
   }
 }
 

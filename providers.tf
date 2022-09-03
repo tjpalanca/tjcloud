@@ -24,10 +24,6 @@ provider "postgresql" {
   connect_timeout = 15
 }
 
-provider "docker" {
-  host = "unix:///var/run/docker.sock"
-}
-
 provider "keycloak" {
   client_id = "admin-cli"
   username  = var.keycloak_admin_username

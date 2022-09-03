@@ -20,10 +20,6 @@ terraform {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
     }
-    docker = {
-      source  = "kreuzwerker/docker"
-      version = "~> 2.20.2"
-    }
     keycloak = {
       source  = "mrparkers/keycloak"
       version = "3.10.0"
@@ -119,6 +115,13 @@ module "keycloak" {
     username = var.keycloak_admin_username
     password = var.keycloak_admin_password
   }
+  depends_on = [
+    module.cluster
+  ]
+}
+
+module "keycloak-config" {
+  source = "./modules/keycloak-config"
   settings = {
     realm_name         = var.cluster_name
     realm_display_name = var.keycloak_realm_display_name
@@ -131,7 +134,8 @@ module "keycloak" {
     }
   }
   depends_on = [
-    module.cluster
+    module.cluster,
+    module.keycloak
   ]
 }
 
