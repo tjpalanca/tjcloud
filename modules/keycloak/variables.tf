@@ -24,9 +24,9 @@ variable "admin" {
 
 variable "settings" {
   type = object({
-    realm_name   = string
-    admin_emails = list(string)
-    display_name = string
+    realm_name         = string
+    realm_display_name = string
+    admin_emails       = list(string)
   })
 }
 

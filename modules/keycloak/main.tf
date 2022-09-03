@@ -29,7 +29,7 @@ resource "kubernetes_namespace_v1" "keycloak" {
   }
 }
 
-module "keycloak" {
+module "keycloak_application" {
   source       = "../../elements/application"
   name         = "keycloak"
   namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
@@ -61,7 +61,7 @@ module "keycloak_ingress" {
   namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
   host         = var.keycloak.subdomain
   zone         = var.keycloak.cloudflare_zone
-  service_name = module.keycloak.service_name
+  service_name = module.keycloak_application.service_name
   service_port = local.port
   annotations = {
     "nginx.ingress.kubernetes.io/proxy-buffer-size" = "256k"

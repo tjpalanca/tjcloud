@@ -89,7 +89,7 @@ variable "keycloak_admin_password" {
   description = "Keycloak initialized password"
 }
 
-variable "keycloak_display_name" {
+variable "keycloak_realm_display_name" {
   type        = string
   description = "Keycloak display name for login page"
 }
