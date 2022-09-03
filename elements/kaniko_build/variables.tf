@@ -20,9 +20,14 @@ variable "dockerfile_path" {
   description = "Path to the dockerfile within the context"
 }
 
-variable "destination" {
+variable "image_address" {
   type        = string
-  description = "Registry destination"
+  description = "Registry address for the image"
+}
+
+variable "image_version" {
+  type        = string
+  description = "Registry version for the image"
 }
 
 variable "registry" {

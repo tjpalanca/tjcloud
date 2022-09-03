@@ -9,6 +9,8 @@ terraform {
 
 locals {
   workspace = "/var/kaniko/${var.name}"
+  versioned = "${var.image_address}:${var.image_version}"
+  latest    = "${var.image_address}:latest"
 }
 
 resource "kubernetes_secret_v1" "registry_secret" {
@@ -69,7 +71,8 @@ resource "kubernetes_pod_v1" "kaniko_builder" {
       args = [
         "--dockerfile=/workspace/${var.dockerfile_path}",
         "--context=dir:///workspace",
-        "--destination=${var.destination}"
+        "--destination=${local.versioned}",
+        "--destination=${local.latest}"
       ]
       volume_mount {
         name       = "kaniko-secret"

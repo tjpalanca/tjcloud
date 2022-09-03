@@ -9,7 +9,7 @@ variable "database" {
 
 variable "keycloak" {
   type = object({
-    version         = string
+    image           = string
     subdomain       = string
     cloudflare_zone = string
   })

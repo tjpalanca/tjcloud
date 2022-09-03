@@ -92,7 +92,8 @@ module "keycloak_image" {
   namespace     = module.kaniko.namespace
   registry      = local.ghcr_registry
   build_context = "modules/keycloak/image/"
-  destination   = "ghcr.io/tjpalanca/tjcloud/keycloak:v1.0"
+  image_address = "ghcr.io/tjpalanca/tjcloud/keycloak"
+  image_version = "v1.0"
   node          = module.cluster.main_node
   node_password = var.root_password
 }
@@ -104,7 +105,7 @@ module "keycloak" {
   }
   database = module.database.main_postgres_database_credentials
   keycloak = {
-    version         = "19.0"
+    image           = module.keycloak_image.image.versioned
     cloudflare_zone = var.main_cloudflare_zone
     subdomain       = var.keycloak_subdomain
   }

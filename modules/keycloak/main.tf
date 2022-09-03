@@ -37,7 +37,7 @@ module "keycloak" {
   ports        = [local.port]
   replicas     = 1
   command_args = ["start-dev"]
-  image        = "quay.io/keycloak/keycloak:${var.keycloak.version}"
+  image        = var.keycloak.image
   env_vars = {
     DB_VENDOR                = "postgres"
     DB_ADDR                  = var.database.internal_name
