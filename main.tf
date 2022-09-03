@@ -69,18 +69,18 @@ module "database" {
   ]
 }
 
-# module "ingress_nginx_controller" {
-#   source = "./modules/ingress_nginx_controller"
-#   cloudflare_origin_ca = {
-#     common_name  = var.cloudflare_origin_ca_common_name
-#     organization = var.cloudflare_origin_ca_organization
-#     private_key  = var.cloudflare_origin_ca_private_key
-#   }
-#   cloudflare_zone = var.main_cloudflare_zone
-#   depends_on = [
-#     module.cluster
-#   ]
-# }
+module "ingress_nginx_controller" {
+  source = "./modules/ingress_nginx_controller"
+  cloudflare_origin_ca = {
+    common_name  = var.cloudflare_origin_ca_common_name
+    organization = var.cloudflare_origin_ca_organization
+    private_key  = var.cloudflare_origin_ca_private_key
+  }
+  cloudflare_zone = var.main_cloudflare_zone
+  depends_on = [
+    module.cluster
+  ]
+}
 
 # module "kaniko" {
 #   source = "./modules/kaniko"
@@ -90,11 +90,11 @@ module "database" {
 # }
 
 # module "keycloak_image" {
-#   source        = "./elements/kaniko_build"
+#   source        = "./elements/image"
 #   name          = "keycloak"
 #   namespace     = module.kaniko.namespace
 #   registry      = local.ghcr_registry
-#   build_context = "images/keycloak//"
+#   build_context = "images/keycloak/"
 #   image_address = "ghcr.io/tjpalanca/tjcloud/keycloak"
 #   image_version = "v1.0"
 #   node          = module.cluster.main_node
