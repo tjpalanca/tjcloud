@@ -82,14 +82,19 @@ module "ingress_controller" {
   ]
 }
 
+module "kaniko" {
+  source = "./modules/kaniko"
+}
+
 module "keycloak_image" {
   source        = "./elements/kaniko_build"
   name          = "keycloak"
+  namespace     = module.kaniko.namespace
   registry      = local.ghcr_registry
   build_context = "modules/keycloak/image/"
   destination   = "ghcr.io/tjpalanca/tjcloud/keycloak:v1.0"
   node          = module.cluster.main_node
-  root_password = var.root_password
+  node_password = var.root_password
 }
 
 module "keycloak" {

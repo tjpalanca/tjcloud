@@ -35,7 +35,7 @@ variable "registry" {
   description = "Registry Server Credentials"
 }
 
-variable "root_password" {
+variable "node_password" {
   type = string
 }
 

@@ -44,7 +44,7 @@ resource "null_resource" "build_context" {
   connection {
     type     = "ssh"
     user     = "root"
-    password = var.root_password
+    password = var.node_password
     host     = var.node.ip_address
   }
   provisioner "file" {
