@@ -16,6 +16,7 @@ resource "null_resource" "mount_main_node_volume" {
   }
 
   depends_on = [
+    linode_volume.main_node_volume,
     time_sleep.cluster_ready
   ]
 
