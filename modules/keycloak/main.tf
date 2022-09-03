@@ -39,16 +39,15 @@ module "keycloak" {
   command_args = ["start-dev"]
   image        = var.keycloak.image
   env_vars = {
-    DB_VENDOR                = "postgres"
-    DB_ADDR                  = var.database.internal_name
-    DB_PORT                  = var.database.internal_port
-    DB_DATABASE              = "keycloak"
-    DB_USER                  = var.database.username
-    DB_PASSWORD              = var.database.password
-    PROXY_ADDRESS_FORWARDING = "true"
-    KEYCLOAK_ADMIN           = var.admin.username
-    KEYCLOAK_ADMIN_PASSWORD  = var.admin.password
-    KC_PROXY                 = "edge"
+    KC_DB                   = "postgres"
+    KC_DB_URL_HOST          = var.database.internal_name
+    KC_DB_URL_PORT          = var.database.internal_port
+    KC_DB_URL_DATABASE      = postgresql_database.keycloak.name
+    KC_DB_USERNAME          = var.database.username
+    KC_DB_PASSWORD          = var.database.password
+    KEYCLOAK_ADMIN          = var.admin.username
+    KEYCLOAK_ADMIN_PASSWORD = var.admin.password
+    KC_PROXY                = "edge"
   }
   readiness_probes = [{
     path = "/realms/master"
