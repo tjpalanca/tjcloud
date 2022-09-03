@@ -45,19 +45,20 @@
 - [x] Add main postgres instance
     - [x] Expose it to the outside world so I can use other SQL clients and to Terraform?
         - Using a NodePort
-        - [ ] Terraform Cloud Firewall 
-        - [ ] Some VPN for local dynamic use?
-        - [ ] Set up SSL
+        - [x] Set up SSL
 - [x] Add ingress
-- [ ] Set up keycloak
+- [x] Set up keycloak
     - Having an issue where there is mixed content, I suspect it's because cloudflare is 
       proxying HTTPS so the ingress and keycloak don't know that they should serve 
       paths at HTTPS
     - [x] Fixed by adding an origin certificate for nginx ingress to use
     - [x] Authenticate keycloak provider 
-    - [ ] Build custom docker image with keycloak themes
+    - [x] Build custom docker image with keycloak themes
     - [x] Set up identity providers
 - [ ] Set up pgadmin with proxy
+- [ ] Network hardening 
+    - [ ] Terraform Cloud only allowed for firewall 
+    - [ ] Some VPN for local dynamic use?
 - [ ] Add node problem detector
 - [ ] Enable Linode LongView for monitoring memory
 - [ ] Expose Kubernetes Dashboard at system
