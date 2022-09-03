@@ -32,7 +32,9 @@ resource "kubernetes_secret_v1" "registry_secret" {
 }
 
 resource "null_resource" "build_context" {
-  triggers = [var.build_context]
+  triggers = [
+    sha1(join("", [for f in fileset(var.build_context, "*") : filesha1(f)]))
+  ]
   connection {
     type     = "ssh"
     user     = "root"
