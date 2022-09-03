@@ -10,6 +10,7 @@ variable "namespace" {
 
 variable "service_type" {
   type        = string
+  default     = "ClusterIP"
   description = "Either purely internal (ClusterIP) or external (NodePort)"
 }
 

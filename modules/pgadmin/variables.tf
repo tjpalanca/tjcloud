@@ -5,3 +5,7 @@ variable "pgadmin_default_username" {
 variable "pgadmin_default_password" {
   type = string
 }
+
+variable "pgadmin_cloudflare_zone" {
+  type = string
+}

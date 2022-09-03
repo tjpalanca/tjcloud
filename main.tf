@@ -130,6 +130,7 @@ module "pgadmin" {
   source                   = "./modules/pgadmin"
   pgadmin_default_username = var.pgadmin_default_username
   pgadmin_default_password = var.pgadmin_default_password
+  pgadmin_cloudflare_zone  = var.main_cloudflare_zone
   depends_on = [
     module.cluster.cluster,
     module.keycloak
