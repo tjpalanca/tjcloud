@@ -31,10 +31,16 @@ resource "kubernetes_secret_v1" "registry_secret" {
   }
 }
 
+data "archive_file" "build_context" {
+  type        = "zip"
+  source_dir  = var.build_context
+  output_path = "build_context.zip"
+}
+
 resource "null_resource" "build_context" {
-  triggers = [
-    sha1(join("", [for f in fileset(var.build_context, "*") : filesha1(f)]))
-  ]
+  triggers = {
+    build_context_hash = data.archive_file.build_context.output_sha
+  }
   connection {
     type     = "ssh"
     user     = "root"
