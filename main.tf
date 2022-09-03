@@ -86,7 +86,7 @@ module "keycloak_image" {
   source        = "./elements/kaniko_build"
   name          = "keycloak"
   registry      = local.ghcr_registry
-  build_context = "modules/keycloak/image"
+  build_context = "modules/keycloak/image/"
   destination   = "ghcr.io/tjpalanca/tjcloud/keycloak:v1.0"
   node          = module.cluster.main_node
   root_password = var.root_password

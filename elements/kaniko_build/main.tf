@@ -8,7 +8,7 @@ terraform {
 }
 
 locals {
-  workspace = "/var/kaniko/build/${var.name}"
+  workspace = "/var/kaniko/${var.name}"
 }
 
 resource "kubernetes_secret_v1" "registry_secret" {
