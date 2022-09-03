@@ -32,6 +32,7 @@ resource "kubernetes_secret_v1" "registry_secret" {
 }
 
 resource "null_resource" "build_context" {
+  triggers = [var.build_context]
   connection {
     type     = "ssh"
     user     = "root"
@@ -45,6 +46,9 @@ resource "null_resource" "build_context" {
 }
 
 resource "kubernetes_pod_v1" "kaniko_builder" {
+  depends_on = [
+    null_resource.build_context
+  ]
   metadata {
     name      = "kaniko-builder-${var.name}"
     namespace = var.namespace
