@@ -68,7 +68,7 @@ resource "kubernetes_pod_v1" "kaniko_builder" {
       image = "gcr.io/kaniko-project/executor:latest"
       args = [
         "--dockerfile=/workspace/${var.dockerfile_path}",
-        "--context=dir://workspace",
+        "--context=dir:///workspace",
         "--destination=${var.destination}"
       ]
       volume_mount {
