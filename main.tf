@@ -120,32 +120,32 @@ module "keycloak" {
   ]
 }
 
-# module "keycloak-config" {
-#   source = "./modules/keycloak-config"
-#   settings = {
-#     realm_name         = var.cluster_name
-#     realm_display_name = var.keycloak_realm_display_name
-#     admin_emails       = var.admin_emails
-#   }
-#   identity_providers = {
-#     google = {
-#       client_id     = var.google_client_id
-#       client_secret = var.google_client_secret
-#     }
-#   }
-#   depends_on = [
-#     module.cluster,
-#     module.keycloak
-#   ]
-# }
+module "keycloak-config" {
+  source = "./modules/keycloak-config"
+  settings = {
+    realm_name         = var.cluster_name
+    realm_display_name = var.keycloak_realm_display_name
+    admin_emails       = var.admin_emails
+  }
+  identity_providers = {
+    google = {
+      client_id     = var.google_client_id
+      client_secret = var.google_client_secret
+    }
+  }
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
 
-# module "pgadmin" {
-#   source                   = "./modules/pgadmin"
-#   pgadmin_default_username = var.pgadmin_default_username
-#   pgadmin_default_password = var.pgadmin_default_password
-#   pgadmin_cloudflare_zone  = var.main_cloudflare_zone
-#   depends_on = [
-#     module.cluster,
-#     module.keycloak
-#   ]
-# }
+module "pgadmin" {
+  source                   = "./modules/pgadmin"
+  pgadmin_default_username = var.pgadmin_default_username
+  pgadmin_default_password = var.pgadmin_default_password
+  pgadmin_cloudflare_zone  = var.main_cloudflare_zone
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
