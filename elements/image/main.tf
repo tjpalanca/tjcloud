@@ -8,7 +8,7 @@ terraform {
 }
 
 locals {
-  workspace = "/var/kaniko/${var.name}"
+  workspace = "/var/kaniko/${var.name}/"
   versioned = "${var.image_address}:${var.image_version}"
   latest    = "${var.image_address}:latest"
 }
@@ -48,11 +48,6 @@ resource "null_resource" "build_context" {
     user     = "root"
     password = var.node_password
     host     = var.node.ip_address
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ${local.workspace}"
-    ]
   }
   provisioner "file" {
     source      = var.build_context
