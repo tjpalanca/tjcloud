@@ -18,7 +18,7 @@ locals {
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
     name        = var.name
-    namespace   = var.namespace
+    namespace   = var.service.namespace
     annotations = var.annotations
   }
   spec {
@@ -34,9 +34,9 @@ resource "kubernetes_ingress_v1" "ingress" {
           path = var.path
           backend {
             service {
-              name = var.service_name
+              name = var.service.name
               port {
-                number = var.service_port
+                number = var.service.port
               }
             }
           }

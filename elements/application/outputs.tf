@@ -1,9 +1,9 @@
-output "service_name" {
-  value = kubernetes_service_v1.service.metadata.0.name
-}
-
-output "service_address" {
-  value = "${kubernetes_service_v1.service.metadata.0.name}.${kubernetes_service_v1.service.metadata.0.namespace}"
+output "service" {
+  value = {
+    name      = kubernetes_service_v1.service.metadata.0.name
+    port      = var.ports[0]
+    namespace = kubernetes_service_v1.service.metadata.0.namespace
+  }
 }
 
 output "cluster_ip" {

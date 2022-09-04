@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-locals {
-  port = 8080
-}
-
 resource "postgresql_database" "keycloak" {
   name = "keycloak"
 }
@@ -26,7 +22,7 @@ module "keycloak_application" {
   name         = "keycloak"
   namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
   service_type = "ClusterIP"
-  ports        = [local.port]
+  ports        = [8080]
   replicas     = 1
   command_args = ["start-dev"]
   image        = var.keycloak.image
@@ -43,18 +39,16 @@ module "keycloak_application" {
   }
   readiness_probes = [{
     path = "/realms/master"
-    port = local.port
+    port = 8080
   }]
 }
 
 module "keycloak_ingress" {
-  source       = "../../elements/ingress"
-  name         = "keycloak"
-  namespace    = kubernetes_namespace_v1.keycloak.metadata.0.name
-  host         = var.keycloak.subdomain
-  zone         = var.keycloak.cloudflare_zone
-  service_name = module.keycloak_application.service_name
-  service_port = local.port
+  source  = "../../elements/ingress"
+  name    = "keycloak"
+  host    = var.keycloak.subdomain
+  zone    = var.keycloak.cloudflare_zone
+  service = module.keycloak_application.service
   annotations = {
     "nginx.ingress.kubernetes.io/proxy-buffer-size" = "256k"
   }

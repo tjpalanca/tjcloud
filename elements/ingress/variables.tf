@@ -3,11 +3,6 @@ variable "name" {
   description = "Name of the ingress"
 }
 
-variable "namespace" {
-  type        = string
-  description = "Namespace of the ingress"
-}
-
 variable "host" {
   type        = string
   description = "Host name to respond to"
@@ -24,14 +19,13 @@ variable "path" {
   description = "Subpath to serve the ingress at"
 }
 
-variable "service_name" {
-  type        = string
-  description = "Name of the service proxied"
-}
-
-variable "service_port" {
-  type        = number
-  description = "Port of the service proxied"
+variable "service" {
+  type = object({
+    name      = string
+    port      = number
+    namespace = string
+  })
+  description = "Details of the service proxied"
 }
 
 variable "ingress_class_name" {

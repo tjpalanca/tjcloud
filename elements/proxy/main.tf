@@ -1,17 +1,37 @@
 terraform {
-
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "2.12.1"
     }
   }
+}
 
+module "proxy_application" {
+  source       = "../application"
+  name         = "${var.upstream.name}-proxy"
+  namespace    = var.upstream.namespace
+  service_type = "ClusterIP"
+  ports        = [4180]
+  replicas     = 1
+  command_args = ["start-dev"]
+  image        = var.keycloak.image
+  env_vars = {
+    KC_DB                   = "postgres"
+    KC_DB_URL_HOST          = var.database.internal_name
+    KC_DB_URL_PORT          = var.database.internal_port
+    KC_DB_URL_DATABASE      = postgresql_database.keycloak.name
+    KC_DB_USERNAME          = var.database.username
+    KC_DB_PASSWORD          = var.database.password
+    KEYCLOAK_ADMIN          = var.admin.username
+    KEYCLOAK_ADMIN_PASSWORD = var.admin.password
+    KC_PROXY                = "edge"
+  }
 }
 
 resource "kubernetes_deployment_v1" "proxy" {
   metadata {
-    name = "${var.upstream.name}-proxy"
+    name = 
   }
   spec {
     replicas = 1

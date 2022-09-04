@@ -13,15 +13,11 @@ resource "kubernetes_namespace_v1" "pgadmin" {
   }
 }
 
-locals {
-  port = 5050
-}
-
 module "pgadmin" {
   source    = "../../elements/application"
   name      = "pgadmin"
   namespace = kubernetes_namespace_v1.pgadmin.metadata.0.name
-  ports     = [local.port]
+  ports     = [5050]
   image     = "dpage/pgadmin4:6.12"
   env_vars = {
     PGADMIN_DEFAULT_EMAIL      = var.pgadmin_default_username
@@ -33,11 +29,9 @@ module "pgadmin" {
 }
 
 module "pgadmin_ingress" {
-  source       = "../../elements/ingress"
-  name         = "pgadmin"
-  namespace    = kubernetes_namespace_v1.pgadmin.metadata.0.name
-  host         = "pgadmin"
-  zone         = var.pgadmin_cloudflare_zone
-  service_name = module.pgadmin.service_name
-  service_port = local.port
+  source  = "../../elements/ingress"
+  name    = "pgadmin"
+  host    = "pgadmin"
+  zone    = var.pgadmin_cloudflare_zone
+  service = module.pgadmin.service
 }

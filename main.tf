@@ -90,7 +90,7 @@ module "keycloak_image" {
   name          = "keycloak"
   namespace     = module.kaniko.namespace
   registry      = local.ghcr_registry
-  build_context = "images/keycloak/"
+  build_context = "modules/keycloak/image/"
   image_address = "ghcr.io/tjpalanca/tjcloud/keycloak"
   image_version = "v1.0"
   node          = module.cluster.main_node
