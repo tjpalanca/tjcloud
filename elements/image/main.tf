@@ -49,6 +49,9 @@ resource "null_resource" "build_context" {
     password = var.node_password
     host     = var.node.ip_address
   }
+  provisioner "remote-exec" {
+    inline = ["mkdir -p ${local.workspace}"]
+  }
   provisioner "file" {
     source      = var.build_context
     destination = local.workspace
