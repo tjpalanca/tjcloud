@@ -28,7 +28,7 @@ module "pgadmin" {
     PGADMIN_CONFIG_SERVER_MODE                = "True"
     PGADMIN_CONFIG_AUTHENTICATION_SOURCES     = "['webserver']"
     PGADMIN_CONFIG_WEBSERVER_AUTO_CREATE_USER = "True"
-    PGADMIN_CONFIG_WEBSERVER_REMOTE_USER      = "X-Forwarded-User"
+    PGADMIN_CONFIG_WEBSERVER_REMOTE_USER      = "'X-Forwarded-User'"
   }
 }
 
