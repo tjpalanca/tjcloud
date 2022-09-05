@@ -36,7 +36,7 @@ resource "keycloak_openid_client_default_scopes" "default_client_scopes" {
   realm_id  = data.keycloak_realm.realm.id
   client_id = keycloak_openid_client.client.id
 
-  default_scopes = merge(var.default_client_scopes, [
+  default_scopes = concat(var.default_client_scopes, [
     "api",
     "profile",
     "email",
