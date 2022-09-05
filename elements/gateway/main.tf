@@ -16,16 +16,34 @@ locals {
   domain = "${local.host}.${var.zone}"
 }
 
+data "keycloak_realm" "realm" {
+  realm = var.keycloak_realm_name
+}
+
 resource "keycloak_openid_client" "client" {
-  realm_id              = var.keycloak_realm.id
+  realm_id              = data.keycloak_realm.realm.id
   client_id             = local.domain
   name                  = local.domain
   enabled               = true
   access_type           = "CONFIDENTIAL"
   standard_flow_enabled = true
+  client_scopes         = []
   valid_redirect_uris = [
     "https://${local.domain}/oauth2/callback"
   ]
+}
+
+resource "keycloak_openid_client_default_scopes" "default_client_scopes" {
+  realm_id  = data.keycloak_realm.realm.id
+  client_id = keycloak_openid_client.client.id
+
+  default_scopes = merge(var.default_client_scopes, [
+    "api",
+    "profile",
+    "email",
+    "roles",
+    "web-origins"
+  ])
 }
 
 resource "random_password" "cookie_secret" {
@@ -54,7 +72,7 @@ module "proxy_application" {
     OAUTH2_PROXY_EMAIL_DOMAINS          = "*"
     OAUTH2_PROXY_HTTP_ADDRESS           = "0.0.0.0:4180"
     OAUTH2_PROXY_PROVIDER               = "keycloak-oidc"
-    OAUTH2_PROXY_OIDC_ISSUER_URL        = "${var.keycloak_url}/realms/${var.keycloak_realm.realm}"
+    OAUTH2_PROXY_OIDC_ISSUER_URL        = "${var.keycloak_url}/realms/${data.keycloak_realm.realm.realm}"
     OAUTH2_PROXY_SKIP_PROVIDER_BUTTON   = "true"
   }
 }

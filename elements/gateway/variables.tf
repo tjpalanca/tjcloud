@@ -7,12 +7,9 @@ variable "service" {
   description = "Details about the upstream service"
 }
 
-variable "keycloak_realm" {
-  type = object({
-    id    = string
-    realm = string
-  })
-  description = "Keycloak Realm"
+variable "keycloak_realm_name" {
+  type        = string
+  description = "Keycloak Realm Name"
 }
 
 variable "keycloak_url" {
@@ -53,4 +50,10 @@ variable "annotations" {
   type        = map(string)
   default     = {}
   description = "Additional annotations to the ingress"
+}
+
+variable "default_client_scopes" {
+  type        = list(string)
+  default     = []
+  description = "additional default client scopes"
 }

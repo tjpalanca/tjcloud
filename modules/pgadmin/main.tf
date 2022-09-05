@@ -29,11 +29,12 @@ module "pgadmin" {
 }
 
 module "pgadmin_gateway" {
-  source          = "../../elements/gateway"
-  host            = "pgadmin"
-  zone            = var.pgadmin_cloudflare_zone
-  service         = module.pgadmin.service
-  keycloak_realm  = var.keycloak_realm
-  keycloak_url    = var.keycloak_url
-  keycloak_groups = ["Administrator"]
+  source                = "../../elements/gateway"
+  host                  = "pgadmin"
+  zone                  = var.pgadmin_cloudflare_zone
+  service               = module.pgadmin.service
+  keycloak_realm_name   = var.keycloak_realm_name
+  keycloak_url          = var.keycloak_url
+  keycloak_groups       = ["Administrator"]
+  default_client_scopes = var.default_client_scopes
 }
