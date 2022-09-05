@@ -17,3 +17,7 @@ variable "keycloak_url" {}
 variable "default_client_scopes" {}
 
 variable "volume_name" {}
+
+variable "node_password" {}
+
+variable "node_ip_address" {}

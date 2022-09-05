@@ -148,6 +148,8 @@ module "pgadmin" {
   keycloak_url             = module.keycloak.url
   default_client_scopes    = [module.keycloak_config.client_scopes.groups.name]
   volume_name              = module.cluster.main_node_volume.label
+  node_ip_address          = module.cluster.main_node.ip_address
+  node_password            = var.root_password
   depends_on = [
     module.cluster,
     module.keycloak

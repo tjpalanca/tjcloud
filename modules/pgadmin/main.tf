@@ -7,12 +7,31 @@ terraform {
   }
 }
 
+locals {
+  config_path = "/var/lib/pgadmin/"
+  volume_path = "/mnt/${var.volume_name}/pgadmin/"
+}
+
 resource "kubernetes_namespace_v1" "pgadmin" {
   metadata {
     name = "pgadmin"
   }
 }
 
+resource "null_resource" "pgadmin" {
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.node_password
+    host     = var.node_ip_address
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p ${local.volume_path}",
+      "chown -R 5050:5050 ${local.volume_path}"
+    ]
+  }
+}
 
 module "pgadmin" {
   source    = "../../elements/application"
@@ -32,8 +51,8 @@ module "pgadmin" {
   }
   volumes = [{
     volume_name = "pgadmin-config"
-    mount_path  = "/var/lib/pgadmin/"
-    host_path   = "/mnt/${var.volume_name}/pgadmin/"
+    mount_path  = local.config_path
+    host_path   = local.volume_path
     mount_type  = "DirectoryOrCreate"
   }]
 }
