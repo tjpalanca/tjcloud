@@ -53,7 +53,7 @@ module "proxy_application" {
     OAUTH2_PROXY_EMAIL_DOMAINS          = "*"
     OAUTH2_PROXY_HTTP_ADDRESS           = "0.0.0.0:4180"
     OAUTH2_PROXY_PROVIDER               = "keycloak-oidc"
-    OAUTH2_PROXY_OIDC_ISSUER_URL        = "https://${var.keycloak_url}/realms/${var.keycloak_realm.name}"
+    OAUTH2_PROXY_OIDC_ISSUER_URL        = "https://${var.keycloak_url}/realms/${var.keycloak_realm.realm}"
     OAUTH2_PROXY_SKIP_PROVIDER_BUTTON   = "true"
   }
 }

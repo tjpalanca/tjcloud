@@ -9,8 +9,8 @@ variable "service" {
 
 variable "keycloak_realm" {
   type = object({
-    id   = string
-    name = string
+    id    = string
+    realm = string
   })
   description = "Keycloak Realm"
 }
