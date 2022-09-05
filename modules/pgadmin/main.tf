@@ -23,14 +23,13 @@ module "pgadmin" {
     PGADMIN_DEFAULT_EMAIL      = var.pgadmin_default_username
     PGADMIN_DEFAULT_PASSWORD   = var.pgadmin_default_password
     PGADMIN_LISTEN_ADDRESS     = "0.0.0.0"
-    PGADMIN_LISTEN_PORT        = tostring(local.port)
+    PGADMIN_LISTEN_PORT        = "5050"
     PGADMIN_CONFIG_SERVER_MODE = "True"
   }
 }
 
-module "pgadmin_ingress" {
+module "pgadmin_gateway" {
   source  = "../../elements/ingress"
-  name    = "pgadmin"
   host    = "pgadmin"
   zone    = var.pgadmin_cloudflare_zone
   service = module.pgadmin.service

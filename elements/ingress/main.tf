@@ -12,20 +12,20 @@ terraform {
 }
 
 locals {
-  domain = "${var.host}.${var.zone}"
+  host   = var.host || var.service.name
+  domain = "${local.host}.${var.zone}"
 }
 
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
-    name        = var.name
+    name        = "${var.service.name}-ingress"
     namespace   = var.service.namespace
     annotations = var.annotations
   }
   spec {
     ingress_class_name = var.ingress_class_name
     tls {
-      hosts       = [local.domain]
-      secret_name = var.tls_secret_name
+      hosts = [local.domain]
     }
     rule {
       host = local.domain
@@ -52,7 +52,7 @@ data "cloudflare_zone" "zone" {
 
 resource "cloudflare_record" "record" {
   zone_id = data.cloudflare_zone.zone.zone_id
-  name    = var.host
+  name    = local.host
   value   = var.zone
   type    = "CNAME"
   proxied = true

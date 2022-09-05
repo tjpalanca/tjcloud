@@ -45,7 +45,6 @@ module "keycloak_application" {
 
 module "keycloak_ingress" {
   source  = "../../elements/ingress"
-  name    = "keycloak"
   host    = var.keycloak.subdomain
   zone    = var.keycloak.cloudflare_zone
   service = module.keycloak_application.service
