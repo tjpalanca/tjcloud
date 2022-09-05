@@ -55,6 +55,9 @@ module "pgadmin" {
     host_path   = local.volume_path
     mount_type  = "DirectoryOrCreate"
   }]
+  depends_on = [
+    null_resource.pgadmin
+  ]
 }
 
 module "pgadmin_gateway" {
