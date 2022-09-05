@@ -147,6 +147,7 @@ module "pgadmin" {
   keycloak_realm_name      = module.keycloak_config.realms.main.realm
   keycloak_url             = module.keycloak.url
   default_client_scopes    = [module.keycloak_config.client_scopes.groups.name]
+  volume_name              = module.cluster.main_node_volume.label
   depends_on = [
     module.cluster,
     module.keycloak

@@ -30,6 +30,12 @@ module "pgadmin" {
     PGADMIN_CONFIG_WEBSERVER_AUTO_CREATE_USER = "True"
     PGADMIN_CONFIG_WEBSERVER_REMOTE_USER      = "'X-Forwarded-User'"
   }
+  volumes = [{
+    volume_name = "pgadmin-config"
+    mount_path  = "/var/lib/pgadmin/"
+    host_path   = "/mnt/${var.volume_name}/pgadmin/"
+    mount_type  = "DirectoryOrCreate"
+  }]
 }
 
 module "pgadmin_gateway" {
