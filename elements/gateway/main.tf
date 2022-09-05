@@ -48,10 +48,21 @@ resource "keycloak_openid_client_default_scopes" "default_client_scopes" {
 resource "keycloak_openid_audience_protocol_mapper" "audience_mapper" {
   realm_id                 = data.keycloak_realm.realm.id
   client_id                = keycloak_openid_client.client.id
-  included_custom_audience = keycloak_openid_client.client.id
   name                     = "audience"
+  included_custom_audience = keycloak_openid_client.client.id
   add_to_access_token      = true
   add_to_id_token          = false
+}
+
+resource "keycloak_openid_group_membership_protocol_mapper" "group_mapper" {
+  realm_id            = data.keycloak_realm.realm.id
+  client_id           = keycloak_openid_client.client.id
+  name                = "groups"
+  claim_name          = "groups"
+  full_path           = true
+  add_to_id_token     = true
+  add_to_access_token = true
+  add_to_userinfo     = true
 }
 
 resource "random_password" "cookie_secret" {
