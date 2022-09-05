@@ -50,5 +50,6 @@ module "keycloak_ingress" {
   service = module.keycloak_application.service
   annotations = {
     "nginx.ingress.kubernetes.io/proxy-buffer-size" = "256k"
+    "nginx.ingress.kubernetes.io/enable-cors"       = "true"
   }
 }
