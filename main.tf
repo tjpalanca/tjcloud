@@ -120,7 +120,7 @@ module "keycloak" {
   ]
 }
 
-module "keycloak-config" {
+module "keycloak_config" {
   source = "./modules/keycloak-config"
   settings = {
     realm_name         = var.cluster_name
@@ -144,6 +144,8 @@ module "pgadmin" {
   pgadmin_default_username = var.pgadmin_default_username
   pgadmin_default_password = var.pgadmin_default_password
   pgadmin_cloudflare_zone  = var.main_cloudflare_zone
+  keycloak_realm           = module.keycloak_config.realms.main
+  keycloak_url             = module.keycloak.url
   depends_on = [
     module.cluster,
     module.keycloak

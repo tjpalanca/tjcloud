@@ -29,8 +29,11 @@ module "pgadmin" {
 }
 
 module "pgadmin_gateway" {
-  source  = "../../elements/ingress"
-  host    = "pgadmin"
-  zone    = var.pgadmin_cloudflare_zone
-  service = module.pgadmin.service
+  source          = "../../elements/gateway"
+  host            = "pgadmin"
+  zone            = var.pgadmin_cloudflare_zone
+  service         = module.pgadmin.service
+  keycloak_realm  = var.keycloak_realm
+  keycloak_url    = var.keycloak_url
+  keycloak_groups = ["Administrator"]
 }

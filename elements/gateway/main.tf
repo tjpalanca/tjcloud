@@ -16,8 +16,8 @@ locals {
   domain = "${local.host}.${var.zone}"
 }
 
-resource "keycloak_openid_client_v1" "client" {
-  realm_id    = var.keycloak_realm_id
+resource "keycloak_openid_client" "client" {
+  realm_id    = var.keycloak_realm.id
   client_id   = var.service.name
   name        = local.domain
   enabled     = true
@@ -41,8 +41,8 @@ module "proxy_application" {
   image     = "quay.io/oauth2-proxy/oauth2-proxy:v7.3.0"
   env_vars = {
     OAUTH2_PROXY_UPSTREAMS              = "http://${var.service.name}.${var.service.namespace}:${var.service.port}/"
-    OAUTH2_PROXY_CLIENT_ID              = keycloak_openid_client_v1.client.client_id
-    OAUTH2_PROXY_CLIENT_SECRET          = keycloak_openid_client_v1.client.client_secret
+    OAUTH2_PROXY_CLIENT_ID              = keycloak_openid_client.client.client_id
+    OAUTH2_PROXY_CLIENT_SECRET          = keycloak_openid_client.client.client_secret
     OAUTH2_PROXY_ALLOWED_GROUPS         = join(",", [for g in var.keycloak_groups : "/${g}"])
     OAUTH2_PROXY_REVERSE_PROXY          = "true"
     OAUTH2_PROXY_REAL_CLIENT_IP_HEADER  = "X-Forwarded-For"

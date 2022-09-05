@@ -1,5 +1,3 @@
-
-
 variable "service" {
   type = object({
     name      = string

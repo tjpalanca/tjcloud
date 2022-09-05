@@ -9,3 +9,7 @@ variable "pgadmin_default_password" {
 variable "pgadmin_cloudflare_zone" {
   type = string
 }
+
+variable "keycloak_realm" {}
+
+variable "keycloak_url" {}
