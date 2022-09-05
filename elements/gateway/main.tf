@@ -12,7 +12,7 @@ terraform {
 }
 
 locals {
-  host   = var.host || var.service.name
+  host   = coalesce(var.host, var.service.name)
   domain = "${local.host}.${var.zone}"
 }
 
