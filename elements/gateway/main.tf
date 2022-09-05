@@ -37,7 +37,6 @@ resource "keycloak_openid_client_default_scopes" "default_client_scopes" {
   client_id = keycloak_openid_client.client.id
 
   default_scopes = concat(var.default_client_scopes, [
-    "api",
     "profile",
     "email",
     "roles",
