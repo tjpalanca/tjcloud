@@ -49,7 +49,7 @@ resource "keycloak_openid_audience_protocol_mapper" "audience_mapper" {
   realm_id                 = data.keycloak_realm.realm.id
   client_id                = keycloak_openid_client.client.id
   name                     = "audience"
-  included_client_audience = keycloak_openid_client.client.id
+  included_client_audience = keycloak_openid_client.client.name
   add_to_access_token      = true
   add_to_id_token          = false
 }
