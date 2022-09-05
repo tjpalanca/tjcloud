@@ -13,14 +13,15 @@ resource "kubernetes_namespace_v1" "pgadmin" {
   }
 }
 
+
 module "pgadmin" {
-  source       = "../../elements/application"
-  name         = "pgadmin"
-  namespace    = kubernetes_namespace_v1.pgadmin.metadata.0.name
-  ports        = [5050]
-  image        = "hashicorp/http-echo:latest" # "dpage/pgadmin4:6.13"
-  command_args = ["-listen=:5050"]
+  source    = "../../elements/application"
+  name      = "pgadmin"
+  namespace = kubernetes_namespace_v1.pgadmin.metadata.0.name
+  ports     = [5050]
+  image     = "mendhak/http-https-echo" # "dpage/pgadmin4:6.13"
   env_vars = {
+    HTTP_PORT                  = 5050
     PGADMIN_DEFAULT_EMAIL      = var.pgadmin_default_username
     PGADMIN_DEFAULT_PASSWORD   = var.pgadmin_default_password
     PGADMIN_LISTEN_ADDRESS     = "0.0.0.0"
