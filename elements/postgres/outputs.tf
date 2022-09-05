@@ -1,6 +1,6 @@
 output "credentials" {
   value = {
-    internal_name = module.postgres.service.address
+    internal_name = "${module.postgres.service.name}.${module.postgres.service.namespace}"
     internal_host = module.postgres.cluster_ip
     internal_port = local.port
     external_host = var.config.node_ip
