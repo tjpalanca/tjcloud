@@ -17,11 +17,12 @@ locals {
 }
 
 resource "keycloak_openid_client" "client" {
-  realm_id    = var.keycloak_realm.id
-  client_id   = var.service.name
-  name        = local.domain
-  enabled     = true
-  access_type = "CONFIDENTIAL"
+  realm_id              = var.keycloak_realm.id
+  client_id             = var.service.name
+  name                  = local.domain
+  enabled               = true
+  access_type           = "CONFIDENTIAL"
+  standard_flow_enabled = true
   valid_redirect_uris = [
     "https://${local.domain}/oauth2/callback"
   ]
