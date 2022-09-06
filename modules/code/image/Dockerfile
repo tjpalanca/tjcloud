@@ -1,23 +1,25 @@
 FROM ghcr.io/rocker-org/r-ver:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
-# Linux Dependencies
-COPY install/linux.sh /install
-RUN /install/linux.sh
-COPY install/r-deps.sh /install
-RUN /install/r-deps.sh
-COPY install/julia-deps.sh /install
-RUN /install/julia-deps.sh
-COPY install/python-deps.sh /install
-RUN /install/python-deps.sh
-
 # Scripts
 RUN mkdir -p /scripts
 
+# Linux 
+COPY scripts/linux.sh /scripts
+RUN /scripts/linux.sh
+
+# R
+COPY scripts/r-deps.sh /scripts
+RUN /scripts/r-deps.sh
+
 # Python
+COPY scripts/python-deps.sh /scripts
+RUN /scripts/python-deps.sh
 RUN /rocker_scripts/install_python.sh 
 
 # Julia
+COPY scripts/julia-deps.sh /scripts
+RUN /scripts/julia-deps.sh
 COPY scripts/julia.sh /scripts
 RUN /scripts/julia.sh
 
