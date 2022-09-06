@@ -50,3 +50,8 @@ variable "node" {
     ip_address = string
   })
 }
+
+variable "post_copy_commands" {
+  type    = list(string)
+  default = []
+}

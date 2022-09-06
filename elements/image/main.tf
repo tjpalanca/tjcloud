@@ -56,6 +56,9 @@ resource "null_resource" "build_context" {
     source      = var.build_context
     destination = local.workspace
   }
+  provisioner "remote-exec" {
+    inline = var.post_copy_commands
+  }
 }
 
 resource "kubernetes_pod_v1" "kaniko_builder" {
