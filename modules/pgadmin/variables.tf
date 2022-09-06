@@ -21,3 +21,5 @@ variable "volume_name" {}
 variable "node_password" {}
 
 variable "node_ip_address" {}
+
+variable "node_name" {}

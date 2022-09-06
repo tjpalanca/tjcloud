@@ -150,6 +150,19 @@ module "pgadmin" {
   volume_name              = module.cluster.main_node_volume.label
   node_ip_address          = module.cluster.main_node.ip_address
   node_password            = var.root_password
+  node_name                = module.cluster.main_node.label
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
+
+module "echo" {
+  source                = "./modules/echo"
+  cloudflare_zone       = var.main_cloudflare_zone
+  keycloak_realm_name   = module.keycloak_config.realms.main.realm
+  keycloak_url          = module.keycloak.url
+  default_client_scopes = [module.keycloak_config.client_scopes.groups.name]
   depends_on = [
     module.cluster,
     module.keycloak

@@ -39,6 +39,7 @@ module "pgadmin_application" {
   namespace = kubernetes_namespace_v1.pgadmin.metadata.0.name
   ports     = [5050]
   image     = "dpage/pgadmin4:6.13"
+  node_name = var.node_name
   env_vars = {
     PGADMIN_DEFAULT_EMAIL                     = var.pgadmin_default_username
     PGADMIN_DEFAULT_PASSWORD                  = var.pgadmin_default_password
