@@ -36,7 +36,7 @@ resource "kubernetes_secret_v1" "registry_secret" {
 data "archive_file" "build_context" {
   type        = "zip"
   source_dir  = var.build_context
-  output_path = "build_context.zip"
+  output_path = "/var/kaniko/${var.name}.zip"
 }
 
 resource "null_resource" "build_context" {
