@@ -56,6 +56,9 @@
     - [x] Build custom docker image with keycloak themes
     - [x] Set up identity providers
 - [ ] Set up pgadmin with proxy
+    - [x] Set up a gateway resource that created the proxy and ingress
+    - [x] Niftily you can use terraform to link client IDs, making it very convenient 
+    - On the NGINX config for Keycloak, you need to enable CORS 
 - [ ] Network hardening 
     - [ ] Terraform Cloud only allowed for firewall 
     - [ ] Some VPN for local dynamic use?
