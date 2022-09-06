@@ -53,5 +53,5 @@ variable "node" {
 
 variable "post_copy_commands" {
   type    = list(string)
-  default = []
+  default = [""]
 }
