@@ -55,7 +55,7 @@
     - [x] Authenticate keycloak provider 
     - [x] Build custom docker image with keycloak themes
     - [x] Set up identity providers
-- [ ] Set up pgadmin with proxy
+- [x] Set up pgadmin with proxy
     - [x] Set up a gateway resource that created the proxy and ingress
     - [x] Niftily you can use terraform to link client IDs, making it very convenient 
     - On the NGINX config for Keycloak, you need to enable CORS 
@@ -67,7 +67,9 @@
 - [ ] Enable Linode LongView for monitoring memory
 - [ ] Expose Kubernetes Dashboard at system
 - [ ] Set up cloudflare authenticated origin pulls
-- [ ] Set up rmeaining identity providers on Keycloak 
+- [ ] Set up remaining identity providers on Keycloak 
 - [ ] Add image caching for Kaniko
 - [x] Enable real IP despite CloudFlare
     - Added settings to the configmap to take cloudflare origin ips and trust real ips coming from those origins (amazing!)
+- [ ] Fully manage cloudflare zone
+- [ ] Fully manage namecheap domain
