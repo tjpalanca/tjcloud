@@ -17,11 +17,8 @@ module "echo_application" {
   source    = "../../elements/application"
   name      = "echo"
   namespace = kubernetes_namespace_v1.echo.metadata.0.name
-  ports     = [5050]
+  ports     = [8080]
   image     = "brndnmtthws/nginx-echo-headers:latest"
-  env_vars = {
-    HTTP_PORT = 5050
-  }
 }
 
 module "echo_gateway" {
