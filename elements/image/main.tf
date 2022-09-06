@@ -65,11 +65,6 @@ resource "kubernetes_pod_v1" "kaniko_builder" {
   depends_on = [
     null_resource.build_context
   ]
-  lifecycle {
-    replace_triggered_by = [
-      data.archive_file.build_context.output_sha
-    ]
-  }
   metadata {
     name      = "kaniko-builder-${var.name}"
     namespace = var.namespace
