@@ -69,4 +69,5 @@
 - [ ] Set up cloudflare authenticated origin pulls
 - [ ] Set up rmeaining identity providers on Keycloak 
 - [ ] Add image caching for Kaniko
-- [ ] Enable real IP despite CloudFlare
+- [x] Enable real IP despite CloudFlare
+    - Added settings to the configmap to take cloudflare origin ips and trust real ips coming from those origins (amazing!)

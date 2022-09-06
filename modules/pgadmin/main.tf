@@ -49,7 +49,7 @@ module "pgadmin_application" {
     PGADMIN_CONFIG_WEBSERVER_AUTO_CREATE_USER = "True"
     PGADMIN_CONFIG_WEBSERVER_REMOTE_USER      = "'X-Forwarded-User'"
     PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION = "False"
-    PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED   = "False"
+    PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED   = "True"
   }
   volumes = [{
     volume_name = "pgadmin-config"
