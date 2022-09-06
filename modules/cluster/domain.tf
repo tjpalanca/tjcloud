@@ -9,10 +9,3 @@ resource "cloudflare_record" "main_node" {
   type    = "A"
   proxied = true
 }
-
-resource "cloudflare_zone_settings_override" "overrides" {
-  zone_id = data.cloudflare_zone.main.zone_id
-  settings {
-    cache_level = "basic"
-  }
-}
