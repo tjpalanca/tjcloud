@@ -4,6 +4,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 3.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.12.1"
+    }
   }
 }
 
@@ -18,6 +22,16 @@ locals {
     "app.kubernetes.io/component" = "controller"
     "app.kubernetes.io/instance"  = "ingress-nginx"
     "app.kubernetes.io/name"      = "ingress-nginx"
+  }
+}
+
+resource "kubernetes_namespace_v1" "ingress_nginx" {
+  metadata {
+    name = "ingress-nginx"
+    labels = {
+      "app.kubernetes.io/instance" = "ingress-nginx"
+      "app.kubernetes.io/name"     = "ingress-nginx"
+    }
   }
 }
 
@@ -40,21 +54,11 @@ resource "kubernetes_secret_v1" "origin_ca" {
   type = "kubernetes.io/tls"
   metadata {
     name      = "origin-ca"
-    namespace = "ingress-nginx"
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata[0].name
   }
   data = {
     "tls.key" = var.cloudflare_origin_ca.private_key
     "tls.crt" = cloudflare_origin_ca_certificate.origin_ca.certificate
-  }
-}
-
-resource "kubernetes_namespace_v1" "ingress_nginx" {
-  metadata {
-    name = "ingress-nginx"
-    labels = {
-      "app.kubernetes.io/instance" = "ingress-nginx"
-      "app.kubernetes.io/name"     = "ingress-nginx"
-    }
   }
 }
 
@@ -67,7 +71,7 @@ resource "kubernetes_service_account_v1" "ingress_nginx" {
       }
     )
     name      = "ingress-nginx"
-    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata[0].name
   }
 }
 
@@ -303,19 +307,6 @@ resource "kubernetes_cluster_role_binding_v1" "ingress_nginx_admission" {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
     name      = kubernetes_cluster_role_v1.ingress_nginx_admission.metadata.0.name
-  }
-}
-
-resource "kubernetes_config_map_v1" "ingress_nginx_controller" {
-  metadata {
-    name      = "ingress-nginx-controller"
-    namespace = kubernetes_namespace_v1.ingress_nginx.metadata.0.name
-    labels = merge(local.labels, {
-      "app.kubernetes.io/component" = "controller"
-    })
-  }
-  data = {
-    allow-snippet-annotations = "true"
   }
 }
 
