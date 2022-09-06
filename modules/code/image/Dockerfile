@@ -1,6 +1,16 @@
 FROM ghcr.io/rocker-org/r-ver:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
+# Linux Dependencies
+COPY install/linux.sh /install
+RUN /install/linux.sh
+COPY install/r-deps.sh /install
+RUN /install/r-deps.sh
+COPY install/julia-deps.sh /install
+RUN /install/julia-deps.sh
+COPY install/python-deps.sh /install
+RUN /install/python-deps.sh
+
 # Scripts
 RUN mkdir -p /scripts
 
@@ -14,16 +24,6 @@ RUN /scripts/julia.sh
 # NodeJS
 COPY scripts/nodejs.sh /scripts
 RUN /scripts/nodejs.sh
-
-# # Core Dependencies
-# COPY install/linux.sh /install
-# RUN /install/linux.sh
-# COPY install/r-deps.sh /install
-# RUN /install/r-deps.sh
-# COPY install/julia-deps.sh /install
-# RUN /install/julia-deps.sh
-# COPY install/python-deps.sh /install
-# RUN /install/python-deps.sh
 
 # # Sudo Permissions
 # COPY install/sudo.sh /install
