@@ -169,6 +169,21 @@ module "echo" {
   ]
 }
 
+module "code_image" {
+  source        = "./elements/image"
+  name          = "code"
+  namespace     = module.kaniko.namespace
+  registry      = local.ghcr_registry
+  build_context = "modules/code/image/"
+  image_address = "ghcr.io/tjpalanca/tjcloud/code"
+  image_version = "v1.0"
+  node          = module.cluster.main_node
+  node_password = var.root_password
+  depends_on = [
+    module.cluster
+  ]
+}
+
 module "code" {
   source = "./modules/code"
 }
