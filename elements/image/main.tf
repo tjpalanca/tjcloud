@@ -63,7 +63,9 @@ resource "null_resource" "build_context" {
 
 resource "kubernetes_pod_v1" "kaniko_builder" {
   lifecycle {
-    replace_triggered_by = null_resource.build_context
+    replace_triggered_by = [
+      null_resource.build_context
+    ]
   }
   metadata {
     name      = "kaniko-builder-${var.name}"
