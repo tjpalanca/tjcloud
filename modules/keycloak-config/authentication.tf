@@ -46,7 +46,7 @@ resource "keycloak_authentication_execution" "confirm_link_existing_account" {
   realm_id          = keycloak_realm.main.id
   parent_flow_alias = keycloak_authentication_subflow.handle_an_existing_account.alias
   authenticator     = "idp-confirm-link"
-  requirement       = "REQUIRED"
+  requirement       = "ALTERNATIVE"
   depends_on = [
     keycloak_authentication_subflow.handle_an_existing_account
   ]
