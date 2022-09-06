@@ -27,43 +27,40 @@ RUN /scripts/julia.sh
 COPY scripts/nodejs.sh /scripts
 RUN /scripts/nodejs.sh
 
-# # Sudo Permissions
-# COPY install/sudo.sh /install
-# RUN /install/sudo.sh
-# # Terminal Multiplexer (tmux)
-# COPY install/tmux.sh /install
-# RUN su rstudio -s /install/tmux.sh
-# # Docker
-# COPY install/docker.sh /install
-# RUN /install/docker.sh
-# # Kubernetes
-# COPY install/kubectl.sh /install
-# RUN /install/kubectl.sh
-# # Cloud66 Toolbelt
-# COPY install/cx.sh /install
-# RUN /install/cx.sh
-# # S3 command line utility
-# COPY install/s3cmd.sh /install
-# RUN /install/s3cmd.sh
-# # Radian R Console
-# COPY install/radian.sh /install
-# RUN /install/radian.sh
+# Sudo Permissions
+COPY scripts/sudo.sh /scripts
+RUN /scripts/sudo.sh
+# Terminal Multiplexer (tmux)
+COPY scripts/tmux.sh /scripts
+RUN su rstudio -s /scripts/tmux.sh
+# Docker
+COPY scripts/docker.sh /scripts
+RUN /scripts/docker.sh
+# Kubernetes
+COPY scripts/kubectl.sh /scripts
+RUN /scripts/kubectl.sh
+# Cloud66 Toolbelt
+COPY scripts/cx.sh /scripts
+RUN /scripts/cx.sh
+# S3 command line utility
+COPY scripts/s3cmd.sh /scripts
+RUN /scripts/s3cmd.sh
+# Radian R Console
+COPY scripts/radian.sh /scripts
+RUN /scripts/radian.sh
+# Cron Service
+COPY scripts/cron.sh /scripts
+RUN /scripts/cron.sh
+COPY services.d/cron /etc/services.d/cron
 
-# # RStudio Server
-# COPY install/rstudio-server.sh /install
-# RUN /install/rstudio-server.sh
-# # VS Code via code-server
-# COPY install/code-server.sh /install
-# RUN /install/code-server.sh
-# COPY services.d/code-server /etc/services.d/code-server
-# COPY code/assets/code-192.png /usr/lib/code-server/src/browser/media/pwa-icon-192.png
-# COPY code/assets/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
-# COPY code/assets/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
-# COPY code/assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
-# # Cron Service
-# COPY install/cron.sh /install
-# RUN /install/cron.sh
-# COPY services.d/cron /etc/services.d/cron
+# Code Server
+COPY scripts/code-server.sh /scripts
+RUN /scripts/code-server.sh
+COPY services.d/code-server /etc/services.d/code-server
+COPY assets/code-192.png /usr/lib/code-server/src/browser/media/pwa-icon-192.png
+COPY assets/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
+COPY assets/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
+COPY assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
 
 # User Configuration
 COPY cont-init.d/02_userconf /etc/cont-init.d/02_userconf
