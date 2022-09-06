@@ -1,11 +1,13 @@
 FROM ghcr.io/rocker-org/r-ver:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
-# Install scripts
+# Scripts
 RUN mkdir -p /scripts
 
-# Python and Julia
+# Python
 RUN /rocker_scripts/install_python.sh 
+
+# Julia
 COPY scripts/julia.sh /scripts
 RUN /scripts/julia.sh
 
