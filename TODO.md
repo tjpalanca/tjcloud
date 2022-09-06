@@ -59,6 +59,7 @@
     - [x] Set up a gateway resource that created the proxy and ingress
     - [x] Niftily you can use terraform to link client IDs, making it very convenient 
     - On the NGINX config for Keycloak, you need to enable CORS 
+    - Need to disabled enhanced cookie protection because IPs can be dynamic from cloudflare
 - [ ] Network hardening 
     - [ ] Terraform Cloud only allowed for firewall 
     - [ ] Some VPN for local dynamic use?
