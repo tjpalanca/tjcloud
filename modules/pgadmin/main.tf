@@ -40,14 +40,14 @@ module "pgadmin" {
   ports     = [5050]
   image     = "dpage/pgadmin4:6.13"
   env_vars = {
-    PGADMIN_DEFAULT_EMAIL      = var.pgadmin_default_username
-    PGADMIN_DEFAULT_PASSWORD   = var.pgadmin_default_password
-    PGADMIN_LISTEN_ADDRESS     = "0.0.0.0"
-    PGADMIN_LISTEN_PORT        = "5050"
-    PGADMIN_CONFIG_SERVER_MODE = "False"
-    # PGADMIN_CONFIG_AUTHENTICATION_SOURCES     = "['webserver']"
-    # PGADMIN_CONFIG_WEBSERVER_AUTO_CREATE_USER = "True"
-    # PGADMIN_CONFIG_WEBSERVER_REMOTE_USER      = "'X-Forwarded-User'"
+    PGADMIN_DEFAULT_EMAIL                     = var.pgadmin_default_username
+    PGADMIN_DEFAULT_PASSWORD                  = var.pgadmin_default_password
+    PGADMIN_LISTEN_ADDRESS                    = "0.0.0.0"
+    PGADMIN_LISTEN_PORT                       = "5050"
+    PGADMIN_CONFIG_SERVER_MODE                = "True"
+    PGADMIN_CONFIG_AUTHENTICATION_SOURCES     = "['webserver']"
+    PGADMIN_CONFIG_WEBSERVER_AUTO_CREATE_USER = "True"
+    PGADMIN_CONFIG_WEBSERVER_REMOTE_USER      = "'X-Forwarded-User'"
   }
   volumes = [{
     volume_name = "pgadmin-config"
