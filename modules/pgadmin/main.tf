@@ -49,9 +49,12 @@ module "pgadmin_application" {
     PGADMIN_CONFIG_WEBSERVER_REMOTE_USER      = "'X-Forwarded-User'"
     PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION = "False"
   }
-  volumes = [
-
-  ]
+  volumes = [{
+    volume_name = "pgadmin-config"
+    mount_path  = local.config_path
+    host_path   = local.volume_path
+    mount_type  = "DirectoryOrCreate"
+  }]
   depends_on = [
     null_resource.pgadmin
   ]
