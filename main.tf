@@ -168,3 +168,7 @@ module "echo" {
     module.keycloak
   ]
 }
+
+module "code" {
+  source = "./modules/code"
+}
