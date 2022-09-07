@@ -1,5 +1,6 @@
 FROM ghcr.io/rocker-org/r-ver:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
+LABEL org.opencontainers.image.source = "https://github.com/tjpalanca/tjcloud"
 
 # Scripts
 RUN mkdir -p /scripts
