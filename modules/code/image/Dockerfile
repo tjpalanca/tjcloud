@@ -38,7 +38,7 @@ COPY scripts/sudo.sh /scripts
 RUN /scripts/sudo.sh
 # Terminal Multiplexer (tmux)
 COPY scripts/tmux.sh /scripts
-RUN su 1000 -s /scripts/tmux.sh
+RUN su $DEFAULT_USER -s /scripts/tmux.sh
 # Docker
 COPY scripts/docker.sh /scripts
 RUN /scripts/docker.sh
