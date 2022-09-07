@@ -62,7 +62,7 @@ resource "null_resource" "build_context" {
     destination = local.workspace
   }
   provisioner "remote-exec" {
-    inline = concat("cd ${local.workspace}", var.post_copy_commands)
+    inline = concat(["cd ${local.workspace}"], var.post_copy_commands)
   }
 }
 
