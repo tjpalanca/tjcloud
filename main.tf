@@ -180,7 +180,7 @@ module "code_image" {
   node          = module.cluster.main_node
   node_password = var.root_password
   post_copy_commands = [
-    "chmod +x /var/kaniko/code/scripts/*"
+    "chmod +x scripts/*"
   ]
   depends_on = [
     module.cluster
