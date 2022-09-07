@@ -8,10 +8,10 @@ terraform {
 }
 
 locals {
-  workspace = "/var/kaniko/${var.name}/"
+  workspace = "/var/kaniko/build_contexts/${var.name}/"
+  cache_dir = "/var/kaniko/cache/"
   versioned = "${var.image_address}:${var.image_version}"
   latest    = "${var.image_address}:latest"
-  cache_dir = "/var/kaniko/cache/"
 }
 
 resource "kubernetes_secret_v1" "registry_secret" {
@@ -37,7 +37,7 @@ resource "kubernetes_secret_v1" "registry_secret" {
 data "archive_file" "build_context" {
   type        = "zip"
   source_dir  = var.build_context
-  output_path = "/var/kaniko/build_contexts/${var.name}.zip"
+  output_path = "/var/kaniko/${var.name}.zip"
 }
 
 resource "null_resource" "build_context" {
