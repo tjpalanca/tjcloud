@@ -1,6 +1,12 @@
 FROM ghcr.io/rocker-org/r-ver:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 
+# Initialization 
+RUN /rocker_scripts/install_s6init.sh
+ARG DEFAULT_USER=tjpalanca
+RUN /rocker_scripts/default_user.sh "${DEFAULT_USER}"
+RUN cp /rocker_scripts/init_set_env.sh /etc/cont-init.d/01_set_env
+
 # Scripts
 RUN mkdir -p /scripts
 
