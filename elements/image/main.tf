@@ -8,7 +8,7 @@ terraform {
 }
 
 locals {
-  workspace = "/var/kaniko/build_contexts/${var.name}/"
+  workspace = "/var/kaniko/build/${var.name}/"
   cache_dir = "/var/kaniko/cache/"
   versioned = "${var.image_address}:${var.image_version}"
   latest    = "${var.image_address}:latest"
