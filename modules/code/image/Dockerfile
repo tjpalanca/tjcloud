@@ -70,4 +70,4 @@ ENV DISPLAY :1
 COPY services.d/display /etc/services.d/display
 
 # # Expose Ports
-EXPOSE 8888 5500 3838 8787 8788 8789
+EXPOSE 8888 5500 3838 3333
