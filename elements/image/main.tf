@@ -11,6 +11,7 @@ locals {
   workspace = "/var/kaniko/${var.name}/"
   versioned = "${var.image_address}:${var.image_version}"
   latest    = "${var.image_address}:latest"
+  cache_dir = "/var/kaniko/cache/"
 }
 
 resource "kubernetes_secret_v1" "registry_secret" {
@@ -36,11 +37,12 @@ resource "kubernetes_secret_v1" "registry_secret" {
 data "archive_file" "build_context" {
   type        = "zip"
   source_dir  = var.build_context
-  output_path = "/var/kaniko/${var.name}.zip"
+  output_path = "/var/kaniko/build_contexts/${var.name}.zip"
 }
 
 resource "null_resource" "build_context" {
   triggers = {
+    build_context_path = data.archive_file.build_context.output_path
     build_context_hash = data.archive_file.build_context.output_sha
   }
   connection {
@@ -50,7 +52,10 @@ resource "null_resource" "build_context" {
     host     = var.node.ip_address
   }
   provisioner "remote-exec" {
-    inline = ["mkdir -p ${local.workspace}"]
+    inline = [
+      "mkdir -p ${local.workspace}",
+      "mkdir -p ${local.cache_dir}"
+    ]
   }
   provisioner "file" {
     source      = var.build_context
@@ -58,6 +63,51 @@ resource "null_resource" "build_context" {
   }
   provisioner "remote-exec" {
     inline = var.post_copy_commands
+  }
+}
+
+resource "kubernetes_pod_v1" "kaniko_warmer" {
+  count = length(var.warm_images) > 0 ? 1 : 0
+  metadata {
+    name      = "kaniko-warmer-${var.name}"
+    namespace = var.namespace
+  }
+  spec {
+    node_name = var.node.label
+    container {
+      name  = "kaniko-warmer"
+      image = "gcr.io/kaniko-project/warmer:latest"
+      args = concat(
+        ["--cache-dir=/cache"],
+        [for img in var.warm_images : "--image=${img}"]
+      )
+      volume_mount {
+        name       = "kaniko-secret"
+        mount_path = "/kaniko/.docker"
+      }
+      volume_mount {
+        name       = "cache"
+        mount_path = "/cache"
+      }
+    }
+    restart_policy = "Never"
+    volume {
+      name = "kaniko-secret"
+      secret {
+        secret_name = kubernetes_secret_v1.registry_secret.metadata.0.name
+        items {
+          key  = ".dockerconfigjson"
+          path = "config.json"
+        }
+      }
+    }
+    volume {
+      name = "cache"
+      host_path {
+        path = local.cache_dir
+        type = "DirectoryOrCreate"
+      }
+    }
   }
 }
 
@@ -74,13 +124,14 @@ resource "kubernetes_pod_v1" "kaniko_builder" {
   spec {
     node_name = var.node.label
     container {
-      name  = "kaniko"
+      name  = "kaniko-builder"
       image = "gcr.io/kaniko-project/executor:latest"
       args = [
         "--dockerfile=/workspace/${var.dockerfile_path}",
         "--context=dir:///workspace",
         "--destination=${local.versioned}",
-        "--destination=${local.latest}"
+        "--destination=${local.latest}",
+        "--cache=true"
       ]
       volume_mount {
         name       = "kaniko-secret"

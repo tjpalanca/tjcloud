@@ -55,3 +55,8 @@ variable "post_copy_commands" {
   type    = list(string)
   default = ["echo 'No post copy command specified'"]
 }
+
+variable "warm_images" {
+  type    = list(string)
+  default = []
+}
