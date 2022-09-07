@@ -126,13 +126,16 @@ resource "kubernetes_pod_v1" "kaniko_builder" {
     container {
       name  = "kaniko-builder"
       image = "gcr.io/kaniko-project/executor:latest"
-      args = [
-        "--dockerfile=/workspace/${var.dockerfile_path}",
-        "--context=dir:///workspace",
-        "--destination=${local.versioned}",
-        "--destination=${local.latest}",
-        "--cache=true"
-      ]
+      args = concat(
+        [
+          "--dockerfile=/workspace/${var.dockerfile_path}",
+          "--context=dir:///workspace",
+          "--destination=${local.versioned}",
+          "--destination=${local.latest}",
+          "--cache=true"
+        ],
+        [for k, v in var.build_args : "--build-arg=${k}='${v}'"]
+      )
       volume_mount {
         name       = "kaniko-secret"
         mount_path = "/kaniko/.docker"

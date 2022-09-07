@@ -128,3 +128,8 @@ variable "ghcr_email" {
   type        = string
   description = "Email for GitHub Container Registry"
 }
+
+variable "user_name" {
+  type        = string
+  description = "Username to be used"
+}

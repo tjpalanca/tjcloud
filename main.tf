@@ -179,6 +179,9 @@ module "code_image" {
   image_version = "v1.0"
   node          = module.cluster.main_node
   node_password = var.root_password
+  build_args = {
+    DEFAULT_USER = var.user_name
+  }
   post_copy_commands = [
     "chmod +x scripts/*"
   ]

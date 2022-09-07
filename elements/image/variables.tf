@@ -60,3 +60,8 @@ variable "warm_images" {
   type    = list(string)
   default = []
 }
+
+variable "build_args" {
+  type    = map(string)
+  default = {}
+}
