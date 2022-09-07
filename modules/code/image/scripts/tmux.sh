@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
 # Tmux Installation
-sudo apt-get update 
-sudo apt-get install -y tmux
+apt-get update 
+apt-get install -y tmux
 
 # Tmux Plugin Manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
