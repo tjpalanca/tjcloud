@@ -125,9 +125,8 @@ module "code_port_gateway" {
 }
 
 module "code_test_gateway" {
-  count  = 1
   source = "../../elements/gateway"
-  host   = "test${count.index + 1}"
+  host   = "test"
   zone   = var.cloudflare_zone
   service = {
     name      = "test"
