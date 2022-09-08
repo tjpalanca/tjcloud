@@ -47,7 +47,8 @@ resource "kubernetes_deployment_v1" "deployment" {
         }
       }
       spec {
-        node_name = var.node_name
+        service_account_name = var.service_account_name
+        node_name            = var.node_name
         container {
           name    = var.name
           image   = var.image

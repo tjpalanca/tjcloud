@@ -79,3 +79,9 @@ variable "privileged" {
   default     = false
   description = "Run the container in privileged mode"
 }
+
+variable "service_account_name" {
+  type        = string
+  default     = "default"
+  description = "Service account to use for the pods"
+}
