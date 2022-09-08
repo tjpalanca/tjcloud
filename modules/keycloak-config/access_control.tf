@@ -29,3 +29,19 @@ resource "keycloak_group_memberships" "admin_users" {
     for user in keycloak_user.admin_users : user.username
   ]
 }
+
+resource "keycloak_group_memberships" "developer_users" {
+  realm_id = keycloak_realm.main.id
+  group_id = keycloak_group.developer.id
+  members = [
+    for user in keycloak_user.admin_users : user.username
+  ]
+}
+
+resource "keycloak_group_memberships" "tester_users" {
+  realm_id = keycloak_realm.main.id
+  group_id = keycloak_group.tester.id
+  members = [
+    for user in keycloak_user.admin_users : user.username
+  ]
+}
