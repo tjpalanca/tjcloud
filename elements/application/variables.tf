@@ -73,3 +73,9 @@ variable "readiness_probes" {
   default     = []
   description = "HTTP endpoints as readiness probes"
 }
+
+variable "privileged" {
+  type        = bool
+  default     = false
+  description = "Run the container in privileged mode"
+}

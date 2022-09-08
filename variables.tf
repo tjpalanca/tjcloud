@@ -133,3 +133,13 @@ variable "user_name" {
   type        = string
   description = "Username to be used"
 }
+
+variable "github_pat" {
+  type        = string
+  description = "Personal access token for dev environment"
+}
+
+variable "extensions_gallery_json" {
+  type        = string
+  description = "Extensions Gallery JSON for code-server"
+}

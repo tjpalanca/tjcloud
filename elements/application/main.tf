@@ -83,6 +83,9 @@ resource "kubernetes_deployment_v1" "deployment" {
               }
             }
           }
+          security_context {
+            privileged = var.privileged
+          }
         }
         dynamic "volume" {
           for_each = var.volumes
