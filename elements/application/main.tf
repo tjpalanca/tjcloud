@@ -20,6 +20,7 @@ resource "kubernetes_service_v1" "service" {
     dynamic "port" {
       for_each = var.ports
       content {
+        name        = "port-${port.value}"
         port        = port.value
         target_port = port.value
       }
