@@ -29,7 +29,8 @@ module "keycloak" {
     password = var.keycloak_admin_password
   }
   depends_on = [
-    module.cluster
+    module.cluster,
+    module.keycloak_image
   ]
 }
 

@@ -35,6 +35,7 @@ module "code" {
   node_name               = module.cluster.main_node.label
   depends_on = [
     module.cluster,
-    module.keycloak
+    module.keycloak,
+    module.code_image
   ]
 }
