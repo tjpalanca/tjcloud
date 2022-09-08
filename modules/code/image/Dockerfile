@@ -79,4 +79,5 @@ COPY services.d/display /etc/services.d/display
 EXPOSE 8888 5500 3838 3333
 
 # Init Containers 
+USER ${DEFAULT_USER}
 CMD ["/init"]
