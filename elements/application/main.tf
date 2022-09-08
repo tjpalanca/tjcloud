@@ -55,7 +55,7 @@ resource "kubernetes_deployment_v1" "deployment" {
           dynamic "port" {
             for_each = var.ports
             content {
-              name           = "${var.name}-${port.value}"
+              name           = port.value
               container_port = port.value
             }
           }
