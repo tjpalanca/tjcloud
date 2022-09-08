@@ -75,5 +75,8 @@ COPY assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
 ENV DISPLAY :1
 COPY services.d/display /etc/services.d/display
 
-# # Expose Ports
+# Expose Ports
 EXPOSE 8888 5500 3838 3333
+
+# Init Containers 
+CMD ["/init"]
