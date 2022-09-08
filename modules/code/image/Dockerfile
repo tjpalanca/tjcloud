@@ -1,4 +1,4 @@
-FROM ghcr.io/rocker-org/r-ver:4
+FROM ghcr.io/rocker-org/geospatial:4
 LABEL maintainer="Troy James Palanca <code@tjpalanca.com>"
 LABEL org.opencontainers.image.source="https://github.com/tjpalanca/tjcloud"
 
@@ -10,11 +10,6 @@ COPY scripts/linux.sh /scripts
 RUN /scripts/linux.sh
 
 # Initialization 
-RUN /rocker_scripts/install_s6init.sh
-ARG DEFAULT_USER
-RUN /rocker_scripts/default_user.sh ${DEFAULT_USER}
-RUN adduser ${DEFAULT_USER} sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
-RUN cp /rocker_scripts/init_set_env.sh /etc/cont-init.d/01_set_env
 COPY cont-init.d/02_userconf /etc/cont-init.d/02_userconf
 
 # R
@@ -71,13 +66,13 @@ COPY assets/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
 COPY assets/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
 COPY assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
 
+# Remove RStudio Server 
+RUN sudo apt-get remove -y rstudio-server 
+RUN rm -r /etc/services.d/rstudio
+
 # Xvfb Display
 ENV DISPLAY :1
 COPY services.d/display /etc/services.d/display
 
 # Expose Ports
 EXPOSE 8888 5500 3838 3333
-
-# Init Containers 
-USER ${DEFAULT_USER}
-CMD ["/init"]
