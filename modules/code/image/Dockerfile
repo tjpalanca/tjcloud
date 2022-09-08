@@ -12,8 +12,8 @@ RUN /scripts/linux.sh
 # Initialization 
 RUN /rocker_scripts/install_s6init.sh
 ARG DEFAULT_USER
-RUN /rocker_scripts/default_user.sh "${DEFAULT_USER}"
-RUN adduser "$DEFAULT_USER" sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
+RUN /rocker_scripts/default_user.sh ${DEFAULT_USER}
+RUN adduser ${DEFAULT_USER} sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
 RUN cp /rocker_scripts/init_set_env.sh /etc/cont-init.d/01_set_env
 COPY cont-init.d/02_userconf /etc/cont-init.d/02_userconf
 
