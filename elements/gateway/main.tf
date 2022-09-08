@@ -71,7 +71,7 @@ resource "random_password" "cookie_secret" {
 
 module "proxy_application" {
   source    = "../application"
-  name      = "${var.service.name}-proxy"
+  name      = "${var.service.name}-${var.service.port}-proxy"
   namespace = var.service.namespace
   ports     = [4180]
   replicas  = 1
