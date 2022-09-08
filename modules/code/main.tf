@@ -124,18 +124,18 @@ module "code_port_gateway" {
   default_client_scopes = var.default_client_scopes
 }
 
-# module "code_test_gateway" {
-#   count  = 1
-#   source = "../../elements/gateway"
-#   host   = "test${count.index + 1}"
-#   zone   = var.cloudflare_zone
-#   service = {
-#     name      = "test"
-#     port      = 80
-#     namespace = kubernetes_namespace_v1.code.metadata[0].name
-#   }
-#   keycloak_realm_name   = var.keycloak_realm_name
-#   keycloak_url          = var.keycloak_url
-#   keycloak_groups       = ["Tester"]
-#   default_client_scopes = var.default_client_scopes
-# }
+module "code_test_gateway" {
+  count  = 1
+  source = "../../elements/gateway"
+  host   = "test${count.index + 1}"
+  zone   = var.cloudflare_zone
+  service = {
+    name      = "test"
+    port      = 80
+    namespace = kubernetes_namespace_v1.code.metadata[0].name
+  }
+  keycloak_realm_name   = var.keycloak_realm_name
+  keycloak_url          = var.keycloak_url
+  keycloak_groups       = ["Tester"]
+  default_client_scopes = var.default_client_scopes
+}
