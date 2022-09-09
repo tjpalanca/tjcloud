@@ -36,7 +36,7 @@ COPY scripts/sudo.sh /scripts
 RUN /scripts/sudo.sh
 # Terminal Multiplexer (tmux)
 COPY scripts/tmux.sh /scripts
-RUN su $DEFAULT_USER -s /scripts/tmux.sh
+RUN su rstudio -s /scripts/tmux.sh
 # Docker
 COPY scripts/docker.sh /scripts
 RUN /scripts/docker.sh
@@ -67,8 +67,8 @@ COPY assets/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
 COPY assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
 
 # Remove RStudio Server 
-RUN sudo apt-get remove -y rstudio-server 
-RUN rm -r /etc/services.d/rstudio
+RUN apt-get remove -y rstudio-server 
+RUN rm -rf /etc/services.d/rstudio
 
 # Xvfb Display
 ENV DISPLAY :1
