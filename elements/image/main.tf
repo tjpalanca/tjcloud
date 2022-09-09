@@ -134,7 +134,7 @@ resource "kubernetes_pod_v1" "kaniko_builder" {
           "--destination=${local.latest}",
           "--cache=true"
         ],
-        [for k, v in var.build_args : "--build-arg=${k}='${v}'"]
+        [for k, v in var.build_args : "--build-arg=${k}=${v}"]
       )
       volume_mount {
         name       = "kaniko-secret"
