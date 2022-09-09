@@ -20,10 +20,10 @@ terraform {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
     }
-    # keycloak = {
-    #   source  = "mrparkers/keycloak"
-    #   version = "3.10.0"
-    # }
+    keycloak = {
+      source  = "mrparkers/keycloak"
+      version = "3.10.0"
+    }
   }
   cloud {
     organization = "tjpalanca"
