@@ -1,4 +1,4 @@
 #!/usr/bin/bash 
 
-adduser rstudio sudo
+adduser $DEFAULT_USER sudo
 echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
