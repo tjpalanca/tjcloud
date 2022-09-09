@@ -4,4 +4,8 @@
 apt-get update 
 apt-get install -y \
     libncurses5-dev \
-	libreadline-dev
+	libreadline-dev \
+    bzip2 \
+    libffi7 \
+    sqlite3 \
+    lzma
