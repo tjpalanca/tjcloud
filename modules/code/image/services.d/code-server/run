@@ -3,11 +3,11 @@
 for line in $( cat /etc/environment ) ; do export $line > /dev/null; done
 
 # Set up environment
-chsh --shell /bin/zsh $DOCKER_USER
-export HOME=/home/$DOCKER_USER
-usermod -aG docker $DOCKER_USER
+chsh --shell /bin/zsh $DEFAULT_USER
+export HOME=/home/$DEFAULT_USER
+usermod -aG docker $DEFAULT_USER
 chown 1000:1000 /var/run/docker.sock
-echo "$DOCKER_USER ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers.d/nopasswd > /dev/null
+echo "$DEFAULT_USER ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers.d/nopasswd > /dev/null
 
 # Run code-server
 exec s6-setuidgid 1000:1000 \
