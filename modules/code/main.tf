@@ -66,7 +66,8 @@ module "code_application" {
   privileged           = true
   service_account_name = kubernetes_service_account_v1.code_cluster_admin.metadata[0].name
   env_vars = {
-    ROOT               = "true"
+    USER               = var.user_name
+    DEFAULT_USER       = var.user_name
     CONNECTION_TOKEN   = "dummy"
     PROXY_DOMAIN       = "${local.host}.${var.cloudflare_zone}"
     VSCODE_PROXY_URI   = "https://${local.host}.${var.cloudflare_zone}/proxy/{port}"
