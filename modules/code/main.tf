@@ -61,7 +61,7 @@ module "code_application" {
   name                 = "code"
   namespace            = kubernetes_namespace_v1.code.metadata[0].name
   ports                = [3333, 3838, 5500, 8888]
-  image                = var.versioned_image
+  image                = var.image
   node_name            = var.node_name
   privileged           = true
   service_account_name = kubernetes_service_account_v1.code_cluster_admin.metadata[0].name

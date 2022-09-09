@@ -2,7 +2,7 @@ variable "cloudflare_zone" {
   type = string
 }
 
-variable "versioned_image" {
+variable "image" {
   type = string
 }
 
