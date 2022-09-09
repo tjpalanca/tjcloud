@@ -34,21 +34,21 @@ module "keycloak" {
   ]
 }
 
-module "keycloak_config" {
-  source = "./modules/keycloak-config"
-  settings = {
-    realm_name         = var.cluster_name
-    realm_display_name = var.keycloak_realm_display_name
-    admin_emails       = var.admin_emails
-  }
-  identity_providers = {
-    google = {
-      client_id     = var.google_client_id
-      client_secret = var.google_client_secret
-    }
-  }
-  depends_on = [
-    module.cluster,
-    module.keycloak
-  ]
-}
+# module "keycloak_config" {
+#   source = "./modules/keycloak-config"
+#   settings = {
+#     realm_name         = var.cluster_name
+#     realm_display_name = var.keycloak_realm_display_name
+#     admin_emails       = var.admin_emails
+#   }
+#   identity_providers = {
+#     google = {
+#       client_id     = var.google_client_id
+#       client_secret = var.google_client_secret
+#     }
+#   }
+#   depends_on = [
+#     module.cluster,
+#     module.keycloak
+#   ]
+# }
