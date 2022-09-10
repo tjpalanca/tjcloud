@@ -14,9 +14,6 @@ module "code_image" {
   post_copy_commands = [
     "chmod +x scripts/*"
   ]
-  depends_on = [
-    module.cluster
-  ]
 }
 
 module "code" {
@@ -35,7 +32,6 @@ module "code" {
   node_name               = module.cluster.main_node.label
   depends_on = [
     module.cluster,
-    module.keycloak,
-    module.code_image
+    module.keycloak
   ]
 }

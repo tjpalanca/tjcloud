@@ -8,9 +8,6 @@ module "keycloak_image" {
   image_version = "v1.0"
   node          = module.cluster.main_node
   node_password = var.root_password
-  depends_on = [
-    module.cluster
-  ]
 }
 
 module "keycloak" {
@@ -29,8 +26,7 @@ module "keycloak" {
     password = var.keycloak_admin_password
   }
   depends_on = [
-    module.cluster,
-    module.keycloak_image
+    module.cluster
   ]
 }
 
