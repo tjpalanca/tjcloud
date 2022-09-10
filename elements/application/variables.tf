@@ -53,6 +53,17 @@ variable "volumes" {
   description = "Volumes to be mounted into the container"
 }
 
+variable "config_maps" {
+  type = list(object({
+    config_map_name = string
+    mount_path      = string
+    sub_path        = string
+    read_only       = bool
+  }))
+  default     = []
+  description = "Config Maps to be mounted into the container"
+}
+
 variable "command" {
   type        = list(string)
   default     = null
@@ -74,6 +85,15 @@ variable "readiness_probes" {
   description = "HTTP endpoints as readiness probes"
 }
 
+variable "liveness_probes" {
+  type = list(object({
+    path = string
+    port = number
+  }))
+  default     = []
+  description = "HTTP endpoints as liveness probes"
+}
+
 variable "privileged" {
   type        = bool
   default     = false
@@ -84,4 +104,22 @@ variable "service_account_name" {
   type        = string
   default     = "default"
   description = "Service account to use for the pods"
+}
+
+variable "run_as" {
+  type = object({
+    run_as_user  = number
+    run_as_group = number
+    fs_group     = number
+  })
+  default = {
+    run_as_user  = null
+    run_as_group = null
+    fs_group     = null
+  }
+}
+
+variable "restart_policy" {
+  type    = string
+  default = null
 }

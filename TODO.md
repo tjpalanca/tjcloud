@@ -80,3 +80,5 @@
 - [ ] Knative Serving for scaling down to zero when not in use
 - [ ] Use 1Password CLI
 - [ ] Use 1Password Connect Server
+- [x] Image should wait until build
+    - Changing the kaniko pod to a job allows terraform provider to wait for completion

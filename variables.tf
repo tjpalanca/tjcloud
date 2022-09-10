@@ -143,3 +143,11 @@ variable "extensions_gallery_json" {
   type        = string
   description = "Extensions Gallery JSON for code-server"
 }
+
+variable "plausible_clickhouse_username" {
+  type = string
+}
+
+variable "plausible_clickhouse_password" {
+  type = string
+}
