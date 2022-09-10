@@ -9,6 +9,6 @@ module "plausible" {
     username = var.plausible_clickhouse_username
     password = var.plausible_clickhouse_password
   }
-  node_ip_address = module.cluster.main_node.node_ip_address
+  node_ip_address = module.cluster.main_node.ip_address
   node_password   = var.root_password
 }
