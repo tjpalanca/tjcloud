@@ -60,7 +60,10 @@
     - [x] Niftily you can use terraform to link client IDs, making it very convenient 
     - On the NGINX config for Keycloak, you need to enable CORS 
     - Need to disabled enhanced cookie protection because IPs can be dynamic from cloudflare
-- [ ] Deploy code-server
+- [x] Deploy code-server
+    - [x] GPG Signing commits
+        - Just need to follow the instructions, adding setting to gpg-agent.conf to 
+          have TTL be 1 hour makes it more convenient
 - [ ] Network hardening 
     - [ ] Terraform Cloud only allowed for firewall 
     - [ ] Some VPN for local dynamic use?
@@ -75,3 +78,5 @@
 - [ ] Fully manage cloudflare zone
 - [ ] Fully manage namecheap domain
 - [ ] Knative Serving for scaling down to zero when not in use
+- [ ] Use 1Password CLI
+- [ ] Use 1Password Connect Server
