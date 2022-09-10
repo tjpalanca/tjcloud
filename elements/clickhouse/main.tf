@@ -9,7 +9,8 @@ terraform {
 
 resource "kubernetes_config_map_v1" "clickhouse_config" {
   metadata {
-    name = "${var.name}-config"
+    name      = "${var.name}-config"
+    namespace = var.namespace
   }
   data = {
     "clickhouse-config.xml"      = <<EOF
