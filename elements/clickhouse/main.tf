@@ -7,6 +7,25 @@ terraform {
   }
 }
 
+locals {
+  host_path = "/mnt/${var.volume_name}/clickhouse/${var.name}"
+}
+
+resource "null_resource" "clickhouse_permissions" {
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.node_password
+    host     = var.node_ip_address
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p ${local.host_path}",
+      "chown -R 1000:1000 ${local.host_path}"
+    ]
+  }
+}
+
 resource "kubernetes_config_map_v1" "clickhouse_config" {
   metadata {
     name      = "${var.name}-config"
@@ -57,7 +76,7 @@ module "clickhouse_application" {
   volumes = [{
     volume_name = "data"
     mount_path  = "/var/lib/clickhouse"
-    host_path   = "/mnt/${var.volume_name}/clickhouse/${var.name}"
+    host_path   = local.host_path
     mount_type  = "DirectoryOrCreate"
   }]
   config_maps = [

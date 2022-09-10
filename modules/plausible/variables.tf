@@ -12,3 +12,11 @@ variable "clickhouse" {
     password = string
   })
 }
+
+variable "node_password" {
+  type = string
+}
+
+variable "node_ip_address" {
+  type = string
+}

@@ -28,4 +28,6 @@ module "plausible_clickhouse" {
     username = var.clickhouse.username
     password = var.clickhouse.password
   }
+  node_ip_address = var.node_ip_address
+  node_password   = var.node_password
 }
