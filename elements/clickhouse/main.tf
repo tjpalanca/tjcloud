@@ -21,7 +21,7 @@ resource "null_resource" "clickhouse_permissions" {
   provisioner "remote-exec" {
     inline = [
       "mkdir -p ${local.host_path}",
-      "chown -R 1000:1000 ${local.host_path}"
+      "chown -R 101:101 ${local.host_path}"
     ]
   }
 }
