@@ -65,3 +65,8 @@ variable "build_args" {
   type    = map(string)
   default = {}
 }
+
+variable "timeout" {
+  type    = string
+  default = "15m"
+}

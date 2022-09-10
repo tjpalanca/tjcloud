@@ -74,7 +74,9 @@ resource "kubernetes_job_v1" "kaniko_warmer" {
   }
   spec {
     template {
-      metadata {}
+      metadata {
+        name = "kaniko-warmer-${var.name}"
+      }
       spec {
         node_name = var.node.label
         container {
@@ -122,13 +124,19 @@ resource "kubernetes_job_v1" "kaniko_builder" {
       null_resource.build_context
     ]
   }
+  wait_for_completion = true
+  timeouts {
+    create = var.timeout
+  }
   metadata {
     name      = "kaniko-builder-${var.name}"
     namespace = var.namespace
   }
   spec {
     template {
-      metadata {}
+      metadata {
+        name = "kaniko-builder-${var.name}"
+      }
       spec {
         node_name = var.node.label
         container {
