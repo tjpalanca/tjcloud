@@ -6,6 +6,6 @@ apt-get install -y \
     libncurses5-dev \
 	libreadline-dev \
     libbz2-dev \
-    libffi7 \
-    libsqlite3 \
+    libffi-dev \
+    libsqlite3-dev \
     liblzma-dev
