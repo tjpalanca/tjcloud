@@ -86,3 +86,4 @@
     - Modified the `application` module to allow resource limits, run as user
     - Set up mail server
 - [ ] Fix thrashing for the realm_id
+    - stopped referencing realm not by the ID
