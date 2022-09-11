@@ -150,12 +150,29 @@ resource "kubernetes_deployment_v1" "deployment" {
   }
 }
 
+resource "kubernetes_service_v1" "service" {
+  metadata {
+    name      = "plausible"
+    namespace = kubernetes_namespace_v1.plausible.metadata[0].name
+  }
+  spec {
+    type = "ClusterIP"
+    selector = {
+      app = "plausible"
+    }
+    port {
+      port        = local.port
+      target_port = local.port
+    }
+  }
+}
+
 module "plausible_ingress" {
   source = "../../elements/ingress"
   service = {
-    name      = kubernetes_deployment_v1.deployment.metadata[0].name
+    name      = kubernetes_service_v1.service.metadata[0].name
     port      = local.port
-    namespace = kubernetes_deployment_v1.deployment.metadata[0].namespace
+    namespace = kubernetes_service_v1.service.metadata[0].namespace
   }
   host  = "analytics"
   zone  = var.cloudflare_zone
