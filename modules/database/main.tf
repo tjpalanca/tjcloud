@@ -41,11 +41,11 @@ module "main_clickhouse_database" {
     version  = "21"
   }
   config = {
-    name            = "main-clickhouse-database"
-    namespace       = kubernetes_namespace_v1.database.metadata[0].name
-    node_name       = var.main_clickhouse_node_name
-    volume_name     = var.main_clickhouse_volume_name
-    node_ip_address = var.main_clickhouse_node_ip
-    node_password   = var.main_clickhouse_node_password
+    name          = "main-clickhouse-database"
+    namespace     = kubernetes_namespace_v1.database.metadata[0].name
+    node_name     = var.main_clickhouse_node_name
+    volume_name   = var.main_clickhouse_volume_name
+    node_ip       = var.main_clickhouse_node_ip
+    node_password = var.main_clickhouse_node_password
   }
 }

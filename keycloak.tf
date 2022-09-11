@@ -15,7 +15,7 @@ module "keycloak" {
   providers = {
     postgresql = postgresql.main
   }
-  database = module.database.main_postgres_database_credentials
+  database = module.database.main_postgres_credentials
   keycloak = {
     image           = module.keycloak_image.image.versioned
     cloudflare_zone = var.main_cloudflare_zone

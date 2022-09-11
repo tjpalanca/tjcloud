@@ -3,10 +3,8 @@ module "plausible" {
   providers = {
     postgresql = postgresql.main
   }
-  node_name            = module.cluster.main_node.label
-  volume_name          = module.cluster.main_node_volume.label
-  node_ip_address      = module.cluster.main_node.ip_address
-  node_password        = var.root_password
+  postgres             = module.database.main_postgres_credentials
+  plausible            = module.database.main_clickhouse_credentials
   google_client_id     = var.google_client_id
   google_client_secret = var.google_client_secret
 }

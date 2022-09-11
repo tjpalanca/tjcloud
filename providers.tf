@@ -15,11 +15,11 @@ provider "kubernetes" {
 
 provider "postgresql" {
   alias           = "main"
-  host            = module.database.main_postgres_database_credentials.external_host
-  port            = module.database.main_postgres_database_credentials.external_port
-  database        = module.database.main_postgres_database_credentials.database
-  username        = module.database.main_postgres_database_credentials.username
-  password        = module.database.main_postgres_database_credentials.password
+  host            = module.database.main_postgres_credentials.external_host
+  port            = module.database.main_postgres_credentials.external_port
+  database        = module.database.main_postgres_credentials.database
+  username        = module.database.main_postgres_credentials.username
+  password        = module.database.main_postgres_credentials.password
   sslmode         = "disable"
   connect_timeout = 15
 }

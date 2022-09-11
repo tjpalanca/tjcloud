@@ -9,11 +9,11 @@ variable "database" {
 
 variable "config" {
   type = object({
-    name            = string
-    namespace       = string
-    node_name       = string
-    volume_name     = string
-    node_ip_address = string
-    node_password   = string
+    name          = string
+    namespace     = string
+    node_name     = string
+    volume_name   = string
+    node_ip       = string
+    node_password = string
   })
 }

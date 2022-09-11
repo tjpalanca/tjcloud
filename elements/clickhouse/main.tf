@@ -9,12 +9,13 @@ terraform {
 
 locals {
   host_path = "/mnt/${var.config.volume_name}/clickhouse/${var.config.name}"
+  port      = 8123
 }
 
 module "clickhouse_permissions" {
   source          = "../permissions"
   node_password   = var.config.node_password
-  node_ip_address = var.config.node_ip_address
+  node_ip_address = var.config.node_ip
   node_path       = local.host_path
   uid             = 101
 }
@@ -34,7 +35,7 @@ module "clickhouse_application" {
   source    = "../application"
   name      = var.config.name
   namespace = var.config.namespace
-  ports     = [8123]
+  ports     = [local.port]
   node_name = var.config.node_name
   replicas  = 1
   image     = "yandex/clickhouse-server:${var.database.version}"
