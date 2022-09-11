@@ -11,6 +11,11 @@ terraform {
   }
 }
 
+resource "random_password" "secret_key_base" {
+  length = 32
+}
+
+
 locals {
   env_vars = {
     BASE_URL                = "https://${var.subdomain}.${var.cloudflare_zone}"
@@ -25,6 +30,7 @@ locals {
     ADMIN_USER_EMAIL        = var.admin_user.email
     ADMIN_USER_NAME         = var.admin_user.name
     ADMIN_USER_PWD          = var.admin_user.password
+    SECRET_KEY_BASE         = random_password.secret_key_base.result
   }
 }
 
