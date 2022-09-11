@@ -151,3 +151,11 @@ variable "plausible_clickhouse_username" {
 variable "plausible_clickhouse_password" {
   type = string
 }
+
+variable "gmail_username" {
+  type = string
+}
+
+variable "gmail_password" {
+  type = string
+}
