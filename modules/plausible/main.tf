@@ -12,7 +12,7 @@ terraform {
 }
 
 locals {
-  port = 8888
+  port = 8000
   env_vars = {
     BASE_URL                = "https://${var.subdomain}.${var.cloudflare_zone}"
     POSTGRES_USER           = var.postgres.username
