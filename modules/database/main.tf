@@ -33,16 +33,19 @@ module "main_postgres_database" {
 }
 
 module "main_clickhouse_database" {
-  source      = "../../elements/clickhouse"
-  name        = "main"
-  namespace   = kubernetes_namespace_v1.database.metadata[0].name
-  node_name   = var.main_clickhouse_node_name
-  volume_name = var.main_clickhouse_volume_name
+  source = "../../elements/clickhouse"
   database = {
     name     = var.main_clickhouse_database
     username = var.main_clickhouse_username
     password = var.main_clickhouse_password
+    version  = "21"
   }
-  node_ip_address = var.main_clickhouse_node_ip
-  node_password   = var.main_clickhouse_node_password
+  config = {
+    name            = "main-clickhouse-database"
+    namespace       = kubernetes_namespace_v1.database.metadata[0].name
+    node_name       = var.main_clickhouse_node_name
+    volume_name     = var.main_clickhouse_volume_name
+    node_ip_address = var.main_clickhouse_node_ip
+    node_password   = var.main_clickhouse_node_password
+  }
 }

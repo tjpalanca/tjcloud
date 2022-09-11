@@ -8,21 +8,21 @@ terraform {
 }
 
 locals {
-  host_path = "/mnt/${var.volume_name}/clickhouse/${var.name}"
+  host_path = "/mnt/${var.config.volume_name}/clickhouse/${var.config.name}"
 }
 
 module "clickhouse_permissions" {
   source          = "../permissions"
-  node_password   = var.node_password
-  node_ip_address = var.node_ip_address
+  node_password   = var.config.node_password
+  node_ip_address = var.config.node_ip_address
   node_path       = local.host_path
   uid             = 101
 }
 
 resource "kubernetes_config_map_v1" "clickhouse_config" {
   metadata {
-    name      = "${var.name}-config"
-    namespace = var.namespace
+    name      = "${var.config.name}-config"
+    namespace = var.config.namespace
   }
   data = {
     "clickhouse-config.xml"      = file("${path.module}/clickhouse-config.xml")
@@ -32,12 +32,12 @@ resource "kubernetes_config_map_v1" "clickhouse_config" {
 
 module "clickhouse_application" {
   source    = "../application"
-  name      = var.name
-  namespace = var.namespace
+  name      = var.config.name
+  namespace = var.config.namespace
   ports     = [8123]
-  node_name = var.node_name
+  node_name = var.config.node_name
   replicas  = 1
-  image     = "yandex/clickhouse-server:latest"
+  image     = "yandex/clickhouse-server:${var.database.version}"
   env_vars = {
     CLICKHOUSE_DB       = var.database.name
     CLICKHOUSE_USER     = var.database.username
