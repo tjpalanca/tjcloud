@@ -22,6 +22,10 @@ variable "cloudflare_zone" {
   type = string
 }
 
+variable "main_cloudflare_zone" {
+  type = string
+}
+
 variable "admin_user" {}
 
 variable "secret_key_base" {

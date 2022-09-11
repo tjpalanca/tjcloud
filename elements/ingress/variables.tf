@@ -18,6 +18,12 @@ variable "zone" {
   description = "Cloudflare zone, also the TLD"
 }
 
+variable "cname" {
+  type        = string
+  default     = null
+  description = "CNAME value for cloudflare record, in case it is different from zone"
+}
+
 variable "path" {
   type        = string
   default     = "/"

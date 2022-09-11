@@ -157,6 +157,7 @@ module "plausible_ingress" {
     port      = local.port
     namespace = kubernetes_deployment_v1.deployment.metadata[0].namespace
   }
-  host = "analytics"
-  zone = var.cloudflare_zone
+  host  = "analytics"
+  zone  = var.cloudflare_zone
+  cname = var.main_cloudflare_zone
 }

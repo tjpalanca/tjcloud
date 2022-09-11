@@ -53,7 +53,7 @@ data "cloudflare_zone" "zone" {
 resource "cloudflare_record" "record" {
   zone_id = data.cloudflare_zone.zone.zone_id
   name    = local.host
-  value   = var.zone
+  value   = coalesce(var.cname, var.zone)
   type    = "CNAME"
   proxied = true
 }
