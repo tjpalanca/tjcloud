@@ -123,3 +123,23 @@ variable "restart_policy" {
   type    = string
   default = null
 }
+
+variable "cpu_limit" {
+  type    = string
+  default = null
+}
+
+variable "mem_limit" {
+  type    = string
+  default = null
+}
+
+variable "cpu_request" {
+  type    = string
+  default = null
+}
+
+variable "mem_request" {
+  type    = string
+  default = null
+}

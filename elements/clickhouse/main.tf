@@ -11,19 +11,12 @@ locals {
   host_path = "/mnt/${var.volume_name}/clickhouse/${var.name}"
 }
 
-resource "null_resource" "clickhouse_permissions" {
-  connection {
-    type     = "ssh"
-    user     = "root"
-    password = var.node_password
-    host     = var.node_ip_address
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ${local.host_path}",
-      "chown -R 101:101 ${local.host_path}"
-    ]
-  }
+module "clickhouse_permissions" {
+  source          = "../permissions"
+  node_password   = var.node_password
+  node_ip_address = var.node_ip_address
+  node_path       = local.host_path
+  uid             = 101
 }
 
 resource "kubernetes_config_map_v1" "clickhouse_config" {
@@ -32,31 +25,8 @@ resource "kubernetes_config_map_v1" "clickhouse_config" {
     namespace = var.namespace
   }
   data = {
-    "clickhouse-config.xml"      = <<EOF
-      <yandex>
-          <logger>
-              <level>warning</level>
-              <console>true</console>
-          </logger>
-          <!-- Stop all the unnecessary logging -->
-          <query_thread_log remove="remove"/>
-          <query_log remove="remove"/>
-          <text_log remove="remove"/>
-          <trace_log remove="remove"/>
-          <metric_log remove="remove"/>
-          <asynchronous_metric_log remove="remove"/>
-      </yandex>
-    EOF
-    "clickhouse-user-config.xml" = <<EOF
-      <yandex>
-        <profiles>
-            <default>
-                <log_queries>0</log_queries>
-                <log_query_threads>0</log_query_threads>
-            </default>
-        </profiles>
-      </yandex>
-    EOF
+    "clickhouse-config.xml"      = file("${path.module}/clickhouse-config.xml")
+    "clickhouse-user-config.xml" = file("${path.module}/clickhouse-user-config.xml")
   }
 }
 
@@ -113,4 +83,7 @@ module "clickhouse_application" {
     run_as_group = 101
     fs_group     = 101
   }
+  depends_on = [
+    module.clickhouse_permissions
+  ]
 }
