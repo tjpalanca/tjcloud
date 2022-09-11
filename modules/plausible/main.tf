@@ -12,8 +12,8 @@ terraform {
 }
 
 locals {
-  clickhouse_database_name = "plausible"
   env_vars = {
+    BASE_URL                = "https://${var.subdomain}.${var.cloudflare_zone}"
     POSTGRES_USER           = var.postgres.username
     POSTGRES_PASSWORD       = var.postgres.password
     CLICKHOUSE_USER         = var.clickhouse.username
@@ -21,6 +21,10 @@ locals {
     DATABASE_URL            = "postgres://${var.postgres.username}:${var.postgres.password}@${var.postgres.internal_host}/${postgresql_database.plausible_postgres.name}"
     CLICKHOUSE_DATABASE_URL = "http://${var.clickhouse.internal_host}:${var.clickhouse.internal_port}/plausible"
     SMTP_HOST_ADDR          = var.smtp_host
+    DISABLE_REGISTRATION    = "true"
+    ADMIN_USER_EMAIL        = var.admin_user.email
+    ADMIN_USER_NAME         = var.admin_user.name
+    ADMIN_USER_PWD          = var.admin_user.password
   }
 }
 

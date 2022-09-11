@@ -13,3 +13,13 @@ variable "clickhouse" {}
 variable "smtp_host" {
   type = string
 }
+
+variable "subdomain" {
+  type = string
+}
+
+variable "cloudflare_zone" {
+  type = string
+}
+
+variable "admin_user" {}

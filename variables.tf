@@ -54,6 +54,11 @@ variable "main_cloudflare_zone" {
   description = "Zone at which the cluster ingress will be exposed"
 }
 
+variable "public_cloudflare_zone" {
+  type        = string
+  description = "Zone at which public services will be exposed"
+}
+
 variable "main_postgres_username" {
   type        = string
   description = "Username for the main postgres database"
@@ -161,5 +166,17 @@ variable "gmail_username" {
 }
 
 variable "gmail_password" {
+  type = string
+}
+
+variable "plausible_admin_user_email" {
+  type = string
+}
+
+variable "plausible_admin_user_name" {
+  type = string
+}
+
+variable "plausible_admin_user_password" {
   type = string
 }
