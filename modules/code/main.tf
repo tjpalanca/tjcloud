@@ -104,7 +104,7 @@ module "code_gateway" {
   host                  = local.host
   zone                  = var.cloudflare_zone
   service               = module.code_application.service
-  keycloak_realm_name   = var.keycloak_realm_name
+  keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
   default_client_scopes = var.default_client_scopes
@@ -119,7 +119,7 @@ module "code_port_gateway" {
     module.code_application.service,
     { port = tonumber(each.value) }
   )
-  keycloak_realm_name   = var.keycloak_realm_name
+  keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
   default_client_scopes = var.default_client_scopes
@@ -134,7 +134,7 @@ module "code_test_gateway" {
     port      = 80
     namespace = kubernetes_namespace_v1.code.metadata[0].name
   }
-  keycloak_realm_name   = var.keycloak_realm_name
+  keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Tester"]
   default_client_scopes = var.default_client_scopes

@@ -23,7 +23,7 @@ module "code" {
   user_name               = var.user_name
   github_pat              = var.github_pat
   extensions_gallery_json = var.extensions_gallery_json
-  keycloak_realm_name     = module.keycloak_config.realms.main.realm
+  keycloak_realm_id       = module.keycloak_config.realms.main.id
   keycloak_url            = module.keycloak.url
   default_client_scopes   = [module.keycloak_config.client_scopes.groups.name]
   volume_name             = module.cluster.main_node_volume.label

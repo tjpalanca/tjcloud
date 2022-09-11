@@ -2,7 +2,7 @@ variable "cloudflare_zone" {
   type = string
 }
 
-variable "keycloak_realm_name" {}
+variable "keycloak_realm_id" {}
 
 variable "keycloak_url" {}
 

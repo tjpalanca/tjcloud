@@ -16,12 +16,8 @@ locals {
   domain = "${local.host}.${var.zone}"
 }
 
-data "keycloak_realm" "realm" {
-  realm = var.keycloak_realm_name
-}
-
 resource "keycloak_openid_client" "client" {
-  realm_id              = data.keycloak_realm.realm.id
+  realm_id              = var.keycloak_realm_id
   client_id             = local.domain
   name                  = local.domain
   enabled               = true
@@ -33,7 +29,7 @@ resource "keycloak_openid_client" "client" {
 }
 
 resource "keycloak_openid_client_default_scopes" "default_client_scopes" {
-  realm_id  = data.keycloak_realm.realm.id
+  realm_id  = var.keycloak_realm_id
   client_id = keycloak_openid_client.client.id
 
   default_scopes = concat(var.default_client_scopes, [
@@ -45,7 +41,7 @@ resource "keycloak_openid_client_default_scopes" "default_client_scopes" {
 }
 
 resource "keycloak_openid_audience_protocol_mapper" "audience_mapper" {
-  realm_id                 = data.keycloak_realm.realm.id
+  realm_id                 = var.keycloak_realm_id
   client_id                = keycloak_openid_client.client.id
   name                     = "audience"
   included_client_audience = keycloak_openid_client.client.name
@@ -54,7 +50,7 @@ resource "keycloak_openid_audience_protocol_mapper" "audience_mapper" {
 }
 
 resource "keycloak_openid_group_membership_protocol_mapper" "group_mapper" {
-  realm_id            = data.keycloak_realm.realm.id
+  realm_id            = var.keycloak_realm_id
   client_id           = keycloak_openid_client.client.id
   name                = "groups"
   claim_name          = "groups"
@@ -90,7 +86,7 @@ module "proxy_application" {
     OAUTH2_PROXY_EMAIL_DOMAINS          = "*"
     OAUTH2_PROXY_HTTP_ADDRESS           = "0.0.0.0:4180"
     OAUTH2_PROXY_PROVIDER               = "keycloak-oidc"
-    OAUTH2_PROXY_OIDC_ISSUER_URL        = "${var.keycloak_url}/realms/${data.keycloak_realm.realm.realm}"
+    OAUTH2_PROXY_OIDC_ISSUER_URL        = "${var.keycloak_url}/realms/${var.keycloak_realm_id}"
     OAUTH2_PROXY_SKIP_PROVIDER_BUTTON   = "true"
     OAUTH2_PROXY_PREFER_EMAIL_TO_USER   = "true"
     OAUTH2_PROXY_PASS_USER_HEADERS      = "true"

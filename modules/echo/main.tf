@@ -26,7 +26,7 @@ module "echo_gateway" {
   host                  = "echo"
   zone                  = var.cloudflare_zone
   service               = module.echo_application.service
-  keycloak_realm_name   = var.keycloak_realm_name
+  keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
   default_client_scopes = var.default_client_scopes

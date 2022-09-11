@@ -26,6 +26,6 @@ variable "node_password" {}
 variable "node_ip_address" {}
 variable "volume_name" {}
 
-variable "keycloak_realm_name" {}
+variable "keycloak_realm_id" {}
 variable "keycloak_url" {}
 variable "default_client_scopes" {}

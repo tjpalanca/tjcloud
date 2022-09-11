@@ -7,9 +7,9 @@ variable "service" {
   description = "Details about the upstream service"
 }
 
-variable "keycloak_realm_name" {
+variable "keycloak_realm_id" {
   type        = string
-  description = "Keycloak Realm Name"
+  description = "Keycloak Realm ID"
 }
 
 variable "keycloak_url" {

@@ -67,7 +67,7 @@ module "pgadmin_gateway" {
   host                  = "pgadmin"
   zone                  = var.pgadmin_cloudflare_zone
   service               = module.pgadmin_application.service
-  keycloak_realm_name   = var.keycloak_realm_name
+  keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
   default_client_scopes = var.default_client_scopes
