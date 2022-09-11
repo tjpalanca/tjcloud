@@ -12,7 +12,7 @@ terraform {
 }
 
 resource "random_password" "secret_key_base" {
-  length = 32
+  length = 64
 }
 
 
