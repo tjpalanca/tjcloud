@@ -11,12 +11,8 @@ terraform {
   }
 }
 
-resource "random_password" "secret_key_base" {
-  length = 64
-}
-
-
 locals {
+  port = 8888
   env_vars = {
     BASE_URL                = "https://${var.subdomain}.${var.cloudflare_zone}"
     POSTGRES_USER           = var.postgres.username
@@ -108,7 +104,7 @@ resource "kubernetes_deployment_v1" "deployment" {
           name  = "plausible"
           image = "plausible/analytics:latest"
           port {
-            container_port = 8000
+            container_port = local.port
           }
           dynamic "env" {
             for_each = local.env_vars
@@ -154,47 +150,13 @@ resource "kubernetes_deployment_v1" "deployment" {
   }
 }
 
-# module "plausible_ingress" {
-#   source = "../../elements/ingress"
-#   service = {
-#     namespace = kubernetes_namespace_v1.plausible.metadata[0].name
-#   }
-# }
-
-# variable "service" {
-#   type = object({
-#     name      = string
-#     port      = number
-#     namespace = string
-#   })
-#   description = "Details of the service proxied"
-# }
-
-# variable "host" {
-#   type        = string
-#   default     = null
-#   description = "Host name to respond to"
-# }
-
-# variable "zone" {
-#   type        = string
-#   description = "Cloudflare zone, also the TLD"
-# }
-
-# variable "path" {
-#   type        = string
-#   default     = "/"
-#   description = "Subpath to serve the ingress at"
-# }
-
-# variable "ingress_class_name" {
-#   type        = string
-#   default     = "nginx"
-#   description = "Class of the ingress to be provisioned"
-# }
-
-# variable "annotations" {
-#   type        = map(string)
-#   default     = {}
-#   description = "Additional annotations to the ingress"
-# }
+module "plausible_ingress" {
+  source = "../../elements/ingress"
+  service = {
+    name      = kubernetes_deployment_v1.deployment.metadata[0].name
+    port      = local.port
+    namespace = kubernetes_deployment_v1.deployment.metadata[0].namespace
+  }
+  host = "analytics"
+  zone = var.cloudflare_zone
+}
