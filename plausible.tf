@@ -10,6 +10,7 @@ module "plausible" {
   smtp_host            = "${module.mail.service.name}.${module.mail.service.namespace}"
   subdomain            = "analytics"
   cloudflare_zone      = var.public_cloudflare_zone
+  secret_key_base      = var.plausible_secret_key_base
   admin_user = {
     email    = var.plausible_admin_user_email
     name     = var.plausible_admin_user_name

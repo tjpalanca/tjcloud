@@ -180,3 +180,7 @@ variable "plausible_admin_user_name" {
 variable "plausible_admin_user_password" {
   type = string
 }
+
+variable "plausible_secret_key_base" {
+  type = string
+}

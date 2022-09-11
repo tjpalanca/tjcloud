@@ -23,3 +23,7 @@ variable "cloudflare_zone" {
 }
 
 variable "admin_user" {}
+
+variable "secret_key_base" {
+  type = string
+}

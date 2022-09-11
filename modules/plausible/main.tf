@@ -24,13 +24,13 @@ locals {
     CLICKHOUSE_USER         = var.clickhouse.username
     CLICKHOUSE_PASSWORD     = var.clickhouse.password
     DATABASE_URL            = "postgres://${var.postgres.username}:${var.postgres.password}@${var.postgres.internal_host}/${postgresql_database.plausible_postgres.name}"
-    CLICKHOUSE_DATABASE_URL = "http://${var.clickhouse.internal_host}:${var.clickhouse.internal_port}/plausible"
+    CLICKHOUSE_DATABASE_URL = "http://${var.clickhouse.internal_host}:${var.clickhouse.internal_port}/tjpalanca"
     SMTP_HOST_ADDR          = var.smtp_host
     DISABLE_REGISTRATION    = "true"
     ADMIN_USER_EMAIL        = var.admin_user.email
     ADMIN_USER_NAME         = var.admin_user.name
     ADMIN_USER_PWD          = var.admin_user.password
-    SECRET_KEY_BASE         = random_password.secret_key_base.result
+    SECRET_KEY_BASE         = var.secret_key_base
   }
 }
 
