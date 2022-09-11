@@ -8,4 +8,8 @@ variable "google_client_secret" {
 
 variable "postgres" {}
 
-variable "plausible" {}
+variable "clickhouse" {}
+
+variable "smtp_host" {
+  type = string
+}

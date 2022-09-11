@@ -17,4 +17,8 @@ module "mail_application" {
     RELAY_PASSWORD = var.relay_password
     RELAY_NETS     = "10.0.0.0/8;25.0.0.0/8;172.16.0.0/12;192.168.0.0/16"
   }
+  mem_limit   = "512Mi"
+  cpu_limit   = "500m"
+  mem_request = "5Mi"
+  cpu_request = "1m"
 }
