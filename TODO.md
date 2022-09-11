@@ -82,6 +82,7 @@
 - [ ] Use 1Password Connect Server
 - [x] Image should wait until build
     - Changing the kaniko pod to a job allows terraform provider to wait for completion
-- [ ] Set up Plausible Analytics 
+- [x] Set up Plausible Analytics 
     - Modified the `application` module to allow resource limits, run as user
     - Set up mail server
+- [ ] Fix thrashing for the realm_id

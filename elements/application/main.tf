@@ -116,14 +116,20 @@ resource "kubernetes_deployment_v1" "deployment" {
           security_context {
             privileged = var.privileged
           }
-          resources {
-            limits = {
-              cpu    = var.cpu_limit
-              memory = var.mem_limit
-            }
-            requests = {
-              cpu    = var.cpu_limit
-              memory = var.mem_limit
+          dynamic "resources" {
+            for_each = coalesce(
+              var.cpu_limit, var.mem_limit,
+              var.cpu_request, car.mem_request
+            ) == null ? [] : [1]
+            content {
+              limits = {
+                cpu    = var.cpu_limit
+                memory = var.mem_limit
+              }
+              requests = {
+                cpu    = var.cpu_limit
+                memory = var.mem_limit
+              }
             }
           }
         }
