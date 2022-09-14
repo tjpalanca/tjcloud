@@ -28,6 +28,8 @@ locals {
     ADMIN_USER_PWD          = var.admin_user.password
     SECRET_KEY_BASE         = var.secret_key_base
     MAILER_EMAIL            = "plausible@${var.cloudflare_zone}"
+    GOOGLE_CLIENT_ID        = var.google_client_id 
+    GOOGLE_CLIENT_SECRET    = var.google_client_secret
   }
 }
 
