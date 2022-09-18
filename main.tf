@@ -40,4 +40,8 @@ locals {
     password = var.ghcr_password
     email    = var.ghcr_email
   }
+  cloudflare = {
+    main_zone_id   = "cef2ca3494d70c14773cc770cc64520a"
+    public_zone_id = "b7fa96d04fa21095d0e2d21a9e26d7e8"
+  }
 }

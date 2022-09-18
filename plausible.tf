@@ -9,8 +9,8 @@ module "plausible" {
   google_client_secret    = var.google_client_secret
   smtp_host               = "${module.mail.service.name}.${module.mail.service.namespace}"
   subdomain               = "analytics"
-  cloudflare_zone_id      = var.public_cloudflare_zone_id
-  main_cloudflare_zone_id = var.main_cloudflare_zone_id
+  cloudflare_zone_id      = local.cloudflare.public_zone_id
+  main_cloudflare_zone_id = local.cloudflare.main_zone_id
   secret_key_base         = var.plausible_secret_key_base
   admin_user = {
     email    = var.plausible_admin_user_email

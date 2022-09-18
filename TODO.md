@@ -69,7 +69,6 @@
     - [ ] Some VPN for local dynamic use?
 - [ ] Add node problem detector
 - [ ] Enable Linode LongView for monitoring memory
-- [ ] Expose Kubernetes Dashboard at system
 - [ ] Set up cloudflare authenticated origin pulls
 - [ ] Set up remaining identity providers on Keycloak 
 - [ ] Add image caching for Kaniko
@@ -88,4 +87,5 @@
 - [x] Fix thrashing for the realm_id
     - stopped referencing realm not by the ID
 - [ ] Fix thrashing for the cloudflare zone
-- [ ] Set up metabase
+- [ ] Expose Kubernetes Dashboard at system
+- [ ] Set up tjjobs
