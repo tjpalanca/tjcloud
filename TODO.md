@@ -86,8 +86,10 @@
     - Set up mail server
 - [x] Fix thrashing for the realm_id
     - stopped referencing realm not by the ID
-- [ ] Fix thrashing for the cloudflare zone
+- [x] Fix thrashing for the cloudflare zone
     - moving to a static value instead of a variable didn't fix it, it seems we need to fix the lifecycle? 
+    - decided to just move the zone name to a variable as well
+    - K8s deployments still applied but because of K8s it's just cosmetic and won't actually redeploy services
 - [x] Fix image not updating deployment
     - If image version left blank, then version number will be the hash
 - [ ] Expose Kubernetes Dashboard at system
