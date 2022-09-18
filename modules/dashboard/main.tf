@@ -164,9 +164,9 @@ resource "kubernetes_cluster_role_binding_v1" "dashboard" {
   }
 }
 
-resource "kubernetes_cluster_role_binding_v1" "dashboard" {
+resource "kubernetes_cluster_role_binding_v1" "dashboard_cluster_admin" {
   metadata {
-    name = "kubernetes-dashboard"
+    name = "kubernetes-dashboard-cluster-admin"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
