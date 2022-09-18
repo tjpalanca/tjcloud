@@ -24,6 +24,26 @@ variable "local_ssh_key" {
   description = "SSH Key for the local machine for access"
 }
 
+variable "main_cloudflare_zone_id" {
+  type        = string
+  description = "Main Cloudflare Zone ID"
+}
+
+variable "main_cloudflare_zone_name" {
+  type        = string
+  description = "Main Cloudflare Zone Name"
+}
+
+variable "public_cloudflare_zone_id" {
+  type        = string
+  description = "Public Cloudflare Zone ID"
+}
+
+variable "public_cloudflare_zone_name" {
+  type        = string
+  description = "Public Cloudflare Zone Name"
+}
+
 variable "cloudflare_api_token" {
   type        = string
   description = "Cloudflare API Token"

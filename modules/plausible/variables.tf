@@ -22,7 +22,11 @@ variable "cloudflare_zone_id" {
   type = string
 }
 
-variable "main_cloudflare_zone_id" {
+variable "cloudflare_zone_name" {
+  type = string
+}
+
+variable "cloudflare_zone_cname" {
   type = string
 }
 

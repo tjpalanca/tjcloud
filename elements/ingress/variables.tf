@@ -15,7 +15,12 @@ variable "host" {
 
 variable "zone_id" {
   type        = string
-  description = "Cloudflare zone"
+  description = "Cloudflare zone ID"
+}
+
+variable "zone_name" {
+  type        = string
+  description = "Cloudflare zone name"
 }
 
 variable "cname" {

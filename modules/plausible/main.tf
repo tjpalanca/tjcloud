@@ -8,25 +8,14 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.12.1"
     }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 3.0"
-    }
+
   }
-}
-
-data "cloudflare_zone" "zone" {
-  zone_id = var.cloudflare_zone_id
-}
-
-data "cloudflare_zone" "main_zone" {
-  zone_id = var.main_cloudflare_zone_id
 }
 
 locals {
   port = 8000
   env_vars = {
-    BASE_URL                = "https://${var.subdomain}.${data.cloudflare_zone.zone.name}"
+    BASE_URL                = "https://${var.subdomain}.${var.cloudflare_zone_name}"
     POSTGRES_USER           = var.postgres.username
     POSTGRES_PASSWORD       = var.postgres.password
     CLICKHOUSE_USER         = var.clickhouse.username
@@ -39,7 +28,7 @@ locals {
     ADMIN_USER_NAME         = var.admin_user.name
     ADMIN_USER_PWD          = var.admin_user.password
     SECRET_KEY_BASE         = var.secret_key_base
-    MAILER_EMAIL            = "plausible@${data.cloudflare_zone.zone.name}"
+    MAILER_EMAIL            = "plausible@${var.cloudflare_zone_name}"
     GOOGLE_CLIENT_ID        = var.google_client_id
     GOOGLE_CLIENT_SECRET    = var.google_client_secret
   }
@@ -188,7 +177,8 @@ module "plausible_ingress" {
     port      = local.port
     namespace = kubernetes_service_v1.service.metadata[0].namespace
   }
-  host    = "analytics"
-  zone_id = var.cloudflare_zone_id
-  cname   = data.cloudflare_zone.main_zone.name
+  host      = "analytics"
+  zone_id   = var.cloudflare_zone_id
+  zone_name = var.cloudflare_zone_name
+  cname     = var.cloudflare_zone_cname
 }

@@ -15,13 +15,9 @@ terraform {
   }
 }
 
-data "cloudflare_zone" "zone" {
-  zone_id = var.zone_id
-}
-
 locals {
   host   = coalesce(var.host, var.service.name)
-  zone   = data.cloudflare_zone.zone.name
+  zone   = var.zone_name
   domain = "${local.host}.${local.zone}"
 }
 
@@ -107,6 +103,7 @@ module "proxy_ingress" {
   service            = module.proxy_application.service
   host               = local.host
   zone_id            = var.zone_id
+  zone_name          = var.zone_name
   path               = var.path
   ingress_class_name = var.ingress_class_name
   annotations        = var.annotations

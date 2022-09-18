@@ -28,6 +28,11 @@ variable "zone_id" {
   description = "Cloudflare zone to expose"
 }
 
+variable "zone_name" {
+  type        = string
+  description = "Cloudflare zone name to expose"
+}
+
 variable "host" {
   type        = string
   default     = null

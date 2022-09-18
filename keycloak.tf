@@ -17,9 +17,10 @@ module "keycloak" {
   }
   database = module.database.main_postgres_credentials
   keycloak = {
-    image              = module.keycloak_image.image.versioned
-    cloudflare_zone_id = local.cloudflare.main_zone_id
-    subdomain          = var.keycloak_subdomain
+    image                = module.keycloak_image.image.versioned
+    cloudflare_zone_id   = var.main_cloudflare_zone_id
+    cloudflare_zone_name = var.main_cloudflare_zone_name
+    subdomain            = var.keycloak_subdomain
   }
   admin = {
     username = var.keycloak_admin_username

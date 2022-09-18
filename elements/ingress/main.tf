@@ -11,13 +11,9 @@ terraform {
   }
 }
 
-data "cloudflare_zone" "zone" {
-  zone_id = var.zone_id
-}
-
 locals {
   host   = coalesce(var.host, var.service.name)
-  zone   = data.cloudflare_zone.zone.name
+  zone   = var.zone_name
   domain = "${local.host}.${local.zone}"
 }
 
@@ -52,7 +48,7 @@ resource "kubernetes_ingress_v1" "ingress" {
 }
 
 resource "cloudflare_record" "record" {
-  zone_id = data.cloudflare_zone.zone.zone_id
+  zone_id = var.zone_id
   name    = local.host
   value   = coalesce(var.cname, local.zone)
   type    = "CNAME"

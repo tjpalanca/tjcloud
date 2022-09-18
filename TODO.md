@@ -88,7 +88,8 @@
     - stopped referencing realm not by the ID
 - [ ] Fix thrashing for the cloudflare zone
     - moving to a static value instead of a variable didn't fix it, it seems we need to fix the lifecycle? 
-- [ ] Fix image not updating deployment
+- [x] Fix image not updating deployment
+    - If image version left blank, then version number will be the hash
 - [ ] Expose Kubernetes Dashboard at system
 - [ ] Set up tjjobs
 - [ ] Add font handling for the code-server instance

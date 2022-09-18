@@ -1,3 +1,3 @@
 output "url" {
-  value = "https://${var.keycloak.subdomain}.${data.cloudflare_zone.zone.name}"
+  value = "https://${var.keycloak.subdomain}.${var.keycloak.cloudflare_zone_name}"
 }

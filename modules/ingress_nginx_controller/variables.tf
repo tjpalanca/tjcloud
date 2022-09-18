@@ -6,6 +6,6 @@ variable "cloudflare_origin_ca" {
   })
 }
 
-variable "cloudflare_zone_id" {
+variable "cloudflare_zone_name" {
   type = string
 }
