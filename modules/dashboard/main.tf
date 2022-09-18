@@ -164,6 +164,22 @@ resource "kubernetes_cluster_role_binding_v1" "dashboard" {
   }
 }
 
+resource "kubernetes_cluster_role_binding_v1" "dashboard" {
+  metadata {
+    name = "kubernetes-dashboard"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account_v1.dashboard.metadata[0].name
+    namespace = kubernetes_namespace_v1.dashboard.metadata[0].name
+  }
+}
+
 resource "kubernetes_service_v1" "dashboard" {
   metadata {
     labels    = local.labels
