@@ -27,6 +27,7 @@ variable "image_address" {
 
 variable "image_version" {
   type        = string
+  default     = null
   description = "Registry version for the image"
 }
 

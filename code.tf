@@ -5,7 +5,6 @@ module "code_image" {
   registry      = local.ghcr_registry
   build_context = "modules/code/image/"
   image_address = "ghcr.io/tjpalanca/tjcloud/code"
-  image_version = "v1.0"
   node          = module.cluster.main_node
   node_password = var.root_password
   build_args = {

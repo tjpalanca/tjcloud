@@ -87,5 +87,8 @@
 - [x] Fix thrashing for the realm_id
     - stopped referencing realm not by the ID
 - [ ] Fix thrashing for the cloudflare zone
+    - moving to a static value instead of a variable didn't fix it, it seems we need to fix the lifecycle? 
+- [ ] Fix image not updating deployment
 - [ ] Expose Kubernetes Dashboard at system
 - [ ] Set up tjjobs
+- [ ] Add font handling for the code-server instance

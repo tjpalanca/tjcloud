@@ -7,10 +7,17 @@ terraform {
   }
 }
 
+data "archive_file" "build_context" {
+  type        = "zip"
+  source_dir  = var.build_context
+  output_path = "${var.name}.zip"
+}
+
 locals {
+  version   = coalesce(var.image_version, data.archive_file.build_context.output_sha)
   workspace = "/var/kaniko/build/${var.name}/"
   cache_dir = "/var/kaniko/cache/"
-  versioned = "${var.image_address}:${var.image_version}"
+  versioned = "${var.image_address}:${local.version}"
   latest    = "${var.image_address}:latest"
 }
 
@@ -32,12 +39,6 @@ resource "kubernetes_secret_v1" "registry_secret" {
       }
     })
   }
-}
-
-data "archive_file" "build_context" {
-  type        = "zip"
-  source_dir  = var.build_context
-  output_path = "${var.name}.zip"
 }
 
 resource "null_resource" "build_context" {
