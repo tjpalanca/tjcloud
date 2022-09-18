@@ -172,8 +172,8 @@ resource "kubernetes_service_v1" "dashboard" {
   }
   spec {
     port {
-      port        = 443
-      target_port = 8443
+      port        = 9090
+      target_port = 9090
     }
     selector = local.labels
   }
@@ -206,7 +206,7 @@ resource "kubernetes_deployment_v1" "dashboard" {
           image             = "kubernetesui/dashboard:v2.6.1"
           image_pull_policy = "Always"
           port {
-            container_port = 8443
+            container_port = 9090
             protocol       = "TCP"
           }
           args = [
@@ -228,7 +228,7 @@ resource "kubernetes_deployment_v1" "dashboard" {
           liveness_probe {
             http_get {
               path = "/"
-              port = 8443
+              port = 9090
             }
             initial_delay_seconds = 30
             timeout_seconds       = 30
@@ -327,4 +327,20 @@ resource "kubernetes_deployment_v1" "dashboard_metrics_scraper" {
       }
     }
   }
+}
+
+module "dashboard_gateway" {
+  source    = "../../elements/gateway"
+  host      = "dashboard"
+  zone_id   = var.cloudflare_zone_id
+  zone_name = var.cloudflare_zone_name
+  service = {
+    name      = kubernetes_service_v1.dashboard.metadata[0].name
+    port      = kubernetes_service_v1.dashboard.spec[0].port[0].port
+    namespace = kubernetes_service_v1.dashboard.metadata[0].namespace
+  }
+  keycloak_realm_id     = var.keycloak_realm_id
+  keycloak_url          = var.keycloak_url
+  keycloak_groups       = ["Administrator"]
+  default_client_scopes = var.default_client_scopes
 }
