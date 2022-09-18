@@ -11,9 +11,14 @@ terraform {
   }
 }
 
+data "cloudflare_zone" "zone" {
+  zone_id = var.zone_id
+}
+
 locals {
   host   = coalesce(var.host, var.service.name)
-  domain = "${local.host}.${var.zone}"
+  zone   = data.cloudflare_zone.zone.name
+  domain = "${local.host}.${local.zone}"
 }
 
 resource "kubernetes_ingress_v1" "ingress" {
@@ -46,14 +51,10 @@ resource "kubernetes_ingress_v1" "ingress" {
   }
 }
 
-data "cloudflare_zone" "zone" {
-  name = var.zone
-}
-
 resource "cloudflare_record" "record" {
   zone_id = data.cloudflare_zone.zone.zone_id
   name    = local.host
-  value   = coalesce(var.cname, var.zone)
+  value   = coalesce(var.cname, local.zone)
   type    = "CNAME"
   proxied = true
 }

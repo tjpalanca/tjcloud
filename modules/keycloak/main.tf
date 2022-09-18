@@ -4,6 +4,10 @@ terraform {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 3.0"
+    }
   }
 }
 
@@ -43,10 +47,14 @@ module "keycloak_application" {
   }]
 }
 
+data "cloudflare_zone" "zone" {
+  zone_id = var.keycloak.cloudflare_zone_id
+}
+
 module "keycloak_ingress" {
   source  = "../../elements/ingress"
   host    = var.keycloak.subdomain
-  zone    = var.keycloak.cloudflare_zone
+  zone_id = var.keycloak.cloudflare_zone_id
   service = module.keycloak_application.service
   annotations = {
     "nginx.ingress.kubernetes.io/proxy-buffer-size" = "256k"

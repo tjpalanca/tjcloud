@@ -1,4 +1,4 @@
-variable "cloudflare_zone" {
+variable "cloudflare_zone_id" {
   type = string
 }
 
@@ -22,10 +22,22 @@ variable "extensions_gallery_json" {
   type = string
 }
 
-variable "node_password" {}
-variable "node_ip_address" {}
-variable "volume_name" {}
+variable "node_password" {
+  type = string
+}
+variable "node_ip_address" {
+  type = string
+}
+variable "volume_name" {
+  type = string
+}
 
-variable "keycloak_realm_id" {}
-variable "keycloak_url" {}
-variable "default_client_scopes" {}
+variable "keycloak_realm_id" {
+  type = string
+}
+variable "keycloak_url" {
+  type = string
+}
+variable "default_client_scopes" {
+  type = list(string)
+}

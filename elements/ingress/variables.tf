@@ -13,9 +13,9 @@ variable "host" {
   description = "Host name to respond to"
 }
 
-variable "zone" {
+variable "zone_id" {
   type        = string
-  description = "Cloudflare zone, also the TLD"
+  description = "Cloudflare zone"
 }
 
 variable "cname" {

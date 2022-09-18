@@ -23,7 +23,7 @@ variable "keycloak_groups" {
   description = "Groups allowed to access the proxied service"
 }
 
-variable "zone" {
+variable "zone_id" {
   type        = string
   description = "Cloudflare zone to expose"
 }

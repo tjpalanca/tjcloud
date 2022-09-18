@@ -4,11 +4,20 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.12.1"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 3.0"
+    }
   }
+}
+
+data "cloudflare_zone" "zone" {
+  zone_id = var.cloudflare_zone_id
 }
 
 locals {
   host           = "code"
+  domain         = "${local.host}.${data.cloudflare_zone.zone.name}"
   node_home_path = "/mnt/${var.volume_name}/files/home/${var.user_name}"
 }
 
@@ -69,8 +78,8 @@ module "code_application" {
     USER               = var.user_name
     DEFAULT_USER       = var.user_name
     CONNECTION_TOKEN   = "dummy"
-    PROXY_DOMAIN       = "${local.host}.${var.cloudflare_zone}"
-    VSCODE_PROXY_URI   = "https://${local.host}.${var.cloudflare_zone}/proxy/{port}"
+    PROXY_DOMAIN       = local.domain
+    VSCODE_PROXY_URI   = "https://${local.domain}/proxy/{port}"
     GITHUB_TOKEN       = var.github_pat
     EXTENSIONS_GALLERY = var.extensions_gallery_json
   }
@@ -102,7 +111,7 @@ module "code_application" {
 module "code_gateway" {
   source                = "../../elements/gateway"
   host                  = local.host
-  zone                  = var.cloudflare_zone
+  zone_id               = var.cloudflare_zone_id
   service               = module.code_application.service
   keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
@@ -114,7 +123,7 @@ module "code_port_gateway" {
   for_each = toset(["3838", "5500", "8888"])
   source   = "../../elements/gateway"
   host     = each.value
-  zone     = var.cloudflare_zone
+  zone_id  = var.cloudflare_zone_id
   service = merge(
     module.code_application.service,
     { port = tonumber(each.value) }
@@ -126,9 +135,9 @@ module "code_port_gateway" {
 }
 
 module "code_test_gateway" {
-  source = "../../elements/gateway"
-  host   = "test"
-  zone   = var.cloudflare_zone
+  source  = "../../elements/gateway"
+  host    = "test"
+  zone_id = var.cloudflare_zone_id
   service = {
     name      = "test"
     port      = 80

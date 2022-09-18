@@ -5,7 +5,7 @@ module "ingress_nginx_controller" {
     organization = var.cloudflare_origin_ca_organization
     private_key  = var.cloudflare_origin_ca_private_key
   }
-  cloudflare_zone = var.main_cloudflare_zone
+  cloudflare_zone_id = var.main_cloudflare_zone_id
   depends_on = [
     module.cluster
   ]

@@ -43,9 +43,13 @@ resource "tls_cert_request" "origin_ca_cert_request" {
   }
 }
 
+data "cloudflare_zone" "zone" {
+  zone_id = var.cloudflare_zone_id
+}
+
 resource "cloudflare_origin_ca_certificate" "origin_ca" {
   csr                = tls_cert_request.origin_ca_cert_request.cert_request_pem
-  hostnames          = [var.cloudflare_zone, "*.${var.cloudflare_zone}"]
+  hostnames          = [data.cloudflare_zone.zone.name, "*.${data.cloudflare_zone.zone.name}"]
   request_type       = "origin-rsa"
   requested_validity = 15 * 365
 }

@@ -24,7 +24,7 @@ module "echo_application" {
 module "echo_gateway" {
   source                = "../../elements/gateway"
   host                  = "echo"
-  zone                  = var.cloudflare_zone
+  zone_id               = var.cloudflare_zone_id
   service               = module.echo_application.service
   keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url

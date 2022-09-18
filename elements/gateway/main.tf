@@ -8,12 +8,21 @@ terraform {
       source  = "mrparkers/keycloak"
       version = ">= 3.0.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 3.0"
+    }
   }
+}
+
+data "cloudflare_zone" "zone" {
+  zone_id = var.zone_id
 }
 
 locals {
   host   = coalesce(var.host, var.service.name)
-  domain = "${local.host}.${var.zone}"
+  zone   = data.cloudflare_zone.zone.name
+  domain = "${local.host}.${local.zone}"
 }
 
 resource "keycloak_openid_client" "client" {
@@ -97,7 +106,7 @@ module "proxy_ingress" {
   source             = "../ingress"
   service            = module.proxy_application.service
   host               = local.host
-  zone               = var.zone
+  zone_id            = var.zone_id
   path               = var.path
   ingress_class_name = var.ingress_class_name
   annotations        = var.annotations

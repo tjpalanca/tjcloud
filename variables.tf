@@ -49,12 +49,12 @@ variable "cloudflare_origin_ca_organization" {
   description = "Origin CA Organization"
 }
 
-variable "main_cloudflare_zone" {
+variable "main_cloudflare_zone_id" {
   type        = string
   description = "Zone at which the cluster ingress will be exposed"
 }
 
-variable "public_cloudflare_zone" {
+variable "public_cloudflare_zone_id" {
   type        = string
   description = "Zone at which public services will be exposed"
 }

@@ -18,11 +18,11 @@ variable "subdomain" {
   type = string
 }
 
-variable "cloudflare_zone" {
+variable "cloudflare_zone_id" {
   type = string
 }
 
-variable "main_cloudflare_zone" {
+variable "main_cloudflare_zone_id" {
   type = string
 }
 

@@ -6,20 +6,34 @@ variable "pgadmin_default_password" {
   type = string
 }
 
-variable "pgadmin_cloudflare_zone" {
+variable "cloudflare_zone_id" {
   type = string
 }
 
-variable "keycloak_realm_id" {}
+variable "keycloak_realm_id" {
+  type = string
+}
 
-variable "keycloak_url" {}
+variable "keycloak_url" {
+  type = string
+}
 
-variable "default_client_scopes" {}
+variable "default_client_scopes" {
+  type = list(string)
+}
 
-variable "volume_name" {}
+variable "volume_name" {
+  type = string
+}
 
-variable "node_password" {}
+variable "node_password" {
+  type = string
+}
 
-variable "node_ip_address" {}
+variable "node_ip_address" {
+  type = string
+}
 
-variable "node_name" {}
+variable "node_name" {
+  type = string
+}
