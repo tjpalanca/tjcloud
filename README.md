@@ -15,6 +15,7 @@ This is my personal cloud - for hobby programming, personal projects, and experi
     * Everything proxied through cloudflare network 
     * Origin certificate presented to cloudflare
     * Cloudflare sends client certificate and server verifies
+* [GitHub Packages](https://github.com/features/packages) as my main image registry
 
 As of this writing, I host the following applications:
 
