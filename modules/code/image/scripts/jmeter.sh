@@ -3,7 +3,7 @@
 # Apache JMeter 
 # Load testing tool
 wget \
-    https://tjpalanca.sgp1.digitaloceanspaces.com/bin/apache-jmeter-5.4.1.tgz \
+    https://tjpalanca.ap-south-1.linodeobjects.com/bin/apache-jmeter-5.4.1.tgz \
     -O jmeter.tgz && \
     tar xzvf jmeter.tgz && \
     rm jmeter.tgz && \

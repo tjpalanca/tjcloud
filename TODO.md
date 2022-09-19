@@ -95,3 +95,6 @@
     - Had to add the metrics-server and the dashboard itself proxied with a gateway
 - [ ] Set up tjjobs
 - [ ] Add font handling for the code-server instance
+- [x] Move object storage to Linode
+    - Same trick as digitalocean, change the endpoints. I did notice that uploading was
+      much slow than the downloading, not sure if that's S3 or just Linode.
