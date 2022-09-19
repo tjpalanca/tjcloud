@@ -93,5 +93,6 @@
 - [x] Fix image not updating deployment
     - If image version left blank, then version number will be the hash
 - [x] Expose Kubernetes Dashboard at system
+    - Had to add the metrics-server and the dashboard itself proxied with a gateway
 - [ ] Set up tjjobs
 - [ ] Add font handling for the code-server instance
