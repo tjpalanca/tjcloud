@@ -24,8 +24,8 @@ resource "null_resource" "reset_root_password" {
         https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/boot
     EOF
     environment = {
-      TOKEN    = nonsensitive(var.linode_token)
-      PASSWORD = nonsensitive(var.root_password)
+      TOKEN    = var.linode_token
+      PASSWORD = var.root_password
     }
   }
 
