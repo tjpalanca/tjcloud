@@ -95,7 +95,7 @@
 - [x] Move object storage to Linode
     - Same trick as digitalocean, change the endpoints. I did notice that uploading was
       much slow than the downloading, not sure if that's S3 or just Linode.
-- [ ] Set up cloudflare authenticated origin pulls
+- [x] Set up cloudflare authenticated origin pulls
 
 ### Future Improvements
 
