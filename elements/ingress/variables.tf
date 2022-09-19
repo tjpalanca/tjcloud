@@ -46,3 +46,9 @@ variable "annotations" {
   default     = {}
   description = "Additional annotations to the ingress"
 }
+
+variable "authenticated_origin_pull" {
+  type        = bool
+  default     = false
+  description = "Whether or not to verify the client certificate"
+}

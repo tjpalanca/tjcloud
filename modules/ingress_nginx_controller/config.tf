@@ -15,3 +15,13 @@ resource "kubernetes_config_map_v1" "ingress_nginx_controller" {
     "forwarded-for-header"    = "CF-Connecting-IP"
   }
 }
+
+resource "kubernetes_secret_v1" "ca_secret" {
+  metadata {
+    name      = "ca-secret"
+    namespace = kubernetes_namespace_v1.ingress_nginx.metadata[0].generate_name
+  }
+  data = {
+    "ca.crt" = file("${path.module}/authenticated_origin_pull_ca.pem")
+  }
+}

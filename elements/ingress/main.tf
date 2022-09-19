@@ -15,13 +15,20 @@ locals {
   host   = coalesce(var.host, var.service.name)
   zone   = var.zone_name
   domain = "${local.host}.${local.zone}"
+  annots = merge(
+    var.authenticated_origin_pull ? {
+      "nginx.ingress.kubernetes.io/auth-tls-secret"        = "ingress-nginx/ca-secret"
+      "nginx.ingress.kubernetes.io/auth-tls-verify-client" = "on"
+    } : {},
+    var.annotations
+  )
 }
 
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
     name        = "${var.service.name}-ingress"
     namespace   = var.service.namespace
-    annotations = var.annotations
+    annotations = local.annots
   }
   spec {
     ingress_class_name = var.ingress_class_name

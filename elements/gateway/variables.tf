@@ -62,3 +62,9 @@ variable "default_client_scopes" {
   default     = []
   description = "additional default client scopes"
 }
+
+variable "authenticated_origin_pull" {
+  type        = bool
+  default     = false
+  description = "Whether or not to verify the client certificate"
+}

@@ -99,12 +99,13 @@ module "proxy_application" {
 }
 
 module "proxy_ingress" {
-  source             = "../ingress"
-  service            = module.proxy_application.service
-  host               = local.host
-  zone_id            = var.zone_id
-  zone_name          = var.zone_name
-  path               = var.path
-  ingress_class_name = var.ingress_class_name
-  annotations        = var.annotations
+  source                    = "../ingress"
+  service                   = module.proxy_application.service
+  host                      = local.host
+  zone_id                   = var.zone_id
+  zone_name                 = var.zone_name
+  path                      = var.path
+  ingress_class_name        = var.ingress_class_name
+  annotations               = var.annotations
+  authenticated_origin_pull = var.authenticated_origin_pull
 }
