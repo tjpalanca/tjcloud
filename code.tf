@@ -19,7 +19,7 @@ module "code" {
   source                  = "./modules/code"
   cloudflare_zone_id      = var.main_cloudflare_zone_id
   cloudflare_zone_name    = var.main_cloudflare_zone_name
-  image                   = module.code_image.image.latest
+  image                   = module.code_image.image.versioned
   user_name               = var.user_name
   github_pat              = var.github_pat
   extensions_gallery_json = var.extensions_gallery_json
