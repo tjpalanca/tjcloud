@@ -260,3 +260,8 @@ module "plausible" {
     password = var.plausible_admin_user_password
   }
 }
+
+module "storage" {
+  source    = "./modules/storage"
+  user_name = var.user_name
+}
