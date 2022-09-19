@@ -64,11 +64,11 @@
     - [x] GPG Signing commits
         - Just need to follow the instructions, adding setting to gpg-agent.conf to 
           have TTL be 1 hour makes it more convenient
-- [ ] Network hardening 
-    - [ ] Terraform Cloud only allowed for firewall 
-    - [ ] Some VPN for local dynamic use?
-- [ ] Add node problem detector
-- [ ] Enable Linode LongView for monitoring memory
+- [ ] Entering Kubernetes network
+- [x] Add node problem detector
+    - Aborted; not really practical
+- [x] Enable Linode LongView for monitoring memory
+    - Aborted; no easy way to integrate this as not included in Terraform provider
 - [ ] Set up cloudflare authenticated origin pulls
 - [x] Add image caching for Kaniko
 - [x] Enable real IP despite CloudFlare
@@ -76,8 +76,9 @@
 - [ ] Fully manage cloudflare zone
 - [ ] Fully manage namecheap domain
 - [ ] Knative Serving for scaling down to zero when not in use
-- [ ] Use 1Password CLI
-- [ ] Use 1Password Connect Server
+- [x] Use 1Password CLI
+- [x] Use 1Password Connect Server
+    - Not practical for personal use
 - [x] Image should wait until build
     - Changing the kaniko pod to a job allows terraform provider to wait for completion
 - [x] Set up Plausible Analytics 
@@ -94,7 +95,7 @@
 - [x] Expose Kubernetes Dashboard at system
     - Had to add the metrics-server and the dashboard itself proxied with a gateway
 - [ ] Set up tjjobs
-- [ ] Add font handling for the code-server instance
+- [x] Add font handling for the code-server instance
 - [x] Move object storage to Linode
     - Same trick as digitalocean, change the endpoints. I did notice that uploading was
       much slow than the downloading, not sure if that's S3 or just Linode.

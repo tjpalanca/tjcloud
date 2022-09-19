@@ -56,6 +56,9 @@ RUN /scripts/radian.sh
 COPY scripts/cron.sh /scripts
 RUN /scripts/cron.sh
 COPY services.d/cron /etc/services.d/cron
+# 1Password CLI
+COPY scripts/1password.sh /scripts
+RUN /scripts/1password.sh
 
 # Code Server
 COPY scripts/code-server.sh /scripts
