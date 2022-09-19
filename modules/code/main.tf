@@ -110,6 +110,15 @@ module "code_gateway" {
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
   default_client_scopes = var.default_client_scopes
+  annotations = {
+    "nginx.ingress.kubernetes.io/configuration-snippet" = <<EOF
+      proxy_set_header Accept-Encoding "";
+      sub_filter '</head>' '
+      <link rel=\"stylesheet\" href=\"/fonts/${var.code_font}/${var.code_font}.css\">
+      </head>';
+      sub_filter_once on;
+    EOF
+  }
 }
 
 module "code_port_gateway" {

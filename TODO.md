@@ -42,7 +42,7 @@
       or replace the development node pool. I don't expect to resize the production 
       one, or we can just add another production node pool.
     - Linode solves this problem, no need for 2 node pools.
-- [x] Add main postgres instance
+- [x] Add main postgres instance 
     - [x] Expose it to the outside world so I can use other SQL clients and to Terraform?
         - Using a NodePort
         - [x] Set up SSL
@@ -70,8 +70,7 @@
 - [ ] Add node problem detector
 - [ ] Enable Linode LongView for monitoring memory
 - [ ] Set up cloudflare authenticated origin pulls
-- [ ] Set up remaining identity providers on Keycloak 
-- [ ] Add image caching for Kaniko
+- [x] Add image caching for Kaniko
 - [x] Enable real IP despite CloudFlare
     - Added settings to the configmap to take cloudflare origin ips and trust real ips coming from those origins (amazing!)
 - [ ] Fully manage cloudflare zone

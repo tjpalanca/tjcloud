@@ -46,9 +46,6 @@ RUN /scripts/docker.sh
 # Kubernetes
 COPY scripts/kubectl.sh /scripts
 RUN /scripts/kubectl.sh
-# Cloud66 Toolbelt
-COPY scripts/cx.sh /scripts
-RUN /scripts/cx.sh
 # S3 command line utility
 COPY scripts/s3cmd.sh /scripts
 RUN /scripts/s3cmd.sh
@@ -64,10 +61,11 @@ COPY services.d/cron /etc/services.d/cron
 COPY scripts/code-server.sh /scripts
 RUN /scripts/code-server.sh
 COPY services.d/code-server /etc/services.d/code-server
-COPY assets/code-192.png /usr/lib/code-server/src/browser/media/pwa-icon-192.png
-COPY assets/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
-COPY assets/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
-COPY assets/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
+COPY media/code-192.png /usr/lib/code-server/src/browser/media/pwa-icon-192.png
+COPY media/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
+COPY media/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
+COPY media/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
+COPY media/fonts/ /usr/lib/code-server/src/browser/media/fonts/
 
 # Xvfb Display
 ENV DISPLAY :1

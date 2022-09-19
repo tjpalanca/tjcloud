@@ -18,6 +18,10 @@ variable "user_name" {
   type = string
 }
 
+variable "code_font" {
+  type = string
+}
+
 variable "github_pat" {
   type = string
 }
