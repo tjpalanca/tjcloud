@@ -1,18 +1,6 @@
 #!/usr/bin/bash
 
-curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-    gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
-
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" | \
-    tee /etc/apt/sources.list.d/1password.list
-
-mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
-    tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
-mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
-    gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-
-apt update && apt install -y 1password-cli
-
-op --version
+curl -sSfo op.zip \
+  https://cache.agilebits.com/dist/1P/op2/pkg/v2.0.0/op_linux_amd64_v2.0.0.zip \
+  && unzip -od /usr/local/bin/ op.zip \
+  && rm op.zip
