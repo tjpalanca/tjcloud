@@ -114,7 +114,7 @@ module "code_gateway" {
     "nginx.ingress.kubernetes.io/configuration-snippet" = <<EOF
       proxy_set_header Accept-Encoding "";
       sub_filter '</head>' '
-      <link rel=\"stylesheet\" href=\"/fonts/${var.code_font}/${var.code_font}.css\">
+      <link rel=\"stylesheet\" href=\"/_static/src/browser/media/fonts/${var.code_font}/${var.code_font}.css\">
       </head>';
       sub_filter_once on;
     EOF
@@ -144,7 +144,7 @@ module "code_test_gateway" {
   zone_name = var.cloudflare_zone_name
   service = {
     name      = "test"
-    port      = 80
+    port      = 8888
     namespace = kubernetes_namespace_v1.code.metadata[0].name
   }
   keycloak_realm_id     = var.keycloak_realm_id
