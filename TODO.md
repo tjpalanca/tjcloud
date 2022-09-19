@@ -92,6 +92,6 @@
     - K8s deployments still applied but because of K8s it's just cosmetic and won't actually redeploy services
 - [x] Fix image not updating deployment
     - If image version left blank, then version number will be the hash
-- [ ] Expose Kubernetes Dashboard at system
+- [x] Expose Kubernetes Dashboard at system
 - [ ] Set up tjjobs
 - [ ] Add font handling for the code-server instance
