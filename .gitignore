@@ -1,0 +1,7 @@
+/.vscode
+/.terraform
+.env
+**/sandbox.*
+*.auto.tfvars
+.DS_Store
+.Rproj.user
