@@ -49,6 +49,6 @@ variable "annotations" {
 
 variable "authenticated_origin_pull" {
   type        = bool
-  default     = false
+  default     = true
   description = "Whether or not to verify the client certificate"
 }
