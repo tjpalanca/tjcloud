@@ -115,6 +115,7 @@ module "code_gateway" {
       proxy_set_header Accept-Encoding "";
       sub_filter '</head>' '
       <link rel=\"stylesheet\" href=\"/_static/src/browser/media/fonts/${var.code_font}/${var.code_font}.css\">
+      <link rel=\"stylesheet\" href=\"/_static/src/browser/media/fonts/${var.body_font}/${var.body_font}.css\">
       </head>';
       sub_filter_once on;
     EOF

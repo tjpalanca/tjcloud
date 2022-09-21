@@ -85,6 +85,7 @@ module "code" {
   node_password           = var.root_password
   node_name               = module.cluster.main_node.label
   code_font               = "JetBrainsMono"
+  body_font               = "IBMPlexSans"
   depends_on = [
     module.cluster,
     module.keycloak

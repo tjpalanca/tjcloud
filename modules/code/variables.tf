@@ -21,6 +21,9 @@ variable "user_name" {
 variable "code_font" {
   type = string
 }
+variable "body_font" {
+  type = string
+}
 
 variable "github_pat" {
   type = string
