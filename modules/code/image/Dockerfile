@@ -59,6 +59,9 @@ COPY services.d/cron /etc/services.d/cron
 # 1Password CLI
 COPY scripts/1password.sh /scripts
 RUN /scripts/1password.sh
+# Apache Arrow
+COPY scripts/arrow.sh /scripts
+RUN /scripts/arrow.sh
 
 # Code Server
 COPY scripts/code-server.sh /scripts
