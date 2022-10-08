@@ -5,3 +5,4 @@
 *.auto.tfvars
 .DS_Store
 .Rproj.user
+.ipynb_checkpoints
