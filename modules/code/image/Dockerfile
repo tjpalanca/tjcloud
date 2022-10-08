@@ -73,11 +73,6 @@ COPY media/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
 COPY media/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
 COPY media/fonts/ /usr/lib/code-server/src/browser/media/fonts/
 
-# Jupyter Lab 
-COPY scripts/jupyter.sh /scripts 
-RUN /scripts/jupyter.sh
-COPY services.d/jupyter-lab /etc/services.d/jupyter-lab
-
 # Xvfb Display
 ENV DISPLAY :1
 COPY services.d/display /etc/services.d/display
