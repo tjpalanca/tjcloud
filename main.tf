@@ -84,7 +84,7 @@ module "code" {
   node_ip_address         = module.cluster.main_node.ip_address
   node_password           = var.root_password
   node_name               = module.cluster.main_node.label
-  code_font               = "JetBrainsMono"
+  code_font               = "JuliaMono"
   body_font               = "IBMPlexSans"
   depends_on = [
     module.cluster,
