@@ -19,7 +19,7 @@ variable "keycloak_url" {
 
 variable "keycloak_groups" {
   type        = list(string)
-  default     = [""]
+  default     = []
   description = "Groups allowed to access the proxied service"
 }
 
