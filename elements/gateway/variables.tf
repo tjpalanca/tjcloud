@@ -69,7 +69,7 @@ variable "authenticated_origin_pull" {
   description = "Whether or not to verify the client certificate"
 }
 
-variable "redirect_uris" {
+variable "additional_redirect_uris" {
   type        = list(string)
   default     = []
   description = "Additional redirect URIs"
