@@ -30,5 +30,5 @@ module "echo_gateway" {
   keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
-  default_client_scopes = var.default_client_scopes
+  default_client_scopes = ["groups"]
 }

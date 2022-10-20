@@ -109,7 +109,7 @@ module "code_gateway" {
   keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
-  default_client_scopes = var.default_client_scopes
+  default_client_scopes = ["groups"]
   annotations = {
     "nginx.ingress.kubernetes.io/configuration-snippet" = <<EOF
       proxy_set_header Accept-Encoding "";
@@ -135,7 +135,7 @@ module "code_port_gateway" {
   keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Administrator"]
-  default_client_scopes = var.default_client_scopes
+  default_client_scopes = ["groups"]
 }
 
 module "code_test_gateway" {
@@ -151,5 +151,5 @@ module "code_test_gateway" {
   keycloak_realm_id     = var.keycloak_realm_id
   keycloak_url          = var.keycloak_url
   keycloak_groups       = ["Tester"]
-  default_client_scopes = var.default_client_scopes
+  default_client_scopes = ["groups"]
 }

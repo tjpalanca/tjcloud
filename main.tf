@@ -10,7 +10,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 3.0"
+      version = "3.21.0"
     }
     tfe = {
       source  = "hashicorp/tfe"
@@ -22,7 +22,7 @@ terraform {
     }
     keycloak = {
       source  = "mrparkers/keycloak"
-      version = "3.10.0"
+      version = "~> 4.0.1"
     }
   }
   cloud {
@@ -77,9 +77,8 @@ module "code" {
   user_name               = var.user_name
   github_pat              = var.github_pat
   extensions_gallery_json = var.extensions_gallery_json
-  keycloak_realm_id       = module.keycloak_config.realms.main.id
+  keycloak_realm_id       = module.keycloak_realms.main.id
   keycloak_url            = module.keycloak.url
-  default_client_scopes   = [module.keycloak_config.client_scopes.groups.name]
   volume_name             = module.cluster.main_node_volume.label
   node_ip_address         = module.cluster.main_node.ip_address
   node_password           = var.root_password
@@ -97,13 +96,12 @@ module "metrics_server" {
 }
 
 module "dashboard" {
-  source                = "./modules/dashboard"
-  namespace             = "dashboard"
-  cloudflare_zone_id    = var.main_cloudflare_zone_id
-  cloudflare_zone_name  = var.main_cloudflare_zone_name
-  keycloak_realm_id     = module.keycloak_config.realms.main.id
-  keycloak_url          = module.keycloak.url
-  default_client_scopes = [module.keycloak_config.client_scopes.groups.name]
+  source               = "./modules/dashboard"
+  namespace            = "dashboard"
+  cloudflare_zone_id   = var.main_cloudflare_zone_id
+  cloudflare_zone_name = var.main_cloudflare_zone_name
+  keycloak_realm_id    = module.keycloak_realms.main.id
+  keycloak_url         = module.keycloak.url
   depends_on = [
     module.metrics_server
   ]
@@ -130,12 +128,11 @@ module "database" {
 }
 
 module "echo" {
-  source                = "./modules/echo"
-  cloudflare_zone_id    = var.main_cloudflare_zone_id
-  cloudflare_zone_name  = var.main_cloudflare_zone_name
-  keycloak_realm_id     = module.keycloak_config.realms.main.id
-  keycloak_url          = module.keycloak.url
-  default_client_scopes = [module.keycloak_config.client_scopes.groups.name]
+  source               = "./modules/echo"
+  cloudflare_zone_id   = var.main_cloudflare_zone_id
+  cloudflare_zone_name = var.main_cloudflare_zone_name
+  keycloak_realm_id    = module.keycloak_realms.main.id
+  keycloak_url         = module.keycloak.url
   depends_on = [
     module.cluster,
     module.keycloak
@@ -195,18 +192,12 @@ module "keycloak" {
   ]
 }
 
-module "keycloak_config" {
-  source = "./modules/keycloak-config"
-  settings = {
-    realm_name         = var.cluster_name
-    realm_display_name = var.keycloak_realm_display_name
-    admin_emails       = var.admin_emails
-  }
-  identity_providers = {
-    google = {
-      client_id     = var.google_client_id
-      client_secret = var.google_client_secret
-    }
+module "keycloak_realms" {
+  source       = "./modules/keycloak-realms"
+  admin_emails = var.admin_emails
+  google = {
+    client_id     = var.google_client_id
+    client_secret = var.google_client_secret
   }
   depends_on = [
     module.cluster,
@@ -227,9 +218,8 @@ module "pgadmin" {
   pgadmin_default_password = var.pgadmin_default_password
   cloudflare_zone_id       = var.main_cloudflare_zone_id
   cloudflare_zone_name     = var.main_cloudflare_zone_name
-  keycloak_realm_id        = module.keycloak_config.realms.main.id
+  keycloak_realm_id        = module.keycloak_realms.main.id
   keycloak_url             = module.keycloak.url
-  default_client_scopes    = [module.keycloak_config.client_scopes.groups.name]
   volume_name              = module.cluster.main_node_volume.label
   node_ip_address          = module.cluster.main_node.ip_address
   node_password            = var.root_password

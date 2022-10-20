@@ -7,6 +7,11 @@ provider "cloudflare" {
   api_user_service_key = var.cloudflare_origin_ca_key
 }
 
+provider "cloudflare" {
+  alias                = "cloudflare_origin_ca"
+  api_user_service_key = var.cloudflare_origin_ca_key
+}
+
 provider "kubernetes" {
   host                   = module.cluster.kubeconfig.endpoint
   token                  = module.cluster.kubeconfig.token

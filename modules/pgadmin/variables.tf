@@ -22,10 +22,6 @@ variable "keycloak_url" {
   type = string
 }
 
-variable "default_client_scopes" {
-  type = list(string)
-}
-
 variable "volume_name" {
   type = string
 }

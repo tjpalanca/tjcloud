@@ -49,6 +49,3 @@ variable "keycloak_realm_id" {
 variable "keycloak_url" {
   type = string
 }
-variable "default_client_scopes" {
-  type = list(string)
-}
