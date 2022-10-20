@@ -28,9 +28,9 @@ resource "keycloak_openid_client" "client" {
   enabled               = true
   access_type           = "CONFIDENTIAL"
   standard_flow_enabled = true
-  valid_redirect_uris = [
+  valid_redirect_uris = concat(var.additional_redirect_uris, [
     "https://${local.domain}/oauth2/callback"
-  ]
+  ])
 }
 
 resource "keycloak_openid_client_default_scopes" "default_client_scopes" {
