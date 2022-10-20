@@ -79,6 +79,7 @@ COPY services.d/display /etc/services.d/display
 
 # Expose Ports
 EXPOSE 8888 5500 3838 3333
+EXPOSE 8889 5501 3839 3334
 
 # Init Containers 
 CMD ["/init"]
