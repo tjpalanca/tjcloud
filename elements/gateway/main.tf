@@ -77,7 +77,7 @@ module "proxy_application" {
   ports     = [4180]
   replicas  = 1
   image     = "quay.io/oauth2-proxy/oauth2-proxy:v7.3.0"
-  env_vars = {
+  env_vars = merge({
     OAUTH2_PROXY_UPSTREAMS              = "http://${var.service.name}.${var.service.namespace}:${var.service.port}/"
     OAUTH2_PROXY_CLIENT_ID              = keycloak_openid_client.client.client_id
     OAUTH2_PROXY_CLIENT_SECRET          = keycloak_openid_client.client.client_secret
@@ -95,7 +95,7 @@ module "proxy_application" {
     OAUTH2_PROXY_SKIP_PROVIDER_BUTTON   = "true"
     OAUTH2_PROXY_PREFER_EMAIL_TO_USER   = "true"
     OAUTH2_PROXY_PASS_USER_HEADERS      = "true"
-  }
+  }, var.additional_configuration)
 }
 
 module "proxy_ingress" {

@@ -74,3 +74,9 @@ variable "additional_redirect_uris" {
   default     = []
   description = "Additional redirect URIs"
 }
+
+variable "additional_configuration" {
+  type        = map(string, string)
+  default     = {}
+  description = "Additional env vars"
+}
