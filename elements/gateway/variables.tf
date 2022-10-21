@@ -76,7 +76,7 @@ variable "additional_redirect_uris" {
 }
 
 variable "additional_configuration" {
-  type        = map(string, string)
+  type        = map(string)
   default     = {}
   description = "Additional env vars"
 }
