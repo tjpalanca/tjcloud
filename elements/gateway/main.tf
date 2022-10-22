@@ -77,25 +77,28 @@ module "proxy_application" {
   ports     = [4180]
   replicas  = 1
   image     = "quay.io/oauth2-proxy/oauth2-proxy:v7.3.0"
-  env_vars = merge({
-    OAUTH2_PROXY_UPSTREAMS              = "http://${var.service.name}.${var.service.namespace}:${var.service.port}/"
-    OAUTH2_PROXY_CLIENT_ID              = keycloak_openid_client.client.client_id
-    OAUTH2_PROXY_CLIENT_SECRET          = keycloak_openid_client.client.client_secret
-    OAUTH2_PROXY_ALLOWED_GROUPS         = join(",", [for g in var.keycloak_groups : "/${g}"])
-    OAUTH2_PROXY_REVERSE_PROXY          = "true"
-    OAUTH2_PROXY_REAL_CLIENT_IP_HEADER  = "X-Forwarded-For"
-    OAUTH2_PROXY_SESSION_COOKIE_MINIMAL = "true"
-    OAUTH2_PROXY_COOKIE_EXPIRE          = "168h0m0s"
-    OAUTH2_PROXY_COOKIE_NAME            = "_${var.service.name}_oauth2_proxy"
-    OAUTH2_PROXY_COOKIE_SECRET          = random_password.cookie_secret.result
-    OAUTH2_PROXY_EMAIL_DOMAINS          = "*"
-    OAUTH2_PROXY_HTTP_ADDRESS           = "0.0.0.0:4180"
-    OAUTH2_PROXY_PROVIDER               = "keycloak-oidc"
-    OAUTH2_PROXY_OIDC_ISSUER_URL        = "${var.keycloak_url}/realms/${var.keycloak_realm_id}"
-    OAUTH2_PROXY_SKIP_PROVIDER_BUTTON   = "true"
-    OAUTH2_PROXY_PREFER_EMAIL_TO_USER   = "true"
-    OAUTH2_PROXY_PASS_USER_HEADERS      = "true"
-  }, var.additional_configuration)
+  env_vars = merge(
+    {
+      OAUTH2_PROXY_UPSTREAMS              = "http://${var.service.name}.${var.service.namespace}:${var.service.port}/"
+      OAUTH2_PROXY_CLIENT_ID              = keycloak_openid_client.client.client_id
+      OAUTH2_PROXY_CLIENT_SECRET          = keycloak_openid_client.client.client_secret
+      OAUTH2_PROXY_ALLOWED_GROUPS         = join(",", [for g in var.keycloak_groups : "/${g}"])
+      OAUTH2_PROXY_REVERSE_PROXY          = "true"
+      OAUTH2_PROXY_REAL_CLIENT_IP_HEADER  = "X-Forwarded-For"
+      OAUTH2_PROXY_SESSION_COOKIE_MINIMAL = "true"
+      OAUTH2_PROXY_COOKIE_EXPIRE          = "168h0m0s"
+      OAUTH2_PROXY_COOKIE_NAME            = "_${var.service.name}_oauth2_proxy"
+      OAUTH2_PROXY_COOKIE_SECRET          = random_password.cookie_secret.result
+      OAUTH2_PROXY_EMAIL_DOMAINS          = "*"
+      OAUTH2_PROXY_HTTP_ADDRESS           = "0.0.0.0:4180"
+      OAUTH2_PROXY_PROVIDER               = "keycloak-oidc"
+      OAUTH2_PROXY_OIDC_ISSUER_URL        = "${var.keycloak_url}/realms/${var.keycloak_realm_id}"
+      OAUTH2_PROXY_SKIP_PROVIDER_BUTTON   = "true"
+      OAUTH2_PROXY_PREFER_EMAIL_TO_USER   = "true"
+      OAUTH2_PROXY_PASS_USER_HEADERS      = "true"
+    },
+    var.additional_configuration
+  )
 }
 
 module "proxy_ingress" {
