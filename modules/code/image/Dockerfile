@@ -62,6 +62,9 @@ RUN /scripts/1password.sh
 # Apache Arrow
 COPY scripts/arrow.sh /scripts
 RUN /scripts/arrow.sh
+# Quarto 
+COPY scripts/quarto.sh /scripts 
+RUN /scripts/quarto.sh
 
 # Code Server
 COPY scripts/code-server.sh /scripts
