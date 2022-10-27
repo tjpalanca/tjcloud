@@ -71,7 +71,7 @@ module "code_application" {
     DEFAULT_USER       = var.user_name
     CONNECTION_TOKEN   = "dummy"
     PROXY_DOMAIN       = local.domain
-    VSCODE_PROXY_URI   = "https://${local.domain}/proxy/{port}"
+    VSCODE_PROXY_URI   = "https://{{port}}.${var.cloudflare_zone_name}"
     GITHUB_TOKEN       = var.github_pat
     EXTENSIONS_GALLERY = var.extensions_gallery_json
   }
