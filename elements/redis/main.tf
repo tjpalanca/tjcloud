@@ -15,7 +15,7 @@ module "redis" {
   ports        = 6379
   node_name    = var.node_name
   replicas     = 1
-  image        = "redis:${var.version}"
+  image        = "redis:${var.redis_version}"
   command = [
     "redis-server",
     "--save", tostring(var.save_frequency), tostring(var.min_writes_for_save),

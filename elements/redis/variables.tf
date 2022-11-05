@@ -18,7 +18,7 @@ variable "volume_name" {
   description = "Mounted volume name to use for the redis instance"
 }
 
-variable "version" {
+variable "redis_version" {
   type        = string
   default     = "latest"
   description = "version of redis to deploy"
