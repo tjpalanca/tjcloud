@@ -12,7 +12,7 @@ module "redis" {
   name         = var.name
   namespace    = var.namespace
   service_type = "ClusterIP"
-  ports        = 6379
+  ports        = [6379]
   node_name    = var.node_name
   replicas     = 1
   image        = "redis:${var.redis_version}"
