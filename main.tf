@@ -260,7 +260,10 @@ module "storage" {
 }
 
 module "mastodon" {
-  source                    = "./modules/mastodon"
+  source = "./modules/mastodon"
+  providers = {
+    postgresql = postgresql.main
+  }
   cloudflare_zone_id        = var.public_cloudflare_zone_id
   cloudflare_zone_name      = var.public_cloudflare_zone_name
   main_cloudflare_zone_name = var.main_cloudflare_zone_name
