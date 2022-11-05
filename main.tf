@@ -195,42 +195,42 @@ module "code" {
   ]
 }
 
-# module "echo" {
-#   source               = "./modules/echo"
-#   cloudflare_zone_id   = var.main_cloudflare_zone_id
-#   cloudflare_zone_name = var.main_cloudflare_zone_name
-#   keycloak_realm_id    = module.keycloak_realms.main.id
-#   keycloak_url         = module.keycloak.url
-#   depends_on = [
-#     module.cluster,
-#     module.keycloak
-#   ]
-# }
+module "echo" {
+  source               = "./modules/echo"
+  cloudflare_zone_id   = var.main_cloudflare_zone_id
+  cloudflare_zone_name = var.main_cloudflare_zone_name
+  keycloak_realm_id    = module.keycloak_realms.main.id
+  keycloak_url         = module.keycloak.url
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
 
-# module "mail" {
-#   source         = "./modules/mail"
-#   relay_host     = "smtp.gmail.com"
-#   relay_username = var.gmail_username
-#   relay_password = var.gmail_password
-# }
+module "mail" {
+  source         = "./modules/mail"
+  relay_host     = "smtp.gmail.com"
+  relay_username = var.gmail_username
+  relay_password = var.gmail_password
+}
 
-# module "pgadmin" {
-#   source                   = "./modules/pgadmin"
-#   pgadmin_default_username = var.pgadmin_default_username
-#   pgadmin_default_password = var.pgadmin_default_password
-#   cloudflare_zone_id       = var.main_cloudflare_zone_id
-#   cloudflare_zone_name     = var.main_cloudflare_zone_name
-#   keycloak_realm_id        = module.keycloak_realms.main.id
-#   keycloak_url             = module.keycloak.url
-#   volume_name              = module.cluster.main_node_volume.label
-#   node_ip_address          = module.cluster.main_node.ip_address
-#   node_password            = var.root_password
-#   node_name                = module.cluster.main_node.label
-#   depends_on = [
-#     module.cluster,
-#     module.keycloak
-#   ]
-# }
+module "pgadmin" {
+  source                   = "./modules/pgadmin"
+  pgadmin_default_username = var.pgadmin_default_username
+  pgadmin_default_password = var.pgadmin_default_password
+  cloudflare_zone_id       = var.main_cloudflare_zone_id
+  cloudflare_zone_name     = var.main_cloudflare_zone_name
+  keycloak_realm_id        = module.keycloak_realms.main.id
+  keycloak_url             = module.keycloak.url
+  volume_name              = module.cluster.main_node_volume.label
+  node_ip_address          = module.cluster.main_node.ip_address
+  node_password            = var.root_password
+  node_name                = module.cluster.main_node.label
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
 
 # module "plausible" {
 #   source = "./modules/plausible"
