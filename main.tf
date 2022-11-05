@@ -127,18 +127,18 @@ module "keycloak" {
   ]
 }
 
-# module "keycloak_realms" {
-#   source       = "./modules/keycloak-realms"
-#   admin_emails = var.admin_emails
-#   google = {
-#     client_id     = var.google_client_id
-#     client_secret = var.google_client_secret
-#   }
-#   depends_on = [
-#     module.cluster,
-#     module.keycloak
-#   ]
-# }
+module "keycloak_realms" {
+  source       = "./modules/keycloak-realms"
+  admin_emails = var.admin_emails
+  google = {
+    client_id     = var.google_client_id
+    client_secret = var.google_client_secret
+  }
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
 
 module "code_image" {
   source        = "./elements/image"
