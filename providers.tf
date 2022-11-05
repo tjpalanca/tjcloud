@@ -29,10 +29,10 @@ provider "postgresql" {
   connect_timeout = 15
 }
 
-# provider "keycloak" {
-#   client_id = "admin-cli"
-#   username  = var.keycloak_admin_username
-#   password  = var.keycloak_admin_password
-#   url       = module.keycloak.url
-#   base_path = ""
-# }
+provider "keycloak" {
+  client_id = "admin-cli"
+  username  = var.keycloak_admin_username
+  password  = var.keycloak_admin_password
+  url       = module.keycloak.url
+  base_path = ""
+}
