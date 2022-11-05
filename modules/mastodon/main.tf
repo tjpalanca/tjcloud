@@ -33,8 +33,8 @@ module "mastodon_application" {
   ports        = [3000]
   image        = "ghcr.io/mastodon/mastodon:latest"
   command = [
-    "bundle exec rails db:migrate;",
-    "bundle exec rails s -p 3000"
+    "bash", "-c",
+    "bundle exec rails db:migrate; bundle exec rails s -p 3000;"
   ]
   env_vars = {
     LOCAL_DOMAIN = var.cloudflare_zone_name
