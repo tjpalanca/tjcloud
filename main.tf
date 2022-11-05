@@ -194,89 +194,89 @@ module "keycloak" {
   ]
 }
 
-module "keycloak_realms" {
-  source       = "./modules/keycloak-realms"
-  admin_emails = var.admin_emails
-  google = {
-    client_id     = var.google_client_id
-    client_secret = var.google_client_secret
-  }
-  depends_on = [
-    module.cluster,
-    module.keycloak
-  ]
-}
+# module "keycloak_realms" {
+#   source       = "./modules/keycloak-realms"
+#   admin_emails = var.admin_emails
+#   google = {
+#     client_id     = var.google_client_id
+#     client_secret = var.google_client_secret
+#   }
+#   depends_on = [
+#     module.cluster,
+#     module.keycloak
+#   ]
+# }
 
-module "mail" {
-  source         = "./modules/mail"
-  relay_host     = "smtp.gmail.com"
-  relay_username = var.gmail_username
-  relay_password = var.gmail_password
-}
+# module "mail" {
+#   source         = "./modules/mail"
+#   relay_host     = "smtp.gmail.com"
+#   relay_username = var.gmail_username
+#   relay_password = var.gmail_password
+# }
 
-module "pgadmin" {
-  source                   = "./modules/pgadmin"
-  pgadmin_default_username = var.pgadmin_default_username
-  pgadmin_default_password = var.pgadmin_default_password
-  cloudflare_zone_id       = var.main_cloudflare_zone_id
-  cloudflare_zone_name     = var.main_cloudflare_zone_name
-  keycloak_realm_id        = module.keycloak_realms.main.id
-  keycloak_url             = module.keycloak.url
-  volume_name              = module.cluster.main_node_volume.label
-  node_ip_address          = module.cluster.main_node.ip_address
-  node_password            = var.root_password
-  node_name                = module.cluster.main_node.label
-  depends_on = [
-    module.cluster,
-    module.keycloak
-  ]
-}
+# module "pgadmin" {
+#   source                   = "./modules/pgadmin"
+#   pgadmin_default_username = var.pgadmin_default_username
+#   pgadmin_default_password = var.pgadmin_default_password
+#   cloudflare_zone_id       = var.main_cloudflare_zone_id
+#   cloudflare_zone_name     = var.main_cloudflare_zone_name
+#   keycloak_realm_id        = module.keycloak_realms.main.id
+#   keycloak_url             = module.keycloak.url
+#   volume_name              = module.cluster.main_node_volume.label
+#   node_ip_address          = module.cluster.main_node.ip_address
+#   node_password            = var.root_password
+#   node_name                = module.cluster.main_node.label
+#   depends_on = [
+#     module.cluster,
+#     module.keycloak
+#   ]
+# }
 
-module "plausible" {
-  source = "./modules/plausible"
-  providers = {
-    postgresql = postgresql.main
-  }
-  postgres              = module.database.main_postgres_credentials
-  clickhouse            = module.database.main_clickhouse_credentials
-  google_client_id      = var.google_client_id
-  google_client_secret  = var.google_client_secret
-  smtp_host             = "${module.mail.service.name}.${module.mail.service.namespace}"
-  subdomain             = "analytics"
-  cloudflare_zone_id    = var.public_cloudflare_zone_id
-  cloudflare_zone_name  = var.public_cloudflare_zone_name
-  cloudflare_zone_cname = var.main_cloudflare_zone_name
-  secret_key_base       = var.plausible_secret_key_base
-  admin_user = {
-    email    = var.plausible_admin_user_email
-    name     = var.plausible_admin_user_name
-    password = var.plausible_admin_user_password
-  }
-}
+# module "plausible" {
+#   source = "./modules/plausible"
+#   providers = {
+#     postgresql = postgresql.main
+#   }
+#   postgres              = module.database.main_postgres_credentials
+#   clickhouse            = module.database.main_clickhouse_credentials
+#   google_client_id      = var.google_client_id
+#   google_client_secret  = var.google_client_secret
+#   smtp_host             = "${module.mail.service.name}.${module.mail.service.namespace}"
+#   subdomain             = "analytics"
+#   cloudflare_zone_id    = var.public_cloudflare_zone_id
+#   cloudflare_zone_name  = var.public_cloudflare_zone_name
+#   cloudflare_zone_cname = var.main_cloudflare_zone_name
+#   secret_key_base       = var.plausible_secret_key_base
+#   admin_user = {
+#     email    = var.plausible_admin_user_email
+#     name     = var.plausible_admin_user_name
+#     password = var.plausible_admin_user_password
+#   }
+# }
 
-module "storage" {
-  source    = "./modules/storage"
-  user_name = var.user_name
-}
+# module "storage" {
+#   source    = "./modules/storage"
+#   user_name = var.user_name
+# }
 
-module "mastodon" {
-  source = "./modules/mastodon"
-  providers = {
-    postgresql = postgresql.main
-  }
-  cloudflare_zone_id        = var.public_cloudflare_zone_id
-  cloudflare_zone_name      = var.public_cloudflare_zone_name
-  main_cloudflare_zone_name = var.main_cloudflare_zone_name
-  secret_key_base           = var.mastodon_secret_key_base
-  otp_secret                = var.mastodon_otp_secret
-  vapid_private_key         = var.mastodon_vapid_private_key
-  vapid_public_key          = var.mastodon_vapid_public_key
-  smtp_server               = "${module.mail.service.name}.${module.mail.service.namespace}"
-  smtp_port                 = module.mail.service.port
-  postgres_host             = module.database.main_postgres_credentials.internal_host
-  postgres_port             = module.database.main_postgres_credentials.internal_port
-  postgres_user             = module.database.main_postgres_credentials.username
-  postgres_pass             = module.database.main_postgres_credentials.password
-  redis_host                = "${module.database.main_redis_service.name}.${module.database.main_redis_service.namespace}"
-  redis_port                = module.database.main_redis_service.port
-}
+# module "mastodon" {
+#   source = "./modules/mastodon"
+#   providers = {
+#     postgresql = postgresql.main
+#   }
+#   cloudflare_zone_id        = var.public_cloudflare_zone_id
+#   cloudflare_zone_name      = var.public_cloudflare_zone_name
+#   main_cloudflare_zone_name = var.main_cloudflare_zone_name
+#   secret_key_base           = var.mastodon_secret_key_base
+#   otp_secret                = var.mastodon_otp_secret
+#   vapid_private_key         = var.mastodon_vapid_private_key
+#   vapid_public_key          = var.mastodon_vapid_public_key
+#   smtp_server               = "${module.mail.service.name}.${module.mail.service.namespace}"
+#   smtp_port                 = module.mail.service.port
+#   postgres_host             = module.database.main_postgres_credentials.internal_host
+#   postgres_port             = module.database.main_postgres_credentials.internal_port
+#   postgres_user             = module.database.main_postgres_credentials.username
+#   postgres_pass             = module.database.main_postgres_credentials.password
+#   redis_host                = "${module.database.main_redis_service.name}.${module.database.main_redis_service.namespace}"
+#   redis_port                = module.database.main_redis_service.port
+# }
