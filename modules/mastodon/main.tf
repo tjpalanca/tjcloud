@@ -64,7 +64,7 @@ module "mastodon_application" {
 }
 
 module "mastodon_sidekiq" {
-  source    = "../../elements/application"
+  source    = "../../elements/deployment"
   name      = "mastodon"
   namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
   image     = "ghcr.io/mastodon/mastodon:latest"
