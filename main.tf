@@ -20,10 +20,10 @@ terraform {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
     }
-    keycloak = {
-      source  = "mrparkers/keycloak"
-      version = "~> 4.0.1"
-    }
+    # keycloak = {
+    #   source  = "mrparkers/keycloak"
+    #   version = "~> 4.0.1"
+    # }
   }
   cloud {
     organization = "tjpalanca"
@@ -127,22 +127,22 @@ module "keycloak" {
   ]
 }
 
-module "code_image" {
-  source        = "./elements/image"
-  name          = "code"
-  namespace     = module.kaniko.namespace
-  registry      = local.ghcr_registry
-  build_context = "modules/code/image/"
-  image_address = "ghcr.io/tjpalanca/tjcloud/code"
-  node          = module.cluster.main_node
-  node_password = var.root_password
-  build_args = {
-    DEFAULT_USER = var.user_name
-  }
-  post_copy_commands = [
-    "chmod +x scripts/*"
-  ]
-}
+# module "code_image" {
+#   source        = "./elements/image"
+#   name          = "code"
+#   namespace     = module.kaniko.namespace
+#   registry      = local.ghcr_registry
+#   build_context = "modules/code/image/"
+#   image_address = "ghcr.io/tjpalanca/tjcloud/code"
+#   node          = module.cluster.main_node
+#   node_password = var.root_password
+#   build_args = {
+#     DEFAULT_USER = var.user_name
+#   }
+#   post_copy_commands = [
+#     "chmod +x scripts/*"
+#   ]
+# }
 
 # module "code" {
 #   source                  = "./modules/code"
