@@ -49,3 +49,11 @@ module "main_clickhouse_database" {
     node_password = var.main_clickhouse_node_password
   }
 }
+
+module "main_redis_instance" {
+  source      = "../../elements/redis"
+  name        = "main-redis-instance"
+  namespace   = kubernetes_namespace_v1.database.metadata[0].name
+  node_name   = var.main_redis_node_name
+  volume_name = var.main_redis_volume_name
+}

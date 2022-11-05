@@ -122,6 +122,8 @@ module "database" {
   main_clickhouse_node_name     = module.cluster.main_node.label
   main_clickhouse_volume_name   = module.cluster.main_node_volume.label
   main_clickhouse_node_password = var.root_password
+  main_redis_node_name          = module.cluster.main_node.label
+  main_redis_volume_name        = module.cluster.main_node_volume.label
   depends_on = [
     module.cluster
   ]
