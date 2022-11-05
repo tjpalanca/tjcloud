@@ -19,24 +19,7 @@ resource "kubernetes_namespace_v1" "mastodon" {
 
 locals {
   host = "mastodon"
-}
-
-resource "postgresql_database" "mastodon" {
-  name = "mastodon"
-}
-
-module "mastodon_application" {
-  source       = "../../elements/application"
-  name         = "mastodon"
-  namespace    = kubernetes_namespace_v1.mastodon.metadata[0].name
-  service_type = "ClusterIP"
-  ports        = [3000]
-  image        = "ghcr.io/mastodon/mastodon:latest"
-  command = [
-    "bash", "-c",
-    "bundle exec rails db:migrate; bundle exec rails s -p 3000;"
-  ]
-  env_vars = {
+  envs = {
     LOCAL_DOMAIN             = var.cloudflare_zone_name
     WEB_DOMAIN               = "${local.host}.${var.cloudflare_zone_name}"
     SECRET_KEY_BASE          = var.secret_key_base
@@ -60,6 +43,33 @@ module "mastodon_application" {
     REDIS_PORT        = tostring(var.redis_port)
     ES_ENABLED        = "false"
   }
+}
+
+resource "postgresql_database" "mastodon" {
+  name = "mastodon"
+}
+
+module "mastodon_application" {
+  source       = "../../elements/application"
+  name         = "mastodon"
+  namespace    = kubernetes_namespace_v1.mastodon.metadata[0].name
+  service_type = "ClusterIP"
+  ports        = [3000]
+  image        = "ghcr.io/mastodon/mastodon:latest"
+  command = [
+    "bash", "-c",
+    "bundle exec rails db:migrate; bundle exec rails s -p 3000;"
+  ]
+  env_vars = local.envs
+}
+
+module "mastodon_sidekiq" {
+  source    = "../../elements/application"
+  name      = "mastodon"
+  namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
+  image     = "ghcr.io/mastodon/mastodon:latest"
+  command   = ["bundle", "exec", "sidekiq"]
+  env_vars  = local.envs
 }
 
 module "mastodon_ingress" {

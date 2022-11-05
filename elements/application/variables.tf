@@ -16,6 +16,7 @@ variable "service_type" {
 
 variable "ports" {
   type        = list(number)
+  default     = []
   description = "Ports on the container"
 }
 
