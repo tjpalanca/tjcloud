@@ -143,3 +143,9 @@ variable "mem_request" {
   type    = string
   default = null
 }
+
+variable "timeout" {
+  type        = string
+  default     = "30m"
+  description = "Timeout for creation and updating"
+}

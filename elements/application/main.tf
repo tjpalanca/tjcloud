@@ -29,6 +29,10 @@ resource "kubernetes_service_v1" "service" {
 }
 
 resource "kubernetes_deployment_v1" "deployment" {
+  timeouts {
+    create = var.timeout
+    update = var.timeout
+  }
   metadata {
     name      = var.name
     namespace = var.namespace
