@@ -140,6 +140,22 @@ module "keycloak_realms" {
   ]
 }
 
+module "metrics_server" {
+  source = "./modules/metrics_server"
+}
+
+module "dashboard" {
+  source               = "./modules/dashboard"
+  namespace            = "dashboard"
+  cloudflare_zone_id   = var.main_cloudflare_zone_id
+  cloudflare_zone_name = var.main_cloudflare_zone_name
+  keycloak_realm_id    = module.keycloak_realms.main.id
+  keycloak_url         = module.keycloak.url
+  depends_on = [
+    module.metrics_server
+  ]
+}
+
 module "code_image" {
   source        = "./elements/image"
   name          = "code"
@@ -154,22 +170,6 @@ module "code_image" {
   }
   post_copy_commands = [
     "chmod +x scripts/*"
-  ]
-}
-
-module "metrics_server" {
-  source = "./modules/metrics_server"
-}
-
-module "dashboard" {
-  source               = "./modules/dashboard"
-  namespace            = "dashboard"
-  cloudflare_zone_id   = var.main_cloudflare_zone_id
-  cloudflare_zone_name = var.main_cloudflare_zone_name
-  keycloak_realm_id    = module.keycloak_realms.main.id
-  keycloak_url         = module.keycloak.url
-  depends_on = [
-    module.metrics_server
   ]
 }
 
