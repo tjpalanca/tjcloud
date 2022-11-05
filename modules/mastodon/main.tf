@@ -37,8 +37,8 @@ module "mastodon_application" {
     "bundle exec rails db:migrate; bundle exec rails s -p 3000;"
   ]
   env_vars = {
-    LOCAL_DOMAIN = var.cloudflare_zone_name
-    # WEB_DOMAIN   = "${local.host}.${var.cloudflare_zone_name}"
+    LOCAL_DOMAIN             = var.cloudflare_zone_name
+    WEB_DOMAIN               = "${local.host}.${var.cloudflare_zone_name}"
     SECRET_KEY_BASE          = var.secret_key_base
     OTP_SECRET               = var.otp_secret
     VAPID_PRIVATE_KEY        = var.vapid_private_key
