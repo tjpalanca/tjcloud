@@ -127,22 +127,35 @@ module "keycloak" {
   ]
 }
 
-# module "code_image" {
-#   source        = "./elements/image"
-#   name          = "code"
-#   namespace     = module.kaniko.namespace
-#   registry      = local.ghcr_registry
-#   build_context = "modules/code/image/"
-#   image_address = "ghcr.io/tjpalanca/tjcloud/code"
-#   node          = module.cluster.main_node
-#   node_password = var.root_password
-#   build_args = {
-#     DEFAULT_USER = var.user_name
+# module "keycloak_realms" {
+#   source       = "./modules/keycloak-realms"
+#   admin_emails = var.admin_emails
+#   google = {
+#     client_id     = var.google_client_id
+#     client_secret = var.google_client_secret
 #   }
-#   post_copy_commands = [
-#     "chmod +x scripts/*"
+#   depends_on = [
+#     module.cluster,
+#     module.keycloak
 #   ]
 # }
+
+module "code_image" {
+  source        = "./elements/image"
+  name          = "code"
+  namespace     = module.kaniko.namespace
+  registry      = local.ghcr_registry
+  build_context = "modules/code/image/"
+  image_address = "ghcr.io/tjpalanca/tjcloud/code"
+  node          = module.cluster.main_node
+  node_password = var.root_password
+  build_args = {
+    DEFAULT_USER = var.user_name
+  }
+  post_copy_commands = [
+    "chmod +x scripts/*"
+  ]
+}
 
 # module "code" {
 #   source                  = "./modules/code"
@@ -166,9 +179,9 @@ module "keycloak" {
 #   ]
 # }
 
-# module "metrics_server" {
-#   source = "./modules/metrics_server"
-# }
+module "metrics_server" {
+  source = "./modules/metrics_server"
+}
 
 # module "dashboard" {
 #   source               = "./modules/dashboard"
@@ -179,19 +192,6 @@ module "keycloak" {
 #   keycloak_url         = module.keycloak.url
 #   depends_on = [
 #     module.metrics_server
-#   ]
-# }
-
-# module "keycloak_realms" {
-#   source       = "./modules/keycloak-realms"
-#   admin_emails = var.admin_emails
-#   google = {
-#     client_id     = var.google_client_id
-#     client_secret = var.google_client_secret
-#   }
-#   depends_on = [
-#     module.cluster,
-#     module.keycloak
 #   ]
 # }
 
@@ -254,10 +254,10 @@ module "keycloak" {
 #   }
 # }
 
-# module "storage" {
-#   source    = "./modules/storage"
-#   user_name = var.user_name
-# }
+module "storage" {
+  source    = "./modules/storage"
+  user_name = var.user_name
+}
 
 # module "mastodon" {
 #   source = "./modules/mastodon"
