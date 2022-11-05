@@ -112,11 +112,7 @@ variable "run_as" {
     run_as_group = number
     fs_group     = number
   })
-  default = {
-    run_as_user  = null
-    run_as_group = null
-    fs_group     = null
-  }
+  default = null
 }
 
 variable "restart_policy" {

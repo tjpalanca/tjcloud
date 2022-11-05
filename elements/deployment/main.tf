@@ -139,10 +139,13 @@ resource "kubernetes_deployment_v1" "deployment" {
             }
           }
         }
-        security_context {
-          run_as_user  = var.run_as.run_as_user
-          run_as_group = var.run_as.run_as_group
-          fs_group     = var.run_as.fs_group
+        dynamic "security_context" {
+          for_each = var.run_as == null ? [] : [1]
+          content {
+            run_as_user  = var.run_as.run_as_user
+            run_as_group = var.run_as.run_as_group
+            fs_group     = var.run_as.fs_group
+          }
         }
       }
     }
