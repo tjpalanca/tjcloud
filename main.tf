@@ -173,27 +173,27 @@ module "code_image" {
   ]
 }
 
-# module "code" {
-#   source                  = "./modules/code"
-#   cloudflare_zone_id      = var.main_cloudflare_zone_id
-#   cloudflare_zone_name    = var.main_cloudflare_zone_name
-#   image                   = module.code_image.image.versioned
-#   user_name               = var.user_name
-#   github_pat              = var.github_pat
-#   extensions_gallery_json = var.extensions_gallery_json
-#   keycloak_realm_id       = module.keycloak_realms.main.id
-#   keycloak_url            = module.keycloak.url
-#   volume_name             = module.cluster.main_node_volume.label
-#   node_ip_address         = module.cluster.main_node.ip_address
-#   node_password           = var.root_password
-#   node_name               = module.cluster.main_node.label
-#   code_font               = "JuliaMono"
-#   body_font               = "IBMPlexSans"
-#   depends_on = [
-#     module.cluster,
-#     module.keycloak
-#   ]
-# }
+module "code" {
+  source                  = "./modules/code"
+  cloudflare_zone_id      = var.main_cloudflare_zone_id
+  cloudflare_zone_name    = var.main_cloudflare_zone_name
+  image                   = module.code_image.image.versioned
+  user_name               = var.user_name
+  github_pat              = var.github_pat
+  extensions_gallery_json = var.extensions_gallery_json
+  keycloak_realm_id       = module.keycloak_realms.main.id
+  keycloak_url            = module.keycloak.url
+  volume_name             = module.cluster.main_node_volume.label
+  node_ip_address         = module.cluster.main_node.ip_address
+  node_password           = var.root_password
+  node_name               = module.cluster.main_node.label
+  code_font               = "JuliaMono"
+  body_font               = "IBMPlexSans"
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
 
 # module "echo" {
 #   source               = "./modules/echo"
