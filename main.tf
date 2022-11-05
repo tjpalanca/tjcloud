@@ -259,24 +259,24 @@ module "plausible" {
   }
 }
 
-# module "mastodon" {
-#   source = "./modules/mastodon"
-#   providers = {
-#     postgresql = postgresql.main
-#   }
-#   cloudflare_zone_id        = var.public_cloudflare_zone_id
-#   cloudflare_zone_name      = var.public_cloudflare_zone_name
-#   main_cloudflare_zone_name = var.main_cloudflare_zone_name
-#   secret_key_base           = var.mastodon_secret_key_base
-#   otp_secret                = var.mastodon_otp_secret
-#   vapid_private_key         = var.mastodon_vapid_private_key
-#   vapid_public_key          = var.mastodon_vapid_public_key
-#   smtp_server               = "${module.mail.service.name}.${module.mail.service.namespace}"
-#   smtp_port                 = module.mail.service.port
-#   postgres_host             = module.database.main_postgres_credentials.internal_host
-#   postgres_port             = module.database.main_postgres_credentials.internal_port
-#   postgres_user             = module.database.main_postgres_credentials.username
-#   postgres_pass             = module.database.main_postgres_credentials.password
-#   redis_host                = "${module.database.main_redis_service.name}.${module.database.main_redis_service.namespace}"
-#   redis_port                = module.database.main_redis_service.port
-# }
+module "mastodon" {
+  source = "./modules/mastodon"
+  providers = {
+    postgresql = postgresql.main
+  }
+  cloudflare_zone_id        = var.public_cloudflare_zone_id
+  cloudflare_zone_name      = var.public_cloudflare_zone_name
+  main_cloudflare_zone_name = var.main_cloudflare_zone_name
+  secret_key_base           = var.mastodon_secret_key_base
+  otp_secret                = var.mastodon_otp_secret
+  vapid_private_key         = var.mastodon_vapid_private_key
+  vapid_public_key          = var.mastodon_vapid_public_key
+  smtp_server               = "${module.mail.service.name}.${module.mail.service.namespace}"
+  smtp_port                 = module.mail.service.port
+  postgres_host             = module.database.main_postgres_credentials.internal_host
+  postgres_port             = module.database.main_postgres_credentials.internal_port
+  postgres_user             = module.database.main_postgres_credentials.username
+  postgres_pass             = module.database.main_postgres_credentials.password
+  redis_host                = "${module.database.main_redis_service.name}.${module.database.main_redis_service.namespace}"
+  redis_port                = module.database.main_redis_service.port
+}
