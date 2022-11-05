@@ -52,61 +52,6 @@ module "cluster" {
   local_ssh_key      = var.local_ssh_key
 }
 
-module "code_image" {
-  source        = "./elements/image"
-  name          = "code"
-  namespace     = module.kaniko.namespace
-  registry      = local.ghcr_registry
-  build_context = "modules/code/image/"
-  image_address = "ghcr.io/tjpalanca/tjcloud/code"
-  node          = module.cluster.main_node
-  node_password = var.root_password
-  build_args = {
-    DEFAULT_USER = var.user_name
-  }
-  post_copy_commands = [
-    "chmod +x scripts/*"
-  ]
-}
-
-module "code" {
-  source                  = "./modules/code"
-  cloudflare_zone_id      = var.main_cloudflare_zone_id
-  cloudflare_zone_name    = var.main_cloudflare_zone_name
-  image                   = module.code_image.image.versioned
-  user_name               = var.user_name
-  github_pat              = var.github_pat
-  extensions_gallery_json = var.extensions_gallery_json
-  keycloak_realm_id       = module.keycloak_realms.main.id
-  keycloak_url            = module.keycloak.url
-  volume_name             = module.cluster.main_node_volume.label
-  node_ip_address         = module.cluster.main_node.ip_address
-  node_password           = var.root_password
-  node_name               = module.cluster.main_node.label
-  code_font               = "JuliaMono"
-  body_font               = "IBMPlexSans"
-  depends_on = [
-    module.cluster,
-    module.keycloak
-  ]
-}
-
-module "metrics_server" {
-  source = "./modules/metrics_server"
-}
-
-module "dashboard" {
-  source               = "./modules/dashboard"
-  namespace            = "dashboard"
-  cloudflare_zone_id   = var.main_cloudflare_zone_id
-  cloudflare_zone_name = var.main_cloudflare_zone_name
-  keycloak_realm_id    = module.keycloak_realms.main.id
-  keycloak_url         = module.keycloak.url
-  depends_on = [
-    module.metrics_server
-  ]
-}
-
 module "database" {
   source                        = "./modules/database"
   main_postgres_username        = var.main_postgres_username
@@ -126,18 +71,6 @@ module "database" {
   main_redis_volume_name        = module.cluster.main_node_volume.label
   depends_on = [
     module.cluster
-  ]
-}
-
-module "echo" {
-  source               = "./modules/echo"
-  cloudflare_zone_id   = var.main_cloudflare_zone_id
-  cloudflare_zone_name = var.main_cloudflare_zone_name
-  keycloak_realm_id    = module.keycloak_realms.main.id
-  keycloak_url         = module.keycloak.url
-  depends_on = [
-    module.cluster,
-    module.keycloak
   ]
 }
 
@@ -194,6 +127,61 @@ module "keycloak" {
   ]
 }
 
+module "code_image" {
+  source        = "./elements/image"
+  name          = "code"
+  namespace     = module.kaniko.namespace
+  registry      = local.ghcr_registry
+  build_context = "modules/code/image/"
+  image_address = "ghcr.io/tjpalanca/tjcloud/code"
+  node          = module.cluster.main_node
+  node_password = var.root_password
+  build_args = {
+    DEFAULT_USER = var.user_name
+  }
+  post_copy_commands = [
+    "chmod +x scripts/*"
+  ]
+}
+
+# module "code" {
+#   source                  = "./modules/code"
+#   cloudflare_zone_id      = var.main_cloudflare_zone_id
+#   cloudflare_zone_name    = var.main_cloudflare_zone_name
+#   image                   = module.code_image.image.versioned
+#   user_name               = var.user_name
+#   github_pat              = var.github_pat
+#   extensions_gallery_json = var.extensions_gallery_json
+#   keycloak_realm_id       = module.keycloak_realms.main.id
+#   keycloak_url            = module.keycloak.url
+#   volume_name             = module.cluster.main_node_volume.label
+#   node_ip_address         = module.cluster.main_node.ip_address
+#   node_password           = var.root_password
+#   node_name               = module.cluster.main_node.label
+#   code_font               = "JuliaMono"
+#   body_font               = "IBMPlexSans"
+#   depends_on = [
+#     module.cluster,
+#     module.keycloak
+#   ]
+# }
+
+# module "metrics_server" {
+#   source = "./modules/metrics_server"
+# }
+
+# module "dashboard" {
+#   source               = "./modules/dashboard"
+#   namespace            = "dashboard"
+#   cloudflare_zone_id   = var.main_cloudflare_zone_id
+#   cloudflare_zone_name = var.main_cloudflare_zone_name
+#   keycloak_realm_id    = module.keycloak_realms.main.id
+#   keycloak_url         = module.keycloak.url
+#   depends_on = [
+#     module.metrics_server
+#   ]
+# }
+
 # module "keycloak_realms" {
 #   source       = "./modules/keycloak-realms"
 #   admin_emails = var.admin_emails
@@ -201,6 +189,18 @@ module "keycloak" {
 #     client_id     = var.google_client_id
 #     client_secret = var.google_client_secret
 #   }
+#   depends_on = [
+#     module.cluster,
+#     module.keycloak
+#   ]
+# }
+
+# module "echo" {
+#   source               = "./modules/echo"
+#   cloudflare_zone_id   = var.main_cloudflare_zone_id
+#   cloudflare_zone_name = var.main_cloudflare_zone_name
+#   keycloak_realm_id    = module.keycloak_realms.main.id
+#   keycloak_url         = module.keycloak.url
 #   depends_on = [
 #     module.cluster,
 #     module.keycloak
