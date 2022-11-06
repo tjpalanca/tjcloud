@@ -46,9 +46,16 @@ locals {
     DB_PORT                  = tostring(var.postgres_port)
     REDIS_HOST               = var.redis_host
     REDIS_PORT               = tostring(var.redis_port)
+    REDIS_NAMESPACE          = "mastodon"
     ES_ENABLED               = "false"
     # TRUSTED_PROXY_IP         = ""
   }
+  vols = [{
+    volume_name = "system"
+    mount_path  = "/mastodon/public/system"
+    host_path   = "/mnt/${var.volume_name}/mastodon/"
+    mount_type  = "DirectoryOrCreate"
+  }]
 }
 
 resource "postgresql_database" "mastodon" {
@@ -61,11 +68,13 @@ module "mastodon_application" {
   namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
   ports     = [3000]
   image     = local.image
+  env_vars  = local.envs
+  node_name = var.node_name
+  volumes   = local.vols
   command = [
     "bash", "-c",
     "bundle exec rails db:migrate; bundle exec rails s -p 3000;"
   ]
-  env_vars = local.envs
 }
 
 module "mastodon_ingress" {
@@ -83,8 +92,8 @@ module "mastodon_streaming" {
   namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
   ports     = [4000]
   image     = local.image
-  command   = ["node", "./streaming"]
   env_vars  = local.envs
+  command   = ["node", "./streaming"]
 }
 
 module "mastodon_streaming_ingress" {
@@ -101,6 +110,8 @@ module "mastodon_sidekiq" {
   name      = "mastodon-sidekiq"
   namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
   image     = local.image
-  command   = ["bundle", "exec", "sidekiq"]
   env_vars  = local.envs
+  node_name = var.node_name
+  volumes   = local.vols
+  command   = ["bundle", "exec", "sidekiq"]
 }

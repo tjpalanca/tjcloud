@@ -57,3 +57,11 @@ variable "redis_host" {
 variable "redis_port" {
   type = number
 }
+
+variable "volume_name" {
+  type = string
+}
+
+variable "node_name" {
+  type = string
+}

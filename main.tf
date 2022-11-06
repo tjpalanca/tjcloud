@@ -279,4 +279,6 @@ module "mastodon" {
   postgres_pass             = module.database.main_postgres_credentials.password
   redis_host                = "${module.database.main_redis_service.name}.${module.database.main_redis_service.namespace}"
   redis_port                = module.database.main_redis_service.port
+  node_name                 = module.cluster.main_node.label
+  volume_name               = module.cluster.main_node_volume.label
 }
