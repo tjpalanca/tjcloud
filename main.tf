@@ -52,59 +52,9 @@ module "cluster" {
   local_ssh_key      = var.local_ssh_key
 }
 
-module "code_image" {
-  source        = "./elements/image"
-  name          = "code"
-  namespace     = module.kaniko.namespace
-  registry      = local.ghcr_registry
-  build_context = "modules/code/image/"
-  image_address = "ghcr.io/tjpalanca/tjcloud/code"
-  node          = module.cluster.main_node
-  node_password = var.root_password
-  build_args = {
-    DEFAULT_USER = var.user_name
-  }
-  post_copy_commands = [
-    "chmod +x scripts/*"
-  ]
-}
-
-module "code" {
-  source                  = "./modules/code"
-  cloudflare_zone_id      = var.main_cloudflare_zone_id
-  cloudflare_zone_name    = var.main_cloudflare_zone_name
-  image                   = module.code_image.image.versioned
-  user_name               = var.user_name
-  github_pat              = var.github_pat
-  extensions_gallery_json = var.extensions_gallery_json
-  keycloak_realm_id       = module.keycloak_realms.main.id
-  keycloak_url            = module.keycloak.url
-  volume_name             = module.cluster.main_node_volume.label
-  node_ip_address         = module.cluster.main_node.ip_address
-  node_password           = var.root_password
-  node_name               = module.cluster.main_node.label
-  code_font               = "JuliaMono"
-  body_font               = "IBMPlexSans"
-  depends_on = [
-    module.cluster,
-    module.keycloak
-  ]
-}
-
-module "metrics_server" {
-  source = "./modules/metrics_server"
-}
-
-module "dashboard" {
-  source               = "./modules/dashboard"
-  namespace            = "dashboard"
-  cloudflare_zone_id   = var.main_cloudflare_zone_id
-  cloudflare_zone_name = var.main_cloudflare_zone_name
-  keycloak_realm_id    = module.keycloak_realms.main.id
-  keycloak_url         = module.keycloak.url
-  depends_on = [
-    module.metrics_server
-  ]
+module "storage" {
+  source    = "./modules/storage"
+  user_name = var.user_name
 }
 
 module "database" {
@@ -122,20 +72,10 @@ module "database" {
   main_clickhouse_node_name     = module.cluster.main_node.label
   main_clickhouse_volume_name   = module.cluster.main_node_volume.label
   main_clickhouse_node_password = var.root_password
+  main_redis_node_name          = module.cluster.main_node.label
+  main_redis_volume_name        = module.cluster.main_node_volume.label
   depends_on = [
     module.cluster
-  ]
-}
-
-module "echo" {
-  source               = "./modules/echo"
-  cloudflare_zone_id   = var.main_cloudflare_zone_id
-  cloudflare_zone_name = var.main_cloudflare_zone_name
-  keycloak_realm_id    = module.keycloak_realms.main.id
-  keycloak_url         = module.keycloak.url
-  depends_on = [
-    module.cluster,
-    module.keycloak
   ]
 }
 
@@ -205,11 +145,78 @@ module "keycloak_realms" {
   ]
 }
 
+module "metrics_server" {
+  source = "./modules/metrics_server"
+}
+
+module "dashboard" {
+  source               = "./modules/dashboard"
+  namespace            = "dashboard"
+  cloudflare_zone_id   = var.main_cloudflare_zone_id
+  cloudflare_zone_name = var.main_cloudflare_zone_name
+  keycloak_realm_id    = module.keycloak_realms.main.id
+  keycloak_url         = module.keycloak.url
+  depends_on = [
+    module.metrics_server
+  ]
+}
+
+module "code_image" {
+  source        = "./elements/image"
+  name          = "code"
+  namespace     = module.kaniko.namespace
+  registry      = local.ghcr_registry
+  build_context = "modules/code/image/"
+  image_address = "ghcr.io/tjpalanca/tjcloud/code"
+  node          = module.cluster.main_node
+  node_password = var.root_password
+  build_args = {
+    DEFAULT_USER = var.user_name
+  }
+  post_copy_commands = [
+    "chmod +x scripts/*"
+  ]
+}
+
+module "code" {
+  source                  = "./modules/code"
+  cloudflare_zone_id      = var.main_cloudflare_zone_id
+  cloudflare_zone_name    = var.main_cloudflare_zone_name
+  image                   = module.code_image.image.versioned
+  user_name               = var.user_name
+  github_pat              = var.github_pat
+  extensions_gallery_json = var.extensions_gallery_json
+  keycloak_realm_id       = module.keycloak_realms.main.id
+  keycloak_url            = module.keycloak.url
+  volume_name             = module.cluster.main_node_volume.label
+  node_ip_address         = module.cluster.main_node.ip_address
+  node_password           = var.root_password
+  node_name               = module.cluster.main_node.label
+  code_font               = "JuliaMono"
+  body_font               = "IBMPlexSans"
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
+
+module "echo" {
+  source               = "./modules/echo"
+  cloudflare_zone_id   = var.main_cloudflare_zone_id
+  cloudflare_zone_name = var.main_cloudflare_zone_name
+  keycloak_realm_id    = module.keycloak_realms.main.id
+  keycloak_url         = module.keycloak.url
+  depends_on = [
+    module.cluster,
+    module.keycloak
+  ]
+}
+
 module "mail" {
   source         = "./modules/mail"
-  relay_host     = "smtp.gmail.com"
-  relay_username = var.gmail_username
-  relay_password = var.gmail_password
+  relay_host     = "smtp.mailgun.org"
+  relay_username = var.mailgun_username
+  relay_password = var.mailgun_password
 }
 
 module "pgadmin" {
@@ -252,7 +259,30 @@ module "plausible" {
   }
 }
 
-module "storage" {
-  source    = "./modules/storage"
-  user_name = var.user_name
+module "mastodon" {
+  source = "./modules/mastodon"
+  providers = {
+    postgresql = postgresql.main
+  }
+  cloudflare_zone_id        = var.public_cloudflare_zone_id
+  cloudflare_zone_name      = var.public_cloudflare_zone_name
+  main_cloudflare_zone_id   = var.main_cloudflare_zone_id
+  main_cloudflare_zone_name = var.main_cloudflare_zone_name
+  secret_key_base           = var.mastodon_secret_key_base
+  otp_secret                = var.mastodon_otp_secret
+  vapid_private_key         = var.mastodon_vapid_private_key
+  vapid_public_key          = var.mastodon_vapid_public_key
+  smtp_server               = "${module.mail.service.name}.${module.mail.service.namespace}"
+  smtp_port                 = module.mail.service.port
+  postgres_host             = module.database.main_postgres_credentials.internal_host
+  postgres_port             = module.database.main_postgres_credentials.internal_port
+  postgres_user             = module.database.main_postgres_credentials.username
+  postgres_pass             = module.database.main_postgres_credentials.password
+  redis_host                = "${module.database.main_redis_service.name}.${module.database.main_redis_service.namespace}"
+  redis_port                = module.database.main_redis_service.port
+  node_name                 = module.cluster.main_node.label
+  volume_name               = module.cluster.main_node_volume.label
+  node_ip                   = module.cluster.main_node.ip_address
+  node_password             = var.root_password
+  mastodon_version          = "4.0.0rc1"
 }

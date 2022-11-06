@@ -7,6 +7,12 @@ variable "service" {
   description = "Details of the service proxied"
 }
 
+variable "name" {
+  type = string 
+  default = null 
+  description = "Name of the ingress"
+}
+
 variable "host" {
   type        = string
   default     = null

@@ -13,6 +13,7 @@ resource "kubernetes_config_map_v1" "ingress_nginx_controller" {
     "proxy-real-ip-cidr"      = join(",", data.cloudflare_ip_ranges.cloudflare.ipv4_cidr_blocks)
     "use-forwarded-headers"   = "true"
     "forwarded-for-header"    = "CF-Connecting-IP"
+    "server-snippet"          = join("\n", var.server_snippets)
   }
 }
 

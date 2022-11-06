@@ -49,3 +49,11 @@ variable "main_clickhouse_node_name" {
 variable "main_clickhouse_volume_name" {
   type = string
 }
+
+variable "main_redis_node_name" {
+  type = string
+}
+
+variable "main_redis_volume_name" {
+  type = string
+}

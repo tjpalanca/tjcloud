@@ -26,7 +26,7 @@ locals {
 
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
-    name        = "${var.service.name}-ingress"
+    name        = coalesce(var.name, "${var.service.name}-ingress")
     namespace   = var.service.namespace
     annotations = local.annots
   }

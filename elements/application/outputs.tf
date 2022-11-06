@@ -1,7 +1,7 @@
 output "service" {
   value = {
     name      = kubernetes_service_v1.service.metadata[0].name
-    port      = var.ports[0]
+    port      = module.deployment.ports[0]
     namespace = kubernetes_service_v1.service.metadata[0].namespace
   }
 }

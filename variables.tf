@@ -174,6 +174,14 @@ variable "gmail_password" {
   type = string
 }
 
+variable "mailgun_username" {
+  type = string
+}
+
+variable "mailgun_password" {
+  type = string
+}
+
 variable "plausible_admin_user_email" {
   type = string
 }
@@ -187,5 +195,21 @@ variable "plausible_admin_user_password" {
 }
 
 variable "plausible_secret_key_base" {
+  type = string
+}
+
+variable "mastodon_secret_key_base" {
+  type = string
+}
+
+variable "mastodon_otp_secret" {
+  type = string
+}
+
+variable "mastodon_vapid_private_key" {
+  type = string
+}
+
+variable "mastodon_vapid_public_key" {
   type = string
 }
