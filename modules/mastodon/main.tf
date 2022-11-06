@@ -47,6 +47,7 @@ locals {
     REDIS_HOST               = var.redis_host
     REDIS_PORT               = tostring(var.redis_port)
     ES_ENABLED               = "false"
+    WEB_CONCURRENCY          = "1"
     # TRUSTED_PROXY_IP         = ""
   }
 }
@@ -101,6 +102,6 @@ module "mastodon_sidekiq" {
   name      = "mastodon-sidekiq"
   namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
   image     = local.image
-  command   = ["bundle", "exec", "sidekiq"]
+  command   = ["bundle", "exec", "sidekiq", "-c", "5"]
   env_vars  = local.envs
 }
