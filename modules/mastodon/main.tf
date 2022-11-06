@@ -48,7 +48,7 @@ locals {
     REDIS_PORT               = tostring(var.redis_port)
     REDIS_NAMESPACE          = "mastodon"
     ES_ENABLED               = "false"
-    # TRUSTED_PROXY_IP         = ""
+    TRUSTED_PROXY_IP         = "10.2.0.9"
   }
   host_path = "/mnt/${var.volume_name}/mastodon/"
   vols = [{
@@ -64,7 +64,7 @@ resource "postgresql_database" "mastodon" {
 }
 
 module "mastodon_permissions" {
-  source          = "../permissions"
+  source          = "../../elements/permissions"
   node_password   = var.node_password
   node_ip_address = var.node_ip
   node_path       = local.host_path
