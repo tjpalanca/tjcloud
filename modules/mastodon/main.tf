@@ -49,7 +49,7 @@ locals {
     REDIS_NAMESPACE          = "mastodon"
     ES_ENABLED               = "false"
     TRUSTED_PROXY_IP         = "10.2.0.9"
-    RAILS_LOG_LEVEL          = "debug"
+    RAILS_LOG_LEVEL          = "warn"
   }
   host_path = "/mnt/${var.volume_name}/mastodon/"
   vols = [{
