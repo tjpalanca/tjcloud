@@ -96,6 +96,15 @@ module "mastodon_ingress" {
   cname     = var.main_cloudflare_zone_name
 }
 
+module "mastodon_ingress_webfinger" {
+  source    = "../../elements/ingress"
+  service   = module.mastodon_application.service
+  host      = local.host
+  path      = "/.well-known/webfinger"
+  zone_id   = var.cloudflare_zone_id
+  zone_name = var.cloudflare_zone_name
+}
+
 module "mastodon_streaming" {
   source    = "../../elements/application"
   name      = "mastodon-streaming"
