@@ -18,11 +18,11 @@ resource "kubernetes_namespace_v1" "mastodon" {
 }
 
 locals {
-  host  = "mastodon"
-  image = "tootsuite/mastodon:${var.mastodon_version}"
+  host   = "mastodon"
+  domain = "${local.host}.${var.cloudflare_zone_name}"
+  image  = "tootsuite/mastodon:${var.mastodon_version}"
   envs = {
-    LOCAL_DOMAIN             = var.cloudflare_zone_name
-    WEB_DOMAIN               = "${local.host}.${var.cloudflare_zone_name}"
+    LOCAL_DOMAIN             = local.domain
     SECRET_KEY_BASE          = var.secret_key_base
     OTP_SECRET               = var.otp_secret
     VAPID_PRIVATE_KEY        = var.vapid_private_key
@@ -35,7 +35,7 @@ locals {
     DEFAULT_LOCALE           = "en"
     SMTP_SERVER              = var.smtp_server
     SMTP_PORT                = tostring(var.smtp_port)
-    SMTP_FROM_ADDRESS        = "mastodon@${var.cloudflare_zone_name}"
+    SMTP_FROM_ADDRESS        = "mastodon@${local.domain}"
     DB_HOST                  = var.postgres_host
     DB_USER                  = var.postgres_user
     DB_PASS                  = var.postgres_pass
@@ -94,16 +94,6 @@ module "mastodon_ingress" {
   zone_id   = var.cloudflare_zone_id
   zone_name = var.cloudflare_zone_name
   cname     = var.main_cloudflare_zone_name
-}
-
-module "mastodon_ingress_webfinger" {
-  source    = "../../elements/ingress"
-  service   = module.mastodon_application.service
-  host      = local.host
-  name      = "mastodon-webfinger-ingress"
-  path      = "/.well-known/webfinger"
-  zone_id   = var.main_cloudflare_zone_id
-  zone_name = var.main_cloudflare_zone_name
 }
 
 module "mastodon_streaming" {
