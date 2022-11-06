@@ -174,6 +174,14 @@ variable "gmail_password" {
   type = string
 }
 
+variable "mailgun_username" {
+  type = string
+}
+
+variable "mailgun_password" {
+  type = string
+}
+
 variable "plausible_admin_user_email" {
   type = string
 }

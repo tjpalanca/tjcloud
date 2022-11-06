@@ -214,9 +214,9 @@ module "echo" {
 
 module "mail" {
   source         = "./modules/mail"
-  relay_host     = "smtp.gmail.com"
-  relay_username = var.gmail_username
-  relay_password = var.gmail_password
+  relay_host     = "smtp.mailgun.org"
+  relay_username = var.mailgun_username
+  relay_password = var.mailgun_password
 }
 
 module "pgadmin" {
