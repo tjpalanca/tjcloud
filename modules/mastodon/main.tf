@@ -33,20 +33,20 @@ locals {
     RAILS_ENV                = "production"
     NODE_ENV                 = "production"
     RAILS_SERVE_STATIC_FILES = "true"
-    # STREAMING_API_BASE_URL   = "wss://${local.host}-streaming.${var.cloudflare_zone_name}"
-    SINGLE_USER_MODE  = "true"
-    DEFAULT_LOCALE    = "en"
-    SMTP_SERVER       = var.smtp_server
-    SMTP_PORT         = tostring(var.smtp_port)
-    SMTP_FROM_ADDRESS = "mastodon@${var.cloudflare_zone_name}"
-    DB_HOST           = var.postgres_host
-    DB_USER           = var.postgres_user
-    DB_PASS           = var.postgres_pass
-    DB_NAME           = postgresql_database.mastodon.name
-    DB_PORT           = tostring(var.postgres_port)
-    REDIS_HOST        = var.redis_host
-    REDIS_PORT        = tostring(var.redis_port)
-    ES_ENABLED        = "false"
+    STREAMING_API_BASE_URL   = "wss://${local.host}-streaming.${var.cloudflare_zone_name}"
+    SINGLE_USER_MODE         = "true"
+    DEFAULT_LOCALE           = "en"
+    SMTP_SERVER              = var.smtp_server
+    SMTP_PORT                = tostring(var.smtp_port)
+    SMTP_FROM_ADDRESS        = "mastodon@${var.cloudflare_zone_name}"
+    DB_HOST                  = var.postgres_host
+    DB_USER                  = var.postgres_user
+    DB_PASS                  = var.postgres_pass
+    DB_NAME                  = postgresql_database.mastodon.name
+    DB_PORT                  = tostring(var.postgres_port)
+    REDIS_HOST               = var.redis_host
+    REDIS_PORT               = tostring(var.redis_port)
+    ES_ENABLED               = "false"
     # TRUSTED_PROXY_IP         = ""
   }
 }
@@ -72,7 +72,6 @@ module "mastodon_ingress" {
   source    = "../../elements/ingress"
   service   = module.mastodon_application.service
   host      = local.host
-  path      = "/"
   zone_id   = var.cloudflare_zone_id
   zone_name = var.cloudflare_zone_name
   cname     = var.main_cloudflare_zone_name
@@ -91,8 +90,7 @@ module "mastodon_streaming" {
 module "mastodon_streaming_ingress" {
   source    = "../../elements/ingress"
   service   = module.mastodon_streaming.service
-  host      = local.host
-  path      = "/api/"
+  host      = "${local.host}-streaming"
   zone_id   = var.cloudflare_zone_id
   zone_name = var.cloudflare_zone_name
   cname     = var.main_cloudflare_zone_name
