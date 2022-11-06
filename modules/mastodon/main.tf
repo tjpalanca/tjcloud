@@ -102,8 +102,8 @@ module "mastodon_ingress_webfinger" {
   host      = local.host
   name      = "mastodon-webfinger-ingress"
   path      = "/.well-known/webfinger"
-  zone_id   = var.cloudflare_zone_id
-  zone_name = var.cloudflare_zone_name
+  zone_id   = var.main_cloudflare_zone_id
+  zone_name = var.main_cloudflare_zone_name
 }
 
 module "mastodon_streaming" {

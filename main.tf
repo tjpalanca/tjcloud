@@ -266,6 +266,7 @@ module "mastodon" {
   }
   cloudflare_zone_id        = var.public_cloudflare_zone_id
   cloudflare_zone_name      = var.public_cloudflare_zone_name
+  main_cloudflare_zone_id   = var.main_cloudflare_zone_id
   main_cloudflare_zone_name = var.main_cloudflare_zone_name
   secret_key_base           = var.mastodon_secret_key_base
   otp_secret                = var.mastodon_otp_secret
