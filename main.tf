@@ -281,4 +281,6 @@ module "mastodon" {
   redis_port                = module.database.main_redis_service.port
   node_name                 = module.cluster.main_node.label
   volume_name               = module.cluster.main_node_volume.label
+  node_ip                   = module.cluster.main_node.ip_address
+  node_password             = var.root_password
 }

@@ -65,3 +65,11 @@ variable "volume_name" {
 variable "node_name" {
   type = string
 }
+
+variable "node_ip" {
+  type = string
+}
+
+variable "node_password" {
+  type = string
+}

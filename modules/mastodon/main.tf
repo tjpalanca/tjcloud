@@ -50,16 +50,25 @@ locals {
     ES_ENABLED               = "false"
     # TRUSTED_PROXY_IP         = ""
   }
+  host_path = "/mnt/${var.volume_name}/mastodon/"
   vols = [{
     volume_name = "system"
     mount_path  = "/mastodon/public/system"
-    host_path   = "/mnt/${var.volume_name}/mastodon/"
+    host_path   = local.host_path
     mount_type  = "DirectoryOrCreate"
   }]
 }
 
 resource "postgresql_database" "mastodon" {
   name = "mastodon"
+}
+
+module "mastodon_permissions" {
+  source          = "../permissions"
+  node_password   = var.node_password
+  node_ip_address = var.node_ip
+  node_path       = local.host_path
+  uid             = 991
 }
 
 module "mastodon_application" {
@@ -74,6 +83,9 @@ module "mastodon_application" {
   command = [
     "bash", "-c",
     "bundle exec rails db:migrate; bundle exec rails s -p 3000;"
+  ]
+  depends_on = [
+    module.mastodon_permissions
   ]
 }
 
@@ -114,4 +126,7 @@ module "mastodon_sidekiq" {
   node_name = var.node_name
   volumes   = local.vols
   command   = ["bundle", "exec", "sidekiq"]
+  depends_on = [
+    module.mastodon_permissions
+  ]
 }
