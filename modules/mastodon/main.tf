@@ -11,10 +11,6 @@ terraform {
   }
 }
 
-locals {
-  image = "tootsuite/mastodon:${var.mastodon_version}"
-}
-
 resource "kubernetes_namespace_v1" "mastodon" {
   metadata {
     name = "mastodon"
@@ -22,7 +18,8 @@ resource "kubernetes_namespace_v1" "mastodon" {
 }
 
 locals {
-  host = "mastodon"
+  host  = "mastodon"
+  image = "tootsuite/mastodon:${var.mastodon_version}"
   envs = {
     LOCAL_DOMAIN             = var.cloudflare_zone_name
     WEB_DOMAIN               = "${local.host}.${var.cloudflare_zone_name}"

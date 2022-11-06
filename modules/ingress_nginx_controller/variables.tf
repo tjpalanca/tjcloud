@@ -9,3 +9,8 @@ variable "cloudflare_origin_ca" {
 variable "cloudflare_zone_name" {
   type = string
 }
+
+variable "server_snippets" {
+  type    = list(string)
+  default = []
+}
