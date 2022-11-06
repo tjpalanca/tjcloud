@@ -12,7 +12,7 @@ terraform {
 }
 
 locals {
-  image = "ghcr.io/mastodon/mastodon:latest"
+  image = "tootsuite/mastodon:${var.mastodon_version}"
 }
 
 resource "kubernetes_namespace_v1" "mastodon" {

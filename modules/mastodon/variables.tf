@@ -73,3 +73,7 @@ variable "node_ip" {
 variable "node_password" {
   type = string
 }
+
+variable "mastodon_version" {
+  type = string
+}
