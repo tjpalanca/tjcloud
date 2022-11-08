@@ -284,5 +284,5 @@ module "mastodon" {
   volume_name               = module.cluster.main_node_volume.label
   node_ip                   = module.cluster.main_node.ip_address
   node_password             = var.root_password
-  mastodon_version          = "v3.5.3"
+  mastodon_version          = "v4.0.0rc2"
 }
