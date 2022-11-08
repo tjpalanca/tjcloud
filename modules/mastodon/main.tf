@@ -123,7 +123,7 @@ module "mastodon_sidekiq" {
   env_vars  = local.envs
   node_name = var.node_name
   volumes   = local.vols
-  command   = ["bundle", "exec", "sidekiq"]
+  command   = ["bundle", "exec", "sidekiq", "-c", "2"]
   depends_on = [
     module.mastodon_permissions
   ]
