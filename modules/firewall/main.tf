@@ -20,7 +20,7 @@ locals {
 resource "linode_firewall" "firewall" {
   label          = var.name
   disabled       = true
-  inbound_policy = "DENY"
+  inbound_policy = "DROP"
   inbound {
     label    = "Terraform Cloud"
     action   = "ACCEPT"
