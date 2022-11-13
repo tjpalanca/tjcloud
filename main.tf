@@ -52,6 +52,13 @@ module "cluster" {
   local_ssh_key      = var.local_ssh_key
 }
 
+module "firewall" {
+  name        = var.cluster_name
+  source      = "./modules/firewall"
+  node_ids    = module.cluster.node_ids
+  allowed_ips = [var.home_ip]
+}
+
 module "storage" {
   source    = "./modules/storage"
   user_name = var.user_name
