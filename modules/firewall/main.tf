@@ -11,6 +11,10 @@ terraform {
   }
 }
 
+locals {
+  all_ports = "1-65535"
+}
+
 data "tfe_ip_ranges" "ips" {}
 
 resource "linode_firewall" "firewall" {
@@ -22,14 +26,14 @@ resource "linode_firewall" "firewall" {
     label    = "terraform-cloud"
     action   = "ACCEPT"
     protocol = "TCP"
-    ports    = "0-65535"
+    ports    = local.all_ports
     ipv4     = data.tfe_ip_ranges.ips.api
   }
   inbound {
     label    = "other-whitelisted-ips"
     action   = "ACCEPT"
     protocol = "TCP"
-    ports    = "0-65535"
+    ports    = local.all_ports
     ipv4     = [for ip in var.allowed_ips : "${ip}/32"]
   }
   inbound {
