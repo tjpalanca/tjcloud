@@ -67,13 +67,14 @@ module "code_application" {
   privileged           = true
   service_account_name = kubernetes_service_account_v1.code_cluster_admin.metadata[0].name
   env_vars = {
-    USER               = var.user_name
-    DEFAULT_USER       = var.user_name
-    CONNECTION_TOKEN   = "dummy"
-    PROXY_DOMAIN       = local.domain
-    VSCODE_PROXY_URI   = "https://{{port}}.${var.cloudflare_zone_name}"
-    GITHUB_TOKEN       = var.github_pat
-    EXTENSIONS_GALLERY = var.extensions_gallery_json
+    USER                                = var.user_name
+    DEFAULT_USER                        = var.user_name
+    CONNECTION_TOKEN                    = "dummy"
+    PROXY_DOMAIN                        = local.domain
+    VSCODE_PROXY_URI                    = "https://{{port}}.${var.cloudflare_zone_name}"
+    GITHUB_TOKEN                        = var.github_pat
+    EXTENSIONS_GALLERY                  = var.extensions_gallery_json
+    CS_DISABLE_GETTING_STARTED_OVERRIDE = "true"
   }
   volumes = [
     {
