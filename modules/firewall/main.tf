@@ -16,6 +16,7 @@ data "tfe_ip_ranges" "ips" {}
 resource "linode_firewall" "firewall" {
   label          = var.name
   disabled       = true
+  linodes        = var.node_ids
   inbound_policy = "DROP"
   inbound {
     label    = "terraform-cloud"
