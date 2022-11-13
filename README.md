@@ -27,3 +27,4 @@ As of this writing, I host the following applications:
 * [PostgreSQL](https://www.postgresql.org) for my main database, and [Clickhouse](https://clickhouse.com) as a requirement for plausible
 * [Plausible Analytics](https://plausible.io) for hosting privacy-friendly website analytics
 * the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard) for administering the cluster, and [metrics-server](https://github.com/kubernetes-sigs/metrics-server) for collecting data to present in the dashboard.
+* [Mastodon](https://joinmastodon.org) - my own personal Mastodon server for interacting with the Fediverse (open source Twitter but less annoying virality and more useful, insightful content)
