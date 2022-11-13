@@ -20,7 +20,7 @@ This is my personal cloud - for hobby programming, personal projects, and experi
 As of this writing, I host the following applications:
 
 * a VS Code instance from [code-server](https://github.com/coder/code-server) that allows me to develop on the cloud, with any device (including iPads and chromebooks!). Some special features are: 
-    * Protected domains (https://<port>.<domain>) to test web apps running on the server or for exposing environments like Jupyter or Pluto
+    * Protected domains (https://\<port\>.\<domain\>) to test web apps running on the server or for exposing environments like Jupyter or Pluto
     * Custom web fonts through an NGINX sub_filter 
     * Python, Julia, JS, and R installations for the confused data person 
 * [PGAdmin](https://www.pgadmin.org), an excellent open source administration console for PostgreSQL 
