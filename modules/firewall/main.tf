@@ -22,25 +22,25 @@ resource "linode_firewall" "firewall" {
   disabled       = true
   inbound_policy = "DROP"
   inbound {
-    label    = "Terraform Cloud"
+    label    = "terraform-cloud"
     action   = "ACCEPT"
     protocol = "TCP"
     ipv4     = data.tfe_ip_ranges.ips.api
   }
   inbound {
-    label    = "Other Whitelisted IPs"
+    label    = "other-whitelisted-ips"
     action   = "ACCEPT"
     protocol = "TCP"
     ipv4     = var.allowed_ips
   }
   inbound {
-    label    = "Allow HTTP access"
+    label    = "allow-http"
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "80"
   }
   inbound {
-    label    = "Allow HTTPS access"
+    label    = "allow-https"
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "443"
