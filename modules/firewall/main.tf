@@ -13,10 +13,6 @@ terraform {
 
 data "tfe_ip_ranges" "ips" {}
 
-locals {
-  allowed_ips = concat(var.allowed_ips, data.tfe_ip_ranges.ips.api)
-}
-
 resource "linode_firewall" "firewall" {
   label          = var.name
   disabled       = true
@@ -31,7 +27,7 @@ resource "linode_firewall" "firewall" {
     label    = "other-whitelisted-ips"
     action   = "ACCEPT"
     protocol = "TCP"
-    ipv4     = var.allowed_ips
+    ipv4     = [for ip in var.allowed_ips : "${ip}/32"]
   }
   inbound {
     label    = "allow-http"
