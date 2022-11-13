@@ -22,27 +22,21 @@ resource "linode_firewall" "firewall" {
     label    = "terraform-cloud"
     action   = "ACCEPT"
     protocol = "TCP"
+    ports    = "0-65535"
     ipv4     = data.tfe_ip_ranges.ips.api
   }
   inbound {
     label    = "other-whitelisted-ips"
     action   = "ACCEPT"
     protocol = "TCP"
+    ports    = "0-65535"
     ipv4     = [for ip in var.allowed_ips : "${ip}/32"]
   }
   inbound {
-    label    = "allow-http"
+    label    = "allow-http-and-https"
     action   = "ACCEPT"
     protocol = "TCP"
-    ports    = "80"
-    ipv4     = ["0.0.0.0/0"]
-    ipv6     = ["::/0"]
-  }
-  inbound {
-    label    = "allow-https"
-    action   = "ACCEPT"
-    protocol = "TCP"
-    ports    = "443"
+    ports    = "80,443"
     ipv4     = ["0.0.0.0/0"]
     ipv6     = ["::/0"]
   }
