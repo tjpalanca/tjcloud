@@ -38,12 +38,16 @@ resource "linode_firewall" "firewall" {
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "80"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
   }
   inbound {
     label    = "allow-https"
     action   = "ACCEPT"
     protocol = "TCP"
     ports    = "443"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
   }
   outbound_policy = "ACCEPT"
 }
