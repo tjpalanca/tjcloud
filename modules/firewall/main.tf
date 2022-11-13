@@ -19,7 +19,7 @@ data "tfe_ip_ranges" "ips" {}
 
 resource "linode_firewall" "firewall" {
   label          = var.name
-  disabled       = true
+  disabled       = false
   linodes        = var.node_ids
   inbound_policy = "DROP"
   inbound {
