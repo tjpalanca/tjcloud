@@ -9,8 +9,8 @@ on:
     - tjpalanca/21-Security-Hardening 
 
 jobs:
-  test:
-    name: Setup and run nbdev_test
+  deploy:
+    name: Deploy Terraform
     runs-on: ubuntu-latest
     steps: 
     - name: Checkout code 
@@ -19,7 +19,7 @@ jobs:
       name: Setup Python 
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.11'
     - id: setup-poetry 
       name: Setup Poetry
       uses: snok/install-poetry@v1
@@ -44,6 +44,10 @@ jobs:
     - name: Install library
       run: poetry install --no-interaction
     - name: Disable firewall
+      env:
+        LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
       run: disable_firewall
     - name: Enable firewall
+      env:
+        LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
       run: enable_firewall
