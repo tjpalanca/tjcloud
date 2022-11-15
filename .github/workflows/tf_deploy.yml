@@ -34,9 +34,6 @@ jobs:
       with:
         terraform_version: 1.1.7
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-    - id: terraform-apply 
-      name: Terraform Apply 
-      run: terraform apply -auto-approve 
     - id: load-cached-virtualenv
       name: Load cached virtualenv
       uses: actions/cache@v3
@@ -58,8 +55,9 @@ jobs:
       run: |
         source .venv/bin/activate 
         disable_firewall
-    - name: Terraform Apply 
-
+    - id: terraform-apply 
+      name: Terraform Apply 
+      run: terraform apply -auto-approve 
     - name: Re-enable firewall
       if: always()
       env:
