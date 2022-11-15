@@ -2,11 +2,11 @@ name: Terraform Deployment
 
 on: 
   workflow_dispatch: 
+  pull_request:
   push:
     branches: 
     - main 
     - master
-    - tjpalanca/21-Security-Hardening 
 
 jobs:
   deploy:
@@ -55,9 +55,13 @@ jobs:
       run: |
         source .venv/bin/activate 
         disable_firewall
+    - id: terraform-plan 
+      name: Terraform Plan
+      run: terraform plan
     - id: terraform-apply 
-      name: Terraform Apply 
-      run: terraform apply -auto-approve 
+      name: Terraform Apply
+      if: github.event_name == 'push'
+      run: terraform apply -auto-approve
     - name: Re-enable firewall
       if: always()
       env:
