@@ -81,3 +81,8 @@ variable "node_password" {
 variable "mastodon_version" {
   type = string
 }
+
+variable "skip_post_deployment" {
+  type    = bool
+  default = false
+}
