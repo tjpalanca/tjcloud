@@ -12,10 +12,6 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "3.21.0"
     }
-    tfe = {
-      source  = "hashicorp/tfe"
-      version = "~> 0.35.0"
-    }
     postgresql = {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
