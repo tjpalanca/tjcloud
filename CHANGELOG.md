@@ -2,6 +2,12 @@
 
 <!-- do not remove -->
 
+## 2.3.0 - Mastodon Upgrades
+
+* Upgrade Mastodon to v4.0.2 ([#24](https://github.com/tjpalanca/tjcloud/issues/24))
+* Add liveness and readiness probes ([#20](https://github.com/tjpalanca/tjcloud/issues/20))
+* Move Puma to single-mode in order to reduce memory usage
+
 ## 2.2.0 - Security Hardening and `{nbdev}`
 
 * Added a Linode Cloud Firewall to protect from opportunistic and brute force attacks.
