@@ -47,7 +47,7 @@ locals {
     ES_ENABLED                      = "false"
     TRUSTED_PROXY_IP                = "10.2.0.9"
     RAILS_LOG_LEVEL                 = "warn"
-    WEB_CONCURRENCY                 = 1
+    WEB_CONCURRENCY                 = 0
     MAX_THREADS                     = 4
     STREAMING_CLUSTER_NUM           = 2
     SKIP_POST_DEPLOYMENT_MIGRATIONS = var.skip_post_deployment ? "true" : "false"
