@@ -1,0 +1,59 @@
+/*-- scss:defaults --*/
+$font-family-sans-serif: "IBM Plex Sans", sans-serif !default;
+$font-family-serif: "IBM Plex Serif", serif !default;
+$font-family-monospace: "Julia Mono", monospace !default;
+$headings-font-family: $font-family-serif  !default;
+$headings-font-weight: 500 !default;
+$font-size-base: 1rem !default;
+$teal: #008080 !default;
+$primary: $teal  !default;
+$enable-cssgrid: true !default;
+
+/*-- scss:rules --*/
+
+// Julia Mono Font Face for monospace
+@font-face {
+    font-family: "Julia Mono";
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/JuliaMono-Regular.woff2");
+}
+
+// Use serif for branding 
+.navbar-title {
+    font-family: $font-family-serif;
+    font-weight: 500;
+}
+
+// Use s-serif for body 
+p {
+    font-family: $font-family-sans-serif;
+}
+
+// Make sure title blocks are consistent
+.lead {
+    color: inherit;
+}
+
+// Fix categories
+.quarto-categories {
+    flex-wrap: wrap;
+}
+.quarto-title .quarto-categories .quarto-category {
+    opacity: inherit;
+    font-size: 0.8rem;
+}
+
+// Custom buttons
+.btn-orange {
+    background-color: $orange;
+    color: $white;
+}
+
+// Fix mobile view title block header 
+@media (max-width: 992px) {
+    #title-block-header div.quarto-title-banner {
+        display: grid;
+    }
+    #quarto-content {
+        padding-top: 14px;
+    }
+}

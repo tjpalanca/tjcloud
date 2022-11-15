@@ -12,10 +12,6 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "3.21.0"
     }
-    tfe = {
-      source  = "hashicorp/tfe"
-      version = "~> 0.35.0"
-    }
     postgresql = {
       source  = "cyrilgdn/postgresql"
       version = "~> 1.17.1"
@@ -50,6 +46,13 @@ module "cluster" {
   root_password      = var.root_password
   linode_token       = var.linode_token
   local_ssh_key      = var.local_ssh_key
+}
+
+module "firewall" {
+  name        = var.cluster_name
+  source      = "./modules/firewall"
+  node_ids    = module.cluster.node_ids
+  allowed_ips = [var.home_ip]
 }
 
 module "storage" {

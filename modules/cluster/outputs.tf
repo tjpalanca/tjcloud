@@ -21,3 +21,7 @@ output "main_nodes" {
 output "main_node_volume" {
   value = linode_volume.main_node_volume
 }
+
+output "node_ids" {
+  value = [for node in linode_lke_cluster.cluster.pool.0.nodes : node.instance_id]
+}

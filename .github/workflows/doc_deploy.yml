@@ -1,0 +1,60 @@
+name: nbdev Documentation to Github Pages
+
+on:
+  push:
+    branches: 
+    - main 
+    - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Documentation to GitHub Pages
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Checkout code 
+      uses: actions/checkout@v3
+    - id: setup-python 
+      name: Setup Python 
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - id: setup-poetry 
+      name: Setup Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: 1.2.2
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+    - id: load-cached-virtualenv
+      name: Load cached virtualenv
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: >-
+          venv
+          ${{ runner.os }}
+          ${{ steps.setup-python.outputs.python-version }}
+          ${{ hashFiles('**/poetry.lock') }}
+    - name: Install dependencies
+      if: steps.load-cached-virtualenv.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root
+    - name: Install library
+      run: poetry install --no-interaction
+    - name: Install Quarto 
+      uses: quarto-dev/quarto-actions/setup@v2
+      with:
+        version: 1.1.251
+    - name: Run nbdev_docs 
+      run: | 
+        source .venv/bin/activate 
+        nbdev_docs
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force_orphan: true
+        publish_dir: ./_docs
+        user_name: tjpalanca
+        user_email: mail@tjpalanca.com

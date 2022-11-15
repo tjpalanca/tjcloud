@@ -1,0 +1,24 @@
+format:
+  html:
+    css: styles.css
+    theme: cosmo
+    toc: true
+metadata-files:
+- nbdev.yml
+- sidebar.yml
+project:
+  preview:
+    browser: false
+    host: 0.0.0.0
+    port: 8888
+  type: website
+website:
+  navbar:
+    background: primary
+    search: true
+  open-graph: true
+  repo-actions:
+  - issue
+  sidebar:
+    style: floating
+  twitter-card: true
