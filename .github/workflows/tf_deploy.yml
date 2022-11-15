@@ -55,6 +55,9 @@ jobs:
       run: |
         source .venv/bin/activate 
         disable_firewall
+    - id: terraform-init 
+      name: Terraform Init
+      run: terraform init
     - id: terraform-plan 
       name: Terraform Plan
       run: terraform plan
