@@ -59,6 +59,19 @@ locals {
     host_path   = local.host_path
     mount_type  = "DirectoryOrCreate"
   }]
+  web_port = 3000
+  web_probes = [{
+    path                  = "/health"
+    port                  = local.web_port
+    initial_delay_seconds = 10
+    period_seconds        = 10
+    timeout_seconds       = 10
+  }]
+  streaming_port = 4000
+  streaming_probes = [{
+    path = "/api/v1/streaming/health"
+    port = local.streaming_port
+  }]
 }
 
 resource "postgresql_database" "mastodon" {
@@ -74,17 +87,19 @@ module "mastodon_permissions" {
 }
 
 module "mastodon_application" {
-  source    = "../../elements/application"
-  name      = "mastodon"
-  namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
-  ports     = [3000]
-  image     = local.image
-  env_vars  = local.envs
-  node_name = var.node_name
-  volumes   = local.vols
+  source           = "../../elements/application"
+  name             = "mastodon"
+  namespace        = kubernetes_namespace_v1.mastodon.metadata[0].name
+  ports            = [local.web_port]
+  image            = local.image
+  env_vars         = local.envs
+  node_name        = var.node_name
+  volumes          = local.vols
+  liveness_probes  = local.web_probes
+  readiness_probes = local.web_probes
   command = [
     "bash", "-c",
-    "bundle exec rails db:migrate; bundle exec rails s -p 3000;"
+    "bundle exec rails db:migrate; bundle exec rails s -p ${local.web_port};"
   ]
   depends_on = [
     module.mastodon_permissions
@@ -101,13 +116,15 @@ module "mastodon_ingress" {
 }
 
 module "mastodon_streaming" {
-  source    = "../../elements/application"
-  name      = "mastodon-streaming"
-  namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
-  ports     = [4000]
-  image     = local.image
-  env_vars  = local.envs
-  command   = ["node", "./streaming"]
+  source           = "../../elements/application"
+  name             = "mastodon-streaming"
+  namespace        = kubernetes_namespace_v1.mastodon.metadata[0].name
+  ports            = [local.streaming_port]
+  image            = local.image
+  env_vars         = local.envs
+  command          = ["node", "./streaming"]
+  liveness_probes  = local.streaming_probes
+  readiness_probes = local.streaming_probes
 }
 
 module "mastodon_streaming_ingress" {
