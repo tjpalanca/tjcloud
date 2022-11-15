@@ -14,4 +14,6 @@ d = { 'settings': { 'branch': 'master',
                                                                                  'tjcloud/linode.py'),
                                 'tjcloud.linode.LinodeClient.firewall_id': ('linode.html#linodeclient.firewall_id', 'tjcloud/linode.py'),
                                 'tjcloud.linode.LinodeClient.is_firewall_enabled': ( 'linode.html#linodeclient.is_firewall_enabled',
-                                                                                     'tjcloud/linode.py')}}}
+                                                                                     'tjcloud/linode.py'),
+                                'tjcloud.linode.disable_firewall': ('linode.html#disable_firewall', 'tjcloud/linode.py'),
+                                'tjcloud.linode.enable_firewall': ('linode.html#enable_firewall', 'tjcloud/linode.py')}}}

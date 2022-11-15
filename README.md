@@ -8,11 +8,12 @@ TJCloud
 
 ## Key Technologies
 
-It uses a few core technologies:
+I’m leaning on the following core technologies:
 
 - [Terraform](https://www.terraform.io) (and [Terraform
-  Cloud](https://app.terraform.io/)) for provisioning infrastructure as
-  code,
+  Cloud](https://app.terraform.io/) or [Github
+  Actions](https://github.com/features/actions)) for provisioning
+  infrastructure as code,
 - [Kubernetes](https://kubernetes.io) for orchestrating various
   workloads, with a few general patterns:
   - [NGINX Ingress](https://kubernetes.github.io/ingress-nginx/) for
@@ -47,17 +48,24 @@ As of this writing, I host the following applications:
   [code-server](https://github.com/coder/code-server) that allows me to
   develop on the cloud, with any device (including iPads and
   chromebooks!). Some special features are:
-  - Protected domains (https://<port>.<domain>) to test web apps running
-    on the server or for exposing environments like Jupyter or Pluto
+  - Protected domains (https://\<port\>.\<domain\>) to test web apps
+    running on the server or for exposing environments like Jupyter or
+    Pluto
   - Custom web fonts through an NGINX sub_filter
   - Python, Julia, JS, and R installations for the confused data person
 - [PGAdmin](https://www.pgadmin.org), an excellent open source
   administration console for PostgreSQL
-- [PostgreSQL](https://www.postgresql.org) for my main database, and
-  [Clickhouse](https://clickhouse.com) as a requirement for plausible
+- [PostgreSQL](https://www.postgresql.org) for my main database
+- [Clickhouse](https://clickhouse.com) as a requirement for Plausible
+  Analytics, storing clickstream data
+- [Redis](https://redis.io) as a requirement for Mastodon, but also for
+  general caching in the development server
 - [Plausible Analytics](https://plausible.io) for hosting
   privacy-friendly website analytics
 - the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard)
   for administering the cluster, and
   [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
   for collecting data to present in the dashboard.
+- [Mastodon](https://joinmastodon.org) - my own personal Mastodon server
+  for interacting with the Fediverse (open source Twitter but less
+  annoying virality and more useful, insightful content)

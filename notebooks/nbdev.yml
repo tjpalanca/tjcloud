@@ -4,6 +4,6 @@ project:
 website:
   title: "tjcloud"
   site-url: "https://tjpalanca.com/tjcloud"
-  description: "TJ Palanca's Personal Cloud"
+  description: "TJ Palanca Personal Cloud"
   repo-branch: master
   repo-url: "https://github.com/tjpalanca/tjcloud.git"

@@ -9,6 +9,10 @@ homepage = "https://tjpalanca.com/tjcloud"
 documentation = "https://tjpalanca.com/tjcloud"
 repository = "https://github.com/tjpalanca/tjcloud.git"
 
+[tool.poetry.scripts]
+enable_firewall = "tjcloud.linode:enable_firewall"
+disable_firewall = "tjcloud.linode:disable_firewall"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.28.1"
