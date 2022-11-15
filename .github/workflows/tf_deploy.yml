@@ -46,8 +46,12 @@ jobs:
     - name: Disable firewall
       env:
         LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
-      run: disable_firewall
+      run: |
+        source .venv/bin/activate 
+        disable_firewall
     - name: Enable firewall
       env:
         LINODE_TOKEN: ${{ secrets.LINODE_TOKEN }}
-      run: enable_firewall
+      run: |
+        source .venv/bin/activate 
+        enable_firewall
