@@ -290,3 +290,22 @@ module "mastodon" {
   mastodon_version          = "v4.0.2"
   skip_post_deployment      = false
 }
+
+module "freshrss" {
+  source = "./modules/freshrss"
+  providers = {
+    postgresql = postgresql.main
+  }
+  cloudflare_zone_id        = var.public_cloudflare_zone_id
+  cloudflare_zone_name      = var.public_cloudflare_zone_name
+  main_cloudflare_zone_id   = var.main_cloudflare_zone_id
+  main_cloudflare_zone_name = var.main_cloudflare_zone_name
+  node_name                 = module.cluster.main_node.label
+  volume_name               = module.cluster.main_node_volume.label
+  admin_email               = var.admin_emails[0]
+  postgres_host             = module.database.main_postgres_credentials.internal_host
+  admin_username            = var.freshrss_admin_username
+  admin_password            = var.freshrss_admin_password
+  node_ip                   = module.cluster.main_node.ip_address
+  node_password             = var.root_password
+}

@@ -218,3 +218,11 @@ variable "home_ip" {
   type        = string
   description = "Static IP for home network"
 }
+
+variable "freshrss_admin_username" {
+  type = string
+}
+
+variable "freshrss_admin_password" {
+  type = string
+}
