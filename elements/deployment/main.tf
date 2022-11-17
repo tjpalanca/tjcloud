@@ -46,6 +46,15 @@ resource "kubernetes_deployment_v1" "deployment" {
               container_port = port.value
             }
           }
+          dynamic "port" {
+            for_each = var.host_ports
+            content {
+              name           = port.value.name
+              container_port = port.value.container_port
+              host_port      = port.value.host_port
+              protocol       = port.value.protocol
+            }
+          }
           dynamic "env" {
             for_each = var.env_vars
             content {

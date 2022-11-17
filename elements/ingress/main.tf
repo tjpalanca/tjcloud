@@ -55,6 +55,7 @@ resource "kubernetes_ingress_v1" "ingress" {
 }
 
 resource "cloudflare_record" "record" {
+  count   = var.add_record ? 1 : 0
   zone_id = var.zone_id
   name    = local.host
   value   = coalesce(var.cname, local.zone)

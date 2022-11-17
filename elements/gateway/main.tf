@@ -111,4 +111,6 @@ module "proxy_ingress" {
   ingress_class_name        = var.ingress_class_name
   annotations               = var.annotations
   authenticated_origin_pull = var.authenticated_origin_pull
+  add_record                = var.add_record
+  cname                     = var.cname
 }
