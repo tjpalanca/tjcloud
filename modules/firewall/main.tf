@@ -27,5 +27,13 @@ resource "linode_firewall" "firewall" {
     ipv4     = ["0.0.0.0/0"]
     ipv6     = ["::/0"]
   }
+  inbound {
+    label    = "allow-email"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "25"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
   outbound_policy = "ACCEPT"
 }

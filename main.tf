@@ -290,3 +290,47 @@ module "mastodon" {
   mastodon_version          = "v4.0.2"
   skip_post_deployment      = false
 }
+
+module "freshrss" {
+  source = "./modules/freshrss"
+  providers = {
+    postgresql = postgresql.main
+  }
+  cloudflare_zone_id        = var.public_cloudflare_zone_id
+  cloudflare_zone_name      = var.public_cloudflare_zone_name
+  main_cloudflare_zone_id   = var.main_cloudflare_zone_id
+  main_cloudflare_zone_name = var.main_cloudflare_zone_name
+  node_name                 = module.cluster.main_node.label
+  volume_name               = module.cluster.main_node_volume.label
+  admin_email               = var.admin_emails[0]
+  postgres_host             = module.database.main_postgres_credentials.internal_host
+  admin_username            = var.freshrss_admin_username
+  admin_password            = var.freshrss_admin_password
+  node_ip                   = module.cluster.main_node.ip_address
+  node_password             = var.root_password
+}
+
+module "newsletter_image" {
+  source        = "./elements/image"
+  name          = "newsletter"
+  namespace     = module.kaniko.namespace
+  registry      = local.ghcr_registry
+  build_context = "modules/newsletter/image/"
+  image_address = "ghcr.io/tjpalanca/tjcloud/newsletter"
+  image_version = "v1.0"
+  node          = module.cluster.main_node
+  node_password = var.root_password
+}
+
+module "newsletter" {
+  source                    = "./modules/newsletter"
+  image                     = module.newsletter_image.image.versioned
+  cloudflare_zone_id        = var.public_cloudflare_zone_id
+  cloudflare_zone_name      = var.public_cloudflare_zone_name
+  main_cloudflare_zone_id   = var.main_cloudflare_zone_id
+  main_cloudflare_zone_name = var.main_cloudflare_zone_name
+  volume_name               = module.cluster.main_node_volume.label
+  node_ip                   = module.cluster.main_node.ip_address
+  keycloak_realm_id         = module.keycloak_realms.main.id
+  keycloak_url              = module.keycloak.url
+}

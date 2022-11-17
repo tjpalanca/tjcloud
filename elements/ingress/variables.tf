@@ -8,8 +8,8 @@ variable "service" {
 }
 
 variable "name" {
-  type = string 
-  default = null 
+  type        = string
+  default     = null
   description = "Name of the ingress"
 }
 
@@ -57,4 +57,10 @@ variable "authenticated_origin_pull" {
   type        = bool
   default     = true
   description = "Whether or not to verify the client certificate"
+}
+
+variable "add_record" {
+  type        = bool
+  default     = true
+  description = "Whether or not to add a Cloudflare record"
 }

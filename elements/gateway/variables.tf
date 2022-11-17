@@ -80,3 +80,15 @@ variable "additional_configuration" {
   default     = {}
   description = "Additional env vars"
 }
+
+variable "add_record" {
+  type        = bool
+  default     = true
+  description = "Whether or not to add a cloudflare record"
+}
+
+variable "cname" {
+  type        = string
+  default     = null
+  description = "CNAME value for cloudflare record, in case it is different from zone"
+}

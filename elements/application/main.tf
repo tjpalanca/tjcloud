@@ -41,6 +41,7 @@ module "deployment" {
   command              = var.command
   command_args         = var.command_args
   ports                = var.ports
+  host_ports           = var.host_ports
   env_vars             = var.env_vars
   config_maps          = var.config_maps
   liveness_probes      = var.liveness_probes

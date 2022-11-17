@@ -60,6 +60,17 @@ variable "ports" {
   description = "Ports on the container"
 }
 
+variable "host_ports" {
+  type = list(object({
+    name           = string
+    container_port = number
+    host_port      = number
+    protocol       = string
+  }))
+  default     = []
+  description = "Ports on the host"
+}
+
 variable "env_vars" {
   type        = map(string)
   default     = {}

@@ -42,7 +42,7 @@ I’m leaning on the following core technologies:
 
 ## Applications
 
-As of this writing, I host the following applications:
+I host the following applications:
 
 - a VS Code instance from
   [code-server](https://github.com/coder/code-server) that allows me to
@@ -69,3 +69,9 @@ As of this writing, I host the following applications:
 - [Mastodon](https://joinmastodon.org) - my own personal Mastodon server
   for interacting with the Fediverse (open source Twitter but less
   annoying virality and more useful, insightful content)
+- [FreshRSS](https://freshrss.org) - feed reading service, I read using
+  [Reeder](https://reederapp.com) on iOS and Mac.
+- [Kill the Newsletter](https://github.com/leafac/kill-the-newsletter) -
+  A self-hosted, secure version of [Kill the
+  Newsletter](https://kill-the-newsletter.com) for managing newsletters
+  and feeding them into FreshRSS.
