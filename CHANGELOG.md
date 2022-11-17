@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 2.4.0 - Self-Hosted RSS and Email Subscriptions
+
+* Added FreshRSS and Kill the Newsletter to my personal server. [#22](https://github.com/tjpalanca/tjcloud/issues/22)
+
 ## 2.3.0 - Mastodon Upgrades
 
 * Upgrade Mastodon to v4.0.2 ([#24](https://github.com/tjpalanca/tjcloud/issues/24))
