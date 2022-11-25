@@ -16,7 +16,7 @@ locals {
     "app.kubernetes.io/instance" = "ingress-nginx"
     "app.kubernetes.io/name"     = "ingress-nginx"
     "app.kubernetes.io/part-of"  = "ingress-nginx"
-    "app.kubernetes.io/version"  = "1.3.0"
+    "app.kubernetes.io/version"  = var.controller_version
   }
   controller_labels = {
     "app.kubernetes.io/component" = "controller"
@@ -358,7 +358,7 @@ resource "kubernetes_daemon_set_v1" "ingress_nginx_controller" {
         }
         container {
           name  = "controller"
-          image = "registry.k8s.io/ingress-nginx/controller:v1.3.0@sha256:d1707ca76d3b044ab8a28277a2466a02100ee9f58a86af1535a3edf9323ea1b5"
+          image = "registry.k8s.io/ingress-nginx/controller:v${var.controller_version}"
           args = [
             "/nginx-ingress-controller",
             "--election-id=ingress-controller-leader",
@@ -491,7 +491,7 @@ resource "kubernetes_job_v1" "ingress_nginx_admission_create" {
       spec {
         container {
           name  = "create"
-          image = "registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660"
+          image = "registry.k8s.io/ingress-nginx/kube-webhook-certgen:v${var.certgen_version}"
           args = [
             "create",
             "--host=ingress-nginx-controller-admission,ingress-nginx-controller-admission.$(POD_NAMESPACE).svc",
@@ -544,7 +544,7 @@ resource "kubernetes_job_v1" "ingress_nginx_admission_patch" {
       spec {
         container {
           name  = "patch"
-          image = "registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660"
+          image = "registry.k8s.io/ingress-nginx/kube-webhook-certgen:v${var.certgen_version}"
           args = [
             "patch",
             "--webhook-name=ingress-nginx-admission",
