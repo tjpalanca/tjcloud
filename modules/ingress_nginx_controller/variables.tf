@@ -17,10 +17,10 @@ variable "server_snippets" {
 
 variable "controller_version" {
   type    = string
-  default = "1.4.0"
+  default = "1.3.1"
 }
 
 variable "certgen_version" {
   type    = string
-  default = "20220916-gd32f8c343"
+  default = "1.3.0"
 }

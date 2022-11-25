@@ -154,11 +154,6 @@ resource "kubernetes_role_v1" "ingress_nginx" {
     api_groups = [""]
     resources  = ["events"]
   }
-  rule {
-    verbs      = ["list", "watch", "get"]
-    api_groups = ["discovery.k8s.io"]
-    resources  = "endpointslices"
-  }
 }
 
 resource "kubernetes_role_v1" "ingress_nginx_admission" {
