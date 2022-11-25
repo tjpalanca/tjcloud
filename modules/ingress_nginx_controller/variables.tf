@@ -14,3 +14,13 @@ variable "server_snippets" {
   type    = list(string)
   default = []
 }
+
+variable "controller_version" {
+  type    = string
+  default = "1.3.1"
+}
+
+variable "certgen_version" {
+  type    = string
+  default = "1.3.0"
+}
