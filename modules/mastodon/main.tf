@@ -113,6 +113,9 @@ module "mastodon_ingress" {
   zone_id   = var.cloudflare_zone_id
   zone_name = var.cloudflare_zone_name
   cname     = var.main_cloudflare_zone_name
+  annotations = {
+    "nginx.ingress.kubernetes.io/proxy-body-size" = "100m"
+  }
 }
 
 module "mastodon_streaming" {
