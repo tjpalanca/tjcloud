@@ -56,7 +56,11 @@ module "newsletter_gateway" {
   keycloak_groups       = ["Administrator"]
   default_client_scopes = ["groups"]
   additional_configuration = {
-    OAUTH2_PROXY_SKIP_AUTH_ROUTES = "/feeds/.+\\.xml,/favicon\\.ico"
+    OAUTH2_PROXY_SKIP_AUTH_ROUTES = join(",", [
+      "/feeds/.+\\.xml",
+      "/favicon\\.ico",
+      "/alternates/.+"
+    ])
   }
 }
 
