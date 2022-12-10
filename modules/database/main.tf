@@ -38,7 +38,7 @@ module "main_clickhouse_database" {
     name     = var.main_clickhouse_database
     username = var.main_clickhouse_username
     password = var.main_clickhouse_password
-    version  = "21"
+    version  = "22.6-alpine"
   }
   config = {
     name          = "main-clickhouse-database"

@@ -182,18 +182,6 @@ variable "mailgun_password" {
   type = string
 }
 
-variable "plausible_admin_user_email" {
-  type = string
-}
-
-variable "plausible_admin_user_name" {
-  type = string
-}
-
-variable "plausible_admin_user_password" {
-  type = string
-}
-
 variable "plausible_secret_key_base" {
   type = string
 }

@@ -24,9 +24,6 @@ locals {
     CLICKHOUSE_DATABASE_URL = "http://${var.clickhouse.username}:${var.clickhouse.password}@${var.clickhouse.internal_host}:${var.clickhouse.internal_port}/plausible"
     SMTP_HOST_ADDR          = var.smtp_host
     DISABLE_REGISTRATION    = "true"
-    ADMIN_USER_EMAIL        = var.admin_user.email
-    ADMIN_USER_NAME         = var.admin_user.name
-    ADMIN_USER_PWD          = var.admin_user.password
     SECRET_KEY_BASE         = var.secret_key_base
     MAILER_EMAIL            = "plausible@${var.cloudflare_zone_name}"
     GOOGLE_CLIENT_ID        = var.google_client_id
@@ -74,13 +71,12 @@ resource "kubernetes_deployment_v1" "deployment" {
         }
         init_container {
           name    = "plausible-init"
-          image   = "plausible/analytics:latest"
+          image   = "plausible/analytics:v${var.plausible_version}"
           command = ["/bin/sh", "-c"]
           args = [join(" && ", [
             "sleep 10",
             "/entrypoint.sh db createdb",
-            "/entrypoint.sh db migrate",
-            "/entrypoint.sh db init-admin"
+            "/entrypoint.sh db migrate"
           ])]
           dynamic "env" {
             for_each = local.env_vars
@@ -105,7 +101,7 @@ resource "kubernetes_deployment_v1" "deployment" {
         }
         container {
           name  = "plausible"
-          image = "plausible/analytics:latest"
+          image = "plausible/analytics:v${var.plausible_version}"
           port {
             container_port = local.port
           }
