@@ -30,8 +30,11 @@ variable "cloudflare_zone_cname" {
   type = string
 }
 
-variable "admin_user" {}
-
 variable "secret_key_base" {
   type = string
+}
+
+variable "plausible_version" {
+  type = string 
+  default = "1.5.1"
 }
