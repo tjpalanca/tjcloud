@@ -38,7 +38,7 @@ module "clickhouse_application" {
   ports     = [local.port]
   node_name = var.config.node_name
   replicas  = 1
-  image     = "yandex/clickhouse-server:${var.database.version}"
+  image     = "clickhouse/clickhouse-server:${var.database.version}"
   env_vars = {
     CLICKHOUSE_DB       = var.database.name
     CLICKHOUSE_USER     = var.database.username
