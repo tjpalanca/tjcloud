@@ -12,6 +12,8 @@ jobs:
   deploy:
     name: Terraform Plan and Apply
     runs-on: ubuntu-latest
+    concurrency: 
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps: 
     - name: Checkout code 
       uses: actions/checkout@v3

@@ -11,6 +11,8 @@ jobs:
   deploy:
     name: Deploy Documentation to GitHub Pages
     runs-on: ubuntu-latest
+    concurrency: 
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps: 
     - name: Checkout code 
       uses: actions/checkout@v3
