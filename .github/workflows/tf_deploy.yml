@@ -61,6 +61,7 @@ jobs:
     - id: terraform-plan 
       name: Terraform Plan
       run: terraform plan
+      if: github.event_name != 'push'
     - id: terraform-apply 
       name: Terraform Apply
       if: github.event_name == 'push'
