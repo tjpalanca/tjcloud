@@ -12,12 +12,12 @@ resource "null_resource" "reset_root_password" {
         -H "Authorization: Bearer $TOKEN" \
         -X POST \
         https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/shutdown && \
-      sleep 30 && \
+      sleep 200 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
         -X POST -d "{\"root_pass\": \"$PASSWORD\"}" \
         https://api.linode.com/v4/linode/instances/${data.linode_instances.main_nodes.instances[count.index].id}/password && \
-      sleep 5 && \
+      sleep 30 && \
       curl -H "Content-Type: application/json" \
         -H "Authorization: Bearer $TOKEN" \
         -X POST \
@@ -35,6 +35,12 @@ resource "null_resource" "add_local_ssh_key" {
 
   count = var.num_main_nodes
 
+  lifecycle {
+    replace_triggered_by = [
+      null_resource.reset_root_password
+    ]
+  }
+
   depends_on = [
     null_resource.reset_root_password
   ]
@@ -47,6 +53,7 @@ resource "null_resource" "add_local_ssh_key" {
       host     = data.linode_instances.main_nodes.instances[count.index].ip_address
     }
     inline = [
+      "mkdir -p ~/.ssh",
       "echo ${var.local_ssh_key} > ~/.ssh/authorized_keys"
     ]
   }
