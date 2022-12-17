@@ -17,7 +17,7 @@ terraform {
 
 resource "linode_lke_cluster" "cluster" {
   label       = var.cluster_name
-  k8s_version = "1.23"
+  k8s_version = "1.24"
   region      = var.linode_region
   pool {
     type  = "g6-standard-4"
