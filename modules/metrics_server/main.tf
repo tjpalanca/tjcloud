@@ -155,7 +155,7 @@ resource "kubernetes_deployment_v1" "metrics_server" {
             "--metric-resolution=15s",
             "--authorization-always-allow-paths=/livez,/readyz"
           ]
-          image             = "k8s.gcr.io/metrics-server/metrics-server:v0.6.1"
+          image             = "k8s.gcr.io/metrics-server/metrics-server:v0.6.2"
           image_pull_policy = "IfNotPresent"
           liveness_probe {
             http_get {
