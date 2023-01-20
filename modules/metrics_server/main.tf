@@ -199,6 +199,7 @@ resource "kubernetes_deployment_v1" "metrics_server" {
             name       = "tmp-dir"
           }
         }
+        host_network         = true
         priority_class_name  = "system-cluster-critical"
         service_account_name = "metrics-server"
         volume {
