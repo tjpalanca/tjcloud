@@ -82,7 +82,7 @@ resource "kubernetes_job_v1" "kaniko_warmer" {
         node_name = var.node.label
         container {
           name  = "kaniko-warmer"
-          image = "gcr.io/kaniko-project/warmer:latest"
+          image = "gcr.io/kaniko-project/warmer:${var.kaniko_version}"
           args = concat(
             ["--cache-dir=/cache"],
             [for img in var.warm_images : "--image=${img}"]
@@ -142,7 +142,7 @@ resource "kubernetes_job_v1" "kaniko_builder" {
         node_name = var.node.label
         container {
           name  = "kaniko-builder"
-          image = "gcr.io/kaniko-project/executor:latest"
+          image = "gcr.io/kaniko-project/executor:${var.kaniko_version}"
           args = concat(
             [
               "--dockerfile=/workspace/${var.dockerfile_path}",

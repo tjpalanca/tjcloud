@@ -31,6 +31,12 @@ variable "image_version" {
   description = "Registry version for the image"
 }
 
+variable "kaniko_version" {
+  type        = string
+  default     = "v1.9.1"
+  description = "Version of kaniko images to use"
+}
+
 variable "registry" {
   type = object({
     server   = string
