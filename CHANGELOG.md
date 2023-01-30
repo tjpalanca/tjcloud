@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 2.5.0
+
+* Migrate Mastodon to Linode Object Storage [#36](https://github.com/tjpalanca/tjcloud/issues/36)
+
 ## 2.4.1
 
 * Upgraded NGINX Ingress Controller to v1.3.1 [#27](https://github.com/tjpalanca/tjcloud/issues/27)
