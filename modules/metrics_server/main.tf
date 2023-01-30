@@ -169,6 +169,7 @@ resource "kubernetes_deployment_v1" "metrics_server" {
           name = "metrics-server"
           port {
             container_port = 4443
+            host_port      = 4443
             name           = "https"
             protocol       = "TCP"
           }
