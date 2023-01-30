@@ -11,3 +11,9 @@ resource "linode_object_storage_bucket" "user" {
   cluster = "ap-south-1"
   label   = var.user_name
 }
+
+resource "linode_object_storage_bucket" "media" {
+  cluster = "ap-south-1"
+  label   = "${var.user_name}-media"
+  acl     = "public-read"
+}
