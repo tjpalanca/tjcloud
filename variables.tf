@@ -214,3 +214,11 @@ variable "freshrss_admin_username" {
 variable "freshrss_admin_password" {
   type = string
 }
+
+variable "mastodon_s3_access_key" {
+  type = string
+}
+
+variable "mastodon_s3_secret_key" {
+  type = string
+}

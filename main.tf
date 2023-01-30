@@ -56,8 +56,10 @@ module "firewall" {
 }
 
 module "storage" {
-  source    = "./modules/storage"
-  user_name = var.user_name
+  source                      = "./modules/storage"
+  user_name                   = var.user_name
+  public_cloudflare_zone_id   = var.public_cloudflare_zone_id
+  public_cloudflare_zone_name = var.public_cloudflare_zone_name
 }
 
 module "database" {
@@ -284,6 +286,9 @@ module "mastodon" {
   node_password             = var.root_password
   mastodon_version          = "v4.0.2"
   skip_post_deployment      = false
+  s3_bucket                 = module.storage.media_bucket
+  s3_access_key             = var.mastodon_s3_access_key
+  s3_secret_key             = var.mastodon_s3_secret_key
 }
 
 module "freshrss" {
