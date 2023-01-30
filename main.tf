@@ -56,8 +56,10 @@ module "firewall" {
 }
 
 module "storage" {
-  source    = "./modules/storage"
-  user_name = var.user_name
+  source                      = "./modules/storage"
+  user_name                   = var.user_name
+  public_cloudflare_zone_id   = var.public_cloudflare_zone_id
+  public_cloudflare_zone_name = var.public_cloudflare_zone_name
 }
 
 module "database" {
