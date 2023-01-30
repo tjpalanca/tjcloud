@@ -18,6 +18,14 @@ resource "linode_firewall" "firewall" {
     ports    = "1-65535"
     ipv4     = [for ip in var.allowed_ips : "${ip}/32"]
   }
+  inbound {
+    label    = "kubernetes"
+    action   = "ACCEPT"
+    protocol = "TCP"
+    ports    = "10250"
+    ipv4     = ["0.0.0.0/0"]
+    ipv6     = ["::/0"]
+  }
   inbound_policy = "DROP"
   inbound {
     label    = "allow-http-and-https"
