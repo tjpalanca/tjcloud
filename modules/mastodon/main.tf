@@ -51,15 +51,18 @@ locals {
     MAX_THREADS                     = 4
     STREAMING_CLUSTER_NUM           = 2
     SKIP_POST_DEPLOYMENT_MIGRATIONS = var.skip_post_deployment ? "true" : "false"
+    S3_ENABLED                      = "true"
+    S3_BUCKET                       = var.s3_bucket.label
+    AWS_ACCESS_KEY_ID               = var.s3_access_key
+    AWS_SECRET_ACCESS_KEY           = var.s3_secret_key
+    S3_REGION                       = var.s3_bucket.cluster
+    S3_PROTOCOL                     = "https"
+    S3_ENDPOINT                     = "https://${var.s3_bucket.domain}"
+    S3_HOSTNAME                     = var.s3_bucket.domain
+    S3_ALIAS_HOST                   = var.s3_bucket.label
   }
   host_path = "/mnt/${var.volume_name}/mastodon/"
-  vols = [{
-    volume_name = "system"
-    mount_path  = "/mastodon/public/system"
-    host_path   = local.host_path
-    mount_type  = "DirectoryOrCreate"
-  }]
-  web_port = 3000
+  web_port  = 3000
   web_probes = [{
     path                  = "/health"
     port                  = local.web_port
@@ -94,7 +97,6 @@ module "mastodon_application" {
   image            = local.image
   env_vars         = local.envs
   node_name        = var.node_name
-  volumes          = local.vols
   liveness_probes  = local.web_probes
   readiness_probes = local.web_probes
   command = [
@@ -146,7 +148,6 @@ module "mastodon_sidekiq" {
   image     = local.image
   env_vars  = local.envs
   node_name = var.node_name
-  volumes   = local.vols
   command   = ["bundle", "exec", "sidekiq", "-c", "2"]
   depends_on = [
     module.mastodon_permissions

@@ -286,6 +286,9 @@ module "mastodon" {
   node_password             = var.root_password
   mastodon_version          = "v4.0.2"
   skip_post_deployment      = false
+  s3_bucket                 = module.storage.media_bucket
+  s3_access_key             = var.mastodon_s3_access_key
+  s3_secret_key             = var.mastodon_s3_secret_key
 }
 
 module "freshrss" {
