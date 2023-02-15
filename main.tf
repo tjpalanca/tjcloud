@@ -284,7 +284,7 @@ module "mastodon" {
   volume_name               = module.cluster.main_node_volume.label
   node_ip                   = module.cluster.main_node.ip_address
   node_password             = var.root_password
-  mastodon_version          = "v4.0.2"
+  mastodon_version          = "v4.1.0"
   skip_post_deployment      = false
   s3_bucket                 = module.storage.media_bucket
   s3_access_key             = var.mastodon_s3_access_key
