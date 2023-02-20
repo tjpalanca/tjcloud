@@ -175,6 +175,7 @@ module "code_image" {
   image_address = "ghcr.io/tjpalanca/tjcloud/code"
   node          = module.cluster.main_node
   node_password = var.root_password
+  timeout       = "30m"
   build_args = {
     DEFAULT_USER = var.user_name
   }
