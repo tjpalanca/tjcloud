@@ -31,7 +31,7 @@ locals {
     NODE_ENV                        = "production"
     RAILS_SERVE_STATIC_FILES        = "true"
     STREAMING_API_BASE_URL          = "wss://${local.host}-streaming.${var.cloudflare_zone_name}"
-    SINGLE_USER_MODE                = "true"
+    SINGLE_USER_MODE                = "false"
     DEFAULT_LOCALE                  = "en"
     SMTP_SERVER                     = var.smtp_server
     SMTP_PORT                       = tostring(var.smtp_port)
