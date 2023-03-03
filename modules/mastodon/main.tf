@@ -92,6 +92,7 @@ module "mastodon_permissions" {
 module "mastodon_application" {
   source           = "../../elements/application"
   name             = "mastodon"
+  replicas         = 0
   namespace        = kubernetes_namespace_v1.mastodon.metadata[0].name
   ports            = [local.web_port]
   image            = local.image
@@ -123,6 +124,7 @@ module "mastodon_ingress" {
 module "mastodon_streaming" {
   source           = "../../elements/application"
   name             = "mastodon-streaming"
+  replicas         = 0
   namespace        = kubernetes_namespace_v1.mastodon.metadata[0].name
   ports            = [local.streaming_port]
   image            = local.image
@@ -144,6 +146,7 @@ module "mastodon_streaming_ingress" {
 module "mastodon_sidekiq" {
   source    = "../../elements/deployment"
   name      = "mastodon-sidekiq"
+  replicas  = 0
   namespace = kubernetes_namespace_v1.mastodon.metadata[0].name
   image     = local.image
   env_vars  = local.envs
