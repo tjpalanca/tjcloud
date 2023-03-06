@@ -66,6 +66,11 @@ I host the following applications:
   for administering the cluster, and
   [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
   for collecting data to present in the dashboard.
+
+### Disabled Applications
+
+The code is still in the repo, but is no longer in active use:
+
 - [Mastodon](https://joinmastodon.org) - my own personal Mastodon server
   for interacting with the Fediverse (open source Twitter but less
   annoying virality and more useful, insightful content)

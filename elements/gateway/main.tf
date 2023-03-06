@@ -75,7 +75,7 @@ module "proxy_application" {
   name      = "${var.service.name}-${var.service.port}-proxy"
   namespace = var.service.namespace
   ports     = [4180]
-  replicas  = 1
+  replicas  = var.replicas
   image     = "quay.io/oauth2-proxy/oauth2-proxy:v7.3.0"
   env_vars = merge(
     {

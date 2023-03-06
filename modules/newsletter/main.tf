@@ -33,7 +33,7 @@ module "newsletter_application" {
     host_port      = 25
     protocol       = "TCP"
   }]
-  replicas = 1
+  replicas = var.disabled ? 0 : 1
   image    = var.image
   volumes = [{
     volume_name = "data"
@@ -45,6 +45,7 @@ module "newsletter_application" {
 
 module "newsletter_gateway" {
   source                = "../../elements/gateway"
+  replicas              = var.disabled ? 0 : 1
   service               = module.newsletter_application.service
   host                  = local.host
   zone_id               = var.cloudflare_zone_id

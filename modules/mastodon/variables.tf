@@ -96,3 +96,8 @@ variable "s3_access_key" {
 variable "s3_secret_key" {
   type = string
 }
+
+variable "disabled" {
+  type    = bool
+  default = false
+}

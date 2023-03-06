@@ -92,3 +92,9 @@ variable "cname" {
   default     = null
   description = "CNAME value for cloudflare record, in case it is different from zone"
 }
+
+variable "replicas" {
+  type        = number
+  default     = 1
+  description = "Number of replicas of the proxy to spin up"
+}

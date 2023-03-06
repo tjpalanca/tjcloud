@@ -261,7 +261,8 @@ module "plausible" {
 }
 
 module "mastodon" {
-  source = "./modules/mastodon"
+  source   = "./modules/mastodon"
+  disabled = true
   providers = {
     postgresql = postgresql.main
   }
@@ -293,7 +294,8 @@ module "mastodon" {
 }
 
 module "freshrss" {
-  source = "./modules/freshrss"
+  source   = "./modules/freshrss"
+  disabled = true
   providers = {
     postgresql = postgresql.main
   }
@@ -325,6 +327,7 @@ module "newsletter_image" {
 
 module "newsletter" {
   source                    = "./modules/newsletter"
+  disabled                  = true
   image                     = module.newsletter_image.image.versioned
   cloudflare_zone_id        = var.public_cloudflare_zone_id
   cloudflare_zone_name      = var.public_cloudflare_zone_name

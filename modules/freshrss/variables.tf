@@ -39,9 +39,14 @@ variable "admin_password" {
 }
 
 variable "node_ip" {
-  type = string 
+  type = string
 }
 
 variable "node_password" {
   type = string
+}
+
+variable "disabled" {
+  type    = bool
+  default = false
 }

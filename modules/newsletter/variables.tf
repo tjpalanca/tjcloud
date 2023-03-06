@@ -33,3 +33,8 @@ variable "keycloak_url" {
 variable "keycloak_realm_id" {
   type = string
 }
+
+variable "disabled" {
+  type    = bool
+  default = false
+}

@@ -54,7 +54,7 @@ module "freshrss_application" {
   ports     = [local.port]
   image     = "freshrss/freshrss:latest"
   node_name = var.node_name
-  replicas  = 0
+  replicas  = var.disabled ? 0 : 1
   env_vars = {
     TZ               = "Asia/Singapore"
     CRON_MIN         = "13,43" # Every 30 minutes 
