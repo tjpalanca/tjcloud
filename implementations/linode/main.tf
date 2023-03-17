@@ -39,7 +39,7 @@ locals {
 }
 
 module "cluster" {
-  source             = "./modules/cluster"
+  source             = "../../modules/cluster"
   cluster_name       = var.cluster_name
   cloudflare_zone_id = var.main_cloudflare_zone_id
   linode_region      = var.linode_region
@@ -50,20 +50,20 @@ module "cluster" {
 
 module "firewall" {
   name        = var.cluster_name
-  source      = "./modules/firewall"
+  source      = "../../modules/firewall"
   node_ids    = module.cluster.node_ids
   allowed_ips = [var.home_ip]
 }
 
 module "storage" {
-  source                      = "./modules/storage"
+  source                      = "../../modules/storage"
   user_name                   = var.user_name
   public_cloudflare_zone_id   = var.public_cloudflare_zone_id
   public_cloudflare_zone_name = var.public_cloudflare_zone_name
 }
 
 module "database" {
-  source                        = "./modules/database"
+  source                        = "../../modules/database"
   main_postgres_username        = var.main_postgres_username
   main_postgres_database        = var.main_postgres_database
   main_postgres_password        = var.main_postgres_password
@@ -85,7 +85,7 @@ module "database" {
 }
 
 module "ingress_nginx_controller" {
-  source = "./modules/ingress_nginx_controller"
+  source = "../../modules/ingress_nginx_controller"
   cloudflare_origin_ca = {
     common_name  = var.cloudflare_origin_ca_common_name
     organization = var.cloudflare_origin_ca_organization
@@ -98,18 +98,18 @@ module "ingress_nginx_controller" {
 }
 
 module "kaniko" {
-  source = "./modules/kaniko"
+  source = "../../modules/kaniko"
   depends_on = [
     module.cluster
   ]
 }
 
 module "keycloak_image" {
-  source        = "./elements/image"
+  source        = "../../elements/image"
   name          = "keycloak"
   namespace     = module.kaniko.namespace
   registry      = local.ghcr_registry
-  build_context = "modules/keycloak/image/"
+  build_context = "../../modules/keycloak/image/"
   image_address = "ghcr.io/tjpalanca/tjcloud/keycloak"
   image_version = "v1.0"
   node          = module.cluster.main_node
@@ -117,7 +117,7 @@ module "keycloak_image" {
 }
 
 module "keycloak" {
-  source = "./modules/keycloak"
+  source = "../../modules/keycloak"
   providers = {
     postgresql = postgresql.main
   }
@@ -138,7 +138,7 @@ module "keycloak" {
 }
 
 module "keycloak_realms" {
-  source       = "./modules/keycloak-realms"
+  source       = "../../modules/keycloak-realms"
   admin_emails = var.admin_emails
   google = {
     client_id     = var.google_client_id
@@ -151,11 +151,11 @@ module "keycloak_realms" {
 }
 
 module "metrics_server" {
-  source = "./modules/metrics_server"
+  source = "../../modules/metrics_server"
 }
 
 module "dashboard" {
-  source               = "./modules/dashboard"
+  source               = "../../modules/dashboard"
   namespace            = "dashboard"
   cloudflare_zone_id   = var.main_cloudflare_zone_id
   cloudflare_zone_name = var.main_cloudflare_zone_name
@@ -167,11 +167,11 @@ module "dashboard" {
 }
 
 module "code_image" {
-  source        = "./elements/image"
+  source        = "../../elements/image"
   name          = "code"
   namespace     = module.kaniko.namespace
   registry      = local.ghcr_registry
-  build_context = "modules/code/image/"
+  build_context = "../../modules/code/image/"
   image_address = "ghcr.io/tjpalanca/tjcloud/code"
   node          = module.cluster.main_node
   node_password = var.root_password
@@ -185,7 +185,7 @@ module "code_image" {
 }
 
 module "code" {
-  source                  = "./modules/code"
+  source                  = "../../modules/code"
   cloudflare_zone_id      = var.main_cloudflare_zone_id
   cloudflare_zone_name    = var.main_cloudflare_zone_name
   image                   = module.code_image.image.versioned
@@ -207,7 +207,7 @@ module "code" {
 }
 
 module "echo" {
-  source               = "./modules/echo"
+  source               = "../../modules/echo"
   cloudflare_zone_id   = var.main_cloudflare_zone_id
   cloudflare_zone_name = var.main_cloudflare_zone_name
   keycloak_realm_id    = module.keycloak_realms.main.id
@@ -219,14 +219,14 @@ module "echo" {
 }
 
 module "mail" {
-  source         = "./modules/mail"
+  source         = "../../modules/mail"
   relay_host     = "smtp.mailgun.org"
   relay_username = var.mailgun_username
   relay_password = var.mailgun_password
 }
 
 module "pgadmin" {
-  source                   = "./modules/pgadmin"
+  source                   = "../../modules/pgadmin"
   pgadmin_default_username = var.pgadmin_default_username
   pgadmin_default_password = var.pgadmin_default_password
   cloudflare_zone_id       = var.main_cloudflare_zone_id
@@ -244,7 +244,7 @@ module "pgadmin" {
 }
 
 module "plausible" {
-  source = "./modules/plausible"
+  source = "../../modules/plausible"
   providers = {
     postgresql = postgresql.main
   }
@@ -261,7 +261,7 @@ module "plausible" {
 }
 
 module "mastodon" {
-  source   = "./modules/mastodon"
+  source   = "../../modules/mastodon"
   disabled = true
   providers = {
     postgresql = postgresql.main
@@ -294,7 +294,7 @@ module "mastodon" {
 }
 
 module "freshrss" {
-  source   = "./modules/freshrss"
+  source   = "../../modules/freshrss"
   disabled = true
   providers = {
     postgresql = postgresql.main
@@ -314,11 +314,11 @@ module "freshrss" {
 }
 
 module "newsletter_image" {
-  source        = "./elements/image"
+  source        = "../../elements/image"
   name          = "newsletter"
   namespace     = module.kaniko.namespace
   registry      = local.ghcr_registry
-  build_context = "modules/newsletter/image/"
+  build_context = "../../modules/newsletter/image/"
   image_address = "ghcr.io/tjpalanca/tjcloud/newsletter"
   image_version = "v1.0"
   node          = module.cluster.main_node
@@ -326,7 +326,7 @@ module "newsletter_image" {
 }
 
 module "newsletter" {
-  source                    = "./modules/newsletter"
+  source                    = "../../modules/newsletter"
   disabled                  = true
   image                     = module.newsletter_image.image.versioned
   cloudflare_zone_id        = var.public_cloudflare_zone_id

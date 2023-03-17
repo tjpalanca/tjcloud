@@ -60,14 +60,17 @@ jobs:
     - id: terraform-init 
       name: Terraform Init
       run: terraform init
+      working-directory: implementations/linode
     - id: terraform-plan 
       name: Terraform Plan
       run: terraform plan
       if: github.event_name != 'push'
+      working-directory: implementations/linode
     - id: terraform-apply 
       name: Terraform Apply
       if: github.event_name == 'push'
       run: terraform apply -auto-approve
+      working-directory: implementations/linode
     - name: Re-enable firewall
       if: always()
       env:

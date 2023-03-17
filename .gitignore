@@ -21,7 +21,7 @@ _docs/
 
 # Custom 
 /.vscode
-/.terraform
+**/.terraform
 .env
 **/sandbox.*
 *.auto.tfvars
