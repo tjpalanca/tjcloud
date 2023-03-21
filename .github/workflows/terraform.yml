@@ -1,26 +1,20 @@
-name: Deploy Ingress using Terraform
-
-on: 
-  workflow_dispatch: 
-  pull_request:
-  push:
-    branches: 
-    - main 
-    - master
-    - dev/do_migration
-    paths:
-    - "/workspaces/ingress/**"
-   
+on:
+  workflow_call:
+    inputs:
+      workflow-path:
+        required: true
+        type: string
+      terraform-version:
+        required: true 
+        type: string
+    secrets:
+      terraform-api-token:
+        required: true 
 
 jobs:
-  deploy:
-    name: Deployment
+  plan_and_apply:
+    name: Plan and Apply
     runs-on: ubuntu-latest
-    concurrency: 
-      group: ${{ github.workflow }}-${{ github.ref }}
-    env:
-      WORKSPACE: workspaces/ingress
-      TF_VERSION: 1.4.2
     steps: 
     - name: Checkout code 
       uses: actions/checkout@v3
@@ -28,8 +22,8 @@ jobs:
       name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: ${{ env.TF_VERSION }}
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_version: ${{ inputs.terraform-version }}
+        cli_config_credentials_token: ${{ secrets.terraform-api-token }}
     - id: terraform-init 
       name: Terraform Init
       run: terraform init

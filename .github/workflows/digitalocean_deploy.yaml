@@ -1,0 +1,23 @@
+name: Deploy DigitalOcean
+
+on: 
+  workflow_dispatch: 
+  pull_request:
+  push:
+    branches: 
+    - main 
+    - master
+    - dev/do_migration
+    paths:
+    - "/workspaces/digitalocean/**"
+    - "/.github/workflows/tf_digitalocean_deploy/**"
+   
+jobs:
+  deploy:
+    name: Terraform Deployment
+    uses: ./.github/workflows/terraform.yml
+    with:
+      workflow-path: workspaces/digitalocean
+      terraform-version: 1.4.2
+    secrets:
+      terraform-api-token: ${{ secrets.TF_API_TOKEN }}
