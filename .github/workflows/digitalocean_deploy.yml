@@ -11,6 +11,7 @@ on:
     paths:
     - "workspaces/digitalocean/**"
     - ".github/workflows/digitalocean_deploy.yml"
+    - ".github/workflows/terraform.yml"
    
 jobs:
   deploy:

@@ -1,4 +1,4 @@
-name: Deploy DigitalOcean
+name: Deploy Ingress
 
 on: 
   workflow_dispatch: 
@@ -11,6 +11,7 @@ on:
     paths:
     - "workspaces/ingress/**"
     - ".github/workflows/ingress_deploy.yml"
+    - ".github/workflows/terraform.yml"
    
 jobs:
   deploy:
