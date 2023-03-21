@@ -9,15 +9,15 @@ on:
     - master
     - dev/do_migration
     paths:
-    - "workspaces/digitalocean/**"
-    - ".github/workflows/digitalocean_deploy.yml"
+    - "workspaces/ingress/**"
+    - ".github/workflows/ingress_deploy.yml"
    
 jobs:
   deploy:
     name: Terraform Deployment
     uses: ./.github/workflows/terraform.yml
     with:
-      workflow-path: workspaces/digitalocean
+      workflow-path: workspaces/ingress
       terraform-version: 1.4.2
     secrets:
       terraform-api-token: ${{ secrets.TF_API_TOKEN }}
