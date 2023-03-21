@@ -27,14 +27,14 @@ jobs:
     - id: terraform-init 
       name: Terraform Init
       run: terraform init
-      working-directory: ${{ env.WORKSPACE }}
+      working-directory: ${{ inputs.workflow-path }}
     - id: terraform-plan 
       name: Terraform Plan
       run: terraform plan
       if: github.event_name != 'push'
-      working-directory: ${{ env.WORKSPACE }}
+      working-directory: ${{ inputs.workflow-path }}
     - id: terraform-apply 
       name: Terraform Apply
       if: github.event_name == 'push'
       run: terraform apply -auto-approve
-      working-directory: ${{ env.WORKSPACE }}
+      working-directory: ${{ inputs.workflow-path }}
