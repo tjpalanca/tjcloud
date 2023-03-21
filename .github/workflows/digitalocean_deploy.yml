@@ -10,7 +10,7 @@ on:
     - dev/do_migration
     paths:
     - "/workspaces/digitalocean/**"
-    - "/.github/workflows/tf_digitalocean_deploy/**"
+    - "/.github/workflows/digitalocean_deploy.yml"
    
 jobs:
   deploy:
