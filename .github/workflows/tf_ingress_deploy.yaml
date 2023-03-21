@@ -1,4 +1,4 @@
-name: Deploy DigitalOcean on Terraform
+name: Deploy Ingress using Terraform
 
 on: 
   workflow_dispatch: 
@@ -8,6 +8,9 @@ on:
     - main 
     - master
     - dev/do_migration
+    paths:
+    - "/workspaces/ingress/**"
+   
 
 jobs:
   deploy:
