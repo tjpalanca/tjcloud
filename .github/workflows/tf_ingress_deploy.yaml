@@ -1,0 +1,43 @@
+name: Deploy DigitalOcean on Terraform
+
+on: 
+  workflow_dispatch: 
+  pull_request:
+  push:
+    branches: 
+    - main 
+    - master
+    - dev/do_migration
+
+jobs:
+  deploy:
+    name: Deployment
+    runs-on: ubuntu-latest
+    concurrency: 
+      group: ${{ github.workflow }}-${{ github.ref }}
+    env:
+      WORKSPACE: workspaces/ingress
+      TF_VERSION: 1.4.2
+    steps: 
+    - name: Checkout code 
+      uses: actions/checkout@v3
+    - id: setup-terraform
+      name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ env.TF_VERSION }}
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+    - id: terraform-init 
+      name: Terraform Init
+      run: terraform init
+      working-directory: ${{ env.WORKSPACE }}
+    - id: terraform-plan 
+      name: Terraform Plan
+      run: terraform plan
+      if: github.event_name != 'push'
+      working-directory: ${{ env.WORKSPACE }}
+    - id: terraform-apply 
+      name: Terraform Apply
+      if: github.event_name == 'push'
+      run: terraform apply -auto-approve
+      working-directory: ${{ env.WORKSPACE }}
