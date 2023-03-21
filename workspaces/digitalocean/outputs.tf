@@ -6,6 +6,8 @@ output "cluster" {
     cluster_ca_certificate = base64decode(
       digitalocean_kubernetes_cluster.tjcloud.kube_config[0].cluster_ca_certificate
     )
+    main_node_ips = [for ip in digitalocean_reserved_ip.main_nodes : ip.ip_address]
+    main_node_ids = [for node in local.main_nodes : node.droplet_id]
   }
 }
 

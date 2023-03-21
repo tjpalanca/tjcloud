@@ -13,3 +13,7 @@ resource "digitalocean_kubernetes_cluster" "tjcloud" {
     node_count = 1
   }
 }
+
+locals {
+  main_nodes = digitalocean_kubernetes_cluster.tjcloud.node_pool[0].nodes
+}

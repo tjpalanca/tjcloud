@@ -5,12 +5,12 @@ resource "digitalocean_vpc" "tjcloud" {
 }
 
 resource "digitalocean_reserved_ip" "main_nodes" {
-  count  = length(digitalocean_kubernetes_cluster.tjcloud.node_pool[0].nodes)
+  count  = length(local.main_nodes)
   region = var.do_region
 }
 
 resource "digitalocean_reserved_ip_assignment" "main_nodes" {
-  count      = length(digitalocean_kubernetes_cluster.tjcloud.node_pool[0].nodes)
-  droplet_id = digitalocean_kubernetes_cluster.tjcloud.node_pool[0].nodes[count.index].droplet_id
+  count      = length(local.main_nodes)
+  droplet_id = local.main_nodes[count.index].droplet_id
   ip_address = digitalocean_reserved_ip.main_nodes[count.index].id
 }
