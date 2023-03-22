@@ -36,6 +36,6 @@ jobs:
         with:
           context: ./${{ inputs.image-path }}
           push: true
-          tags:  ${{ github.repository}}/{{ inputs.image-name }}:${{ inputs.image-tag }}
+          tags:  ${{ github.repository}}/${{ inputs.image-name }}:${{ inputs.image-tag }}
           cache-from: type=registry,ref=user/app:buildcache
           cache-to: type=registry,ref=user/app:buildcache,mode=max
