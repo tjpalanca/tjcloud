@@ -13,7 +13,7 @@ on:
 
 jobs:
   build-and-push:
-    name: Build and Push Docker Image
+    name: Build and Push
     runs-on: ubuntu-latest
     concurrency: 
       group: ${{ github.workflow }}
@@ -36,6 +36,6 @@ jobs:
         with:
           context: ./${{ inputs.image-path }}
           push: true
-          tags:  ${{ github.repository}}/${{ inputs.image-name }}:${{ inputs.image-tag }}
-          cache-from: type=registry,ref=user/app:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
+          tags: ghcr.io/${{ github.repository }}/${{ inputs.image-name }}:${{ inputs.image-tag }}
+          cache-from: type=registry,ref=${{ github.repository }}/${{ inputs.image-name }}:buildcache
+          cache-to: type=registry,ref=${{ github.repository }}/${{ inputs.image-name }}:buildcache,mode=max

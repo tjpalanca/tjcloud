@@ -15,8 +15,8 @@ on:
     - ".github/workflows/docker.yml"
 
 jobs:
-  build_and_push:
-    name: Docker Image Build and Push
+  docker_image:
+    name: Docker Image
     uses: ./.github/workflows/docker.yml
     with:
       image-path: workspaces/keycloak/image
