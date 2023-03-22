@@ -1,0 +1,23 @@
+name: Deploy Keycloak
+
+on: 
+  workflow_dispatch: 
+  pull_request:
+  push:
+    branches: 
+    - main 
+    - master
+    - dev/do_migration
+    paths:
+    - "workspaces/keycloak/**"
+    - ".github/workflows/keycloak_deploy.yml"
+    - ".github/workflows/terraform.yml"
+    - ".github/workflows/docker.yml"
+
+jobs:
+  build_and_push:
+    name: Docker Image Build and Push
+    uses: ./.github/workflows/docker.yml
+    with:
+      image-path: workspaces/keycloak
+      image-name: keycloak

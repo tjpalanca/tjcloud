@@ -13,7 +13,7 @@ on:
 
 jobs:
   plan_and_apply:
-    name: Plan and Apply
+    name: Plan or Apply
     runs-on: ubuntu-latest
     concurrency: 
       group: ${{ github.workflow }}
