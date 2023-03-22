@@ -1,4 +1,4 @@
-name: Deploy Ingress
+name: Deploy Network
 
 on: 
   workflow_dispatch: 
@@ -9,8 +9,8 @@ on:
     - master
     - dev/do_migration
     paths:
-    - "workspaces/ingress/**"
-    - ".github/workflows/ingress_deploy.yml"
+    - "workspaces/network/**"
+    - ".github/workflows/network_deploy.yml"
     - ".github/workflows/terraform.yml"
    
 jobs:
@@ -18,7 +18,7 @@ jobs:
     name: Terraform Deployment
     uses: ./.github/workflows/terraform.yml
     with:
-      workflow-path: workspaces/ingress
+      workflow-path: workspaces/network
       terraform-version: 1.4.2
     secrets:
       terraform-api-token: ${{ secrets.TF_API_TOKEN }}
