@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 apt update
 apt install -y -V ca-certificates lsb-release wget
@@ -20,5 +20,4 @@ apt install -y -V libplasma-glib-dev # For Plasma GLib (C)
 apt install -y -V libgandiva-dev # For Gandiva C++
 apt install -y -V libgandiva-glib-dev # For Gandiva GLib (C)
 apt install -y -V libparquet-dev # For Apache Parquet C++
-# Removing because not found for some reason
-# apt install -y -V libparquet-glib-dev # For Apache Parquet GLib (C)
+apt install -y -V libparquet-glib-dev # For Apache Parquet GLib (C)

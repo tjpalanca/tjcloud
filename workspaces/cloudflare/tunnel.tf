@@ -16,7 +16,7 @@ module "cloudflare_namespace" {
 module "cloudflare_tunnel_deployment" {
   source    = "../../modules/deployment"
   name      = "tunnel"
-  namespace = module.cloudflare_namespace.namespace.name
+  namespace = module.cloudflare_namespace.name
   image     = "cloudflare/cloudflared:latest"
   replicas  = 2
   args      = ["tunnel", "--no-autoupdate", "--metrics", "0.0.0.0:8081", "run"]
