@@ -59,9 +59,6 @@ COPY services.d/cron /etc/services.d/cron
 # 1Password CLI
 COPY scripts/1password.sh /scripts
 RUN /scripts/1password.sh
-# Apache Arrow
-COPY scripts/arrow.sh /scripts
-RUN /scripts/arrow.sh
 # Quarto 
 COPY scripts/quarto.sh /scripts 
 RUN /scripts/quarto.sh
