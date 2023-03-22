@@ -25,6 +25,7 @@ jobs:
   terraform_deployment:
     name: Terraform Deployment
     uses: ./.github/workflows/terraform.yml
+    needs: docker_image
     with:
       workflow-path: workspaces/code
       terraform-version: 1.4.2
