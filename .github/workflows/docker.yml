@@ -37,5 +37,5 @@ jobs:
           context: ./${{ inputs.image-path }}
           push: true
           tags: ghcr.io/${{ github.repository }}/${{ inputs.image-name }}:${{ inputs.image-tag }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ inputs.image-name }}:buildcache
-          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}/${{ inputs.image-name }}:buildcache,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/${{ inputs.image-name }}/cache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository }}/${{ inputs.image-name }}/cache,mode=max
