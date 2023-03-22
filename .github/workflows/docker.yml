@@ -15,6 +15,8 @@ jobs:
   build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
+    concurrency: 
+      group: ${{ github.workflow }}
     permissions:
       contents: read
       packages: write
@@ -34,6 +36,6 @@ jobs:
         with:
           context: ${{ inputs.image-path }}
           push: true
-          tags:  ghcr.io/${{ github.repository}}/{{ inputs.image-name }}:${{ inputs.image-tag }}
+          tags:  ghcr.io/${{ github.repository}}/${{ inputs.image-name }}:${{ inputs.image-tag }}
           cache-from: type=registry,ref=user/app:buildcache
           cache-to: type=registry,ref=user/app:buildcache,mode=max
