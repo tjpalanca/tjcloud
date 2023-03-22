@@ -20,16 +20,10 @@ resource "kubernetes_deployment_v1" "tunnel" {
     namespace = kubernetes_namespace_v1.cloudflare.metadata[0].name
   }
   spec {
-    replicas = 1
+    replicas = 2
     selector {
       match_labels = {
         tunnel = cloudflare_tunnel.tjcloud.name
-      }
-    }
-    strategy {
-      rolling_update {
-        max_surge       = 2
-        max_unavailable = 1
       }
     }
     template {

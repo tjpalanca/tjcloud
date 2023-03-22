@@ -32,3 +32,23 @@ variable "cloudflare_origin_ca_key" {
   type        = string
   description = "For Origin Certificates"
 }
+
+variable "github_client_id" {
+  type        = string
+  description = "GitHub Login"
+}
+
+variable "github_client_secret" {
+  type        = string
+  description = "GitHub Login"
+}
+
+variable "google_client_id" {
+  type        = string
+  description = "Google Login"
+}
+
+variable "google_client_secret" {
+  type        = string
+  description = "Google Login"
+}

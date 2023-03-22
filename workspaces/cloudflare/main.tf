@@ -12,22 +12,13 @@ terraform {
   cloud {
     organization = "tjpalanca"
     workspaces {
-      name = "tjcloud-ingress"
+      name = "tjcloud-cloudflare"
     }
   }
 }
 
-provider "digitalocean" {
-  token = var.do_token
-}
-
 provider "cloudflare" {
   api_token = var.cloudflare_api_token
-}
-
-provider "cloudflare" {
-  alias                = "cloudflare_origin_ca_key"
-  api_user_service_key = var.cloudflare_origin_ca_key
 }
 
 data "tfe_outputs" "digitalocean" {
