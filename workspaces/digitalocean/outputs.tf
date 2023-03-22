@@ -11,10 +11,18 @@ output "cluster" {
   }
 }
 
-output "database_postgres_main" {
-  value = digitalocean_database_cluster.postgres_main.id
+output "postgres_main" {
+  sensitive = true
+  value = merge(
+    digitalocean_database_cluster.postgres_main,
+    data.digitalocean_database_ca.certificates[digitalocean_database_cluster.postgres_main.id]
+  )
 }
 
-output "database_mysql_main" {
-  value = digitalocean_database_cluster.mysql_main.id
+output "mysql_main" {
+  sensitive = true
+  value = merge(
+    digitalocean_database_cluster.mysql_main,
+    data.digitalocean_database_ca.certificates[digitalocean_database_cluster.mysql_main.id]
+  )
 }

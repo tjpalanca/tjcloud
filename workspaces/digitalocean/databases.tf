@@ -18,14 +18,23 @@ resource "digitalocean_database_cluster" "mysql_main" {
   node_count           = 1
 }
 
-resource "digitalocean_database_firewall" "cluster_access" {
-  for_each = toset([
+locals {
+  databases = toset([
     digitalocean_database_cluster.postgres_main.id,
     digitalocean_database_cluster.mysql_main.id
   ])
+}
+
+resource "digitalocean_database_firewall" "cluster_access" {
+  for_each   = local.databases
   cluster_id = each.value
   rule {
     type  = "k8s"
     value = digitalocean_kubernetes_cluster.tjcloud.id
   }
+}
+
+data "digitalocean_database_ca" "certificates" {
+  for_each   = local.databases
+  cluster_id = each.value
 }
