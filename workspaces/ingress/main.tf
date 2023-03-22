@@ -16,7 +16,7 @@ terraform {
   cloud {
     organization = "tjpalanca"
     workspaces {
-      name = "tjcloud-network"
+      name = "tjcloud-ingress"
     }
   }
 }
