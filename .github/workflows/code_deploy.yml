@@ -1,0 +1,23 @@
+name: Deploy Code
+
+on: 
+  workflow_dispatch: 
+  pull_request:
+  push:
+    branches: 
+    - main 
+    - master
+    - dev/do_migration
+    paths:
+    - "workspaces/code/**"
+    - ".github/workflows/code_deploy.yml"
+    - ".github/workflows/terraform.yml"
+    - ".github/workflows/docker.yml"
+
+jobs:
+  docker_image:
+    name: Docker Image
+    uses: ./.github/workflows/docker.yml
+    with:
+      image-path: workspaces/code/image
+      image-name: keycloak
