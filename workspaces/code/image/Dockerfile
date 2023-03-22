@@ -18,18 +18,15 @@ RUN cp /rocker_scripts/init_set_env.sh /etc/cont-init.d/01_set_env
 # R
 COPY scripts/r-deps.sh /scripts
 RUN /scripts/r-deps.sh
-
 # Python
 COPY scripts/python-deps.sh /scripts
 RUN /scripts/python-deps.sh
 RUN /rocker_scripts/install_python.sh 
-
 # Julia
 COPY scripts/julia-deps.sh /scripts
 RUN /scripts/julia-deps.sh
 COPY scripts/julia.sh /scripts
 RUN /scripts/julia.sh
-
 # NodeJS
 COPY scripts/nodejs.sh /scripts
 RUN /scripts/nodejs.sh
@@ -49,19 +46,17 @@ RUN /scripts/kubectl.sh
 # S3 command line utility
 COPY scripts/s3cmd.sh /scripts
 RUN /scripts/s3cmd.sh
-# Radian R Console
-COPY scripts/radian.sh /scripts
-RUN /scripts/radian.sh
+# Quarto 
+COPY scripts/quarto.sh /scripts 
+RUN /scripts/quarto.sh
+
 # Cron Service
 COPY scripts/cron.sh /scripts
 RUN /scripts/cron.sh
 COPY services.d/cron /etc/services.d/cron
-# 1Password CLI
-COPY scripts/1password.sh /scripts
-RUN /scripts/1password.sh
-# Quarto 
-COPY scripts/quarto.sh /scripts 
-RUN /scripts/quarto.sh
+# Xvfb Display
+ENV DISPLAY :1
+COPY services.d/display /etc/services.d/display
 
 # Code Server
 COPY scripts/code-server.sh /scripts
@@ -72,10 +67,6 @@ COPY media/code-512.png /usr/lib/code-server/src/browser/media/pwa-icon-512.png
 COPY media/code.png /usr/lib/code-server/src/browser/media/pwa-icon.png
 COPY media/favicon.ico /usr/lib/code-server/src/browser/media/favicon.ico
 COPY media/fonts/ /usr/lib/code-server/src/browser/media/fonts/
-
-# Xvfb Display
-ENV DISPLAY :1
-COPY services.d/display /etc/services.d/display
 
 # Expose Ports
 EXPOSE 8888 5500 3838 3333

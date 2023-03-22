@@ -1,3 +1,8 @@
+variable "user_name" {
+  type        = string
+  description = "Linux username"
+}
+
 variable "cloudflare_api_token" {
   type        = string
   description = "Cloudflare API Token"
@@ -26,24 +31,4 @@ variable "com_zone_id" {
 variable "com_zone_name" {
   type        = string
   description = "Public TLD"
-}
-
-variable "github_client_id" {
-  type        = string
-  description = "GitHub Login"
-}
-
-variable "github_client_secret" {
-  type        = string
-  description = "GitHub Login"
-}
-
-variable "google_client_id" {
-  type        = string
-  description = "Google Login"
-}
-
-variable "google_client_secret" {
-  type        = string
-  description = "Google Login"
 }

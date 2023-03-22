@@ -10,6 +10,7 @@ on:
     - dev/do_migration
     paths:
     - "workspaces/code/**"
+    - "modules/**"
     - ".github/workflows/code_deploy.yml"
     - ".github/workflows/terraform.yml"
     - ".github/workflows/docker.yml"
@@ -20,4 +21,12 @@ jobs:
     uses: ./.github/workflows/docker.yml
     with:
       image-path: workspaces/code/image
-      image-name: keycloak
+      image-name: code
+  terraform_deployment:
+    name: Terraform Deployment
+    uses: ./.github/workflows/terraform.yml
+    with:
+      workflow-path: workspaces/code
+      terraform-version: 1.4.2
+    secrets:
+      terraform-api-token: ${{ secrets.TF_API_TOKEN }}

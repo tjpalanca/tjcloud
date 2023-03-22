@@ -10,6 +10,7 @@ on:
     - dev/do_migration
     paths:
     - "workspaces/digitalocean/**"
+    - "modules/**"
     - ".github/workflows/digitalocean_deploy.yml"
     - ".github/workflows/terraform.yml"
    

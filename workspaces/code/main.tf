@@ -5,43 +5,78 @@ terraform {
       version = "~> 2.18.1"
     }
   }
+  cloud {
+    organization = "tjpalanca"
+    workspaces {
+      name = "tjcloud-code"
+    }
+  }
 }
 
-locals {
-  host           = "code"
-  domain         = "${local.host}.${var.cloudflare_zone_name}"
-  node_home_path = "/mnt/${var.volume_name}/files/home/${var.user_name}"
+data "tfe_outputs" "digitalocean" {
+  organization = "tjpalanca"
+  workspace    = "tjcloud-digitalocean"
+}
+
+provider "kubernetes" {
+  host                   = data.tfe_outputs.digitalocean.values.cluster.host
+  token                  = data.tfe_outputs.digitalocean.values.cluster.token
+  cluster_ca_certificate = data.tfe_outputs.digitalocean.values.cluster.cluster_ca_certificate
 }
 
 module "code_namespace" {
-  source = "../../modules/code"
+  source = "../../modules/namespace"
   name   = "code"
 }
 
-module "code_cluster_admin_service_account" {
-  source    = "../../modules/cluster_admin_service_account"
+module "code_service_account" {
+  source        = "../../modules/service_account"
+  name          = "code"
+  namespace     = module.code_namespace.name
+  cluster_roles = ["cluster-admin"]
+}
+
+module "code_volume_claim" {
+  source    = "../../modules/volume_claim"
+  name      = "code"
   namespace = module.code_namespace.name
+  size      = 20
+}
+
+module "code_deployment" {
+  source               = "../../modules/deployment"
+  name                 = "code"
+  namespace            = module.code_namespace.name
+  service_account_name = module.code_service_account.name
+  ports                = [3333, 3838, 5500, 8888]
+  image                = "ghcr.io/tjpalanca/tjcloud/code:latest"
+  build_context        = "${path.module}/image"
+  mount_docker_socket  = true
+  env_vars = {
+    USER                                = var.user_name
+    DEFAULT_USER                        = var.user_name
+    CONNECTION_TOKEN                    = "dummy"
+    PROXY_DOMAIN                        = "code.${var.dev_zone_name}"
+    VSCODE_PROXY_URI                    = "https://{{port}}.${var.dev_zone_name}"
+    CS_DISABLE_GETTING_STARTED_OVERRIDE = "true"
+  }
+  mounts = [
+    {
+      mount_path  = "/home/${var.user_name}/"
+      volume_path = "files/home/${var.user_name}/"
+      claim_name  = module.code_volume_claim.name
+      owner_uid   = 1000
+    },
+    {
+      mount_path  = "/var/spool/cron/"
+      volume_path = "files/var/spool/cron/"
+      claim_name  = module.code_volume_claim.name
+      owner_uid   = 1000
+    }
+  ]
 }
 
 # module "code_application" {
-#   source               = "../../elements/application"
-#   name                 = "code"
-#   namespace            = kubernetes_namespace_v1.code.metadata[0].name
-#   ports                = [3333, 3838, 5500, 8888]
-#   image                = var.image
-#   node_name            = var.node_name
-#   privileged           = true
-#   service_account_name = kubernetes_service_account_v1.code_cluster_admin.metadata[0].name
-#   env_vars = {
-#     USER                                = var.user_name
-#     DEFAULT_USER                        = var.user_name
-#     CONNECTION_TOKEN                    = "dummy"
-#     PROXY_DOMAIN                        = local.domain
-#     VSCODE_PROXY_URI                    = "https://{{port}}.${var.cloudflare_zone_name}"
-#     GITHUB_TOKEN                        = var.github_pat
-#     EXTENSIONS_GALLERY                  = var.extensions_gallery_json
-#     CS_DISABLE_GETTING_STARTED_OVERRIDE = "true"
-#   }
 #   volumes = [
 #     {
 #       volume_name = "home"
@@ -54,12 +89,6 @@ module "code_cluster_admin_service_account" {
 #       mount_path  = "/var/spool/cron/"
 #       host_path   = "/mnt/${var.volume_name}/cron/${var.user_name}/var/spool/cron/"
 #       mount_type  = "DirectoryOrCreate"
-#     },
-#     {
-#       volume_name = "docker"
-#       mount_path  = "/var/run/docker.sock"
-#       host_path   = "/var/run/docker.sock"
-#       mount_type  = "Socket"
 #     }
 #   ]
 #   depends_on = [

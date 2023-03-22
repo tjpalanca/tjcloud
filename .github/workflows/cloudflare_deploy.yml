@@ -10,6 +10,7 @@ on:
     - dev/do_migration
     paths:
     - "workspaces/cloudflare/**"
+    - "modules/**"
     - ".github/workflows/cloudflare_deploy.yml"
     - ".github/workflows/terraform.yml"
    

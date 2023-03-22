@@ -113,3 +113,26 @@ variable "update_timeout" {
   default     = "5m"
   description = "Timeout for updating"
 }
+
+variable "build_context" {
+  type        = string
+  default     = null
+  description = "Build context for annotation"
+}
+
+variable "mount_docker_socket" {
+  type        = bool
+  default     = false
+  description = "Mount the node's docker socket?"
+}
+
+variable "mounts" {
+  type = list(object({
+    mount_path  = string
+    volume_path = string
+    claim_name  = string
+    owner_uid   = number
+  }))
+  default     = []
+  description = "Block storage to be mounted onto the container"
+}
