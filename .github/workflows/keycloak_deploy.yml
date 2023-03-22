@@ -19,5 +19,5 @@ jobs:
     name: Docker Image Build and Push
     uses: ./.github/workflows/docker.yml
     with:
-      image-path: workspaces/keycloak
+      image-path: workspaces/keycloak/image
       image-name: keycloak
