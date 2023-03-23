@@ -32,3 +32,15 @@ variable "com_zone_name" {
   type        = string
   description = "Public TLD"
 }
+
+variable "code_font" {
+  type        = string
+  default     = "JuliaMono"
+  description = "Font Family for code"
+}
+
+variable "body_font" {
+  type        = string
+  default     = "IBMPlexSans"
+  description = "Font Family for body"
+}

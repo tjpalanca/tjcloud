@@ -72,3 +72,8 @@ variable "do_region" {
   type        = string
   description = "Default region in which to deploy resources"
 }
+
+variable "admin_emails" {
+  type        = list(string)
+  description = "Emails for administrators"
+}

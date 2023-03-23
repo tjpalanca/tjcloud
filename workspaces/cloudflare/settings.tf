@@ -51,3 +51,12 @@ resource "cloudflare_zone_settings_override" "dev_zone" {
     }
   }
 }
+
+resource "cloudflare_record" "dev_zone_root" {
+  count   = length(data.tfe_outputs.digitalocean.values.cluster.main_node_ips)
+  zone_id = var.dev_zone_id
+  name    = "@"
+  type    = "A"
+  value   = data.tfe_outputs.digitalocean.values.cluster.main_node_ips[count.index]
+  proxied = true
+}

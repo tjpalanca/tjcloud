@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.18.1"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "4.1.0"
+    }
   }
   cloud {
     organization = "tjpalanca"
@@ -22,6 +26,10 @@ provider "kubernetes" {
   host                   = data.tfe_outputs.digitalocean.values.cluster.host
   token                  = data.tfe_outputs.digitalocean.values.cluster.token
   cluster_ca_certificate = data.tfe_outputs.digitalocean.values.cluster.cluster_ca_certificate
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
 
 module "code_namespace" {
@@ -76,22 +84,41 @@ module "code_deployment" {
   ]
 }
 
-resource "kubernetes_service_v1" "code" {
-  metadata {
-    name      = "code"
-    namespace = "code"
+module "code_service" {
+  source     = "../../modules/service"
+  name       = "code"
+  namespace  = module.code_namespace.name
+  deployment = module.code_deployment.name
+  ports      = module.code_deployment.ports
+}
+
+module "code_ingress" {
+  source            = "../../modules/ingress"
+  subdomain         = "code"
+  zone_id           = var.dev_zone_id
+  zone_name         = var.dev_zone_name
+  cname_zone_name   = var.dev_zone_name
+  service_name      = module.code_service.name
+  service_port      = 3333
+  service_namespace = module.code_service.namespace
+  annotations = {
+    "nginx.ingress.kubernetes.io/configuration-snippet" = <<EOF
+      proxy_set_header Accept-Encoding "";
+      sub_filter '</head>' '
+      <link rel=\"stylesheet\" href=\"/_static/src/browser/media/fonts/${var.code_font}/${var.code_font}.css\">
+      <link rel=\"stylesheet\" href=\"/_static/src/browser/media/fonts/${var.body_font}/${var.body_font}.css\">
+      </head>';
+      sub_filter_once on;
+    EOF
   }
-  spec {
-    type = "ClusterIP"
-    selector = {
-      app = "code"
-    }
-    port {
-      name        = "http"
-      port        = 3333
-      target_port = 3333
-    }
-  }
+}
+
+module "code_gateway" {
+  source         = "../../modules/gateway"
+  name           = "code"
+  zone_id        = module.code_ingress.zone_id
+  domain         = module.code_ingress.domain
+  allowed_groups = ["Administrators"]
 }
 
 # module "code_gateway" {
