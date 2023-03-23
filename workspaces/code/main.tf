@@ -76,25 +76,23 @@ module "code_deployment" {
   ]
 }
 
-# module "code_application" {
-#   volumes = [
-#     {
-#       volume_name = "home"
-#       mount_path  = "/home/${var.user_name}/"
-#       host_path   = local.node_home_path
-#       mount_type  = "Directory"
-#     },
-#     {
-#       volume_name = "cron"
-#       mount_path  = "/var/spool/cron/"
-#       host_path   = "/mnt/${var.volume_name}/cron/${var.user_name}/var/spool/cron/"
-#       mount_type  = "DirectoryOrCreate"
-#     }
-#   ]
-#   depends_on = [
-#     null_resource.code_permissions
-#   ]
-# }
+resource "kubernetes_service_v1" "code" {
+  metadata {
+    name      = "code"
+    namespace = "code"
+  }
+  spec {
+    type = "ClusterIP"
+    selector = {
+      app = "code"
+    }
+    port {
+      name        = "http"
+      port        = 3333
+      target_port = 3333
+    }
+  }
+}
 
 # module "code_gateway" {
 #   source                = "../../elements/gateway"

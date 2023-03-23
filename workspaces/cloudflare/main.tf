@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.18.1"
     }
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "2.26.0"
+    }
   }
   cloud {
     organization = "tjpalanca"
@@ -17,8 +21,17 @@ terraform {
   }
 }
 
+provider "digitalocean" {
+  token = var.do_token
+}
+
 provider "cloudflare" {
   api_token = var.cloudflare_api_token
+}
+
+provider "cloudflare" {
+  alias                = "cloudflare_origin_ca_key"
+  api_user_service_key = var.cloudflare_origin_ca_key
 }
 
 data "tfe_outputs" "digitalocean" {
@@ -31,3 +44,5 @@ provider "kubernetes" {
   token                  = data.tfe_outputs.digitalocean.values.cluster.token
   cluster_ca_certificate = data.tfe_outputs.digitalocean.values.cluster.cluster_ca_certificate
 }
+
+data "cloudflare_ip_ranges" "cloudflare" {}
