@@ -68,8 +68,8 @@ module "code_deployment" {
     PROXY_DOMAIN                        = "code.${var.dev_zone_name}"
     VSCODE_PROXY_URI                    = "https://{{port}}.${var.dev_zone_name}"
     EXTENSIONS_GALLERY_JSON             = var.extensions_gallery_json
-    CS_DISABLE_GETTING_STARTED_OVERRIDE = "true"
-    ROOT                                = "TRUE"
+    CS_DISABLE_GETTING_STARTED_OVERRIDE = true
+    ROOT                                = true
   }
   mounts = [
     {
