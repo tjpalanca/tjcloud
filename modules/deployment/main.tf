@@ -35,8 +35,8 @@ resource "kubernetes_deployment_v1" "deployment" {
             sha1(
               join(
                 "", [
-                  for f in fileset("${path.module}/image", "**") :
-                  filesha1("${path.module}/image/${f}")
+                  for f in fileset(var.build_context, "**") :
+                  filesha1("${var.build_context}/${f}")
                 ]
               )
             )

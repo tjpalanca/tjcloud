@@ -126,28 +126,6 @@ module "code_gateway" {
   allowed_groups = ["Administrators"]
 }
 
-# module "code_gateway" {
-#   source                = "../../elements/gateway"
-#   host                  = local.host
-#   zone_id               = var.cloudflare_zone_id
-#   zone_name             = var.cloudflare_zone_name
-#   service               = module.code_application.service
-#   keycloak_realm_id     = var.keycloak_realm_id
-#   keycloak_url          = var.keycloak_url
-#   keycloak_groups       = ["Administrator"]
-#   default_client_scopes = ["groups"]
-#   annotations = {
-#     "nginx.ingress.kubernetes.io/configuration-snippet" = <<EOF
-#       proxy_set_header Accept-Encoding "";
-#       sub_filter '</head>' '
-#       <link rel=\"stylesheet\" href=\"/_static/src/browser/media/fonts/${var.code_font}/${var.code_font}.css\">
-#       <link rel=\"stylesheet\" href=\"/_static/src/browser/media/fonts/${var.body_font}/${var.body_font}.css\">
-#       </head>';
-#       sub_filter_once on;
-#     EOF
-#   }
-# }
-
 # module "code_port_gateway" {
 #   for_each  = toset(["3838", "5500", "8888"])
 #   source    = "../../elements/gateway"
