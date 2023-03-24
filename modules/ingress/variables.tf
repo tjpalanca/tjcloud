@@ -36,5 +36,6 @@ variable "service_port" {
 
 variable "annotations" {
   type        = map(string)
+  default     = {}
   description = "Additional annotations on the ingress"
 }

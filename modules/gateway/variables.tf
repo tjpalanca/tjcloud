@@ -17,3 +17,8 @@ variable "allowed_groups" {
   type        = list(string)
   description = "allowed groups"
 }
+
+variable "logo_url" {
+  type        = string
+  description = "Logo of the URL"
+}

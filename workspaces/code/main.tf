@@ -118,42 +118,33 @@ module "code_ingress" {
   }
 }
 
+module "code_port_ingress" {
+  for_each          = toset(["3838", "5500", "8888"])
+  source            = "../../modules/ingress"
+  subdomain         = each.value
+  zone_id           = var.dev_zone_id
+  zone_name         = var.dev_zone_name
+  cname_zone_name   = var.dev_zone_name
+  service_name      = module.code_service.name
+  service_port      = tonumber(each.value)
+  service_namespace = module.code_service.namespace
+}
+
 module "code_gateway" {
   source         = "../../modules/gateway"
-  name           = "code"
+  name           = module.code_ingress.domain
+  logo_url       = "https://r2.tjpalanca.com/logo/code-512.png"
   zone_id        = module.code_ingress.zone_id
   domain         = module.code_ingress.domain
   allowed_groups = ["Administrators"]
 }
 
-# module "code_port_gateway" {
-#   for_each  = toset(["3838", "5500", "8888"])
-#   source    = "../../elements/gateway"
-#   host      = each.value
-#   zone_id   = var.cloudflare_zone_id
-#   zone_name = var.cloudflare_zone_name
-#   service = merge(
-#     module.code_application.service,
-#     { port = tonumber(each.value) }
-#   )
-#   keycloak_realm_id     = var.keycloak_realm_id
-#   keycloak_url          = var.keycloak_url
-#   keycloak_groups       = ["Administrator"]
-#   default_client_scopes = ["groups"]
-# }
-
-# module "code_test_gateway" {
-#   source    = "../../elements/gateway"
-#   host      = "test"
-#   zone_id   = var.cloudflare_zone_id
-#   zone_name = var.cloudflare_zone_name
-#   service = {
-#     name      = "test"
-#     port      = 8888
-#     namespace = kubernetes_namespace_v1.code.metadata[0].name
-#   }
-#   keycloak_realm_id     = var.keycloak_realm_id
-#   keycloak_url          = var.keycloak_url
-#   keycloak_groups       = ["Tester"]
-#   default_client_scopes = ["groups"]
-# }
+module "code_port_gateway" {
+  for_each       = module.code_port_ingress
+  source         = "../../modules/gateway"
+  name           = each.value.domain
+  logo_url       = "https://r2.tjpalanca.com/logo/logo-large.png"
+  zone_id        = each.value.zone_id
+  domain         = each.value.domain
+  allowed_groups = ["Administrators"]
+}

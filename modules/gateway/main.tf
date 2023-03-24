@@ -13,9 +13,10 @@ data "tfe_outputs" "cloudflare" {
 }
 
 resource "cloudflare_access_application" "application" {
-  name    = var.name
-  zone_id = var.zone_id
-  domain  = var.domain
+  name     = var.name
+  zone_id  = var.zone_id
+  domain   = var.domain
+  logo_url = var.logo_url
 }
 
 resource "cloudflare_access_policy" "allowed_groups" {
