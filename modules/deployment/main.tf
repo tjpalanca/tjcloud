@@ -123,6 +123,9 @@ resource "kubernetes_deployment_v1" "deployment" {
               sub_path   = m.value.volume_path
             }
           }
+          security_context {
+            privileged = var.privileged
+          }
         }
         dynamic "init_container" {
           for_each = var.mounts

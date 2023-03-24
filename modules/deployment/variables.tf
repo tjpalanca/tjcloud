@@ -14,6 +14,12 @@ variable "replicas" {
   description = "Number of pods to run"
 }
 
+variable "privileged" {
+  type        = bool
+  default     = false
+  description = "Whether to run the containers in a privileged mode"
+}
+
 variable "image" {
   type        = string
   description = "Image reference"
