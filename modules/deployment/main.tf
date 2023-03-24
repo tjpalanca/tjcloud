@@ -133,7 +133,7 @@ resource "kubernetes_deployment_v1" "deployment" {
           content {
             name    = "${replace(m.value.volume_path, "/", "-")}-${m.value.owner_uid}"
             image   = "busybox"
-            command = ["/bin/chown", "-R", m.value.owner_uid, "/data"]
+            command = ["/bin/chown", m.value.owner_uid, "/data"]
             volume_mount {
               name       = m.value.claim_name
               mount_path = "/data"
