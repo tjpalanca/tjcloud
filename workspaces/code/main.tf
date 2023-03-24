@@ -64,6 +64,8 @@ module "code_deployment" {
   env_vars = {
     USER                                = var.user_name
     DEFAULT_USER                        = var.user_name
+    USERID                              = 1000
+    GROUPID                             = 1000
     CONNECTION_TOKEN                    = "dummy"
     PROXY_DOMAIN                        = "code.${var.dev_zone_name}"
     VSCODE_PROXY_URI                    = "https://{{port}}.${var.dev_zone_name}"
