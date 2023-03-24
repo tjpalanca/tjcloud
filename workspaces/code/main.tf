@@ -143,7 +143,7 @@ module "code_port_gateway" {
   for_each       = module.code_port_ingress
   source         = "../../modules/gateway"
   name           = each.value.domain
-  logo_url       = "https://r2.tjpalanca.com/logo/logo-large.png"
+  logo_url       = "https://r2.tjpalanca.com/logo/code-512.png"
   zone_id        = each.value.zone_id
   domain         = each.value.domain
   allowed_groups = ["Administrators"]

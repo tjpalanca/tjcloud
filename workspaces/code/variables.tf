@@ -13,6 +13,11 @@ variable "cloudflare_account_id" {
   description = "Cloudflare Account ID"
 }
 
+variable "cloudflare_origin_ca_key" {
+  type        = string
+  description = "For Origin Certificates"
+}
+
 variable "dev_zone_id" {
   type        = string
   description = "Development Zone ID"
@@ -48,4 +53,14 @@ variable "body_font" {
 variable "extensions_gallery_json" {
   type        = string
   description = "Extensions gallery APIs"
+}
+
+variable "r2_access_key" {
+  type        = string
+  description = "Cloudflare R2 access key"
+}
+
+variable "r2_secret_key" {
+  type        = string
+  description = "Cloudflare R2 secret key"
 }
