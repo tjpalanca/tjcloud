@@ -44,3 +44,8 @@ variable "body_font" {
   default     = "IBMPlexSans"
   description = "Font Family for body"
 }
+
+variable "extensions_gallery_json" {
+  type        = string
+  description = "Extensions gallery APIs"
+}

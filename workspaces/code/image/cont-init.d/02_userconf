@@ -12,7 +12,7 @@ LANG=${LANG:=en_US.UTF-8}
 TZ=${TZ:=Etc/UTC}
 
 if [[ ${DISABLE_AUTH,,} == "true" ]]; then
-    mv /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf
+    cp /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf
     echo "USER=$USER" >>/etc/environment
 fi
 
@@ -55,7 +55,8 @@ if [ "$USERID" -ne 1000 ]; then ## Configure user with a different USERID if req
     echo "creating new $USER with UID $USERID"
     useradd -m "$USER" -u $USERID
     mkdir -p /home/"$USER"
-    # chown -R "$USER" /home/"$USER" -- Removing this as it causes container startup to be too high
+    # Removing this as it causes container startup to be too long
+    # chown -R "$USER" /home/"$USER"
     usermod -a -G staff "$USER"
 elif [ "$USER" != "$DEFAULT_USER" ]; then
     ## cannot move home folder when it's a shared volume, have to copy and change permissions instead
@@ -64,13 +65,14 @@ elif [ "$USER" != "$DEFAULT_USER" ]; then
     usermod -l "$USER" -d /home/"$USER" "$DEFAULT_USER"
     groupmod -n "$USER" "$DEFAULT_USER"
     usermod -a -G staff "$USER"
-    # chown -R "$USER":"$USER" /home/"$USER" -- Removing this as it causes container startup to be too high
+    # Removing this as it causes container startup to be too long
+    # chown -R "$USER":"$USER" /home/"$USER"
     echo "USER is now $USER"
 fi
 
 if [ "$GROUPID" -ne 1000 ]; then ## Configure the primary GID (whether rstudio or $USER) with a different GROUPID if requested.
     echo "Modifying primary group $(id "${USER}" -g -n)"
-    groupmod -g $GROUPID "$(id "${USER}" -g -n)"
+    groupmod -o -g $GROUPID "$(id "${USER}" -g -n)"
     echo "Primary group ID is now custom_group $GROUPID"
 fi
 
