@@ -77,3 +77,18 @@ variable "admin_emails" {
   type        = list(string)
   description = "Emails for administrators"
 }
+
+variable "r2_access_key" {
+  type        = string
+  description = "Cloudflare R2 access key"
+}
+
+variable "r2_secret_key" {
+  type        = string
+  description = "Cloudflare R2 secret key"
+}
+
+variable "user_name" {
+  type        = string
+  description = "General user name"
+}
