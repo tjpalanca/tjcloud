@@ -24,7 +24,7 @@ resource "cloudflare_access_policy" "allowed_groups" {
   zone_id        = var.zone_id
   decision       = "allow"
   precedence     = "1"
-  name           = "${var.name}-allowed-groups"
+  name           = "${var.name} - Allowed Groups"
   include {
     group = [
       for allowed_group in var.allowed_groups :

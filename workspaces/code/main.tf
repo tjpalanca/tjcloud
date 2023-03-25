@@ -132,8 +132,8 @@ module "code_port_ingress" {
 
 module "code_gateway" {
   source         = "../../modules/gateway"
-  name           = module.code_ingress.domain
-  logo_url       = "https://r2.tjpalanca.com/logo/code-512.png"
+  name           = "VS Code"
+  logo_url       = "https://storage.tjpalanca.com/logo/code-512.png"
   zone_id        = module.code_ingress.zone_id
   domain         = module.code_ingress.domain
   allowed_groups = ["Administrators"]
@@ -142,8 +142,8 @@ module "code_gateway" {
 module "code_port_gateway" {
   for_each       = module.code_port_ingress
   source         = "../../modules/gateway"
-  name           = each.value.domain
-  logo_url       = "https://r2.tjpalanca.com/logo/code-512.png"
+  name           = "VS Code (${each.value.subdomain})"
+  logo_url       = "https://storage.tjpalanca.com/logo/code-512.png"
   zone_id        = each.value.zone_id
   domain         = each.value.domain
   allowed_groups = ["Administrators"]
