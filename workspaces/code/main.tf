@@ -133,7 +133,7 @@ module "code_port_ingress" {
 module "code_gateway" {
   source         = "../../modules/gateway"
   name           = "VS Code"
-  logo_url       = "https://storage.tjpalanca.com/logo/code-512.png"
+  logo_url       = "https://storage.tjpalanca.com/images/hotlink-ok/logos/code-512.png"
   zone_id        = module.code_ingress.zone_id
   domain         = module.code_ingress.domain
   allowed_groups = ["Administrators"]
@@ -143,7 +143,7 @@ module "code_port_gateway" {
   for_each       = module.code_port_ingress
   source         = "../../modules/gateway"
   name           = "VS Code (${each.value.subdomain})"
-  logo_url       = "https://storage.tjpalanca.com/logo/code-512.png"
+  logo_url       = "https://storage.tjpalanca.com/images/hotlink-ok/logos/code-512.png"
   zone_id        = each.value.zone_id
   domain         = each.value.domain
   allowed_groups = ["Administrators"]
