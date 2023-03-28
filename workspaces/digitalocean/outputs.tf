@@ -10,19 +10,3 @@ output "cluster" {
     main_node_ids = [for node in local.main_nodes : node.droplet_id]
   }
 }
-
-output "postgres_main" {
-  sensitive = true
-  value = merge(
-    digitalocean_database_cluster.postgres_main,
-    data.digitalocean_database_ca.certificates[digitalocean_database_cluster.postgres_main.id]
-  )
-}
-
-output "mysql_main" {
-  sensitive = true
-  value = merge(
-    digitalocean_database_cluster.mysql_main,
-    data.digitalocean_database_ca.certificates[digitalocean_database_cluster.mysql_main.id]
-  )
-}
