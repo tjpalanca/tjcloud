@@ -2,6 +2,12 @@
 
 <!-- do not remove -->
 
+## 3.0.0 - DigitalOcean
+
+* Migrate from Linode to DigitalOcean 
+* Migrate from Keycloak to Cloudflare Access 
+* Greatly simplify the stack, just start with code-server for now
+
 ## 2.5.0
 
 * Migrate Mastodon to Linode Object Storage [#36](https://github.com/tjpalanca/tjcloud/issues/36)
