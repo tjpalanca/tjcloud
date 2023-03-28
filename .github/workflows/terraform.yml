@@ -1,0 +1,42 @@
+on:
+  workflow_call:
+    inputs:
+      workflow-path:
+        required: true
+        type: string
+      terraform-version:
+        required: true 
+        type: string
+    secrets:
+      terraform-api-token:
+        required: true 
+
+jobs:
+  plan_and_apply:
+    name: Plan or Apply
+    runs-on: ubuntu-latest
+    concurrency: 
+      group: ${{ github.workflow }}
+    steps: 
+    - name: Checkout code 
+      uses: actions/checkout@v3
+    - id: setup-terraform
+      name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ inputs.terraform-version }}
+        cli_config_credentials_token: ${{ secrets.terraform-api-token }}
+    - id: terraform-init 
+      name: Terraform Init
+      run: terraform init
+      working-directory: ${{ inputs.workflow-path }}
+    - id: terraform-plan 
+      name: Terraform Plan
+      run: terraform plan
+      if: github.event_name != 'push'
+      working-directory: ${{ inputs.workflow-path }}
+    - id: terraform-apply 
+      name: Terraform Apply
+      if: github.event_name == 'push'
+      run: terraform apply -auto-approve
+      working-directory: ${{ inputs.workflow-path }}
