@@ -8,4 +8,5 @@ apt-get install -y \
     libbz2-dev \
     libffi-dev \
     libsqlite3-dev \
-    liblzma-dev
+    liblzma-dev \
+    libffi7
