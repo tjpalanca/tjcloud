@@ -45,6 +45,7 @@ resource "kubernetes_deployment_v1" "deployment" {
       }
       spec {
         service_account_name = var.service_account_name
+        host_network         = var.host_network
         container {
           name    = var.name
           image   = var.image
@@ -55,6 +56,22 @@ resource "kubernetes_deployment_v1" "deployment" {
             content {
               name           = "port-${port.value}"
               container_port = port.value
+            }
+          }
+          dynamic "port" {
+            for_each = var.tcp_ports
+            content {
+              name           = "tcp-port-${port.value}"
+              container_port = port.value
+              protocol       = "TCP"
+            }
+          }
+          dynamic "port" {
+            for_each = var.udp_ports
+            content {
+              name           = "udp-port-${port.value}"
+              container_port = port.value
+              protocol       = "UDP"
             }
           }
           dynamic "env" {

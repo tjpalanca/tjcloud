@@ -142,3 +142,21 @@ variable "mounts" {
   default     = []
   description = "Block storage to be mounted onto the container"
 }
+
+variable "host_network" {
+  type        = bool
+  default     = false
+  description = "Use the host's network?"
+}
+
+variable "tcp_ports" {
+  type        = list(number)
+  default     = []
+  description = "TCP ports to be exposed"
+}
+
+variable "udp_ports" {
+  type        = list(number)
+  default     = []
+  description = "UDP ports to be exposed"
+}

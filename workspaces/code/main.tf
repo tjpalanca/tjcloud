@@ -92,7 +92,7 @@ module "code_deployment" {
 module "code_service" {
   source     = "../../modules/service"
   name       = "code"
-  namespace  = module.code_namespace.name
+  namespace  = module.code_deployment.namespace
   deployment = module.code_deployment.name
   ports      = module.code_deployment.ports
 }
