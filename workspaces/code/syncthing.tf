@@ -3,6 +3,7 @@ module "syncthing_deployment" {
   name      = "syncthing"
   image     = "syncthing/syncthing:latest"
   namespace = module.code_namespace.name
+  replicas  = 0
   env_vars = {
     PUID = 1000
     PGID = 1000
