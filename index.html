@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>tjcloud - TJCloud</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./linode.html" rel="next">
+<link href="./theme/logo/logo-small.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": true,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&amp;family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400;1,500&amp;display=swap" rel="stylesheet">
+<!--Mailchimp Subscription Popup-->
+<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/f052832304b17e04fd9831079/89af2376a0a49809c600aeb92.js");</script>
+<!--Plausible Analytics-->
+<script defer="" data-domain="tjpalanca.com" src="https://analytics.tjpalanca.com/js/script.outbound-links.js"></script>
+<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+
+<meta property="og:title" content="tjcloud - TJCloud">
+<meta property="og:description" content="I’m leaning on the following core technologies:">
+<meta property="og:image" content="https://tjpalanca.com/tjcloud/theme/logo/logo-banner.png">
+<meta property="og:site-name" content="tjcloud">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:width" content="1800">
+<meta name="twitter:title" content="tjcloud - TJCloud">
+<meta name="twitter:description" content="I’m leaning on the following core technologies:">
+<meta name="twitter:image" content="https://tjpalanca.com/tjcloud/theme/logo/logo-banner.png">
+<meta name="twitter:creator" content="@tjpalanca">
+<meta name="twitter:image-height" content="1200">
+<meta name="twitter:image-width" content="1800">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./theme/logo/logo-small.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">tjcloud</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">TJCloud</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">TJCloud</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linode.html" class="sidebar-item-text sidebar-link">Linode</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">TJCloud</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<blockquote class="blockquote">
+<p>This is my personal cloud - for hobby programming, personal projects, and experiments.</p>
+</blockquote>
+<section id="key-technologies" class="level2">
+<h2 class="anchored" data-anchor-id="key-technologies">Key Technologies</h2>
+<p>I’m leaning on the following core technologies:</p>
+<ul>
+<li><a href="https://www.terraform.io">Terraform</a> (and <a href="https://app.terraform.io/">Terraform Cloud</a> or <a href="https://github.com/features/actions">Github Actions</a>) for provisioning infrastructure as code</li>
+<li><a href="https://kubernetes.io">Kubernetes</a> for orchestrating various workloads</li>
+<li><a href="https://kubernetes.github.io/ingress-nginx/">NGINX Ingress</a> for exposing web services to the web from the cluster</li>
+<li><a href="https://www.digitalocean.com/products/kubernetes">DigitalOcean</a> as my main Kubernetes provider, while using block storage container storage interface for persistent storage.</li>
+<li><a href="https://www.cloudflare.com">Cloudflare</a> for DNS, TLS, and origin server protection.</li>
+<li><a href="https://www.cloudflare.com/products/zero-trust/access/">Cloudflare Access</a> for zero-trust access</li>
+<li><a href="https://github.com/features/packages">GitHub Packages</a> as my main image registry.</li>
+</ul>
+<section id="previous-technologies" class="level3">
+<h3 class="anchored" data-anchor-id="previous-technologies">Previous Technologies</h3>
+<p>These are tech that I’ve retired from my personal cloud:</p>
+<ul>
+<li><a href="https://linode.com">Linode</a>, due to an ominous acquisition by Akamai and a price increase despite no feature parity with <a href="https://digitalocean.com">DigitalOcean</a> to which I have moved.
+<ul>
+<li><a href="https://www.linode.com/products/kubernetes/">Linode Kubernetes Engine</a>, a simple, developer-friendly, and inexpensive cloud provider for managed Kubernetes, and</li>
+<li><a href="https://www.linode.com/products/object-storage/">Linode Object Storage</a> for storing data files</li>
+</ul></li>
+<li>Self-hosted stack for user management and authentication of itnernal services, replaced by <a href="https://www.cloudflare.com/products/zero-trust/access/">Cloudflare Access</a>
+<ul>
+<li><a href="https://www.keycloak.org">Keycloak</a> for identity and access management</li>
+<li><a href="https://oauth2-proxy.github.io/oauth2-proxy/">OAuth2 Proxy</a> as main gateway to protect private services</li>
+</ul></li>
+<li>Self-hosted stack for image building, replaced by <a href="https://actions.github.com">GitHub Actions</a>
+<ul>
+<li><a href="https://github.com/GoogleContainerTools/kaniko">Kaniko</a> for building images inside a Kubernetes cluster</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="applications" class="level2">
+<h2 class="anchored" data-anchor-id="applications">Applications</h2>
+<p>I host the following applications:</p>
+<ul>
+<li>my personal coding and writing environment from <a href="https://github.com/coder/code-server">code-server</a> that allows me to develop on the cloud, with any device (including iPads and chromebooks!). Some additional mods features are:
+<ul>
+<li>Protected domains (https://&lt;port&gt;.&lt;domain&gt;) to test web apps running on the server or for exposing environments like Jupyter or Pluto</li>
+<li>Custom web fonts through an NGINX sub_filter</li>
+<li>Python, Julia, JS, and R installations for the confused data person</li>
+</ul></li>
+</ul>
+<section id="disabled-applications" class="level3">
+<h3 class="anchored" data-anchor-id="disabled-applications">Disabled Applications</h3>
+<p>The code is still in the repo, but is no longer in active use:</p>
+<ul>
+<li><a href="https://www.pgadmin.org">PGAdmin</a>, an excellent open source administration console for PostgreSQL</li>
+<li><a href="https://joinmastodon.org">Mastodon</a> - my own personal Mastodon server for interacting with the Fediverse (open source Twitter but less annoying virality and more useful, insightful content)</li>
+<li><a href="https://freshrss.org">FreshRSS</a> - feed reading service, I read using <a href="https://reederapp.com">Reeder</a> on iOS and Mac.</li>
+<li><a href="https://github.com/leafac/kill-the-newsletter">Kill the Newsletter</a> - A self-hosted, secure version of <a href="https://kill-the-newsletter.com">Kill the Newsletter</a> for managing newsletters and feeding them into FreshRSS.</li>
+<li><a href="https://www.postgresql.org">PostgreSQL</a> for my main database</li>
+<li><a href="https://clickhouse.com">Clickhouse</a> as a requirement for Plausible Analytics, storing clickstream data</li>
+<li><a href="https://redis.io">Redis</a> as a requirement for Mastodon, but also for general caching in the development server</li>
+<li><a href="https://plausible.io">Plausible Analytics</a> for hosting privacy-friendly website analytics</li>
+<li>the <a href="https://github.com/kubernetes/dashboard">Kubernetes Dashboard</a> for administering the cluster, and <a href="https://github.com/kubernetes-sigs/metrics-server">metrics-server</a> for collecting data to present in the dashboard.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http:|https:)\/\/.*(tjpalanca\.com|tjp\.app)\/.*$/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./linode.html" class="pagination-link">
+        <span class="nav-page-text">Linode</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">© Copyright 2009-2022 <a href="https://www.twitter.com/tjpalanca">TJ Palanca</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>

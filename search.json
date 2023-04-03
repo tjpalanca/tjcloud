@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "TJCloud",
+    "section": "",
+    "text": "This is my personal cloud - for hobby programming, personal projects, and experiments."
+  },
+  {
+    "objectID": "index.html#key-technologies",
+    "href": "index.html#key-technologies",
+    "title": "TJCloud",
+    "section": "Key Technologies",
+    "text": "Key Technologies\nI’m leaning on the following core technologies:\n\nTerraform (and Terraform Cloud or Github Actions) for provisioning infrastructure as code\nKubernetes for orchestrating various workloads\nNGINX Ingress for exposing web services to the web from the cluster\nDigitalOcean as my main Kubernetes provider, while using block storage container storage interface for persistent storage.\nCloudflare for DNS, TLS, and origin server protection.\nCloudflare Access for zero-trust access\nGitHub Packages as my main image registry.\n\n\nPrevious Technologies\nThese are tech that I’ve retired from my personal cloud:\n\nLinode, due to an ominous acquisition by Akamai and a price increase despite no feature parity with DigitalOcean to which I have moved.\n\nLinode Kubernetes Engine, a simple, developer-friendly, and inexpensive cloud provider for managed Kubernetes, and\nLinode Object Storage for storing data files\n\nSelf-hosted stack for user management and authentication of itnernal services, replaced by Cloudflare Access\n\nKeycloak for identity and access management\nOAuth2 Proxy as main gateway to protect private services\n\nSelf-hosted stack for image building, replaced by GitHub Actions\n\nKaniko for building images inside a Kubernetes cluster"
+  },
+  {
+    "objectID": "index.html#applications",
+    "href": "index.html#applications",
+    "title": "TJCloud",
+    "section": "Applications",
+    "text": "Applications\nI host the following applications:\n\nmy personal coding and writing environment from code-server that allows me to develop on the cloud, with any device (including iPads and chromebooks!). Some additional mods features are:\n\nProtected domains (https://<port>.<domain>) to test web apps running on the server or for exposing environments like Jupyter or Pluto\nCustom web fonts through an NGINX sub_filter\nPython, Julia, JS, and R installations for the confused data person\n\n\n\nDisabled Applications\nThe code is still in the repo, but is no longer in active use:\n\nPGAdmin, an excellent open source administration console for PostgreSQL\nMastodon - my own personal Mastodon server for interacting with the Fediverse (open source Twitter but less annoying virality and more useful, insightful content)\nFreshRSS - feed reading service, I read using Reeder on iOS and Mac.\nKill the Newsletter - A self-hosted, secure version of Kill the Newsletter for managing newsletters and feeding them into FreshRSS.\nPostgreSQL for my main database\nClickhouse as a requirement for Plausible Analytics, storing clickstream data\nRedis as a requirement for Mastodon, but also for general caching in the development server\nPlausible Analytics for hosting privacy-friendly website analytics\nthe Kubernetes Dashboard for administering the cluster, and metrics-server for collecting data to present in the dashboard."
+  },
+  {
+    "objectID": "linode.html#firewall",
+    "href": "linode.html#firewall",
+    "title": "Linode",
+    "section": "Firewall",
+    "text": "Firewall\nWe create a mechanism to control a firewall that is created for the Kubernetes cluster. Normally, it only allos web traffic but may allow other traffic depending on the needs of the cluster.\n\nclient = LinodeClient(os.getenv(\"LINODE_TOKEN\"))\nprint(client.is_firewall_enabled)\nclient.enable_firewall()\nprint(client.is_firewall_enabled)\nclient.disable_firewall()\nprint(client.is_firewall_enabled)\n\nTrue\nTrue\nFalse\n\n\n\n\nenable_firewall\n\n enable_firewall ()\n\n\n\n\ndisable_firewall\n\n disable_firewall ()"
+  }
+]
